@@ -46,6 +46,7 @@ def clean_comun(file):
                               u'Abril', u'Mayo', u'Junio', u'Julio', u'Agosto',
                               u'Septiembre', u'Octubre', u'Noviembre', u'Diciembre',
                               u'Total']))
+
     # If the column is all 0s treat is as if it were data that hasn't happened
     for month in reversed(months):
         col = (df[month] == 0)
@@ -57,6 +58,15 @@ def clean_comun(file):
 
     df["Entidad federativa"] = df["Entidad federativa"].map(toupper)
     df["Entidad federativa"] = df["Entidad federativa"].map(strip_accents)
+    df = df[df["Entidad federativa"] != 'NACIONAL']
+    assert(all(df["Entidad federativa"].unique() == [u'AGUASCALIENTES', u'BAJA CALIFORNIA', u'BAJA CALIFORNIA SUR',
+                                                   u'CAMPECHE', u'CHIAPAS', u'CHIHUAHUA', u'COAHUILA', u'COLIMA',
+                                                   u'DISTRITO FEDERAL', u'DURANGO', u'GUANAJUATO', u'GUERRERO',
+                                                   u'HIDALGO', u'JALISCO', u'MEXICO', u'MICHOACAN', u'MORELOS',
+                                                   u'NAYARIT', u'NUEVO LEON', u'OAXACA', u'PUEBLA', u'QUERETARO',
+                                                   u'QUINTANA ROO', u'SAN LUIS POTOSI', u'SINALOA', u'SONORA',
+                                                   u'TABASCO', u'TAMAULIPAS', u'TLAXCALA', u'VERACRUZ', u'YUCATAN',
+                                                   u'ZACATECAS']))
 
     df = pd.melt(df, id_vars = "Entidad federativa")
     df = df[df.variable != "Total"].copy()
@@ -92,14 +102,14 @@ def clean_comun(file):
 
     victimas = pd.merge(victimas, population, how = 'left')
 
-    victimas = victimas[victimas['state'] != 'NACIONAL']
+
     victimas = victimas.sort(['state',  'modalidad', 'tipo', 'subtipo', 'date'])
     victimas = victimas[columnOrder]
     victimas.count = victimas['count'].str.replace(',', '')
     #victimas.state = victimas["state"].map(titlecase)
     victimas["fuero"] = "COMUN"
-    victimas['state_code'] = victimas.state_code.apply(int)
-    victimas['count'] = victimas['count'].apply(int)
+    victimas['state_code'] = victimas.state_code.map(int)
+    victimas['count'] = victimas['count'].map(int)
     assert(len(victimas['state'].unique()) == 32)
     assert(len(victimas['modalidad'].unique()) == 1)
     victimas['date'] = victimas['date'].str.slice(0, 7)
@@ -116,9 +126,19 @@ def clean_federal(file):
     assert(all(df.columns == [u'V\xedctimas', u'Enero', u'Febrero', u'Marzo',
                                  u'Abril', u'Mayo', u'Junio', u'Julio', u'Agosto',
                                  u'Septiembre', u'Octubre', u'Noviembre', u'Diciembre',
-                                 u'Unnamed: 14']))
+                                 u'Total', u'Unnamed: 15']))
+    del df['Total']
+
     df=df.dropna(axis=1, how='all')
     df=df.dropna(axis=0, how='all')
+    assert(all(df[u'V\xedctimas'].unique() == [u'NACIONAL', u'AGUASCALIENTES', u'BAJA CALIFORNIA',
+       u'BAJA CALIFORNIA SUR', u'CAMPECHE', u'CHIAPAS', u'CHIHUAHUA',
+       u'COAHUILA', u'COLIMA', u'DISTRITO FEDERAL', u'DURANGO',
+       u'GUANAJUATO', u'GUERRERO', u'HIDALGO', u'JALISCO', u'MEXICO',
+       u'MICHOACAN', u'MORELOS', u'NAYARIT', u'NUEVO LEON', u'OAXACA',
+       u'PUEBLA', u'QUERETARO', u'QUINTANA ROO', u'SAN LUIS POTOSI',
+       u'SINALOA', u'SONORA', u'TABASCO', u'TAMAULIPAS', u'TLAXCALA',
+       u'VERACRUZ', u'YUCATAN', u'ZACATECAS']))
     df = pd.melt(df, id_vars=u"V\xedctimas")
     for k, v in mapping:
         df['variable'] = df['variable'].replace(k, v)

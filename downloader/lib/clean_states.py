@@ -61,9 +61,6 @@ class CrimeStates:
     def __init__(self, fname):
         self.clean_file(fname)
 
-    def check_column(self, df, col, values):
-        assert (np.all(sorted(df[col].unique()) == sorted(values)))
-
     def get_uniq_values(self, df, col):
         values = df[col].unique()
         values_codes = dict(zip(values, range(0, len(values))))
@@ -73,6 +70,9 @@ class CrimeStates:
         values_codes = self.get_uniq_values(df, col)
         values_df = pd.DataFrame(values_codes.items(), columns=[col + '_text', col])
         return values_df.sort(col)
+
+    def check_column(self, df, col, values):
+        assert(all(item in values for item in  df[col].unique()))
 
     def check_file(self, df):
         assert (np.all(df.columns == self._rawColumns))
@@ -113,22 +113,22 @@ class CrimeStates:
         df.columns = self._cleanColumnNames
 
         df = df[self._columnOrder]
-        df.count = df['count'].str.replace(',', '')
+        df.is_copy = False
+        df['count'] = df['count'].str.replace(',', '')
+        df['count'] = df['count'].convert_objects(convert_numeric=True)
 
         # The SNSP reports months in the future as NA so get rid of them
-        # bad_dates = []
+        bad_dates = []
         for date in reversed(sorted(df.date.unique())):
-            if (all(df[df['date'] == date]['count'].convert_objects(convert_numeric=True).map(np.isnan)) |
+            if (all(df[df['date'] == date]['count'].map(np.isnan)) |
                     all(df[df['date'] == date]['count'] == 0)):
-                print(date)
-                # bad_dates.append(date)
-                df = df[df['date'] != date]
+                print('removing state date: ' + date + ' because it consists of empty values')
+                bad_dates.append(date)
+                # df = df[df['date'] != date]
             else:
                 break
-        # if len(bad_dates):
-            # df = df.query('date != ' + ' & date != '.join(bad_dates))
-
-
+        if len(bad_dates):
+            df = df[~df['date'].isin(bad_dates)]
 
         self.data = df
 
@@ -156,9 +156,11 @@ class CrimeMunicipios(CrimeStates):
                                 u'SUBTIPO': str, u'ENERO': str, u'FEBRERO': str, u'MARZO': str, u'ABRIL': str,
                                 u'MAYO': str, u'JUNIO': str,
                                 u'JULIO': str, u'AGOSTO': str, u'SEPTIEMBRE': str, u'OCTUBRE': str, u'NOVIEMBRE': str,
-                                u'DICIEMBRE': str})
+                                u'DICIEMBRE': str, u'TOTAL': str})
+        del df['TOTAL']
 
-        # state_codes = pd.read_csv(os.path.join(self._DATADIR, "state_codes.csv"))
+        self.municipios = pd.read_csv(os.path.join(self._DATADIR, "municipio_names.csv"),
+                                      encoding='windows-1252')
         population = pd.read_csv(os.path.join(self._DATADIR, "pop_muns.csv"))
         population['date'] = population.date.str.slice(0, 7)
         self.population = population
@@ -183,7 +185,10 @@ class CrimeMunicipios(CrimeStates):
         df['state_code'] = df['inegi'].apply(lambda x: math.floor(x / 1000)).astype(int)
         df['mun_code'] = df['inegi'].apply(lambda x: x % 1000)
 
-        self.municipios = pd.concat([df['state_code'], df['mun_code'], df['municipio']], axis=1).drop_duplicates()
+        # Check that no weird mun codes have been added
+        assert(df.query('mun_code > 570 & mun_code < 998').empty)
+        # The SNSP uses different municipio names in the same db
+        #self.municipios = pd.concat([df['state_code'], df['mun_code'], df['municipio']], axis=1).drop_duplicates()
 
         df['date'] = df["year"].map(str) + '-' + df['variable']
         del df['variable']  # delete month
@@ -195,20 +200,23 @@ class CrimeMunicipios(CrimeStates):
         df.columns = self._cleanColumnNames
 
         df = df[self._columnOrder]
-        df.count = df['count'].str.replace(',', '')
+
+        df.is_copy = False
+        df['count'] = df['count'].str.replace(',', '')
+        df['count'] = df['count'].convert_objects(convert_numeric=True)
 
         # The SNSP reports months in the future as NA so get rid of them
-        # bad_dates = []
+        bad_dates = []
         for date in reversed(sorted(df.date.unique())):
-            if (all(df[df['date'] == date]['count'].convert_objects(convert_numeric=True).map(np.isnan)) |
+            if (all(df[df['date'] == date]['count'].map(np.isnan)) |
                     all(df[df['date'] == date]['count'] == 0)):
-                print(date)
-                # bad_dates.append(date)
-                df = df[df['date'] != date]
+                print('removing municipio date: ' + date + ' because it consists of empty values')
+                bad_dates.append(date)
+                # df = df[df['date'] != date]
             else:
                 break
-        # if len(bad_dates):
-            # df = df.query('date != ' + ' & date != '.join(bad_dates))
+        if len(bad_dates):
+            df = df[~df['date'].isin(bad_dates)]
 
         self.data = df
 

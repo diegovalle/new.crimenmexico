@@ -14,6 +14,7 @@ import pandas as pd
 import numpy as np
 import pandas.io.sql as pd_sql
 import sqlite3 as sq
+import zipfile
 
 def write_file(fileName, md):
     f = open(fileName, 'w')
@@ -49,16 +50,34 @@ def changed(fname):
         write_file(fname + '.md5', md)
     return changed
 
+def page_changed(lines, fname):
+    hasher = hashlib.md5()
+    hasher.update(lines)
+    md = hasher.hexdigest()
+    changed = False
+    try:
+        with open(fname + '.md5', 'r') as f:
+            checksum = f.read()
+            if checksum != md:
+                changed = True
+                write_file(fname + '.md5', md)
+    except IOError:
+        changed = True
+        write_file(fname + '.md5', md)
+    return changed
+
+
 
 def to_csv(fname, page, crime_name):
     os.system('RBENV_VERSION=jruby-1.7.12 tabula --spreadsheet -p ' + str(
         page) + ' -o victimas-csv/' + fname + '.' + crime_name + '.csv ' + 'pdf/' + fname)
 
 
-baseurl = "http://secretariadoejecutivo.gob.mx/incidencia-delictiva/"
-# page = "incidencia-delictiva-victimas.php"
+
 
 def getPDF(page, crime_type):
+    baseurl = "http://secretariadoejecutivo.gob.mx/incidencia-delictiva/"
+    # page = "incidencia-delictiva-victimas.php"
     change = False
     r = requests.get(baseurl + page)
 
@@ -89,13 +108,98 @@ def getPDF(page, crime_type):
                     to_csv(fname, 3, 'secuestro-federal')
     return change
 
+def get_filename_containing(files, string):
+    return os.path.splitext( [x for x in files if string in x][0])[0] + '.csv'
 
+def getXLSX(page, conn):
+    baseurl = "http://secretariadoejecutivo.gob.mx/incidencia-delictiva/"
+    # page = "incidencia-delictiva-fuero-comun.php"
+    change = False
+    crime_files = []
+    r = requests.get(baseurl + page)
+
+    data = r.text
+    soup = BeautifulSoup(data)
+    if page_changed(str(soup), os.path.join('page-checksums', page)):
+        soup.find("div", {"id": "anois"})
+
+        for i, link in enumerate(soup.find("div", {"id": "anios", "class": "excel"}).
+                findAll('a', href=re.compile('.*pdf'))):
+            print link['href']
+            fname = ("estatal" if "Estatal" in link['href'] else "muncipal") + '.zip'
+            with open('snsp-data/' + fname, "wb") as fp:
+                curl = pycurl.Curl()
+                curl.setopt(pycurl.URL, baseurl + urllib.quote(link['href']))
+                curl.setopt(pycurl.WRITEDATA, fp)
+                #curl.setopt(pycurl.HEADERFUNCTION, headers.write)
+                curl.perform()
+                curl.close()
+                fp.close()
+                if changed(os.path.join('snsp-data', fname)):
+                    change = True
+                    with zipfile.ZipFile(os.path.join('snsp-data', fname), "r") as z:
+                        crime_files.append(z.namelist()[0])
+                        for name in z.namelist():
+                            outpath = 'snsp-data/'
+                            z.extract(name, outpath)
+                            os.system("cd 'snsp-data';libreoffice --headless --convert-to csv -env:UserInstallation=file:///tmp/foobar7665765 '" + name +"'")
+        if change:
+            write_state_db(conn, get_filename_containing(crime_files, "Estatal"))
+            write_mun_db(conn, get_filename_containing(crime_files, "Municipal"))
+    return change
+
+def write_state_db(conn, CSV_ESTADOS):
+    conn.execute("delete from " + 'estados_fuero_comun')
+    conn.commit()
+    conn.execute("delete from " + 'tipo_states')
+    conn.commit()
+    conn.execute("delete from " + 'subtipo_states')
+    conn.commit()
+    conn.execute("delete from " + 'modalidad_states')
+    conn.commit()
+    conn.execute("delete from " + 'population_states')
+    conn.commit()
+    conn.commit()
+    conn.execute("delete from " + 'state_names')
+    conn.commit()
+    crime_states = CrimeStates(os.path.join('snsp-data', CSV_ESTADOS))
+    pd_sql.to_sql(crime_states.tipo, 'tipo_states', conn, if_exists='append', index=False)
+    pd_sql.to_sql(crime_states.subtipo, 'subtipo_states', conn, if_exists='append', index=False)
+    pd_sql.to_sql(crime_states.modalidad, 'modalidad_states', conn, if_exists='append', index=False)
+    pd_sql.to_sql(crime_states.state_codes, 'state_names', conn, if_exists='append', index=False)
+    pd_sql.to_sql(crime_states.population, 'population_states', conn, if_exists='append', index=False)
+    pd_sql.to_sql(crime_states.data, 'estados_fuero_comun', conn, if_exists='append', index=False)
+
+
+def write_mun_db(conn, CSV_MUNICIPIOS):
+    conn.execute("delete from " + 'municipios_fuero_comun')
+    conn.commit()
+    conn.execute("delete from " + 'population_municipios')
+    conn.commit()
+    conn.execute("delete from " + 'municipio_names')
+    conn.commit()
+    conn.execute("delete from " + 'tipo_municipios')
+    conn.commit()
+    conn.execute("delete from " + 'subtipo_municipios')
+    conn.commit()
+    conn.execute("delete from " + 'modalidad_municipios')
+    conn.commit()
+    crime_municipios = CrimeMunicipios(os.path.join('snsp-data', CSV_MUNICIPIOS))
+    pd_sql.to_sql(crime_municipios.tipo, 'tipo_municipios', conn, if_exists='append', index=False)
+    pd_sql.to_sql(crime_municipios.subtipo, 'subtipo_municipios', conn, if_exists='append', index=False)
+    pd_sql.to_sql(crime_municipios.modalidad, 'modalidad_municipios', conn, if_exists='append', index=False)
+    pd_sql.to_sql(crime_municipios.municipios, 'municipio_names', conn, if_exists='append', index=False)
+    pd_sql.to_sql(crime_municipios.population, 'population_municipios', conn, if_exists='append', index=False)
+    pd_sql.to_sql(crime_municipios.data, 'municipios_fuero_comun', conn, if_exists='append', index=False)
+
+# Clean the PDFs with victim info
 getPDF("incidencia-delictiva-victimas.php", "victima")
 getPDF("incidencia-delictiva-fuero-federal.php", "secuestro")
 
 victimas = pd.DataFrame()
 secuestros = pd.DataFrame()
 for file in os.listdir("victimas-csv"):
+    print(file)
     if "victima" in file:
         victimas = victimas.append(v.clean_comun(file))
     if "federal" in file:
@@ -103,46 +207,16 @@ for file in os.listdir("victimas-csv"):
 
 crimes = victimas.append(secuestros).sort(['fuero', 'state',  'modalidad', 'tipo', 'subtipo', 'date'])  # .to_csv("clean-data/victimas.csv", index=False)
 
-CLEANDIR = os.path.join('..', 'db')
-conn = sq.connect(os.path.join(CLEANDIR, 'crimenmexico.db'))
+
+#Clean the state and municipio fuero comun CSV files
+CLEAN_DIR = os.path.join('..', 'db')
+#CSV_MUNICIPIOS = 'snsp-data/Incidencia Delictiva FC Municipal 2011 - 2015.csv'
+#CSV_ESTADOS = 'snsp-data/IncidenciaDelictiva_FueroComun_Estatal_1997-2015.csv'
+
+conn = sq.connect(os.path.join(CLEAN_DIR, 'crimenmexico.db'))
+conn.execute('pragma foreign_keys=ON')
 pd_sql.to_sql(crimes, 'victimas', conn, if_exists='replace', index=False)
 
-# df = victimas.append(secuestros).groupby(['state', 'state_code', 'crime', 'date'])['count'].aggregate(np.sum)
-# population = pd.read_csv("data/pop_states.csv")
-# df = pd.merge(pd.DataFrame(df).reset_index(), population, how='left')
-# df['rate'] = (df['count'] * 12) / df['population'] * 100000
-# df.to_csv("clean-data/victimas_grouped.csv", index=False)
+getXLSX("incidencia-delictiva-fuero-comun.php", conn)
 
-
-#CLEANDIR = 'clean-data'
-#conn = sq.connect(os.path.join(CLEANDIR, 'crimenmexico.db'))
-
-crime_municipios = CrimeMunicipios('snsp-data/Incidencia Delictiva FC Municipal 2011 - 2015.csv')
-conn.execute("delete from " + 'tipo_municipios')
-conn.execute("delete from " + 'subtipo_municipios')
-conn.execute("delete from " + 'modalidad_municipios')
-conn.execute("delete from " + 'population_municipios')
-conn.execute("delete from " + 'municipio_names')
-conn.execute("delete from " + 'municipios_fuero_comun')
-pd_sql.to_sql(crime_municipios.tipo, 'tipo_municipios', conn, if_exists='append', index=False)
-pd_sql.to_sql(crime_municipios.subtipo, 'subtipo_municipios', conn, if_exists='append', index=False)
-pd_sql.to_sql(crime_municipios.modalidad, 'modalidad_municipios', conn, if_exists='append', index=False)
-pd_sql.to_sql(crime_municipios.population, 'population_municipios', conn, if_exists='append', index=False)
-pd_sql.to_sql(crime_municipios.municipios, 'municipio_names', conn, if_exists='append', index=False)
-pd_sql.to_sql(crime_municipios.data, 'municipios_fuero_comun', conn, if_exists='append', index=False)
-
-del crime_municipios
-
-crime_states = CrimeStates('snsp-data/IncidenciaDelictiva_FueroComun_Estatal_1997-2015.csv')
-conn.execute("delete from " + 'tipo_states')
-conn.execute("delete from " + 'subtipo_states')
-conn.execute("delete from " + 'modalidad_states')
-conn.execute("delete from " + 'population_states')
-conn.execute("delete from " + 'state_names')
-conn.execute("delete from " + 'estados_fuero_comun')
-pd_sql.to_sql(crime_states.tipo, 'tipo_states', conn, if_exists='append', index=False)
-pd_sql.to_sql(crime_states.subtipo, 'subtipo_states', conn, if_exists='append', index=False)
-pd_sql.to_sql(crime_states.modalidad, 'modalidad_states', conn, if_exists='append', index=False)
-pd_sql.to_sql(crime_states.population, 'population_states', conn, if_exists='append', index=False)
-pd_sql.to_sql(crime_states.state_codes, 'state_names', conn, if_exists='append', index=False)
-pd_sql.to_sql(crime_states.data, 'estados_fuero_comun', conn, if_exists='append', index=False)
+conn.close()
