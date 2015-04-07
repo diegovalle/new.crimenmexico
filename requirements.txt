@@ -1,0 +1,15 @@
+BeautifulSoup==3.2.1
+hashlib==20081119
+numexpr==2.4
+numpy==1.9.1
+pandas==0.15.2
+pdb==0.1
+pycurl==7.19.5.1
+python-dateutil==2.4.0
+python-gnupg==0.3.7
+pytz==2014.10
+PyYAML==3.11
+requests==2.5.3
+six==1.9.0
+titlecase==0.7.2
+xlsx2csv==0.7.1

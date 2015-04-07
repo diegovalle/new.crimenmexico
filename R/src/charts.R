@@ -1,23 +1,3 @@
-library("dplyr")
-library("ggplot2")
-library("magrittr")
-library("RSQLite")
-library("zoo")
-library("lubridate")
-library("stringr")
-library("grid")
-library("extrafont")
-library("useful")
-library("rgdal")
-library("rgeos")
-library("raster")
-library("scales")
-library("statebins")
-#font_import() 
-#fonts() 
-
-
-source("functions.R")
 
 mx <- readOGR("maps", "estatal")
 bb <- bbox(as(extent(mx) , "SpatialPolygons"))
@@ -42,7 +22,8 @@ vic <- dbGetQuery(db, "select state, state_code, modalidad, tipo, subtipo, date,
                   'averiguaciones' as type 
                   from estados_fuero_comun natural join state_names 
                   natural join population_states natural join modalidad_states 
-                  natural join subtipo_states natural join tipo_states 
+                  natural join subtipo_states natural 
+                  join tipo_states 
                   where modalidad_text = 'ROBO COMUN' and 
                   (tipo_text ='SIN VIOLENCIA' or tipo_text ='CON VIOLENCIA') 
                   and subtipo_text = 'DE VEHICULOS' and date >= '2014-01'
@@ -59,7 +40,11 @@ vic %<>%
          tipo = str_replace(tipo, "SECUESTRO", "Kidnapping")) %>%
   group_by(date, modalidad, tipo, subtipo, state, state_code) %>%
   summarise(count = sum(count), population = population[1]) %>%
-  mutate(rate = round(((count /  numberOfDays(date) * 30) * 12) / population * 10^5),1)
+  mutate(rate = ((count /  numberOfDays(date) * 30) * 12) / population * 10^5)
+
+# Before 2015 kidnappings didn't include federal crimes
+vic[(vic$date <= as.Date("2014-12-31") & vic$tipo == "Kidnapping"),]$count <- NA
+vic[(vic$date <= as.Date("2014-12-31") & vic$tipo == "Kidnapping"),]$rate <- NA
 
 vic <- inner_join(vic, abbrev)
 # 
@@ -131,7 +116,12 @@ attribution <- paste(
   sep = "\n")
 
 
-toSvg("graphs/infographic.svg", "CRIME in MEXICO", max_date, note, attribution)
+toSvg(str_c("graphs/infographic_", tolower(str_replace(max_date, " ", "_")), ".svg"), 
+      "CRIME in MEXICO", max_date, note, attribution)
+
+system(str_replace_all("convert graphs/infographic_XXX.svg graphs/infographic_XXX.png; 
+       optipng graphs/infographic_XXX.png;", "XXX",
+                       tolower(str_replace(max_date, " ", "_"))))
 
 ## Chart in Spanish
 
@@ -163,7 +153,7 @@ national.chart <- smNational(vic, "tasa anualizada",
 #                           "TASA DE HOMICIDIO", max_date)
 homicide.map <- bigBins(vic, max_date, 
                         "tasa anualizada de\nhomicidio intencional",
-                        "TASA DE HOMICIDIO",
+                        "TASAS DE HOMICIDIO",
                         "Homicidio Doloso")
 
 hom.sm <- smallMultiple(vic, "Homicidio Doloso", "tasa anualizada de homicidio",
@@ -214,11 +204,22 @@ attribution <- paste(
   sep = "\n")
 
 
-toSvg("graphs/infographic_es.svg", "CRIMEN en MÉXICO", max_date, note, attribution)
+toSvg(str_c("graphs/infographic_es_", tolower(str_replace(max_date, " ", "_")), ".svg"), 
+      "CRIMEN en MÉXICO", max_date, note, attribution)
 
 Sys.setlocale("LC_TIME", lct)
 
-system("convert graphs/infographic.svg graphs/infographic.png; 
-       optipng graphs/infographic.png;
-       convert graphs/infographic_es.svg graphs/infographic_es.png; 
-       optipng graphs/infographic_es.png")
+system(str_replace_all("
+       convert graphs/infographic_es_XXX.svg graphs/infographic_es_XXX.png; 
+       optipng graphs/infographic_es_XXX.png", "XXX", 
+                       tolower(str_replace(max_date, " ", "_"))))
+
+# 
+# head(vic)
+# library(BreakoutDetection)
+# data(Scribe)
+# res = breakout(Scribe, min.size=24, method='multi', beta=.001, degree=1, plot=TRUE)
+# res$plot
+# hom <- filter(vic, state_abbrv == "GRO" & tipo == "Homicidio Doloso")
+# breakout(hom$rate, min.size = 2, method = 'multi', beta=0.001, plot=TRUE)
+

@@ -102,7 +102,6 @@ bubblePlot <- function(vic, crime, legend, low, high, mid, rate){
 }
 
 bottomMap <- function(vic, crime, legend, low, high, mid, title, date) {
-  
   last_date_states <- subset(vic, date == max(vic$date, na.rm = TRUE) &
                                tipo == crime)
   st.dat <- merge(state_coords, last_date_states, by.x="abbrev", by.y="state_abbrv", all.y=TRUE)
@@ -146,7 +145,7 @@ bottomMap <- function(vic, crime, legend, low, high, mid, title, date) {
 #     coord_map("albers", lat0 = bb[ 2 , 1 ] , lat1 = bb[ 2 , 2 ] ) +
     #     annotate("text", x=-112.203369, y=19.608956, label=date, 
     #              color="black", size=3) +
-    scale_fill_gradient2(legend, 
+    scale_fill_gradient2(legend,
                          low = low, high = high, mid = mid, space = "Lab",
                          guide = guide_colorbar(direction = "horizontal", 
                                               title.position = "top",
@@ -165,7 +164,7 @@ smNational <- function(vic, rate, title, date, max_date, min_date) {
   
   ggplot(national, aes(date, rate, group = tipo)) +
     geom_point(color = "#222222", size =1.5) +
-    geom_smooth(method = "loess", se = FALSE, color = "#b30000", size = 1.2) +
+    geom_smooth(method = "gam", formula = y ~s(x, k =6), se = FALSE, color = "#b30000", size = 1.2) +
     facet_wrap(~tipo, scale = "free") + 
     expand_limits(y = 0)+ 
     ggtitle(str_c(title, ", ",min_date, "–", max_date)) +
@@ -176,18 +175,19 @@ smNational <- function(vic, rate, title, date, max_date, min_date) {
 
 
 smallMultiple <- function(vic, crime, rate, guide_text){
-  hom.dol <- filter(vic, tipo == crime)
-  hom.dol$state_abbrv <- reorder(hom.dol$state_abbrv, -hom.dol$rate, 
+  df <- filter(vic, tipo == crime)
+  df$state_abbrv <- reorder(df$state_abbrv, -df$rate, 
                                  function(x) x[length(x)])
-  ggplot(hom.dol, aes(date, rate, group = state_abbrv)) +
+ 
+  ggplot(df, aes(date, rate, group = state_abbrv)) +
     geom_point(size = .8, color = "#555555") +
-    geom_smooth(se = FALSE, method = 'loess', color = "#0D0D0D", size = .4) +
-    geom_point(data = subset(hom.dol, date == max(hom.dol$date, na.rm = TRUE)), 
+    geom_smooth(se = FALSE, method = "gam", formula = y ~ s(x), color = "#0D0D0D", size = .4) +
+    geom_point(data = subset(df, date == max(df$date, na.rm = TRUE)), 
                aes(size = count), color = "#b30000") +
     facet_wrap(~state_abbrv) +
-    scale_x_date(breaks = c(min(hom.dol$date), max(hom.dol$date, na.rm = TRUE)),
+    scale_x_date(breaks = c(min(df$date), max(df$date, na.rm = TRUE)),
                  labels = date_format("%b-%y")) +
-    scale_y_continuous(breaks = c(0, round(max(hom.dol$rate, na.rm = TRUE)))) +
+    scale_y_continuous(breaks = c(0, round(max(df$rate, na.rm = TRUE)))) +
     scale_size(guide_text, guide = guide_legend(direction = "horizontal", 
                                                 title.position = "top",
                                                 label.position="bottom", label.hjust = 0.5, 
@@ -314,7 +314,7 @@ sm_theme <- function() {
     panel.grid.minor.x = element_blank(),
     strip.text = element_text(family = "Lato Black", colour = "white", size = 7),
     strip.background =  element_rect(fill = "#7B6824"),
-    axis.ticks = element_blank(),
+    #axis.ticks = element_blank(),
     axis.text.x = element_text(angle = 70, hjust = 1)
   )
 }

@@ -84,6 +84,8 @@ class CrimeStates:
     def clean_file(self, fname):
         df = pd.read_csv(fname,  # 'snsp-data/IncidenciaDelictiva_FueroComun_Estatal_1997-2015.csv'
                          encoding="windows-1252", thousands=",")
+        if 'TOTAL' in [x.upper() for x in df.columns]:
+            del df['TOTAL']
 
         self.state_codes = pd.read_csv(os.path.join(self._DATADIR, "state_codes.csv"))
         population = pd.read_csv(os.path.join(self._DATADIR, "pop_states.csv"))
@@ -150,14 +152,9 @@ class CrimeMunicipios(CrimeStates):
 
     def clean_file(self, fname):
         df = pd.read_csv(fname,  # 'snsp-data/IncidenciaDelictiva_FueroComun_Estatal_1997-2015.csv'
-                         encoding="windows-1252", thousands=",",
-                         dtype={u'AÑO': int, u'INEGI': int, u'ENTIDAD': str, u'MUNICIPIO': str, u'MODALIDAD': str,
-                                u'TIPO': str,
-                                u'SUBTIPO': str, u'ENERO': str, u'FEBRERO': str, u'MARZO': str, u'ABRIL': str,
-                                u'MAYO': str, u'JUNIO': str,
-                                u'JULIO': str, u'AGOSTO': str, u'SEPTIEMBRE': str, u'OCTUBRE': str, u'NOVIEMBRE': str,
-                                u'DICIEMBRE': str, u'TOTAL': str})
-        del df['TOTAL']
+                         encoding="windows-1252", thousands=",")
+        if 'TOTAL' in [x.upper() for x in df.columns]:
+            del df['TOTAL']
 
         self.municipios = pd.read_csv(os.path.join(self._DATADIR, "municipio_names.csv"),
                                       encoding='windows-1252')
