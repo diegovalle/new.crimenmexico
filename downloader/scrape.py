@@ -144,11 +144,27 @@ def getXLSX(page, conn):
                             z.extract(name, outpath)
                             os.system("cd 'snsp-data';libreoffice --headless --convert-to csv -env:UserInstallation=file:///tmp/foobar7665765 '" + name +"'")
         if change:
+            #import pdb
+            #pdb.set_trace()
             write_state_db(conn, get_filename_containing(crime_files, "Estatal"))
             write_mun_db(conn, get_filename_containing(crime_files, "Municipal"))
     return change
 
 def write_state_db(conn, CSV_ESTADOS):
+    conn.execute("delete from " + 'municipios_fuero_comun')
+    conn.commit()
+    conn.execute("delete from " + 'population_municipios')
+    conn.commit()
+    conn.execute("delete from " + 'municipio_names')
+    conn.commit()
+    conn.execute("delete from " + 'tipo_municipios')
+    conn.commit()
+    conn.execute("delete from " + 'subtipo_municipios')
+    conn.commit()
+    conn.execute("delete from " + 'modalidad_municipios')
+    conn.commit()
+
+
     conn.execute("delete from " + 'estados_fuero_comun')
     conn.commit()
     conn.execute("delete from " + 'tipo_states')
@@ -159,7 +175,7 @@ def write_state_db(conn, CSV_ESTADOS):
     conn.commit()
     conn.execute("delete from " + 'population_states')
     conn.commit()
-    conn.commit()
+    #conn.commit()
     conn.execute("delete from " + 'state_names')
     conn.commit()
     crime_states = CrimeStates(os.path.join('snsp-data', CSV_ESTADOS))

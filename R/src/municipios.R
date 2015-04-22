@@ -55,8 +55,8 @@ findAnomalies <- function(category, type, subtype="", munvec){
     df <- df[order(df$date),]
     df <- df %>%
       group_by(date, name, state_code, mun_code)  %>%
-      summarise(count = sum(count, na.rm = TRUE), 
-                rate = ((count /  numberOfDays(date) * 30) * 12) / population * 10^5)
+      summarise(count = sum(count, na.rm = TRUE),
+                rate = ((count /  numberOfDays(date[1]) * 30) * 12) / population[1] * 10^5)
     i = nrow(df)
     while(is.na(df$rate[i]) & i > 0) {
       i = i -1

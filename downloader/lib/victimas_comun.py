@@ -47,6 +47,7 @@ def clean_comun(file):
                               u'Septiembre', u'Octubre', u'Noviembre', u'Diciembre',
                               u'Total']))
 
+
     # If the column is all 0s treat is as if it were data that hasn't happened
     for month in reversed(months):
         col = (df[month] == 0)
@@ -59,6 +60,9 @@ def clean_comun(file):
     df["Entidad federativa"] = df["Entidad federativa"].map(toupper)
     df["Entidad federativa"] = df["Entidad federativa"].map(strip_accents)
     df = df[df["Entidad federativa"] != 'NACIONAL']
+    # If the column is all NaNs drop it
+    df = df.dropna(axis=1, how='all')
+
     assert(all(df["Entidad federativa"].unique() == [u'AGUASCALIENTES', u'BAJA CALIFORNIA', u'BAJA CALIFORNIA SUR',
                                                    u'CAMPECHE', u'CHIAPAS', u'CHIHUAHUA', u'COAHUILA', u'COLIMA',
                                                    u'DISTRITO FEDERAL', u'DURANGO', u'GUANAJUATO', u'GUERRERO',
