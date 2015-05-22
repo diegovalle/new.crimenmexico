@@ -164,7 +164,8 @@ smNational <- function(vic, rate, title, date, max_date, min_date) {
   
   ggplot(national, aes(date, rate, group = tipo)) +
     geom_point(color = "#222222", size =1.5) +
-    geom_smooth(method = "gam", formula = y ~s(x, k = 6), se = FALSE, color = "#b30000", size = 1.2) +
+    geom_smooth(method = "gam", formula = y ~s(x, k = 4), 
+                se = FALSE, color = "#b30000", size = 1.2, alpha = .8) +
     facet_wrap(~tipo, scale = "free") + 
     expand_limits(y = 0)+ 
     ggtitle(str_c(title, ", ",min_date, "–", max_date)) +
