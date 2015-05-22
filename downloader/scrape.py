@@ -15,6 +15,7 @@ import numpy as np
 import pandas.io.sql as pd_sql
 import sqlite3 as sq
 import zipfile
+import re
 
 def write_file(fileName, md):
     f = open(fileName, 'w')
@@ -85,10 +86,12 @@ def getPDF(page, crime_type):
     soup = BeautifulSoup(data)
 
     #headers = StringIO()
-
     for i, link in enumerate(soup.findAll('a', href=re.compile(crime_type + '.*pdf'))):
         print link['href']
-        fname = crime_type + '_' + str(i + 2014 if crime_type == "victima" else 2015) + '.pdf'
+        if link['href'] == '../docs/pdfs/victimas/Victimas2015_032015.pdf':
+            continue
+        year = re.findall('\d+', link['href'])[0]
+        fname = crime_type + '_' + year + '.pdf'
         with open('pdf/' + fname, "wb") as fp:
             curl = pycurl.Curl()
             curl.setopt(pycurl.URL, baseurl + urllib.quote(link['href']))

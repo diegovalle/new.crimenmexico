@@ -79,8 +79,11 @@ def clean_comun(file):
         df["year"] = 2014
     if "victima_2015" in file:
         df["year"] = 2015
+    if "victima_2016" in file:
+        df["year"] = 2016
     for k, v in mapping:
         df['variable'] = df['variable'].replace(k, v)
+
     df['date'] = df["year"].map(str) + '-' + df['variable'] + '-01'
     if "homicidio_doloso" in file:
         df["modalidad"] = "HOMICIDIOS"
