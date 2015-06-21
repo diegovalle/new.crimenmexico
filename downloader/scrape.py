@@ -86,15 +86,19 @@ def getPDF(page, crime_type):
     soup = BeautifulSoup(data)
 
     #headers = StringIO()
-    for i, link in enumerate(soup.findAll('a', href=re.compile(crime_type + '.*pdf'))):
-        print link['href']
-        if link['href'] == '../docs/pdfs/victimas/Victimas2015_032015.pdf':
-            continue
-        year = re.findall('\d+', link['href'])[0]
+    #for i, link in enumerate(soup.findAll('a', href=re.compile(crime_type + '.*pdf'))):
+    for i, link in enumerate(["../../docs/pdfs/victimas/Victimas%20publicacion%20dic%2014.pdf",
+                     "../docs/pdfs/victimas/Victimas2015_052015.pdf"]):
+        #print link['href']
+        #if link['href'] == '../docs/pdfs/victimas/Victimas2015_032015.pdf':
+        #    continue
+        #if link['href'] == '../docs/pdfs/victimas/Victimas2014_052015.pdf':
+        #    continue
+        year = re.findall('\d{4}', link)[0]
         fname = crime_type + '_' + year + '.pdf'
         with open('pdf/' + fname, "wb") as fp:
             curl = pycurl.Curl()
-            curl.setopt(pycurl.URL, baseurl + urllib.quote(link['href']))
+            curl.setopt(pycurl.URL, baseurl + link)
             curl.setopt(pycurl.WRITEDATA, fp)
             #curl.setopt(pycurl.HEADERFUNCTION, headers.write)
             curl.perform()
@@ -204,11 +208,13 @@ def write_mun_db(conn, CSV_MUNICIPIOS):
     conn.execute("delete from " + 'modalidad_municipios')
     conn.commit()
     crime_municipios = CrimeMunicipios(os.path.join('snsp-data', CSV_MUNICIPIOS))
+    print("preparing to write to db")
     pd_sql.to_sql(crime_municipios.tipo, 'tipo_municipios', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_municipios.subtipo, 'subtipo_municipios', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_municipios.modalidad, 'modalidad_municipios', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_municipios.municipios, 'municipio_names', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_municipios.population, 'population_municipios', conn, if_exists='append', index=False)
+    print("writing municipio data to db")
     pd_sql.to_sql(crime_municipios.data, 'municipios_fuero_comun', conn, if_exists='append', index=False)
 
 # Clean the PDFs with victim info

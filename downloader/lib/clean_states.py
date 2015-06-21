@@ -86,12 +86,13 @@ class CrimeStates:
                          encoding="windows-1252", thousands=",")
         if 'TOTAL' in [x.upper() for x in df.columns]:
             del df['TOTAL']
+        df=df.dropna(axis=0, how='all')
 
         self.state_codes = pd.read_csv(os.path.join(self._DATADIR, "state_codes.csv"))
         population = pd.read_csv(os.path.join(self._DATADIR, "pop_states.csv"))
         population['date'] = population.date.str.slice(0, 7)
         self.population = population
-
+        
         self.check_file(df)
 
         self.modalidad = self.get_uniq_df(df, 'MODALIDAD')
@@ -104,10 +105,11 @@ class CrimeStates:
                          })
 
         df.columns = self._columnNames
-
+        #import pdb
+        #pdb.set_trace()
         df = pd.melt(df, id_vars=['year', 'state', 'modalidad', 'tipo', 'subtipo'])
         df = pd.merge(df, self.state_codes)
-        df['date'] = df["year"].map(str) + '-' + df['variable']
+        df['date'] = df["year"].map(int).map(str) + '-' + df['variable']
         del df['variable']  # delete month
         del df['year']
         del df['state']
@@ -116,7 +118,9 @@ class CrimeStates:
 
         df = df[self._columnOrder]
         df.is_copy = False
-        df['count'] = df['count'].str.replace(',', '')
+	#import pdb
+	#pdb.set_trace()
+        df['count'] = df['count'].map(str).replace(',', '')
         df['count'] = df['count'].convert_objects(convert_numeric=True)
 
         # The SNSP reports months in the future as NA so get rid of them
@@ -187,7 +191,7 @@ class CrimeMunicipios(CrimeStates):
         # The SNSP uses different municipio names in the same db
         #self.municipios = pd.concat([df['state_code'], df['mun_code'], df['municipio']], axis=1).drop_duplicates()
 
-        df['date'] = df["year"].map(str) + '-' + df['variable']
+        df['date'] = df["year"].map(int).map(str) + '-' + df['variable']
         del df['variable']  # delete month
         del df['year']
         del df['state']
@@ -199,9 +203,10 @@ class CrimeMunicipios(CrimeStates):
         df = df[self._columnOrder]
 
         df.is_copy = False
-        df['count'] = df['count'].str.replace(',', '')
+        df['count'] = df['count'].map(str).replace(',', '')
         df['count'] = df['count'].convert_objects(convert_numeric=True)
-
+        #import pdb
+	#pdb.set_trace()
         # The SNSP reports months in the future as NA so get rid of them
         bad_dates = []
         for date in reversed(sorted(df.date.unique())):
