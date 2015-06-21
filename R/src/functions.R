@@ -164,7 +164,7 @@ smNational <- function(vic, rate, title, date, max_date, min_date) {
   
   ggplot(national, aes(date, rate, group = tipo)) +
     geom_point(color = "#222222", size =1.5) +
-    geom_smooth(method = "gam", formula = y ~s(x, k = 4), 
+    geom_smooth(method = "gam", formula = y ~s(x, k = 5), 
                 se = FALSE, color = "#b30000", size = 1.2, alpha = .8) +
     facet_wrap(~tipo, scale = "free") + 
     expand_limits(y = 0)+ 
@@ -180,7 +180,7 @@ smallMultiple <- function(vic, crime, rate, guide_text){
   df$state_abbrv <- reorder(df$state_abbrv, -df$rate, 
                                  function(x) x[length(x)])
   if(crime == "Kidnapping" | crime == "Secuestro") {
-    k = 4
+    k = 5
   } else {
     k = 6
   }

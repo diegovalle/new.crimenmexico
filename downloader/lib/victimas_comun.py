@@ -63,7 +63,7 @@ def clean_comun(file):
     df = df[df["Entidad federativa"] != 'NACIONAL']
     # If the column is all NaNs drop it
     df = df.dropna(axis=1, how='all')
-
+    
     assert(all(df["Entidad federativa"].unique() == [u'AGUASCALIENTES', u'BAJA CALIFORNIA', u'BAJA CALIFORNIA SUR',
                                                    u'CAMPECHE', u'CHIAPAS', u'CHIHUAHUA', u'COAHUILA', u'COLIMA',
                                                    u'DISTRITO FEDERAL', u'DURANGO', u'GUANAJUATO', u'GUERRERO',
@@ -72,7 +72,7 @@ def clean_comun(file):
                                                    u'QUINTANA ROO', u'SAN LUIS POTOSI', u'SINALOA', u'SONORA',
                                                    u'TABASCO', u'TAMAULIPAS', u'TLAXCALA', u'VERACRUZ', u'YUCATAN',
                                                    u'ZACATECAS']))
-
+    
     df = pd.melt(df, id_vars = "Entidad federativa")
     df = df[df.variable != "Total"].copy()
     #pdb.set_trace()
@@ -84,7 +84,8 @@ def clean_comun(file):
         df["year"] = 2016
     for k, v in mapping:
         df['variable'] = df['variable'].replace(k, v)
-
+    #import pdb
+    #pdb.set_trace()
     df['date'] = df["year"].map(str) + '-' + df['variable'] + '-01'
     if "homicidio_doloso" in file:
         df["modalidad"] = "HOMICIDIOS"
@@ -128,21 +129,27 @@ def clean_comun(file):
 def clean_federal(file):
     state_codes = pd.read_csv("data/state_codes.csv")
     population = pd.read_csv("data/pop_states.csv")
-    df = pd.read_csv("victimas-csv/" +  file, skiprows=0, encoding = 'utf-8')
-    #df = df.drop(df.columns[0], axis=1)
-    assert(all(df.columns == [u'Entidad federativa', u'Enero', u'Febrero', u'Marzo',
+    df = pd.read_csv("victimas-csv/" +  file, skiprows=1, encoding = 'utf-8')
+    df = df.drop(df.columns[15], axis=1)
+    df = df.drop(df.columns[0], axis=1)
+
+
+    #del df['Unnamed: 0']
+    assert(all(df.columns == [u'V\xedctimas', u'Enero', u'Febrero', u'Marzo',
                                  u'Abril', u'Mayo', u'Junio', u'Julio', u'Agosto',
                                  u'Septiembre', u'Octubre', u'Noviembre', u'Diciembre',
                                  u'Total']))
     del df['Total']
-    df["Entidad federativa"] = df["Entidad federativa"].map(strip_accents)
-    df["Entidad federativa"] = df["Entidad federativa"].map(toupper)
-    df = df[df["Entidad federativa"] != 'NACIONAL']
+    
+
+    df = df[0:33]
+    df[u"V\xedctimas"] = df[u"V\xedctimas"].map(strip_accents)
+    df[u"V\xedctimas"] = df[u"V\xedctimas"].map(toupper)
+    df = df[df[u"V\xedctimas"] != 'NACIONAL']
     df=df.dropna(axis=1, how='all')
     df=df.dropna(axis=0, how='all')
-    #import pdb
-    #pdb.set_trace()
-    assert(all(df[u'Entidad federativa'].unique() == [u'AGUASCALIENTES', u'BAJA CALIFORNIA',
+
+    assert(all(df[u'V\xedctimas'].unique() == [u'AGUASCALIENTES', u'BAJA CALIFORNIA',
        u'BAJA CALIFORNIA SUR', u'CAMPECHE', u'CHIAPAS', u'CHIHUAHUA',
        u'COAHUILA', u'COLIMA', u'DISTRITO FEDERAL', u'DURANGO',
        u'GUANAJUATO', u'GUERRERO', u'HIDALGO', u'JALISCO', u'MEXICO',
@@ -150,7 +157,7 @@ def clean_federal(file):
        u'PUEBLA', u'QUERETARO', u'QUINTANA ROO', u'SAN LUIS POTOSI',
        u'SINALOA', u'SONORA', u'TABASCO', u'TAMAULIPAS', u'TLAXCALA',
        u'VERACRUZ', u'YUCATAN', u'ZACATECAS']))
-    df = pd.melt(df, id_vars=u"Entidad federativa")
+    df = pd.melt(df, id_vars=u"V\xedctimas")
     
 
     for k, v in mapping:

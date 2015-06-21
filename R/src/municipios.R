@@ -87,7 +87,7 @@ findAnomalies <- function(category, type, subtype="", munvec){
       
     }
     # update progress bar
-    setTxtProgressBar(pb, l)
+    print(setTxtProgressBar(pb, l))
     l = l + 1
     
   }

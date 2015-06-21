@@ -76,19 +76,18 @@ def to_csv(fname, page, crime_name):
 
 
 
-def getPDF(page, crime_type):
-    baseurl = "http://secretariadoejecutivo.gob.mx/incidencia-delictiva/"
+def getPDF(link, crime_type):
+    #baseurl = "http://secretariadoejecutivo.gob.mx/incidencia-delictiva/"
     # page = "incidencia-delictiva-victimas.php"
     change = False
-    r = requests.get(baseurl + page)
+    #r = requests.get(baseurl + page)
 
-    data = r.text
-    soup = BeautifulSoup(data)
+    #data = r.text
+    #soup = BeautifulSoup(data)
 
     #headers = StringIO()
     #for i, link in enumerate(soup.findAll('a', href=re.compile(crime_type + '.*pdf'))):
-    for i, link in enumerate(["../../docs/pdfs/victimas/Victimas%20publicacion%20dic%2014.pdf",
-                     "../docs/pdfs/victimas/Victimas2015_052015.pdf"]):
+    for i, link in enumerate(link):
         #print link['href']
         #if link['href'] == '../docs/pdfs/victimas/Victimas2015_032015.pdf':
         #    continue
@@ -98,7 +97,7 @@ def getPDF(page, crime_type):
         fname = crime_type + '_' + year + '.pdf'
         with open('pdf/' + fname, "wb") as fp:
             curl = pycurl.Curl()
-            curl.setopt(pycurl.URL, baseurl + link)
+            curl.setopt(pycurl.URL, link)
             curl.setopt(pycurl.WRITEDATA, fp)
             #curl.setopt(pycurl.HEADERFUNCTION, headers.write)
             curl.perform()
@@ -218,8 +217,8 @@ def write_mun_db(conn, CSV_MUNICIPIOS):
     pd_sql.to_sql(crime_municipios.data, 'municipios_fuero_comun', conn, if_exists='append', index=False)
 
 # Clean the PDFs with victim info
-getPDF("incidencia-delictiva-victimas.php", "victima")
-getPDF("incidencia-delictiva-fuero-federal.php", "secuestro")
+getPDF(["http://secretariadoejecutivo.gob.mx/incidencia-delictiva/../../docs/pdfs/victimas/Victimas%20publicacion%20dic%2014.pdf", "http://secretariadoejecutivo.gob.mx/incidencia-delictiva/../docs/pdfs/victimas/Victimas2015_052015.pdf"], "victima")
+getPDF(["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal052015.pdf"], "secuestro")
 
 victimas = pd.DataFrame()
 secuestros = pd.DataFrame()
@@ -227,7 +226,7 @@ for file in os.listdir("victimas-csv"):
     print(file)
     if "victima" in file:
         victimas = victimas.append(v.clean_comun(file))
-    if "federal" in file:
+    elif "federal" in file:
         secuestros = secuestros.append(v.clean_federal(file))
 
 crimes = victimas.append(secuestros).sort(['fuero', 'state',  'modalidad', 'tipo', 'subtipo', 'date'])  # .to_csv("clean-data/victimas.csv", index=False)
@@ -242,6 +241,6 @@ conn = sq.connect(os.path.join(CLEAN_DIR, 'crimenmexico.db'))
 conn.execute('pragma foreign_keys=ON')
 pd_sql.to_sql(crimes, 'victimas', conn, if_exists='replace', index=False)
 
-getXLSX("incidencia-delictiva-fuero-comun.php", conn)
+#getXLSX("incidencia-delictiva-fuero-comun.php", conn)
 
 conn.close()
