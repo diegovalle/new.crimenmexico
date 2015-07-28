@@ -35,6 +35,11 @@ date = '2010-06' and t1.state_code = t2.state_code and t1.mun_code = t2.mun_code
                    (state_code = 25 and mun_code = 12) or
                    (state_code = 25 and mun_code = 6) or
                    (state_code = 25 and mun_code = 1) or
+(state_code = 12 and mun_code = 35) or
+(state_code = 6 and mun_code = 2) or
+(state_code = 6 and mun_code = 19) or
+                   (state_code = 6 and mun_code = 7) or
+                   (state_code = 6 and mun_code = 9) or
                    (state_code = 8 and mun_code = 19) or
                    (state_code = 8 and mun_code = 37) or
 (state_code = 19 and mun_code = 39) or
