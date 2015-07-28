@@ -8,4 +8,7 @@
 *.xlsb
 *.xlsx
 *.xls
+*.zip
+R/json/*.json
+R/json/*.RData
 .Rproj.user
