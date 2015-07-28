@@ -178,6 +178,43 @@ ll$lesions <- findAnomalies("LESIONES", "DOLOSAS", munvec = muns_to_analyze)
 ll$kidnapping = findAnomalies("PRIV. DE LA LIBERTAD (SECUESTRO)", "SECUESTRO", "SECUESTRO", 
                            muns_to_analyze)
 ll$ext <- findAnomalies("DELITOS PATRIMONIALES", "EXTORSION", "EXTORSION", muns_to_analyze)
+write(toJSON(ll), "json/anomalies.json")
+save(ll, file = 'json/ll.RData')
+
+
+cities <- list()
+if(nrow(ll$hom) > 0) {
+  cities$hom <- right_join(centroids, ll$hom) %>%
+    group_by(name, state_code, mun_code, lat, long) %>%
+    do(tail(. ,1))
+}
+if(nrow(ll$rvcv) > 0) {
+  cities$rvcv <- right_join(centroids, ll$rvcv) %>%
+    group_by(name, state_code, mun_code, lat, long) %>%
+    do(tail(. ,1))
+}
+if(nrow(ll$rvsv) > 0) {
+  cities$rvsv <- right_join(centroids, ll$rvsv) %>%
+    group_by(name, state_code, mun_code, lat, long) %>%
+    do(tail(. ,1))
+}
+if(nrow(ll$lesions) > 0) {
+  cities$lesions <- right_join(centroids, ll$lesions) %>%
+    group_by(name, state_code, mun_code, lat, long) %>%
+    do(tail(. ,1))
+  
+}
+if(nrow(ll$kidnapping) > 0) {
+  cities$kidnapping <- right_join(centroids, ll$kidnapping) %>%
+    group_by(name, state_code, mun_code, lat, long) %>%
+    do(tail(. ,1))
+}
+if(nrow(ll$ext) > 0) {
+  cities$ext <- right_join(centroids, ll$ext) %>%
+    group_by(name, state_code, mun_code, lat, long) %>%
+    do(tail(. ,1))
+}
+write(toJSON(cities), file = 'json/cities.json')
 
 j = 1
 ll2 <- list()
@@ -188,7 +225,7 @@ for(i in 1:length(ll)){
     j = j + 1
   }
 }
-
+write(toJSON(ll2), "json/anomalies2.json")
 
 max_date = muns$date %>% max(., na.rm = TRUE) %>% as.yearmon  %>% as.character 
 
