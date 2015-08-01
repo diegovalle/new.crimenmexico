@@ -9,7 +9,7 @@ muns <- dbGetQuery(db, "SELECT state_code, state, mun_code, municipio,
                    NATURAL JOIN state_names 
                    NATURAL JOIN municipio_names  
                    NATURAL JOIN population_municipios t1
-WHERE  ((modalidad_text = 'ROBO COMUN' and 
+WHERE count is not NULL and (((modalidad_text = 'ROBO COMUN' and 
                   (tipo_text ='SIN VIOLENCIA' or tipo_text ='CON VIOLENCIA') 
                   and subtipo_text = 'DE VEHICULOS') or
 (
@@ -38,6 +38,7 @@ date = '2010-06' and t1.state_code = t2.state_code and t1.mun_code = t2.mun_code
 (state_code = 12 and mun_code = 35) or
 (state_code = 6 and mun_code = 2) or
 (state_code = 6 and mun_code = 19) or
+(state_code = 8 and mun_code = 32) or
                    (state_code = 6 and mun_code = 7) or
                    (state_code = 6 and mun_code = 9) or
                    (state_code = 8 and mun_code = 19) or
@@ -49,6 +50,7 @@ date = '2010-06' and t1.state_code = t2.state_code and t1.mun_code = t2.mun_code
                    (state_code = 14 and mun_code = 39) or
                    (state_code = 14 and mun_code = 120) or
 (state_code = 2 and mun_code = 4) or
+(state_code = 3 and mun_code = 3) or
                    (state_code = 12 and mun_code = 1) or
                    (state_code = 12 and mun_code = 29) or
 (state_code = 30 and mun_code = 193) or
@@ -65,7 +67,7 @@ date = '2010-06' and t1.state_code = t2.state_code and t1.mun_code = t2.mun_code
                    (state_code = 16 and mun_code = 6) or
                    (state_code = 16 and mun_code = 52) or
                    (state_code = 16 and mun_code = 102)
-                   ))")
+                   )))")
 dbDisconnect(db)
 
 #select * from municipios_fuero_comun natural join population_municipios where (state_code in (select state_code from population_municipios where population > 300000 and date = '2015-01') and mun_code in (select mun_code from population_municipios where population > 300000 and date = '2015-01'))
@@ -96,3 +98,4 @@ municipios$rvcv <- filter(muns, tipo == "Car Robbery without Violence")[,c('date
 municipios$rvsv <- filter(muns, tipo == "Car Robbery with Violence")[,c('date', 'tipo', 'name', 'count', 'rate')]
 #municipios$viol <- filter(muns, tipo == "VIOLACION")[,c('date', 'tipo', 'name', 'count', 'rate')]
 write(toJSON(municipios), "json/municipios.json")
+
