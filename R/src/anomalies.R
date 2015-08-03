@@ -165,7 +165,6 @@ dotMap <- function(centroids, mx, df, legend_title) {
 }
 
 
-centroids <- read.csv("data/mun_centroids.csv")
 #bigmuns <- subset(muns, population >= 50000)
 muns_to_analyze <-  unique(muns$name)
 

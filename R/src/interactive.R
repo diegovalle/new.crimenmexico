@@ -1,6 +1,12 @@
+last_six_dates = str_sub(sort(unique(muns$date)), 0, 7)
+last_six_dates = last_six_dates[length((last_six_dates)): (length(last_six_dats) -5)]
+last_six_dates_txt = paste(rep("'", 5),last_six_dates, rep("'", 5), collapse = ",", sep="")
+
+centroids <- read.csv("data/mun_centroids.csv")
+
 
 db2 <- dbConnect(SQLite(), dbname="../db/crimenmexico.db")
-muns2 <- dbGetQuery(db2, "SELECT state_code, state, mun_code, municipio, 
+muns2 <- dbGetQuery(db2, str_c("SELECT state_code, state, mun_code, municipio, 
                     tipo_text as tipo, subtipo_text as subtipo, modalidad_text as modalidad,
                     date, count, population
                     FROM municipios_fuero_comun 
@@ -10,24 +16,34 @@ muns2 <- dbGetQuery(db2, "SELECT state_code, state, mun_code, municipio,
                     NATURAL JOIN state_names 
                     NATURAL JOIN municipio_names  
                     NATURAL JOIN population_municipios
-                    WHERE count not null and
-                    (date in ('2015-06', '2015-05', '2015-04', '2015-03', '2015-02', '2015-01')) AND (
+                    WHERE
+                    (date in (", last_six_dates_txt, ")) AND (
                     (
                     modalidad_text  = 'HOMICIDIOS'
-                    AND tipo_text = 'DOLOSOS'))")
+                    AND tipo_text = 'DOLOSOS'))"))
 #select distinct date from municipios_fuero_comun order by date desc limit 6
 dbDisconnect(db2)
 unique(muns2$date)
 
-mun_map <- readOGR("maps", "MUNICIPIOS")
-bb <- bbox(as(extent(mun_map) , "SpatialPolygons"))
-mun_map@data$CVEGEO <- str_c(mun_map@data$CVE_ENT, mun_map@data$CVE_MUN)
-mun_map <- fortify(mun_map, region="CVEGEO")
-mun_map$code <- as.numeric(as.character(mun_map$id))
 
-tmp <- muns2 %>% 
-  group_by(tipo, state, state_code, municipio, mun_code) %>%
-  summarise(len = length(unique(date)))
+
+# mun_map <- readOGR("maps", "MUNICIPIOS")
+# bb <- bbox(as(extent(mun_map) , "SpatialPolygons"))
+# mun_map@data$CVEGEO <- str_c(mun_map@data$CVE_ENT, mun_map@data$CVE_MUN)
+# mun_map <- fortify(mun_map, region="CVEGEO")
+# mun_map$code <- as.numeric(as.character(mun_map$id))
+
+#Get rid of states that haven't updated their numbers recently
+for(i in last_six_dates) {
+  for(j in 1:32) {
+    if(all(is.na(subset(muns2, state_code == j & date == i)$count))) {
+      #browser()
+      muns2 <- subset(muns2, state_code != j | date != i)
+      print(str_c(i,"-", j))
+    }
+  }
+}
+
 
 muns2 <- muns2 %>% 
   mutate(tipo = str_replace(tipo, "CON VIOLENCIA","Car Robbery with Violence"),
