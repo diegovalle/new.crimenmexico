@@ -62,7 +62,7 @@ class CrimeStates:
         self.clean_file(fname)
 
     def get_uniq_values(self, df, col):
-        values = df[col].unique()
+        values = sorted(df[col].unique())
         values_codes = dict(zip(values, range(0, len(values))))
         return values_codes
 
@@ -180,8 +180,11 @@ class CrimeMunicipios(CrimeStates):
                          'SUBTIPO': self.get_uniq_values(df, 'SUBTIPO'),
                          })
 
-        df.columns = self._columnNames
+        
 
+        df.columns = self._columnNames
+	
+	
         df = pd.melt(df, id_vars=['year', 'inegi', 'state', 'municipio', 'modalidad', 'tipo', 'subtipo'])
         df['state_code'] = df['inegi'].apply(lambda x: math.floor(x / 1000)).astype(int)
         df['mun_code'] = df['inegi'].apply(lambda x: x % 1000)

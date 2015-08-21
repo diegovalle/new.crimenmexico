@@ -122,8 +122,9 @@ def getXLSX(page, conn):
     # page = "incidencia-delictiva-fuero-comun.php"
     change = False
     crime_files = []
+    print("Checking if page changed")
     r = requests.get(baseurl + page)
-
+    
     data = r.text
     soup = BeautifulSoup(data)
     if page_changed(str(soup), os.path.join('page-checksums', page)):
@@ -152,7 +153,9 @@ def getXLSX(page, conn):
         if change:
             #import pdb
             #pdb.set_trace()
+	    print("writin state to db")
             write_state_db(conn, get_filename_containing(crime_files, "Estatal"))
+            print("writin municipio to db")
             write_mun_db(conn, get_filename_containing(crime_files, "Municipal"))
     return change
 
@@ -171,17 +174,16 @@ def write_state_db(conn, CSV_ESTADOS):
     conn.commit()
 
 
-    #conn.execute("delete from " + 'estados_fuero_comun')
-    #conn.commit()
-    #conn.execute("delete from " + 'tipo_states')
-    #conn.commit()
-    #conn.execute("delete from " + 'subtipo_states')
-    #conn.commit()
-    #conn.execute("delete from " + 'modalidad_states')
-    #conn.commit()
+    conn.execute("delete from " + 'estados_fuero_comun')
+    conn.commit()
+    conn.execute("delete from " + 'tipo_states')
+    conn.commit()
+    conn.execute("delete from " + 'subtipo_states')
+    conn.commit()
+    conn.execute("delete from " + 'modalidad_states')
+    conn.commit()
     conn.execute("delete from " + 'population_states')
     conn.commit()
-    #conn.commit()
     conn.execute("delete from " + 'state_names')
     conn.commit()
     crime_states = CrimeStates(os.path.join('snsp-data', CSV_ESTADOS))
@@ -189,8 +191,8 @@ def write_state_db(conn, CSV_ESTADOS):
     pd_sql.to_sql(crime_states.subtipo, 'subtipo_states', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_states.modalidad, 'modalidad_states', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_states.state_codes, 'state_names', conn, if_exists='append', index=False)
-    pd_sql.to_sql(crime_states.population, 'population_states', conn, if_exists='append', index=False)
-    pd_sql.to_sql(crime_states.data, 'estados_fuero_comun', conn, if_exists='append', index=False)
+    pd_sql.to_sql(crime_states.population, 'population_states', conn, if_exists='append', index=False, chunksize=20000)
+    pd_sql.to_sql(crime_states.data, 'estados_fuero_comun', conn, if_exists='append', index=False, chunksize=20000)
 
 
 def write_mun_db(conn, CSV_MUNICIPIOS):
@@ -200,25 +202,26 @@ def write_mun_db(conn, CSV_MUNICIPIOS):
     conn.commit()
     conn.execute("delete from " + 'municipio_names')
     conn.commit()
-    #conn.execute("delete from " + 'tipo_municipios')
-    #conn.commit()
-    #conn.execute("delete from " + 'subtipo_municipios')
-    #conn.commit()
-    #conn.execute("delete from " + 'modalidad_municipios')
-    #conn.commit()
+    conn.execute("delete from " + 'tipo_municipios')
+    conn.commit()
+    conn.execute("delete from " + 'subtipo_municipios')
+    conn.commit()
+    conn.execute("delete from " + 'modalidad_municipios')
+    conn.commit()
     crime_municipios = CrimeMunicipios(os.path.join('snsp-data', CSV_MUNICIPIOS))
     print("preparing to write to db")
     pd_sql.to_sql(crime_municipios.tipo, 'tipo_municipios', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_municipios.subtipo, 'subtipo_municipios', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_municipios.modalidad, 'modalidad_municipios', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_municipios.municipios, 'municipio_names', conn, if_exists='append', index=False)
-    pd_sql.to_sql(crime_municipios.population, 'population_municipios', conn, if_exists='append', index=False)
+    pd_sql.to_sql(crime_municipios.population, 'population_municipios', conn, if_exists='append', index=False, chunksize=20000)
     print("writing municipio data to db")
-    pd_sql.to_sql(crime_municipios.data, 'municipios_fuero_comun', conn, if_exists='append', index=False)
+    pd_sql.to_sql(crime_municipios.data, 'municipios_fuero_comun', conn, if_exists='append', index=False, chunksize=20000)
+    print("end writing municipio data to db")
 
 # Clean the PDFs with victim info
-getPDF(["http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2014_052015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2015_062015.pdf"], "victima")
-getPDF(["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal062015.pdf"], "secuestro")
+getPDF(["http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2014_052015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2015_072015.pdf"], "victima")
+getPDF(["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal072015.pdf"], "secuestro")
 
 victimas = pd.DataFrame()
 secuestros = pd.DataFrame()
