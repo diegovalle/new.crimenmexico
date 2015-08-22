@@ -88,7 +88,7 @@ findAnomalies <- function(category, type, subtype="", munvec, fileName){
                                                    direction = 'both')$anoms$timestamp)
       
       if(!is.null(anoms))
-        if(anoms[length(anoms)] >= h[[munname]]) {
+        if(any(ifelse(anoms >= h[[munname]], TRUE, FALSE))) {
           print(munname)
           anomalies <- rbind(anomalies, df)
         }
@@ -191,7 +191,7 @@ ll$ext <- findAnomalies("DELITOS PATRIMONIALES", "EXTORSION", "EXTORSION", muns_
 write(toJSON(ll), "json/anomalies.json")
 save(ll, file = 'json/ll.RData')
 
-
+centroids <- read.csv("data/mun_centroids.csv")
 cities <- list()
 if(nrow(ll$hom) > 0) {
   cities$hom <- right_join(centroids, ll$hom) %>%
