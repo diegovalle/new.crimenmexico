@@ -1,5 +1,5 @@
 last_six_dates = str_sub(sort(unique(muns$date)), 0, 7)
-last_six_dates = last_six_dates[length((last_six_dates)): (length(last_six_dats) -5)]
+last_six_dates = last_six_dates[length((last_six_dates)): (length(last_six_dates) -5)]
 last_six_dates_txt = paste(rep("'", 5),last_six_dates, rep("'", 5), collapse = ",", sep="")
 
 centroids <- read.csv("data/mun_centroids.csv")
