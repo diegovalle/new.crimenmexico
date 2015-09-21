@@ -129,9 +129,10 @@ def clean_comun(file):
 def clean_federal(file):
     state_codes = pd.read_csv("data/state_codes.csv")
     population = pd.read_csv("data/pop_states.csv")
-    df = pd.read_csv("victimas-csv/" +  file, skiprows=1, encoding = 'utf-8')
-    df = df.drop(df.columns[15], axis=1)
-    df = df.drop(df.columns[0], axis=1)
+    df = pd.read_csv("victimas-csv/" +  file, skiprows=0, encoding = 'utf-8')
+
+    df = df.drop(df.columns[14], axis=1)
+    #df = df.drop(df.columns[0], axis=1)
 
 
     #del df['Unnamed: 0']

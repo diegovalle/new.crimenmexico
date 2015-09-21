@@ -220,8 +220,8 @@ def write_mun_db(conn, CSV_MUNICIPIOS):
     print("end writing municipio data to db")
 
 # Clean the PDFs with victim info
-getPDF(["http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2014_052015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2015_072015.pdf"], "victima")
-getPDF(["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal072015.pdf"], "secuestro")
+getPDF(["http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2014_052015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2015_082015.pdf"], "victima")
+getPDF(["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal082015.pdf"], "secuestro")
 
 victimas = pd.DataFrame()
 secuestros = pd.DataFrame()
