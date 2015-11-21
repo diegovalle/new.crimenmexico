@@ -17,6 +17,9 @@ import sqlite3 as sq
 import zipfile
 import re
 
+VICTIMAS_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2014_052015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2015_102015.pdf"]
+SECUESTRO_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal102015.pdf"]
+
 def write_file(fileName, md):
     f = open(fileName, 'w')
     f.write(md)
@@ -220,8 +223,8 @@ def write_mun_db(conn, CSV_MUNICIPIOS):
     print("end writing municipio data to db")
 
 # Clean the PDFs with victim info
-getPDF(["http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2014_052015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2015_082015.pdf"], "victima")
-getPDF(["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal082015.pdf"], "secuestro")
+getPDF(VICTIMAS_PDF, "victima")
+getPDF(SECUESTRO_PDF, "secuestro")
 
 victimas = pd.DataFrame()
 secuestros = pd.DataFrame()
