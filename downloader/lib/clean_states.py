@@ -86,6 +86,8 @@ class CrimeStates:
                          encoding="windows-1252", thousands=",")
         if 'TOTAL' in [x.upper() for x in df.columns]:
             del df['TOTAL']
+        if 'INEGI' in [x.upper() for x in df.columns]:
+            del df['INEGI']
         df=df.dropna(axis=0, how='all')
 
         self.state_codes = pd.read_csv(os.path.join(self._DATADIR, "state_codes.csv"))
