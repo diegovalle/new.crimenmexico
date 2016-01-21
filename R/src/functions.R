@@ -157,7 +157,7 @@ bottomMap <- function(vic, crime, legend, low, high, mid, title, date) {
                                               label.position="bottom", label.hjust = 0.5, 
                                               label.vjust = 0.5)) +
   #scale_x_continuous(limits = c(0, 10), expand = c(-.05, 0))+
-  coord_fixed(ratio = .6)
+  coord_fixed(ratio = 1)
 }
 
 smNational <- function(vic, rate, title, date, max_date, min_date) {
