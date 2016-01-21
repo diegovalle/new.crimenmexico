@@ -57,7 +57,6 @@ max_date = vic$date %>% max(., na.rm = TRUE) %>% as.yearmon  %>% as.character
 min_date = vic$date %>% min(., na.rm = TRUE) %>% as.yearmon  %>% as.character 
 
 
-
 homicide.map <- bigBins(vic, max_date, 
                         "Annualized\nIntentional Homicide\nVictimization Rate",
                         "HOMICIDE RATES IN MEXICO",
@@ -178,7 +177,6 @@ rvsv.sm <- smallMultiple(vic, "Robo de vehículo sin violencia",
 # rvsv.bub <- bubblePlot("Robo de vehículo sin violencia", 
 #                        "number of\ncar robberies\nwithout violence", 
 #                        low = "#fff7fb", high = "#023858", mid = "#74a9cf")
-
 
 sec.map <- bottomMap(vic, "Secuestro", "Tasa Anualizada\nde Secuestros", 
                      low = "#f7fcfd", high = "#00441b", mid = "#66c2a4", "SECUESTRO",

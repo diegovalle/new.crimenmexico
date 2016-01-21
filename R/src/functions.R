@@ -47,11 +47,11 @@ numberOfDays  <- function(x) {
 }
 
 bigBins <- function(vic, max_date, legend_title, title, crime) {
+  vic$region <- str_pad(vic$state_code, 2 ,"left", "0")
+  vic$value <- vic$rate
   last_date_states <- subset(vic, date == max(vic$date, na.rm = TRUE) &
                                tipo == crime)
-  statebins_continuous(last_date_states, "state_code", "rate",
-                       brewer_pal="YlOrRd",
-                       legend_title= legend_title) +
+  mxhexbin_choropleth(last_date_states, num_colors = 1)  +
     theme(legend.position="top")+
     theme(panel.border=element_blank())+
     theme(panel.grid=element_blank())+
@@ -102,16 +102,21 @@ bubblePlot <- function(vic, crime, legend, low, high, mid, rate){
 }
 
 bottomMap <- function(vic, crime, legend, low, high, mid, title, date) {
+  vic$region <- str_pad(vic$state_code, 2 ,"left", "0")
+  vic$value <- vic$rate
   last_date_states <- subset(vic, date == max(vic$date, na.rm = TRUE) &
                                tipo == crime)
-  st.dat <- merge(state_coords, last_date_states, by.x="abbrev", by.y="state_abbrv", all.y=TRUE)
-  
-  ggplot(st.dat, aes_string(x="col", y="row", label="abbrev"))+ 
-    geom_tile(aes_string(fill="rate"))+ 
-    geom_tile(
-      aes_string(fill="rate"), size=4, show_guide=FALSE)+
-    geom_text(color="#ffffff", size=2.5, family = "Sans")+
-    scale_y_reverse()+ 
+  #st.dat <- merge(state_coords, last_date_states, by.x="abbrev", by.y="state_abbrv", all.y=TRUE)
+  #browser()
+  #ggplot(st.dat, aes_string(x="col", y="row", label="abbrev"))+ 
+  mxhexbin_choropleth(last_date_states, num_colors = 1,
+                      label_size = 2,
+                      label_color = "white") + 
+    #geom_tile(aes_string(fill="value"))+ 
+    #geom_tile(
+    #  aes_string(fill="value"), size=4, show_guide=FALSE)+
+    #geom_text(color="#ffffff", size=2.5, family = "Sans")+
+    #scale_y_reverse()+ 
     labs(x=NULL, y=NULL, title=NULL)+
     theme_bw()+
     infographic_theme2()+
@@ -151,7 +156,7 @@ bottomMap <- function(vic, crime, legend, low, high, mid, title, date) {
                                               title.position = "top",
                                               label.position="bottom", label.hjust = 0.5, 
                                               label.vjust = 0.5)) +
-  scale_x_continuous(limits = c(0, 10), expand = c(-.05, 0))+
+  #scale_x_continuous(limits = c(0, 10), expand = c(-.05, 0))+
   coord_fixed(ratio = .6)
 }
 
