@@ -51,7 +51,8 @@ bigBins <- function(vic, max_date, legend_title, title, crime) {
   vic$value <- vic$rate
   last_date_states <- subset(vic, date == max(vic$date, na.rm = TRUE) &
                                tipo == crime)
-  mxhexbin_choropleth(last_date_states, num_colors = 1)  +
+  mxhexbin_choropleth(last_date_states, num_colors = 1,
+                      label_size = 3.5)  +
     theme(legend.position="top")+
     theme(panel.border=element_blank())+
     theme(panel.grid=element_blank())+
