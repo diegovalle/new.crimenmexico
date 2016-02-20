@@ -82,6 +82,8 @@ def clean_comun(file):
         df["year"] = 2015
     if "victima_2016" in file:
         df["year"] = 2016
+    if "victima_2017" in file:
+        df["year"] = 2017
     for k, v in mapping:
         df['variable'] = df['variable'].replace(k, v)
     #import pdb
@@ -164,8 +166,16 @@ def clean_federal(file):
     for k, v in mapping:
         df['variable'] = df['variable'].replace(k, v)
     df.columns = ['state', 'month', 'count']
-    df['date'] = '2015' + '-' + df['month'] + '-01'
-    df['year'] = '2015'
+    if "secuestro_2014" in file:
+        df["year"] = 2014
+    if "secuestro_2015" in file:
+        df["year"] = 2015
+    if "secuestro_2016" in file:
+        df["year"] = 2016
+    if "secuestro_2017" in file:
+        df["year"] = 2017
+    df['date'] = df['year'].map(str) + '-' + df['month'] + '-01'
+
     df = df[df['state'] != 'NACIONAL']
     df = df[df['state'] != '']
     df["modalidad"] = "PRIV. DE LA LIBERTAD (SECUESTRO)"
