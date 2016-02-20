@@ -17,8 +17,8 @@ import sqlite3 as sq
 import zipfile
 import re
 
-VICTIMAS_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2014_052015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2015_122015.pdf"]
-SECUESTRO_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal122015.pdf"]
+VICTIMAS_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2014_052015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2015_012016.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2016_012016.pdf"]
+SECUESTRO_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal122015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal012016.pdf"]
 
 def write_file(fileName, md):
     f = open(fileName, 'w')
@@ -96,7 +96,7 @@ def getPDF(link, crime_type):
         #    continue
         #if link['href'] == '../docs/pdfs/victimas/Victimas2014_052015.pdf':
         #    continue
-        year = re.findall('\d{4}', link)[0]
+        year = re.findall('(?:[a-z]|\d{2})(\d{4})(?:_|\.)', link)[0]
         fname = crime_type + '_' + year + '.pdf'
         with open('pdf/' + fname, "wb") as fp:
             curl = pycurl.Curl()
