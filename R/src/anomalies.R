@@ -47,7 +47,8 @@ findAnomalies <- function(category, type, subtype="", munvec, fileName){
     new <- FALSE
   }
   anomalies <- data.frame()
-  pb <- txtProgressBar(min = 0, max = length(munvec), style = 3)
+  #pb <- txtProgressBar(min = 0, max = length(munvec), style = 3)
+  pb <- progress_estimated(length(munvec))
   l <- 1
   muns <- data.table(muns)
   for(munname in munvec){
@@ -69,7 +70,6 @@ findAnomalies <- function(category, type, subtype="", munvec, fileName){
     i = nrow(df)
     while(is.na(df$rate[i]) & i > 0) {
       i = i -1
-      #print(i)
     }
     hom <- df
     for(j in i:1) {
@@ -78,28 +78,31 @@ findAnomalies <- function(category, type, subtype="", munvec, fileName){
       }
     }
     hom <- na.omit(as.data.frame(hom))
-    hom$date  <- as.POSIXlt(hom$date, tz = "CST")
+    browser()
+    hom$date  <- as.POSIXlt(str_c(hom$date), tz = "CTZ")
     max_date <- max(hom$date)
     if(new)
       h[munname] <- max_date
     if((hom$count[nrow(hom)] >= 5) ) {
-      if(!(hom$name[1] == "GUADALUPE, ZAC" & category == "HOMICIDIOS")) {
-        print(hom$name[1])
-        #hom$rate[is.na(hom$rate)] <- mean(hom$rate, na.rm = TRUE)
-        #breakout(hom$rate, min.size = 2, method = 'multi', beta=0.001, plot=TRUE)
-        anoms <- AnomalyDetectionTs(hom[ ,c("date", "rate")], 
-                                    max_anoms = 0.02,
-                                    direction = 'both')$anoms$timestamp
+      #if(!(hom$name[1] == "GUADALUPE, ZAC" & category == "HOMICIDIOS")) {
+      #print(hom$name[1])
+      #hom$rate[is.na(hom$rate)] <- mean(hom$rate, na.rm = TRUE)
+      #breakout(hom$rate, min.size = 2, method = 'multi', beta=0.001, plot=TRUE)
+      anoms <- tryCatch(AnomalyDetectionTs(hom[ ,c("date", "rate")], 
+                                           max_anoms = 0.02,
+                                           direction = 'both')$anoms$timestamp,
+                        error = function(e) {print(e);NULL})
         
         if(!is.null(anoms))
           if(any(ifelse(anoms >= h[[munname]], TRUE, FALSE))) {
             print(munname)
             anomalies <- rbind(anomalies, df)
           }
-      }
+      #}
     }
     # update progress bar
-    print(setTxtProgressBar(pb, l))
+    #print(setTxtProgressBar(pb, l))
+    pb$tick()$print()
     l = l + 1
     h[munname] <- max_date
   }
