@@ -49,16 +49,19 @@ findAnomalies <- function(category, type, subtype="", munvec, fileName){
   anomalies <- data.frame()
   pb <- txtProgressBar(min = 0, max = length(munvec), style = 3)
   l <- 1
+  muns <- data.table(muns)
   for(munname in munvec){
-    if (subtype != "")
-      df <- subset(muns, name == munname & modalidad == category & 
-                     tipo == type &
-                     subtipo == subtype)
-    else
-      df <- subset(muns, name == munname & modalidad == category & 
-                     tipo == type)
+    if (subtype != "") {
+      df <- muns[muns$name == munname & 
+                   muns$modalidad == category & 
+                   muns$tipo == type &
+                   muns$subtipo == subtype,]
+    } else
+      df <- muns[muns$name == munname & 
+                   muns$modalidad == category & 
+                   muns$tipo == type,]
     df <- df[order(df$date),]
-    
+    df <- as.data.frame(df)
     df <- df %>%
       group_by(date, name, state_code, mun_code)  %>%
       summarise(count = sum(count, na.rm = TRUE),
@@ -74,25 +77,26 @@ findAnomalies <- function(category, type, subtype="", munvec, fileName){
         hom$rate[j] <- median(hom$rate, na.rm = TRUE)
       }
     }
-    hom <- na.omit(hom)
+    hom <- na.omit(as.data.frame(hom))
     hom$date  <- as.POSIXlt(hom$date, tz = "CST")
     max_date <- max(hom$date)
     if(new)
       h[munname] <- max_date
-    if(hom$count[nrow(hom)] >= 5) {
-      
-      #hom$rate[is.na(hom$rate)] <- mean(hom$rate, na.rm = TRUE)
-      #breakout(hom$rate, min.size = 2, method = 'multi', beta=0.001, plot=TRUE)
-      suppressMessages(anoms <- AnomalyDetectionTs(hom[ ,c("date", "rate")], 
-                                                   max_anoms = 0.02, 
-                                                   direction = 'both')$anoms$timestamp)
-      
-      if(!is.null(anoms))
-        if(any(ifelse(anoms >= h[[munname]], TRUE, FALSE))) {
-          print(munname)
-          anomalies <- rbind(anomalies, df)
-        }
-      
+    if((hom$count[nrow(hom)] >= 5) ) {
+      if(!(hom$name[1] == "GUADALUPE, ZAC" & category == "HOMICIDIOS")) {
+        print(hom$name[1])
+        #hom$rate[is.na(hom$rate)] <- mean(hom$rate, na.rm = TRUE)
+        #breakout(hom$rate, min.size = 2, method = 'multi', beta=0.001, plot=TRUE)
+        anoms <- AnomalyDetectionTs(hom[ ,c("date", "rate")], 
+                                    max_anoms = 0.02,
+                                    direction = 'both')$anoms$timestamp
+        
+        if(!is.null(anoms))
+          if(any(ifelse(anoms >= h[[munname]], TRUE, FALSE))) {
+            print(munname)
+            anomalies <- rbind(anomalies, df)
+          }
+      }
     }
     # update progress bar
     print(setTxtProgressBar(pb, l))
@@ -155,7 +159,7 @@ dotMap <- function(centroids, mx, df, legend_title) {
     coord_map("albers", lat0 = bb[ 2 , 1 ] , lat1 = bb[ 2 , 2 ] ) +
     geom_point(aes(size = count), 
                shape = 21, color = "white", fill = "#e34a33",
-               guide = FALSE) +
+               show.legend = FALSE) +
     scale_size_area(legend_title, max_size = 5,
                     labels=trans_format("identity", function(x) round(x,0))) +
     infographic_theme2() +
@@ -180,14 +184,21 @@ muns_to_analyze <-  unique(muns$name)
 ll <- list()
 # h <- hash(keys=muns_to_analyze, values="")
 # load(file = "data/hashes/hhom.RData")
-ll$hom <- findAnomalies("HOMICIDIOS", "DOLOSOS", munvec = muns_to_analyze, fileName="hhom.RData")
-ll$rvcv = findAnomalies("ROBO COMUN", "CON VIOLENCIA", "DE VEHICULOS",muns_to_analyze, fileName="hrvcv.RData")
-ll$rvsv = findAnomalies("ROBO COMUN", "SIN VIOLENCIA", "DE VEHICULOS", muns_to_analyze, fileName="hrvsv.RData")
 
-ll$lesions <- findAnomalies("LESIONES", "DOLOSAS", munvec = muns_to_analyze, fileName="hlesions.RData")
-ll$kidnapping = findAnomalies("PRIV. DE LA LIBERTAD (SECUESTRO)", "SECUESTRO", "SECUESTRO", 
+# profvis({
+#   findAnomalies_c("HOMICIDIOS", "DOLOSOS", munvec = muns_to_analyze, fileName="hhom2.RData")
+# })
+findAnomalies_c <- compiler::cmpfun(findAnomalies)
+
+ll$hom <- findAnomalies_c("HOMICIDIOS", "DOLOSOS", munvec = muns_to_analyze, fileName="hhom.RData")
+ll$rvcv = findAnomalies_c("ROBO COMUN", "CON VIOLENCIA", "DE VEHICULOS",muns_to_analyze, fileName="hrvcv.RData")
+ll$rvsv = findAnomalies_c("ROBO COMUN", "SIN VIOLENCIA", "DE VEHICULOS", muns_to_analyze, fileName="hrvsv.RData")
+
+ll$lesions <- findAnomalies_c("LESIONES", "DOLOSAS", munvec = muns_to_analyze, fileName="hlesions.RData")
+ll$kidnapping = findAnomalies_c("PRIV. DE LA LIBERTAD (SECUESTRO)", "SECUESTRO", "SECUESTRO", 
                            muns_to_analyze, fileName="hkid.RData")
-ll$ext <- findAnomalies("DELITOS PATRIMONIALES", "EXTORSION", "EXTORSION", muns_to_analyze, fileName="hext.RData")
+ll$ext <- findAnomalies_c("DELITOS PATRIMONIALES", "EXTORSION", "EXTORSION", muns_to_analyze, fileName="hext.RData")
+
 write(toJSON(ll), "json/anomalies.json")
 save(ll, file = 'json/ll.RData')
 

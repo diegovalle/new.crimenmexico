@@ -185,14 +185,11 @@ smallMultiple <- function(vic, crime, rate, guide_text){
   df <- filter(vic, tipo == crime)
   df$state_abbrv <- reorder(df$state_abbrv, -df$rate, 
                                  function(x) x[length(x)])
-  if(crime == "Kidnapping" | crime == "Secuestro") {
-    k = 5
-  } else {
-    k = 6
-  }
+  k = 6
   ggplot(df, aes(date, rate, group = state_abbrv)) +
-    geom_point(size = .8, color = "#555555") +
-    geom_smooth(se = FALSE, method = "gam", formula = y ~ s(x, k = k), color = "#0D0D0D", size = .4) +
+    geom_point(size = .4, color = "#555555") +
+    geom_smooth(se = FALSE, method = "gam", formula = y ~ s(x, k = 6), color = "#0D0D0D", 
+                size = .6) +
     geom_point(data = subset(df, date == max(df$date, na.rm = TRUE)), 
                aes(size = count), color = "#b30000") +
     facet_wrap(~state_abbrv) +
