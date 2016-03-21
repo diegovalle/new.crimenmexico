@@ -128,6 +128,118 @@ def clean_comun(file):
     del victimas['month']
     return victimas
 
+
+def clean_comun_xls(url):
+    victimas = pd.DataFrame()
+    state_codes = pd.read_csv("data/state_codes.csv")
+    population = pd.read_csv("data/pop_states.csv")
+    df = pd.read_excel(url)
+    
+    if 'TOTAL' in df.columns:
+      del df['TOTAL']
+    #assert structure of file
+    assert(all(df.columns == [u'AÑO', u'ENTIDAD', u'INEGI', u'DELITO', u'MODALIDAD',
+                              u'ENERO', u'FEBRERO', u'MARZO',
+                              u'ABRIL', u'MAYO', u'JUNIO', u'JULIO', u'AGOSTO',
+                              u'SEPTIEMBRE', u'OCTUBRE', u'NOVIEMBRE', u'DICIEMBRE']))
+
+
+    # If the column is all 0s treat is as if it were data that hasn't happened
+    for month in reversed(months):
+        month = toupper(month)
+        col = (df[month] == 0)
+        if col.count() == col.sum():
+            df = df.drop(month, 1)
+            print("Warning: Deleteing column -" + month + "- containg all 0")
+        else:
+            break
+
+
+    df["ENTIDAD"] = df["ENTIDAD"].map(toupper)
+    df["ENTIDAD"] = df["ENTIDAD"].map(strip_accents)
+    df = df[df["ENTIDAD"] != 'NACIONAL']
+    # If the column is all NaNs drop it
+    df = df.dropna(axis=1, how='all')
+
+    assert(all(df["ENTIDAD"].unique() == [u'AGUASCALIENTES', u'BAJA CALIFORNIA', u'BAJA CALIFORNIA SUR',
+                                                   u'CAMPECHE', u'CHIAPAS', u'CHIHUAHUA', u'COAHUILA', u'COLIMA',
+                                                   u'DISTRITO FEDERAL', u'DURANGO', u'GUANAJUATO', u'GUERRERO',
+                                                   u'HIDALGO', u'JALISCO', u'MEXICO', u'MICHOACAN', u'MORELOS',
+                                                   u'NAYARIT', u'NUEVO LEON', u'OAXACA', u'PUEBLA', u'QUERETARO',
+                                                   u'QUINTANA ROO', u'SAN LUIS POTOSI', u'SINALOA', u'SONORA',
+                                                   u'TABASCO', u'TAMAULIPAS', u'TLAXCALA', u'VERACRUZ', u'YUCATAN',
+                                                   u'ZACATECAS']))
+
+    df = pd.melt(df, id_vars=[u'ENTIDAD', u'INEGI', u'DELITO', u'MODALIDAD', u'AÑO'])
+    df = df[df.variable != "TOTAL"].copy()
+
+    for k, v in mapping:
+        df[u'variable'] = df[u'variable'].replace(toupper(k), v)
+
+    df["SUBTIPO"] = "TOTAL"
+    
+    df["TIPO"] = df["MODALIDAD"]
+    del df["MODALIDAD"]
+    df.rename(columns={'DELITO': 'MODALIDAD'}, inplace=True)
+    
+    df.loc[df['MODALIDAD'] == "HOMICIDIO", "SUBTIPO"] = "TOTAL"
+    df.loc[df['MODALIDAD'] == "SECUESTRO", "SUBTIPO"] = "SECUESTRO"
+    df.loc[df['MODALIDAD'] == "EXTORSION", "SUBTIPO"] = "EXTORSION"
+    df.loc[df['MODALIDAD'] == "SECUESTRO", "MODALIDAD"] = "PRIV. DE LA LIBERTAD (SECUESTRO)"
+    df.loc[df['MODALIDAD'] == "EXTORSION", "MODALIDAD"] = "DELITOS PATRIMONIALES"
+    
+    df.loc[df['MODALIDAD'] == "HOMICIDIO", "MODALIDAD"] = "HOMICIDIOS"
+    df.loc[df['TIPO'] == "DOLOSO", "TIPO"] = "DOLOSOS"
+    df.loc[df['TIPO'] == "CULPOSO", "TIPO"] = "CULPOSOS"
+
+
+    assert(all(df["MODALIDAD"].unique() == ['HOMICIDIOS', 'PRIV. DE LA LIBERTAD (SECUESTRO)',
+       'DELITOS PATRIMONIALES']))
+    assert(all(df["TIPO"].unique() == ['DOLOSOS', 'CULPOSOS', u'SECUESTRO', u'EXTORSION']))
+    assert(all(df["SUBTIPO"].unique() == ['TOTAL', 'SECUESTRO', 'EXTORSION']))
+    
+    df['date'] = df[u"AÑO"].map(str) + '-' + df['variable'] + '-01'
+
+    df.columns = ['state', 'inegi',  'modalidad',  'year','month',
+               'count', 'subtipo', 'tipo', 'date']
+    victimas = df
+    del victimas["inegi"]
+
+    victimas = pd.merge(victimas, state_codes, how = 'left')
+
+    victimas = pd.merge(victimas, population, how = 'left')
+
+
+    victimas = victimas.sort(['state',  'modalidad', 'tipo', 'subtipo', 'date'])
+    victimas = victimas[columnOrder]
+
+
+    # The SNSP reports months in the future as NA so get rid of them
+    bad_dates = []
+    for date in reversed(sorted(victimas.date.unique())):
+        if (all(victimas[victimas['date'] == date]['count'].map(np.isnan)) |
+                all(victimas[victimas['date'] == date]['count'] == 0)):
+            print('removing state date: ' + date + ' because it consists of empty values')
+            bad_dates.append(date)
+            # df = df[df['date'] != date]
+        else:
+            break
+    if len(bad_dates):
+        victimas = victimas[~victimas['date'].isin(bad_dates)]
+
+
+    victimas.count = victimas['count'].str.replace(',', '')
+    #victimas.state = victimas["state"].map(titlecase)
+    victimas["fuero"] = "COMUN"
+    victimas['state_code'] = victimas.state_code.map(int)
+    victimas['count'] = victimas['count'].map(int)
+    assert(len(victimas['state'].unique()) == 32)
+    assert(len(victimas['modalidad'].unique()) == 3)
+    victimas['date'] = victimas['date'].str.slice(0, 7)
+    del victimas['year']
+    del victimas['month']
+    return victimas
+
 def clean_federal(file):
     state_codes = pd.read_csv("data/state_codes.csv")
     population = pd.read_csv("data/pop_states.csv")
