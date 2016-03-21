@@ -17,8 +17,8 @@ import sqlite3 as sq
 import zipfile
 import re
 
-VICTIMAS_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2014_052015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2015_012016.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2016_012016.pdf"]
-SECUESTRO_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal122015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal012016.pdf"]
+#VICTIMAS_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2014_052015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2015_012016.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2016_012016.pdf"]
+SECUESTRO_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal122015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal022016.pdf"]
 
 def write_file(fileName, md):
     f = open(fileName, 'w')
@@ -162,6 +162,16 @@ def getXLSX(page, conn):
             write_mun_db(conn, get_filename_containing(crime_files, "Municipal"))
     return change
 
+
+def get_victimas():
+    with open('snsp-data/victimas_fuerocomun.xls', "wb") as fp:
+        curl = pycurl.Curl()
+        curl.setopt(pycurl.URL, "http://secretariadoejecutivo.gob.mx/docs/datos_abiertos/Datos_abiertos_Victimas_Fuero_comun.xls")
+        curl.setopt(pycurl.WRITEDATA, fp)
+        curl.perform()
+        curl.close()
+
+
 def write_state_db(conn, CSV_ESTADOS):
     conn.execute("delete from " + 'municipios_fuero_comun')
     conn.commit()
@@ -222,17 +232,17 @@ def write_mun_db(conn, CSV_MUNICIPIOS):
     pd_sql.to_sql(crime_municipios.data, 'municipios_fuero_comun', conn, if_exists='append', index=False, chunksize=20000)
     print("end writing municipio data to db")
 
+
+
 # Clean the PDFs with victim info
-getPDF(VICTIMAS_PDF, "victima")
+#getPDF(VICTIMAS_PDF, "victima")
 getPDF(SECUESTRO_PDF, "secuestro")
 
-victimas = pd.DataFrame()
+victimas = v.clean_comun_xls("http://secretariadoejecutivo.gob.mx/docs/datos_abiertos/Datos_abiertos_Victimas_Fuero_comun.xls")
 secuestros = pd.DataFrame()
 for file in os.listdir("victimas-csv"):
     print(file)
-    if "victima" in file:
-        victimas = victimas.append(v.clean_comun(file))
-    elif "federal" in file:
+    if "federal" in file:
         secuestros = secuestros.append(v.clean_federal(file))
 
 crimes = victimas.append(secuestros).sort(['fuero', 'state',  'modalidad', 'tipo', 'subtipo', 'date'])  # .to_csv("clean-data/victimas.csv", index=False)
@@ -247,6 +257,6 @@ conn = sq.connect(os.path.join(CLEAN_DIR, 'crimenmexico.db'))
 conn.execute('pragma foreign_keys=ON')
 pd_sql.to_sql(crimes, 'victimas', conn, if_exists='replace', index=False)
 
-getXLSX("incidencia-delictiva-fuero-comun.php", conn)
+#getXLSX("incidencia-delictiva-fuero-comun.php", conn)
 
 conn.close()
