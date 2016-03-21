@@ -1,26 +1,31 @@
-library("dplyr")
-library("ggplot2")
-library("magrittr")
-library("RSQLite")
-library("zoo")
-library("lubridate")
-library("stringr")
-library("grid")
-library("extrafont")
-library("useful")
-library("rgdal")
-library("maptools")
-library("rgeos")
-library("raster")
-library("scales")
-#install_github('diegovalle/mxmapsData')
-#install_github('diegovalle/mxmaps')
-library("mxmaps")
-library("AnomalyDetection")
-library("jsonlite")
-library("hash")
-library("RColorBrewer")
-library("compiler")
-library("data.table")
+
+if (!require(devtools)) {
+  install.packages("devtools")
+}
+if (!require("mxmaps")) devtools::install_github('diegovalle/mxmaps')
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load("dplyr",
+                 "ggplot2",
+                 "magrittr",
+                 "RSQLite",
+                 "zoo",
+                 "lubridate",
+                 "stringr",
+                 "grid",
+                 "extrafont",
+                 "useful",
+                 "rgdal",
+                 "maptools",
+                 "rgeos",
+                 "raster",
+                 "scales",
+                 "mxmaps",
+                 "AnomalyDetection",
+                 "jsonlite",
+                 "hash",
+                 "RColorBrewer",
+                 "compiler",
+                 "data.table")
+
 #font_import() 
 #fonts() 
