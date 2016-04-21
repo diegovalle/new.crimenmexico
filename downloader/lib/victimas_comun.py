@@ -138,7 +138,7 @@ def clean_comun_xls(url):
     if 'TOTAL' in df.columns:
       del df['TOTAL']
     #assert structure of file
-    assert(all(df.columns == [u'AÑO', u'ENTIDAD', u'INEGI', u'DELITO', u'MODALIDAD',
+    assert(all(df.columns == [u'AÑO', u'INEGI', u'ENTIDAD', u'DELITO', u'MODALIDAD',
                               u'ENERO', u'FEBRERO', u'MARZO',
                               u'ABRIL', u'MAYO', u'JUNIO', u'JULIO', u'AGOSTO',
                               u'SEPTIEMBRE', u'OCTUBRE', u'NOVIEMBRE', u'DICIEMBRE']))
@@ -163,7 +163,7 @@ def clean_comun_xls(url):
 
     assert(all(df["ENTIDAD"].unique() == [u'AGUASCALIENTES', u'BAJA CALIFORNIA', u'BAJA CALIFORNIA SUR',
                                                    u'CAMPECHE', u'CHIAPAS', u'CHIHUAHUA', u'COAHUILA', u'COLIMA',
-                                                   u'DISTRITO FEDERAL', u'DURANGO', u'GUANAJUATO', u'GUERRERO',
+                                                   u'CIUDAD DE MEXICO', u'DURANGO', u'GUANAJUATO', u'GUERRERO',
                                                    u'HIDALGO', u'JALISCO', u'MEXICO', u'MICHOACAN', u'MORELOS',
                                                    u'NAYARIT', u'NUEVO LEON', u'OAXACA', u'PUEBLA', u'QUERETARO',
                                                    u'QUINTANA ROO', u'SAN LUIS POTOSI', u'SINALOA', u'SONORA',
@@ -264,9 +264,12 @@ def clean_federal(file):
     df=df.dropna(axis=1, how='all')
     df=df.dropna(axis=0, how='all')
 
+    # DISTRITO FEDERAL changed to CIUDAD DE MEXICO in some files but not others
+    df.loc[df[u'V\xedctimas'] == "DISTRITO FEDERAL", u'V\xedctimas'] = "CIUDAD DE MEXICO"
+
     assert(all(df[u'V\xedctimas'].unique() == [u'AGUASCALIENTES', u'BAJA CALIFORNIA',
        u'BAJA CALIFORNIA SUR', u'CAMPECHE', u'CHIAPAS', u'CHIHUAHUA',
-       u'COAHUILA', u'COLIMA', u'DISTRITO FEDERAL', u'DURANGO',
+       u'COAHUILA', u'COLIMA', u'CIUDAD DE MEXICO', u'DURANGO',
        u'GUANAJUATO', u'GUERRERO', u'HIDALGO', u'JALISCO', u'MEXICO',
        u'MICHOACAN', u'MORELOS', u'NAYARIT', u'NUEVO LEON', u'OAXACA',
        u'PUEBLA', u'QUERETARO', u'QUINTANA ROO', u'SAN LUIS POTOSI',

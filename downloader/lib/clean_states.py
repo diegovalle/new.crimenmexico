@@ -25,7 +25,7 @@ class CrimeStates:
                    u'OCTUBRE', u'NOVIEMBRE', u'DICIEMBRE']
     _ENTIDAD = [u'AGUASCALIENTES', u'BAJA CALIFORNIA', u'BAJA CALIFORNIA SUR',
                 u'CAMPECHE', u'COAHUILA', u'COLIMA', u'CHIAPAS', u'CHIHUAHUA',
-                u'DISTRITO FEDERAL', u'DURANGO', u'GUANAJUATO', u'GUERRERO',
+                u'CIUDAD DE MEXICO', u'DURANGO', u'GUANAJUATO', u'GUERRERO',
                 u'HIDALGO', u'JALISCO', u'MEXICO', u'MICHOACAN', u'MORELOS',
                 u'NAYARIT', u'NUEVO LEON', u'OAXACA', u'PUEBLA', u'QUERETARO',
                 u'QUINTANA ROO', u'SAN LUIS POTOSI', u'SINALOA', u'SONORA',
