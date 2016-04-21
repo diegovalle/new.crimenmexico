@@ -78,7 +78,6 @@ findAnomalies <- function(category, type, subtype="", munvec, fileName){
       }
     }
     hom <- na.omit(as.data.frame(hom))
-    browser()
     hom$date  <- as.POSIXlt(str_c(hom$date), tz = "CTZ")
     max_date <- max(hom$date)
     if(new)
