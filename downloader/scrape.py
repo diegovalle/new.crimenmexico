@@ -18,7 +18,7 @@ import zipfile
 import re
 
 #VICTIMAS_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2014_052015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2015_012016.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2016_012016.pdf"]
-SECUESTRO_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal122015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal022016.pdf"]
+SECUESTRO_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal122015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal032016.pdf"]
 
 def write_file(fileName, md):
     f = open(fileName, 'w')
@@ -257,6 +257,6 @@ conn = sq.connect(os.path.join(CLEAN_DIR, 'crimenmexico.db'))
 conn.execute('pragma foreign_keys=ON')
 pd_sql.to_sql(crimes, 'victimas', conn, if_exists='replace', index=False)
 
-#getXLSX("incidencia-delictiva-fuero-comun.php", conn)
+getXLSX("incidencia-delictiva-fuero-comun.php", conn)
 
 conn.close()
