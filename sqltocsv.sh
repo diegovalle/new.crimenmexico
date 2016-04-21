@@ -15,5 +15,5 @@ fi
 
 if [[ $SCRIPTPATH/db/crimenmexico.db -nt $SCRIPTPATH/exports/victimas.csv.gz ]]; then
     echo "exporting $SCRIPTPATH/exports/victimas.csv.gz"
-  $SQLITE3 $SCRIPTPATH/db/crimenmexico.db -csv -header 'select state, state_code, modalidad, tipo, subtipo, date, sum(count) as count, sum(population) as population, "victimas" as type from victimas group by state, state_code, modalidad, tipo, subtipo, date' | gzip  > $SCRIPTPATH/exports/victimas.csv.gz
+  $SQLITE3 $SCRIPTPATH/db/crimenmexico.db -csv -header 'select state, state_code, modalidad, tipo, subtipo, date, sum(count) as count, sum(population) as population, fuero, "victimas" as type from victimas group by state, state_code, modalidad, tipo, subtipo, date, fuero' | gzip  > $SCRIPTPATH/exports/victimas.csv.gz
 fi
