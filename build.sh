@@ -31,7 +31,6 @@ cp "*infographic_$(date +%b | awk '{print tolower($0)}')*.png" crimenmexico.dieg
 cp "*_es_$(LC_ALL=es_ES.utf8 date +%b | awk '{print tolower($0)}')*.png" crimenmexico.diegovalle.net/es/images/infographics/fulls/
 cd infographics && python infographics.py && cd ..
 
-
 # Export the sqlite database to csv and compress
 if [[ $SCRIPTPATH/db/crimenmexico.db -nt $SCRIPTPATH/$EXPORT/fuero-comun-estados.csv.gz ]]; then
     echo "exporting $SCRIPTPATH/$EXPORT/fuero-comun-estados.csv.gz"
@@ -47,3 +46,8 @@ if [[ $SCRIPTPATH/db/crimenmexico.db -nt $SCRIPTPATH/$EXPORT/victimas.csv.gz ]];
     echo "exporting $SCRIPTPATH/$EXPORT/victimas.csv.gz"
   $SQLITE3 "$SCRIPTPATH"/db/crimenmexico.db -csv -header 'select state, state_code, modalidad, tipo, subtipo, date, sum(count) as count, sum(population) as population, fuero, "victimas" as type from victimas group by state, state_code, modalidad, tipo, subtipo, date, fuero' | gzip  > "$SCRIPTPATH"/$EXPORT/victimas.csv.gz
 fi
+
+# Test crimenmexico.diegovalle.net
+simplehttpserver crimenmexico.diegovalle.net/ > /dev/null  2>&1 &
+cd crimenmexico.diegovalle.net/tests && casperjs --ssl-protocol=tlsv1 test web_test.js && cd ../..
+kill "$!"
