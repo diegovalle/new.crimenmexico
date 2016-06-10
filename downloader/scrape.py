@@ -73,7 +73,7 @@ def page_changed(lines, fname):
 
 
 def to_csv(fname, page, crime_name):
-    os.system('RBENV_VERSION=jruby-1.7.12 tabula --spreadsheet -p ' + str(
+    os.system('java -jar ./tabula-java/tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar --spreadsheet -p' + str(
         page) + ' -o victimas-csv/' + fname + '.' + crime_name + '.csv ' + 'pdf/' + fname)
 
 
