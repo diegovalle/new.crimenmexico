@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+<url>
+  <loc>http://crimenmexico.diegovalle.net/en/</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="es"
+                 href="http://crimenmexico.diegovalle.net/es/"
+                 />
+</url>
+<url>
+  <loc>http://crimenmexico.diegovalle.net/en/municipios.html</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="es"
+                 href="http://crimenmexico.diegovalle.net/es/municipios.html"
+                 />
+</url>
+<url>
+  <loc>http://crimenmexico.diegovalle.net/en/municipios-map.html</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="es"
+                 href="http://crimenmexico.diegovalle.net/es/municipios-map.html"
+                 />
+</url>
+<url>
+  <loc>http://crimenmexico.diegovalle.net/en/datos.html</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="es"
+                 href="http://crimenmexico.diegovalle.net/es/datos.html"
+                 />
+</url>
+<url>
+  <loc>http://crimenmexico.diegovalle.net/en/states.html</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="es"
+                 href="http://crimenmexico.diegovalle.net/es/states.html"
+                 />
+</url>
+<url>
+  <loc>http://crimenmexico.diegovalle.net/en/anomalies.html</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="es"
+                 href="http://crimenmexico.diegovalle.net/es/anomalies.html"
+                 />
+</url>
+<url>
+  <loc>http://crimenmexico.diegovalle.net/en/infographics.html</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="es"
+                 href="http://crimenmexico.diegovalle.net/es/infographics.html"
+                 />
+</url>
+<url>
+  <loc>http://crimenmexico.diegovalle.net/es/</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="en"
+                 href="http://crimenmexico.diegovalle.net/en/"
+                 />
+</url>
+<url>
+  <loc>http://crimenmexico.diegovalle.net/es/municipios.html</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="en"
+                 href="http://crimenmexico.diegovalle.net/en/municipios.html"
+                 />
+</url>
+<url>
+  <loc>http://crimenmexico.diegovalle.net/es/municipios-map.html</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="en"
+                 href="http://crimenmexico.diegovalle.net/en/municipios-map.html"
+                 />
+</url>
+<url>
+  <loc>http://crimenmexico.diegovalle.net/es/datos.html</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="en"
+                 href="http://crimenmexico.diegovalle.net/en/datos.html"
+                 />
+</url>
+<url>
+  <loc>http://crimenmexico.diegovalle.net/es/states.html</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="en"
+                 href="http://crimenmexico.diegovalle.net/en/states.html"
+                 />
+</url>
+<url>
+  <loc>http://crimenmexico.diegovalle.net/es/anomalies.html</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="en"
+                 href="http://crimenmexico.diegovalle.net/en/anomalies.html"
+                 />
+</url>
+<url>
+  <loc>http://crimenmexico.diegovalle.net/es/infographics.html</loc>
+<xhtml:link
+                 rel="alternate"
+                 hreflang="es"
+                 href="http://crimenmexico.diegovalle.net/en/infographics.html"
+                 />
+</url>
+
+</urlset>

@@ -1,0 +1,65 @@
+@import 'libs/vars';
+@import 'libs/functions';
+@import 'libs/mixins';
+@import 'libs/skel';
+
+/*
+	Focal Point by Pixelarity
+	pixelarity.com @pixelarity
+	License: pixelarity.com/license
+*/
+
+/* Basic */
+
+	.image {
+		position: relative;
+		-ms-behavior: url('assets/js/ie/PIE.htc');
+
+		img {
+			position: relative;
+			-ms-behavior: url('assets/js/ie/PIE.htc');
+		}
+	}
+
+	.button, .selectorr .titles li.active {
+		position: relative;
+		-ms-behavior: url('assets/js/ie/PIE.htc');
+	}
+
+	ul {
+		&.menu .active a, &.contact li a:before {
+			position: relative;
+			-ms-behavior: url('assets/js/ie/PIE.htc');
+		}
+	}
+
+/* Logo */
+
+	#logo .pennant span {
+		position: relative;
+		-ms-behavior: url('assets/js/ie/PIE.htc');
+	}
+
+/* Nav */
+
+	#nav > ul > li {
+		> a, > span {
+			position: relative;
+			-ms-behavior: url('assets/js/ie/PIE.htc');
+		}
+	}
+
+	.dropotron {
+		position: relative;
+		-ms-behavior: url('assets/js/ie/PIE.htc');
+	}
+
+/* Portfolio */
+
+	.poptrox-popup {
+		-ms-behavior: url('assets/js/ie/PIE.htc');
+
+		.closer {
+			-ms-behavior: url('assets/js/ie/PIE.htc');
+		}
+	}

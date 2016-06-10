@@ -1,0 +1,216 @@
+button {
+  background-color: transparent;
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #000000;
+  font-size: 16px;
+  padding: 10px 20px 10px 20px;
+  border: solid #8c451f 2px;
+  text-decoration: none;
+}
+
+button:hover {
+  text-decoration: none;
+}
+.mg-chart-title {
+  cursor: default;
+  font-size: 0.75rem;
+  padding-top: 5px;
+  text-align: center;
+}
+.OrRd .q0-9{fill:rgb(255,247,236)}
+.OrRd .q1-9{fill:rgb(254,232,200)}
+.OrRd .q2-9{fill:rgb(253,212,158)}
+.OrRd .q3-9{fill:rgb(253,187,132)}
+.OrRd .q4-9{fill:rgb(252,141,89)}
+.OrRd .q5-9{fill:rgb(239,101,72)}
+.OrRd .q6-9{fill:rgb(215,48,31)}
+.OrRd .q7-9{fill:rgb(179,0,0)}
+.OrRd .q8-9{fill:rgb(127,0,0)}
+
+.national-chart svg{
+  background-image: url(/assets/css/images/bg01-blue.png);
+  border-radius: 7px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+.line-chart svg{
+  background-image: url(/assets/css/images/bg01-brown.png);
+  border-radius: 10px;
+}
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+#legend {
+  padding: 1.5em 0 0 1.5em;
+}
+
+li.key {
+  border-top-width: 15px;
+  border-top-style: solid;
+  font-size: .75em;
+  width: 10%;
+  padding-left: 0;
+  padding-right: 0;
+}
+.list-inline {
+  padding-left: 0;
+  list-style: none;
+}
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.list-inline>li {
+  display: inline-block;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+.select-style {
+  border: 1px solid #ccc;
+  width: 320px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #fafafa url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==") no-repeat 90% 50%;
+}
+
+.select-style select {
+  padding: 5px 8px;
+  border: none;
+  width:100%;
+  box-shadow: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  font-size: 1em;
+  font-family: 'Source Sans Pro';
+  font-weight: 700;
+  color: #555;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+}
+
+.select-style select:focus {
+  outline: none;
+}
+#nat_hd .mg-chart-title{
+  color:white;
+  background-color: black;
+}
+.mg-x-axis .label, .mg-y-axis .label, .mg-axis .label {
+  text-transform: lowercase;
+}
+.mg-line1-color {
+  stroke: #060606;
+}
+#nat_hd .mg-chart-title{
+  color:white;
+  background-color: black;
+}
+.chart-title {
+  color: white;
+  background-color: #7b6824;
+}
+.features {
+  fill: #c7b470;
+  /* color: black; */
+  stroke: black;
+  stroke-width: .5px;
+}
+.bubble, .swatch {
+  fill-opacity: .6;
+  stroke: #fff;
+  stroke-width: .2px;
+  fill: #DC0E0E;
+}
+#small-multiples-hom svg ,#small-multiples-rvcv svg,
+#small-multiples-rvsv svg, #small-multiples-lesions svg,
+#small-multiples-ext svg, #small-multiples-kidnapping svg{
+  background-image: url(/assets/css/images/bg01-brown.png);
+  border-radius: 10px;
+}
+.mg-x-axis .label, .mg-y-axis .label, .mg-axis .label {
+  text-transform: lowercase;
+}
+.mg-line1-color {
+  stroke: #060606;
+}
+.modal {
+  display:    none;
+  position:   fixed;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 255, 255, 255, .8 )
+  /*url('images/ajax-loader.gif')*/
+  50% 50%
+  no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+  overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+  display: block;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+  border: 1px solid #cbcbcb;
+  font-family: 'Source Sans Pro';
+  font-size: 18px;
+}
+thead {
+  background-color: #e0e0e0;
+  color: #000;
+  text-align: left;
+  vertical-align: bottom;
+}
+td:first-child, th:first-child {
+  border-left-width: 0;
+}
+td, th {
+  border-left: 1px solid #cbcbcb;
+  border-width: 0 0 0 1px;
+  font-size: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0.5em 1em;
+}
