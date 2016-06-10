@@ -2,7 +2,7 @@
 *.csv
 *.svg
 *.pdf
-*.png
+R/graphs/*.png
 *.pyc
 *.md5
 *.xlsb
@@ -12,3 +12,9 @@
 R/json/*.json
 R/json/*.RData
 .Rproj.user
+*.svg
+*.csv.gz
+*.gz
+*.zip
+*/en/images/infographics/thumbnails/*
+*/es/images/infographics/thumbnails/*
