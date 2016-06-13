@@ -6,6 +6,28 @@ License: pixelarity.com/license
 -->
 <html lang="en">
     <head>
+
+        <link rel="preload" href="/assets/js/jquery.min.js" as="script">
+        <link rel="preload" href="/assets/js/jquery.dropotron.min.js" as="script">
+        <link rel="preload" href="/assets/js/jquery.selectorr.min.js" as="script">
+        <link rel="preload" href="/assets/js/jquery.poptrox.min.js" as="script">
+        <link rel="preload" href="/assets/js/skel.min.js" as="script">
+        <link rel="preload" href="/assets/js/skel-viewport.min.js" as="script">
+        <link rel="preload" href="/assets/js/util.js" as="script">
+        <link rel="preload" href="/assets/js/main.js" as="script">
+        <link rel="preload" href='/assets/js/d3.min.js' as="script">
+        <link rel="preload" href='/assets/js/topojson.min.js' as="script">
+        <link rel="preload" href='/assets/js/metricsgraphics.js' as="script">
+        <link rel="preload" href='/assets/js/lodash.min.js' as="script">
+        <link rel="preload" href="/assets/js/d3-tip/index.js" as="script">
+        <link rel="preload" href="/assets/css/main.css"  as="script">
+        <link rel="preload" href="/assets/css/metricsgraphics.min.css"  as="script">
+        <link rel="preload" href="/assets/css/crimenmexico.css"  as="script">
+        <link rel="preload" href="/assets/json/mx_hexgrid.geojson"  as="script">
+        <link rel="preload" href="/assets/json/states_last.json"   as="script">
+        <link rel="preload" href='/assets/json/states.json'   as="script">
+        <link rel="preload" href="/assets/json/national.json"  as="script">
+
         <title>Mexico Crime Report - Monthly Crime Info from Mexico</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,24 +53,24 @@ License: pixelarity.com/license
         <meta property="og:image" content="http://crimenmexico.diegovalle.net/en/images/infographics/thumbnails/infographic_jun_2015.png" />
         <meta property="og:description" content="Monthly report on Mexican crime" />
         <meta property="og:site_name" content="crimenmexico" />
-<link rel="canonical" href="https://crimenmexico.diegovalle.net/en/" />
+        <link rel="canonical" href="https://crimenmexico.diegovalle.net/en/" />
         <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
-<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
-<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
-<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-<link rel="manifest" href="/manifest.json">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="msapplication-TileImage" content="/mstile-144x144.png">
-<meta name="theme-color" content="#ffffff">
+        <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="alternate" hreflang="es" href="https://crimenmexico.diegovalle.net/es/" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -57,9 +79,33 @@ License: pixelarity.com/license
 
         <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="/assets/css/main.css" />
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/metrics-graphics/2.6.0/metricsgraphics.min.css" />
+        <link rel="stylesheet" href="/assets/css/metricsgraphics.min.css" />
         <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
         <link rel="stylesheet" href="/assets/css/crimenmexico.css" />
+        <style>
+         svg  > path.mg-line1-color {
+             stroke: #00BFC4;
+             stroke-width: 1.5;
+         }
+         svg  > path.mg-line2-color {
+             stroke: #F8766D;
+             stroke-width: 1.5;
+         }
+         .mg-line2-legend-color {
+             color: #F8766D;
+             fill: #F8766D;
+         }
+         .mg-line1-legend-color {
+             color: #00BFC4;
+             fill: #00BFC4;
+         }
+         .mg-area2-color {
+             fill: #F8766D;
+         }
+         .mg-area1-color {
+             fill: #00BFC4;
+         }
+        </style>
     </head>
     <body class="homepage">
         <div id="page-wrapper">
@@ -151,10 +197,19 @@ License: pixelarity.com/license
                         <!-- Sidebar -->
                         <div id="sidebar" class="6u 12u(mobile)">
                             <section>
-                                <header>
-                                    <h2 id="crime_charts">National</h2>
-                                    <button id="reset">Reset to national rates</button>
-                                </header>
+                                <div class="row ">
+                                    <div  class="6u 12u(mobile)">
+                                        <header>
+                                            <h2 id="crime_charts">National</h2>
+                                            <button id="reset">Reset to national rates</button>
+
+                                        </header>
+                                    </div>
+                                    <div class="6u 12u(movile)">
+                                        <div class="legend"><span class="mg-line2-legend-color">— INEGI statistically adjusted&nbsp; </span></div>
+                                        <div class="legend"><span class="mg-line1-legend-color">— SNSP&nbsp; </span></div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="12u 12u(mobile) national-chart"><div id="nat_hd"></div></div>
                                     <div class="6u 12u(mobile) national-chart"><div id="nat_sec"></div></div>
@@ -179,7 +234,10 @@ License: pixelarity.com/license
                         Kidnappings, homicides, and extortions refer to victims; car robberies to police reports. Since January 2015, kidnappings include victims at the
                         federal level. Guerrero misreports the number of police reports as if they were the number of victims.
                         According to the National Crime Victimization Survey (ENVIPE) extortions have been rising, but according to the SNSP decreasing. Car Robberies
-                        do match the ENVIPE trend, and homicides follow the trend reported by the INEGI.</p>
+                        do match the ENVIPE trend, and homicides follow the trend reported by the INEGI.</p><br/>
+                    <p style="text-align:left;">INEGI homicide data tends to be more precise. Forensic coroners and the INEGI simply don't have the same incentives to lower the number of homicides that happen in Mexico as the police. In addition to adding deaths from Legal intervention, operations of war, military operations, and terrorism to the INEGI homicide count I used a statistical model to predict the intent of deaths of unknown intent similar to what I used in this <a href="https://blog.diegovalle.net/2012/07/machine-learning-for-better-homicide.html" >post</a>. The disadvantage of using the INEGI data is it is usally more than a year out of date.</p><br/>
+
+                    <p style="text-align:left;">Intuitively, you can think of the statistical model as if someone were to ask you to guess the injury intent in the death of a 70 year old Mérida woman whose cause of death was transport related. You would probably answer it was an accident. On the other hand, if you had to guess the type of death of a young adult male whose cause of death was a firearm, and the injury took place on a public street in Ciudad Juárez, you would probably guess it was a homicide.</p><br/>
                     </section></div>
                 <!-- Portfolio Wrapper -->
                     <div class="wrapper">
@@ -222,7 +280,7 @@ License: pixelarity.com/license
                                             <span class="byline">Crime in the most important Mexican municipios</span>
                                         </header>
                                         <p>Time series of crime in the large Mexican municipios since 2011. Where is crime declining? Where is crime increasing?
-Don't believe anything the government tells you until you check out this website.</p>
+                                            Don't believe anything the government tells you until you check out this website.</p>
                                         <footer>
                                             <a href="/en/municipios.html" class="button">Learn More</a>
                                         </footer>
@@ -262,14 +320,14 @@ Don't believe anything the government tells you until you check out this website
 
             </div>
         </div>
- <div class="a2a_kit a2a_kit_size_32 a2a_floating_style a2a_vertical_style" style="left:0px; top:150px;">
-                    <a class="a2a_button_facebook"></a>
-                    <a class="a2a_button_twitter"></a>
-                    <a class="a2a_button_reddit"></a>
-                    <a class="a2a_dd" href="http://www.addtoany.com/share_save"></a>
-                </div>
+        <!--<div class="a2a_kit a2a_kit_size_32 a2a_floating_style a2a_vertical_style" style="left:0px; top:150px;">
+            <a class="a2a_button_facebook"></a>
+            <a class="a2a_button_twitter"></a>
+            <a class="a2a_button_reddit"></a>
+            <a class="a2a_dd" href="http://www.addtoany.com/share_save"></a>
+        </div>-->
 
-        <script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+        <!--<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>-->
         <script>
          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -290,10 +348,10 @@ Don't believe anything the government tells you until you check out this website
         <script src="/assets/js/util.js"></script>
         <!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="/assets/js/main.js"></script>
-        <script src='//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js'></script>
-        <script src='//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js'></script>
-        <script src='//cdnjs.cloudflare.com/ajax/libs/metrics-graphics/2.6.0/metricsgraphics.js'></script>
-        <script src='//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.min.js'></script>
+        <script src='/assets/js/d3.min.js'></script>
+        <script src='/assets/js/topojson.min.js'></script>
+        <script src='/assets/js/metricsgraphics.js'></script>
+        <script src='/assets/js/lodash.min.js'></script>
         <script src="/assets/js/d3-tip/index.js"></script>
         <script>
          var homicidio_doloso = 'Intentional Homicide - ',
@@ -307,280 +365,6 @@ Don't believe anything the government tells you until you check out this website
              count_text = ', count: ',
              rate = "Rate:", count = "Count:", pop = "Population:";
         </script>
-        <script>
-         var monthNames = [
-             "Jan", "Feb", "Mar",
-             "Apr", "May", "Jun", "Jul",
-             "Aug", "Sep", "Oct",
-             "Nov", "Dec"
-         ];
-         var stateNames = {"AGS":"AGUASCALIENTES","BC":"BAJA CALIFORNIA","BCS":"BAJA CALIFORNIA SUR",
-                           "CAMP":"CAMPECHE",
-                           "CHPS":"CHIAPAS","CHIH":"CHIHUAHUA","COAH":"COAHUILA","COL":"COLIMA","CDMX":"CIUDAD DE MEXICO","DGO":"DURANGO",
-                           "GTO":"GUANAJUATO","GRO":"GUERRERO","HGO":"HIDALGO","JAL":"JALISCO","MEX":"MEXICO","MICH":"MICHOACAN","MOR":"MORELOS",
-                           "NAY":"NAYARIT",
-                           "NL":"NUEVO LEON","OAX":"OAXACA","PUE":"PUEBLA","QRO":"QUERETARO","QROO":"QUINTANA ROO","SLP":"SAN LUIS POTOSI",
-                           "SIN":"SINALOA","SON":"SONORA","TAB":"TABASCO","TAM":"TAMAULIPAS","TLAX":"TLAXCALA",
-                           "VER":"VERACRUZ","YUC":"YUCATAN","ZAC":"ZACATECAS"};
-         var Reds = ["#fff5f0","#fee0d2","#fcbba1","#fc9272","#fb6a4a","#ef3b2c","#cb181d","#a50f15","#67000d"];
-         var round = d3.format(".1f");
-         var comma = d3.format(",");
-         var selection = d3.select("#hexmap");
-         var width = selection[0][0].clientWidth - 20;
-         var height = width*1;
-         var projection, path, legend;
-         var last_date, hexmap, national, selected_value = 'hd';
-
-         var vis = d3.select("#hexmap").append("svg")
-                     .attr("class", "OrRd")
-                     .attr("width", width).attr("height", height);
-
-         var createQuantized = function(domain) {
-             return(d3.scale.quantize()
-                      .domain(domain)
-                      .range(d3.range(9).map(function(i) { return 'q' + i + "-9"; })));
-         };
-         national_chart = function(data, obj, target, title) {
-             hom = JSON.parse(JSON.stringify(data))[obj];
-             hom = MG.convert.date(hom, 'date');
-             MG.data_graphic({
-                 title: title,
-                 //description: "smoke weed every day",
-                 data: hom,
-                 area: false,
-                 interpolate: "linear",
-                 height: 180,
-width: 275,
-                 full_width: true,
-                 linked: true,
-                 right:10,
-                 left: 77,
-                 top: 25,
-                 buffer: 0,
-                 target: target,
-                 y_extended_ticks: true,
-                 show_secondary_x_label: false,
-                 small_text: false,
-                 x_accessor: 'date',
-                 y_accessor: 'rate',
-                 xax_count: 2,
-                 yax_count: 3,
-                 xax_format: d3.time.format('%b-%Y'),
-                 y_label: annualized_rate,
-                 mouseover: function(d, i) {
-                     var date = new Date(d.date);
-                     var day = d.date.getDate();
-                     var monthIndex = d.date.getMonth();
-                     var year = d.date.getFullYear();
-                     d3.select(target + ' svg .mg-active-datapoint')
-                       .text(monthNames[monthIndex] + '-' + year + rate_text + round(d.rate) + count_text + comma(d.count));
-                 },
-             });
-         }
-
-         d3.json("/assets/json/mx_hexgrid.geojson", function(json) {
-             d3.json("/assets/json/states_last.json", function(states_last) {
-                 d3.json('/assets/json/states.json', function(states) {
-                     format=d3.time.format('%b %Y')
-                         d3.select('#map-date').html('Map of Crime Rates - ' + format(d3.time.format('%Y-%m-%d').parse(states_last.hd[0].date)))
-
-
-                         last_date = states_last;
-                     hexmap = json;
-                     extent = d3.extent(states_last.hd, function(d) {return d.rate});
-                     quantize = createQuantized(extent);
-
-                     // create a first guess for the projection
-                     var center = d3.geo.centroid(json)
-                         var scale  = 130;
-                     var offset = [width/2, height/2];
-                     projection = d3.geo.mercator().scale(scale).center(center)
-                                    .translate(offset);
-
-                     tip = d3.tip().attr('class', 'd3-tip')
-                             .offset([-10, 0])
-                             .html(function(d) {
-                                 index = _.findIndex(states_last[selected_value], function(chr) {
-                                     return chr.state_code == d.properties.state_code;
-                                 });
-                                 return "<strong>" + states_last[selected_value][index].state + "</strong><br>" +
-                                        "<strong>"+rate+"</strong> <span style='color:white'>" + round(states_last[selected_value][index].rate) + "</span><br>" +
-                                        "<strong>"+count+"</strong> <span style='color:white'>" + states_last[selected_value][index].count + "</span><br>" +
-                                        "<strong>"+pop+"</strong> <span style='color:white'>" + comma(states_last[selected_value][index].population) + "</span><br>";
-                             });
-
-                     // create the path
-                     path = d3.geo.path().projection(projection);
-
-                     // using the path determine the bounds of the current map and use
-                     // these to determine better values for the scale and translation
-                     var bounds  = path.bounds(json);
-                     var hscale  = scale*width  / (bounds[1][0] - bounds[0][0]);
-                     var vscale  = scale*height / (bounds[1][1] - bounds[0][1]);
-                     var scale   = (hscale < vscale) ? hscale : vscale;
-                     var offset  = [width - (bounds[0][0] + bounds[1][0])/2,
-                                    height - (bounds[0][1] + bounds[1][1])/2];
-
-                     // new projection
-                     projection = d3.geo.mercator().center(center)
-                                    .scale(scale * 0.89).translate(offset);
-                     path = path.projection(projection);
-                     vis.call(tip)
-                         vis.selectAll("path").data(json.features).enter().append("path")
-                        .attr("d", path)
-                        .attr("class", function(d) {
-                            index = _.findIndex(states_last.hd, function(chr) {
-                                return chr.state_code == d.properties.state_code;
-                            });
-
-                            return quantize(states_last.hd[index].rate);
-                        })
-                        .style("stroke-width", "1")
-                        .style("stroke", "black")
-
-
-                         vis.selectAll("text")
-                        .data(json.features)
-                        .enter()
-                        .append("svg:text")
-                        .text(function(d){
-                            return d.properties.state_abbr;
-                        })
-                        .attr("x", function(d){
-                            return path.centroid(d)[0];
-                        })
-                        .attr("y", function(d){
-                            return  path.centroid(d)[1]+5;
-                        })
-                        .attr("text-anchor","middle")
-                        .attr('font-size','10pt');
-
-                     vis.append("g").selectAll("path").data(json.features).enter().append("path")
-                        .attr("d", path)
-                        .on('mouseover', tip.show)
-                        .on('mouseout', tip.hide)
-                        .on('click', function(d) {
-                            d3.selectAll("#hexmap g path").style("stroke", "black").style("opacity", "0").style("stroke-width", "0")
-                            d3.select(this).style("stroke", "black").style("opacity", "1").style("stroke-width", "4px")
-                            national_chart({'hd': _.filter(states.hd, {'state_code':d.properties.state_code})}, 'hd', '#nat_hd', homicidio_doloso  + d.properties.state_abbr);
-                            national_chart({'sec': _.filter(states.sec, {'state_code':d.properties.state_code})},'sec', '#nat_sec', secuestro + d.properties.state_abbr);
-                            national_chart({'ext': _.filter(states.ext, {'state_code':d.properties.state_code})},'ext', '#nat_ext', extorsion + d.properties.state_abbr);
-                            national_chart({'rvcv': _.filter(states.rvcv, {'state_code':d.properties.state_code})},'rvcv', '#nat_rvcv', rvcv + d.properties.state_abbr);
-                            national_chart({'rvsv': _.filter(states.rvsv, {'state_code':d.properties.state_code})},'rvsv', '#nat_rvsv', rvsv + d.properties.state_abbr);
-                            d3.select("#crime_charts").text(stateNames[d.properties.state_abbr])
-                            change_small_multiples(selected_value);
-                        })
-                        .style("stroke-width", "1")
-                        .style("stroke", "transparent")
-                        .style("opacity", "0")
-                        .style("fill", "transparent")
-
-                         legend = d3.select('#legend')
-                                    .append('ul')
-                                    .attr('class', 'OrRd list-inline');
-
-                     var keys = legend.selectAll('li.key')
-                                      .data(quantize.range());
-
-                     keys.enter().append('li')
-                         .attr('class', 'key')
-                         .style('border-top-color', function(d, i) {
-                             return Reds[i];
-                         })
-                         .text(function(d) {
-                             var r = quantize.invertExtent(d);
-                             return round(r[0]);
-                         });
-                 });
-             });
-         });
-
-         create_national_charts = function() {
-             national_chart(national, 'hd', '#nat_hd', homicidio_doloso + national_text);
-             national_chart(national,'sec', '#nat_sec', secuestro + national_text);
-             national_chart(national,'ext', '#nat_ext', extorsion + national_text);
-             national_chart(national,'rvcv', '#nat_rvcv', rvcv + national_text);
-             national_chart(national,'rvsv', '#nat_rvsv', rvsv + national_text);
-         }
-
-         d3.json('/assets/json/national.json', function(data) {
-             national = data;
-             create_national_charts();
-             change_small_multiples(selected_value);
-         });
-
-         //d3.select(window).on('resize', resize);
-         d3.select('#reset').on('click', function(d) {
-             create_national_charts();
-             d3.select("#crime_charts").text(national_text)
-             d3.selectAll("#hexmap g path").style("stroke", "black").style("opacity", "0").style("stroke-width", "0")
-             change_small_multiples(selected_value);
-         })
-             function resize() {
-                 // adjust things when the window size changes
-                 width = parseInt(d3.select('#hexmap').style('width'));
-
-                 //width = width - margin.left - margin.right;
-                 height = width;
-
-                 // update projection
-                 projection
-                                                .translate([width / 2, height / 2])
-                                                .scale(width);
-
-                 // resize the map container
-                 vis
-                                                .style('width', width + 'px')
-                                                .style('height', height + 'px');
-
-                 // resize the map
-                 vis.select('path').attr('d', path);
-             }
-
-         $('#crimeSelect').on('change', function() {
-             change_map(this.value); // or $(this).val()
-             selected_value = this.value;
-             change_small_multiples(selected_value);
-         });
-
-         change_small_multiples = function(selected_value) {
-             d3.select("#nat_" + 'hd' + ' .mg-chart-title').style('color', '#555').style('background-color', '#B8E4E4').style('border-top-left-radius', '7px').style('border-top-right-radius', '7px');
-             d3.select("#nat_" + 'ext' + ' .mg-chart-title').style('color', '#555').style('background-color', '#B8E4E4').style('border-top-left-radius', '7px').style('border-top-right-radius', '7px');
-             d3.select("#nat_" + 'sec' + ' .mg-chart-title').style('color', '#555').style('background-color', '#B8E4E4').style('border-top-left-radius', '7px').style('border-top-right-radius', '7px');
-             d3.select("#nat_" + 'rvcv' + ' .mg-chart-title').style('color', '#555').style('background-color', '#B8E4E4').style('border-top-left-radius', '7px').style('border-top-right-radius', '7px');
-             d3.select("#nat_" + 'rvsv' + ' .mg-chart-title').style('color', '#555').style('background-color', '#B8E4E4').style('border-top-left-radius', '7px').style('border-top-right-radius', '7px');
-             d3.select("#nat_" + selected_value + ' .mg-chart-title').style('color', 'white').style('background-color', 'black').style('border-top-left-radius', '7px').style('border-top-right-radius', '7px');
-             d3.select("#nat_" + 'hd' + ' svg').style("background-image", "url(/assets/css/images/bg01-blue.png");
-             d3.select("#nat_" + 'ext' + ' svg').style("background-image", "url(/assets/css/images/bg01-blue.png");
-             d3.select("#nat_" + 'sec' + ' svg').style("background-image", "url(/assets/css/images/bg01-blue.png");
-             d3.select("#nat_" + 'rvcv' + ' svg').style("background-image", "url(/assets/css/images/bg01-blue.png");
-             d3.select("#nat_" + 'rvsv' + ' svg').style("background-image", "url(/assets/css/images/bg01-blue.png");
-             d3.select("#nat_" + selected_value + ' svg').style("background-image", "url(/assets/css/images/bg01-brown.png");
-         }
-
-         change_map = function(value){
-             extent = d3.extent(last_date[value], function(d) {return d.rate});
-             quantize = createQuantized(extent);
-             vis.selectAll("path")
-                .attr("class", function(d) {
-                    index = _.findIndex(last_date[value], function(chr) {
-                        return chr.state_code == d.properties.state_code;
-                    });
-
-                    return quantize(last_date[value][index].rate);
-                })
-                 //.style("stroke-width", "1")
-                 //.style("stroke", "black");
-
-             legend.selectAll('li.key')
-                .style('border-top-color', function(d, i) {
-                    return Reds[i];
-                })
-                .text(function(d) {
-                    var r = quantize.invertExtent(d);
-                    return round(r[0]);
-                });
-         }
-        </script>
+        <script src="/js/index.js"></script>
     </body>
 </html>
