@@ -3,7 +3,7 @@ var i;
 var errors = [];
 
 casper.test.begin(
-    'Visit hoyodesmog pages and check for errors',
+    'Visit crimenmexico pages and check for errors',
     1,
     function suite(test) {
         casper.start(partialURL + '/en/', function() {
