@@ -2,7 +2,7 @@ BeautifulSoup==3.2.1
 csvkit==0.9.0
 dbf==0.94.3
 hashlib==20081119
-jdcal==1.0
+# jdcal==1.0
 numexpr==2.4
 numpy==1.9.1
 openpyxl==2.1.5
