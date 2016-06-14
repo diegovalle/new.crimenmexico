@@ -1,3 +1,4 @@
+
 PRAGMA foreign_keys = ON;
 --
 -- modalidad_states
@@ -128,7 +129,7 @@ CREATE TABLE municipios_fuero_comun(
 );
 
 
-
+/*
 select estados_fuero_comun.state_code, state, modalidad_text as modalidad, tipo_text as tipo, subtipo_text as subtipo, estados_fuero_comun.date,  count, population from estados_fuero_comun, modalidad, tipo, subtipo, states, population where modalidad.modalidad = estados_fuero_comun.modalidad and subtipo.subtipo = estados_fuero_comun.subtipo and tipo.tipo = estados_fuero_comun.tipo and states.state_code = estados_fuero_comun.state_code and estados_fuero_comun.state_code = population.state_code and estados_fuero_comun.date = population.date order by state, modalidad, tipo, subtipo, estados_fuero_comun.date limit 10;
 
 select municipios_fuero_comun.state_code, state, municipios_fuero_comun.mun_code, municipio_names.municipio, modalidad_text as modalidad, tipo_text as tipo, subtipo_text as subtipo, municipios_fuero_comun.date, count from municipios_fuero_comun, modalidad_municipios, tipo_municipios, subtipo_municipios, state_names, municipio_names where modalidad_municipios.modalidad = municipios_fuero_comun.modalidad and subtipo_municipios.subtipo = municipios_fuero_comun.subtipo and tipo_municipios.tipo = municipios_fuero_comun.tipo and state_names.state_code = municipios_fuero_comun.state_code  and municipios_fuero_comun.mun_code = municipio_names.mun_code limit 10;
@@ -157,11 +158,7 @@ sqlite3 db/crimenmexico.db <<!
 select state, state_code, modalidad, tipo, subtipo, date, sum(count) as count, sum(population) as population, (sum(count) * 12) / sum(population) * 100000 as rate, "victimas" as type from victimas group by state, state_code, modalidad, tipo, subtipo, date 
 UNION ALL 
 select state, state_code, modalidad_text as modalidad, tipo_text as tipo, subtipo_text as subtipo, date, count, population, population/count  as rate, "averiguaciones" as type from estados_fuero_comun natural join state_names natural join population_states natural join modalidad_states natural join subtipo_states natural join tipo_states where modalidad_text = "ROBO COMUN" and (tipo_text ="SIN VIOLENCIA" or tipo_text ="CON VIOLENCIA") and subtipo_text = "DE VEHICULOS" and date > '2014-01';
-!
-
-
-
-
+!*/
 
 
 
