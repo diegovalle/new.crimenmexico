@@ -1,6 +1,6 @@
 
 if (!require(devtools)) {
-  install.packages("devtools")
+  install.packages("devtools", repos="http://cran.rstudio.com")
 }
 
 if (!require("mxmaps")) devtools::install_github('diegovalle/mxmaps')
@@ -8,29 +8,30 @@ if (!require("AnomalyDetection")) devtools::install_github('twitter/AnomalyDetec
 if (!require("mxmortalitydb")) devtools::install_github('diegovalle/mxmortalitydb')
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load("dplyr",
-                 "ggplot2",
-                 "gpclib",
-                 "magrittr",
-                 "RSQLite",
-                 "zoo",
-                 "lubridate",
-                 "stringr",
-                 "grid",
-                 "Rttf2pt1",
-                 "extrafont",
-                 "useful",
-                 "rgdal",
-                 "maptools",
-                 "rgeos",
-                 "raster",
-                 "scales",
-                 "mxmaps",
-                 "AnomalyDetection",
-                 "jsonlite",
-                 "hash",
-                 "RColorBrewer",
-                 "compiler",
-                 "data.table")
+               "ggplot2",
+               "magrittr",
+               "RSQLite",
+               "zoo",
+               "lubridate",
+               "stringr",
+               "grid",
+               "Rttf2pt1",
+               "extrafont",
+               "useful",
+               "rgdal",
+               "maptools",
+               "rgeos",
+               "gpclib",
+               "raster",
+               "scales",
+               "mxmaps",
+               "AnomalyDetection",
+               "jsonlite",
+               "hash",
+               "RColorBrewer",
+               "compiler",
+               "data.table",
+               "mgcv")
 
 font_import("fonts", prompt = FALSE) 
 loadfonts()
