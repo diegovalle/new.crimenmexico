@@ -1,4 +1,16 @@
 #!/bin/bash
+# apt-get update; apt-get dist-upgrade
+# apt-get -y install git r-base libreoffice npm python-virtualenv python-dev libcurl4-openssl-dev sqlite3 libxml2-dev  r-cran-xml libgdal1-dev libproj-dev imagemagick optipng
+# git clone https://github.com/diegovalle/new.crimenmexico
+# echo 'local({r <- getOption("repos");r["CRAN"] <- "http://cran.cnr.berkeley.edu/";options(repos = r)})' > ~/.Rprofile
+# virtualenv ~/.virtualenvs/victimas/
+# source ~/.virtualenvs/victimas/bin/activate
+# pip install --upgrade pip
+# pip install -r requirements.txt
+# mkdir -p downloader/tabula-java
+# cd downloader/tabula-java && wget https://github.com/tabulapdf/tabula-java/releases/download/tabula-0.9.0/tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar && cd ../..
+# cat downloader/meta/sql.sql | sqlite3 db/crimenmexico.db
+
 set -e # stop the script on errors
 set -o pipefail # piping a failed process into a successful one is an error
 
@@ -12,10 +24,10 @@ rm -rf downloader/page-checksums/*.md5
 rm -rf downloader/pdf/*.pdf && rm -rf pdf/*.md5
 rm -rf downloader/victima-csv/*.csv
 find downloader/snsp-data -type f -not -name '.gitignore' | xargs -0 rm -rf
-#cd downloader && python scrape.py && cd ..
+# cd downloader && python scrape.py && cd ..
 
 # Statistics with R
-#cd R && Rscript run_all.R && cd ..
+# cd R && Rscript run_all.R && cd ..
 
 # Move the json files with the chart data to the website directory
 cp R/json/*.json crimenmexico.diegovalle.net/assets/json/
