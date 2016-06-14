@@ -86,7 +86,8 @@ casper.test.begin(
         casper.on('resource.received', function(resource) {
             var status = resource.status;
             if (status >= 400) {
-                test.fail('resource failed to load');
+                test.fail('Resource ' + resource.url +
+                          ' failed to load (' + status + ')', 'error');
                 casper.log('Resource ' + resource.url +
                            ' failed to load (' + status + ')', 'error');
 
