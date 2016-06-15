@@ -114,9 +114,9 @@ def clean_comun(file):
     victimas = pd.merge(victimas, population, how = 'left')
 
 
-    victimas = victimas.sort(['state',  'modalidad', 'tipo', 'subtipo', 'date'])
+    victimas = victimas.sort_values(['state',  'modalidad', 'tipo', 'subtipo', 'date'])
     victimas = victimas[columnOrder]
-    victimas.count = victimas['count'].str.replace(',', '')
+    #victimas.count = victimas['count'].str.replace(',', '')
     #victimas.state = victimas["state"].map(titlecase)
     victimas["fuero"] = "COMUN"
     victimas['state_code'] = victimas.state_code.map(int)
@@ -210,7 +210,7 @@ def clean_comun_xls(url):
     victimas = pd.merge(victimas, population, how = 'left')
 
 
-    victimas = victimas.sort(['state',  'modalidad', 'tipo', 'subtipo', 'date'])
+    victimas = victimas.sort_values(['state',  'modalidad', 'tipo', 'subtipo', 'date'])
     victimas = victimas[columnOrder]
 
 
@@ -228,7 +228,7 @@ def clean_comun_xls(url):
         victimas = victimas[~victimas['date'].isin(bad_dates)]
 
 
-    victimas.count = victimas['count'].str.replace(',', '')
+    #victimas.count = victimas['count'].str.replace(',', '')
     #victimas.state = victimas["state"].map(titlecase)
     victimas["fuero"] = "COMUN"
     victimas['state_code'] = victimas.state_code.map(int)
@@ -298,7 +298,7 @@ def clean_federal(file):
     df['subtipo'] = "SECUESTRO"
     df = pd.merge(df, state_codes, how = 'left')
     df = pd.merge(df, population, how = 'left')
-    df.count = df['count'].str.replace(',', '')
+    #df.count = df['count'].str.replace(',', '')
     #df.state = df["state"].map(titlecase)
     df = df[columnOrder]
     df['fuero'] = 'FEDERAL'

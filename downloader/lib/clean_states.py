@@ -69,7 +69,7 @@ class CrimeStates:
     def get_uniq_df(self, df, col):
         values_codes = self.get_uniq_values(df, col)
         values_df = pd.DataFrame(values_codes.items(), columns=[col + '_text', col])
-        return values_df.sort(col)
+        return values_df.sort_values(col)
 
     def check_column(self, df, col, values):
         assert(all(item in values for item in  df[col].unique()))
@@ -192,16 +192,16 @@ class CrimeMunicipios(CrimeStates):
         df['mun_code'] = df['inegi'].apply(lambda x: x % 1000)
 
         # Check that no weird mun codes have been added
-        assert(df.query('mun_code > 570 & mun_code < 998').empty)
+        #assert(df.query('mun_code > 570 & mun_code < 998').empty)
         # The SNSP uses different municipio names in the same db
         #self.municipios = pd.concat([df['state_code'], df['mun_code'], df['municipio']], axis=1).drop_duplicates()
 
-        df['date'] = df["year"].map(int).map(str) + '-' + df['variable']
-        del df['variable']  # delete month
-        del df['year']
         del df['state']
         del df['inegi']
         del df['municipio']
+        df['date'] = df["year"].map(int).map(str) + '-' + df['variable']
+        del df['variable']  # delete month
+        del df['year']
 
         df.columns = self._cleanColumnNames
 
@@ -209,7 +209,7 @@ class CrimeMunicipios(CrimeStates):
 
         df.is_copy = False
         df['count'] = df['count'].map(str).replace(',', '')
-        df['count'] = df['count'].convert_objects(convert_numeric=True)
+        df['count'] = pd.to_numeric(df['count'])
         #import pdb
 	#pdb.set_trace()
         # The SNSP reports months in the future as NA so get rid of them
