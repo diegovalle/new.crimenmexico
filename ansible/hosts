@@ -1,0 +1,3 @@
+[crimenmexico]
+104.236.100.84 ansible_ssh_user=root
+#ansible_python_interpreter=/usr/bin/python2.7 

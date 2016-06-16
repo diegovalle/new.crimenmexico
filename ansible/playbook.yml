@@ -1,0 +1,42 @@
+---
+- hosts: crimenmexico
+  vars:
+    pacakges_to_remove: ['apache', 'samba', 'sendmail',
+    'bind9', 'ncsd', 'sasl', 'exim', 'ntp']
+    packages_to_install: [ 'git', 'r-base', 'r-base-dev', 'curl', 
+    'libreoffice', 'npm', 'python-virtualenv', 'python-dev', 
+    'libcurl4-openssl-dev', 'sqlite3', 'libxml2-dev',  
+    'r-cran-xml', 'libgdal1-dev', 'libproj-dev', 
+    'imagemagick', 'optipng', 'htop']
+  gather_facts: False 
+  tasks: 
+    - name: apt-get update 
+      raw: apt-get update -qq 
+    # - name: Install python 2.7 
+    #   raw: apt-get install -qq python2.7 
+    - name: Update distro
+      apt: upgrade=dist update_cache=yes 
+    - name: Remove Packages
+      apt: name="{{ item }}" state=absent
+      with_items: packages_to_remove
+    - name: Install Packages
+      apt: name="{{ item }}" state=latest
+      with_items: packages_to_install
+    - name: Creates .Rprofile with default repo
+      lineinfile: dest=/root/.Rprofile line='local({r <- getOption("repos");r["CRAN"] <- "http://cran.cnr.berkeley.edu/";options(repos = r)})' create=True
+    - name: Clone new.crimenmexico
+      git: repo=https://github.com/diegovalle/new.crimenmexico dest=/root/new.crimenmexico
+    - name: Creates tabula-java dir
+      file: path=/root/new.crimenmexico/downloader/tabula-java state=directory
+    - name: download tabula-java
+      get_url: url=https://github.com/tabulapdf/tabula-java/releases/download/tabula-0.9.0/tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar dest=/root/new.crimenmexico/downloader/tabula-java
+    - name: Manually create the initial virtualenv
+      command: virtualenv /root/.virtualenvs/victimas/ -p python2 creates="/home/root/.virtualenvs/victimas/"
+    - name: Install requirements.txt into virtualenv
+      pip: 
+        requirements=/root/new.crimenmexico/requirements.txt 
+        virtualenv=/root/.virtualenvs/victimas/
+    - name: add gpclib packages
+      command: /usr/bin/Rscript --slave --no-save --no-restore-history -e "if (! ('{{item}}' %in% installed.packages()[,'Package'])) install.packages(pkgs={{item}})"
+      with_items:
+        - gpclib
