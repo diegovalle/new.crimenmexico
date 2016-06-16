@@ -1,4 +1,6 @@
 #!/usr/bin/env python # -*- coding: utf-8 -*-
+# coding: utf-8
+
 import sqlite3 as sq
 import pandas as pd
 import numpy as np
@@ -94,7 +96,7 @@ class CrimeStates:
         population = pd.read_csv(os.path.join(self._DATADIR, "pop_states.csv"))
         population['date'] = population.date.str.slice(0, 7)
         self.population = population
-        
+
         self.check_file(df)
 
         self.modalidad = self.get_uniq_df(df, 'MODALIDAD')
@@ -182,17 +184,17 @@ class CrimeMunicipios(CrimeStates):
                          'SUBTIPO': self.get_uniq_values(df, 'SUBTIPO'),
                          })
 
-        
+
 
         df.columns = self._columnNames
-	
-	
+
+
         df = pd.melt(df, id_vars=['year', 'inegi', 'state', 'municipio', 'modalidad', 'tipo', 'subtipo'])
         df['state_code'] = df['inegi'].apply(lambda x: math.floor(x / 1000)).astype(int)
         df['mun_code'] = df['inegi'].apply(lambda x: x % 1000)
 
         # Check that no weird mun codes have been added
-        #assert(df.query('mun_code > 570 & mun_code < 998').empty)
+        assert(df.query('mun_code > 570 & mun_code < 998').empty)
         # The SNSP uses different municipio names in the same db
         #self.municipios = pd.concat([df['state_code'], df['mun_code'], df['municipio']], axis=1).drop_duplicates()
 
@@ -210,8 +212,8 @@ class CrimeMunicipios(CrimeStates):
         df.is_copy = False
         df['count'] = df['count'].map(str).replace(',', '')
         df['count'] = pd.to_numeric(df['count'])
-        #import pdb
-	#pdb.set_trace()
+        # mport pdb
+        # pdb.set_trace()
         # The SNSP reports months in the future as NA so get rid of them
         bad_dates = []
         for date in reversed(sorted(df.date.unique())):
@@ -226,4 +228,3 @@ class CrimeMunicipios(CrimeStates):
             df = df[~df['date'].isin(bad_dates)]
 
         self.data = df
-

@@ -127,7 +127,7 @@ def getXLSX(page, conn):
     crime_files = []
     print("Checking if page changed")
     r = requests.get(baseurl + page)
-    
+
     data = r.text
     soup = BeautifulSoup(data)
     if page_changed(str(soup), os.path.join('page-checksums', page)):
@@ -245,7 +245,7 @@ for file in os.listdir("victimas-csv"):
     if "federal" in file:
         secuestros = secuestros.append(v.clean_federal(file))
 
-crimes = victimas.append(secuestros).sort(['fuero', 'state',  'modalidad', 'tipo', 'subtipo', 'date'])  # .to_csv("clean-data/victimas.csv", index=False)
+crimes = victimas.append(secuestros).sort_values(['fuero', 'state',  'modalidad', 'tipo', 'subtipo', 'date'])  # .to_csv("clean-data/victimas.csv", index=False)
 
 
 #Clean the state and municipio fuero comun CSV files
