@@ -8,7 +8,8 @@ if (!require("AnomalyDetection")) devtools::install_github('twitter/AnomalyDetec
 if (!require("mxmortalitydb")) devtools::install_github('diegovalle/mxmortalitydb')
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load("dplyr",
-               "ggplot2",
+               "ggplot2",		
+               "rgeos",
                "magrittr",
                "RSQLite",
                "zoo",
@@ -20,7 +21,6 @@ pacman::p_load("dplyr",
                "useful",
                "rgdal",
                "maptools",
-               "rgeos",
                "gpclib",
                "raster",
                "scales",
