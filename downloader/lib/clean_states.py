@@ -189,7 +189,6 @@ class CrimeMunicipios(CrimeStates):
 
         df.columns = self._columnNames
 
-        import pdb;pdb.set_trace()
         df = pd.melt(df, id_vars=['year', 'inegi', 'state', 'municipio', 'modalidad', 'tipo', 'subtipo'])
         df['inegi'] = pd.to_numeric(df['inegi'])
         df['state_code'] = df['inegi'].apply(lambda x: math.floor(x / 1000)).astype(int)
