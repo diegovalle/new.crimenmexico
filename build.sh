@@ -13,8 +13,11 @@ rm -rf downloader/page-checksums/*.md5
 rm -rf downloader/pdf/*.pdf && rm -rf pdf/*.md5
 rm -rf downloader/victimas-csv/*.csv
 find downloader/snsp-data -type f -not -name '.gitignore' -exec rm -rf "{}" \;
-rm db/crimenmexico.db
-cat downloader/meta/sql.sql | sqlite3 db/crimenmexico.db
+if [ -f db/crimenmexico.db ]
+then
+  rm db/crimenmexico.db
+fi
+sqlite3 db/crimenmexico.db < downloader/meta/sql.sql
 cd downloader && python scrape.py && cd ..
 
 # Statistics with R
