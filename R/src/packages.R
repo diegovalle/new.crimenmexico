@@ -3,9 +3,18 @@ if (!require(devtools)) {
   install.packages("devtools", repos="http://cran.rstudio.com")
 }
 
-if (!require("mxmaps")) devtools::install_github('diegovalle/mxmaps')
-if (!require("AnomalyDetection")) devtools::install_github('twitter/AnomalyDetection')
-if (!require("mxmortalitydb")) devtools::install_github('diegovalle/mxmortalitydb')
+if (!require("mxmaps")) {
+  devtools::install_github('diegovalle/mxmaps')
+  require('mxmpas')
+}
+if (!require("AnomalyDetection")) {
+  devtools::install_github('twitter/AnomalyDetection')
+  require('AnomalyDetection')
+}
+if (!require("mxmortalitydb")) {
+  devtools::install_github('diegovalle/mxmortalitydb')
+  require('mxmortalitydb')
+}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load("dplyr",
                "ggplot2",		

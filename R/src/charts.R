@@ -12,13 +12,13 @@ dbListTables(db)
 #vic <- dbReadTable(db, "victimas") 
 vic <- dbGetQuery(db, "select state, state_code, modalidad, tipo, subtipo, date, 
                   sum(count) as count, population, 
-                  (sum(count) * 12) / population  * 100000 as rate, 
+                  fuero,
                   'victimas'as type from victimas group by state, state_code, modalidad, tipo, subtipo, date
                   UNION ALL
                   select state, state_code, modalidad_text as modalidad, 
                   tipo_text as tipo, 
                   subtipo_text as subtipo, date, count, population, 
-                  (count * 12) / population * 100000 as rate, 
+                  'comun' as fuero, 
                   'averiguaciones' as type 
                   from estados_fuero_comun natural join state_names 
                   natural join population_states natural join modalidad_states 
