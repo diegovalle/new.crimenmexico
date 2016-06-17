@@ -77,8 +77,8 @@
         requirements=/root/new.crimenmexico/requirements.txt 
         virtualenv=/root/.virtualenvs/victimas/
 
-    - name: Add packages
-      command: /usr/bin/Rscript --slave --no-save --no-restore-history -e "if (! ('{{item}}' %in% installed.packages()[,'Package'])) install.packages(pkgs={{item}})"
+    - name: Add R packages
+      command: /usr/bin/Rscript --slave --no-save --no-restore-history -e "if (! ('{{item}}' %in% installed.packages()[,'Package'])) install.packages(pkgs='{{item}}')"
       with_items:
         - gpclib
         - extrafont
@@ -91,7 +91,6 @@
     - apt_repository:
         repo: "{{item}}"
       register: multiverse_installed
-      update_cache: false  # We will do ourselfs afterwards
       when: ansible_distribution == 'Ubuntu'
       with_items:
         - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
@@ -99,19 +98,18 @@
         - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
         - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
 
-    - apt:
-        pgk: '{{item}}'
+    - apt: name="{{ item }}" state=latest
       with_items:
         - libfreetype6
         - libfreetype6-dev
         - libfontconfig
-    - name: 'Accept License'
+        
+    - name: Accept License
       shell: 'echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections'
     - apt: pkg=ttf-mscorefonts-installer
 
-    - apt:
-      update_cache: true
-      when: multiverse_installed | changed
+    - name: Update distro
+      apt: upgrade=dist update_cache=yes 
 
     - name: Import fonts into R
       command: /usr/bin/Rscript --slave --no-save --no-restore-history -e "extrafont::font_import()"
