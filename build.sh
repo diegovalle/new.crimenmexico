@@ -31,10 +31,11 @@ rm -rf R/interactive-map/municipios-centroids.json
 cd R/interactive-map/ && ogr2ogr -f "GeoJSON" municipios-centroids.json municipios-centroids.vrt && cd ../..
 cp R/interactive-map/municipios* crimenmexico.diegovalle.net/assets/json
 
-# Move image to the website directory
-# but only the ones for this month
-cp "*infographic_$(date +%b | awk '{print tolower($0)}')*.png" crimenmexico.diegovalle.net/en/images/infographics/fulls/
-cp "*_es_$(LC_ALL=es_ES.utf8 date +%b | awk '{print tolower($0)}')*.png" crimenmexico.diegovalle.net/es/images/infographics/fulls/
+# Move images to the website directory
+cp -n -v R/graphs/infographic_???_????.png crimenmexico.diegovalle.net/en/images/infographics/fulls/
+cp -n -v R/graphs/municipios_apr_2015.svg _???_????.png crimenmexico.diegovalle.net/en/images/infographics/fulls/
+cp -n -v R/graphs/infographic_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
+cp -n -v R/graphs/municipios_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
 cd infographics && python infographics.py && cd ..
 
 # Export the sqlite database to csv and compress
