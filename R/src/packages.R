@@ -42,7 +42,7 @@ pacman::p_load("dplyr",
                "data.table",
                "mgcv")
 
-font_import("fonts", prompt = FALSE) 
+#font_import("fonts", prompt = FALSE) 
 loadfonts()
 # fonts() 
 # fonttable()
