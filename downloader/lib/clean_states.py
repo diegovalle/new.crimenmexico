@@ -85,7 +85,7 @@ class CrimeStates:
 
     def clean_file(self, fname):
         df = pd.read_csv(fname,  # 'snsp-data/IncidenciaDelictiva_FueroComun_Estatal_1997-2015.csv'
-                         encoding="windows-1252", thousands=",")
+                         encoding="windows-1252", thousands=",", dtype=object)
         if 'TOTAL' in [x.upper() for x in df.columns]:
             del df['TOTAL']
         if 'INEGI' in [x.upper() for x in df.columns]:
@@ -122,10 +122,11 @@ class CrimeStates:
 
         df = df[self._columnOrder]
         df.is_copy = False
-	#import pdb
-	#pdb.set_trace()
+        # import pdb
+        # pdb.set_trace()
         df['count'] = df['count'].map(str).replace(',', '')
-        df['count'] = df['count'].convert_objects(convert_numeric=True)
+        # df['count'] = df['count'].convert_objects(convert_numeric=True)
+        df['count'] = pd.to_numeric(df['count'], errors='coerce')
 
         # The SNSP reports months in the future as NA so get rid of them
         bad_dates = []
@@ -160,7 +161,7 @@ class CrimeMunicipios(CrimeStates):
 
     def clean_file(self, fname):
         df = pd.read_csv(fname,  # 'snsp-data/IncidenciaDelictiva_FueroComun_Estatal_1997-2015.csv'
-                         encoding="windows-1252", thousands=",")
+                         encoding="windows-1252", thousands=",", dtype=object)
         if 'TOTAL' in [x.upper() for x in df.columns]:
             del df['TOTAL']
 
@@ -188,8 +189,9 @@ class CrimeMunicipios(CrimeStates):
 
         df.columns = self._columnNames
 
-
+        import pdb;pdb.set_trace()
         df = pd.melt(df, id_vars=['year', 'inegi', 'state', 'municipio', 'modalidad', 'tipo', 'subtipo'])
+        df['inegi'] = pd.to_numeric(df['inegi'])
         df['state_code'] = df['inegi'].apply(lambda x: math.floor(x / 1000)).astype(int)
         df['mun_code'] = df['inegi'].apply(lambda x: x % 1000)
 
@@ -211,7 +213,7 @@ class CrimeMunicipios(CrimeStates):
 
         df.is_copy = False
         df['count'] = df['count'].map(str).replace(',', '')
-        df['count'] = pd.to_numeric(df['count'])
+        df['count'] = pd.to_numeric(df['count'], errors='coerce')
         # mport pdb
         # pdb.set_trace()
         # The SNSP reports months in the future as NA so get rid of them

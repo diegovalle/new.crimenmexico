@@ -17,8 +17,10 @@ import sqlite3 as sq
 import zipfile
 import re
 
-#VICTIMAS_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2014_052015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2015_012016.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/victimas/Victimas2016_012016.pdf"]
-SECUESTRO_PDF = ["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal122015.pdf", "http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal032016.pdf"]
+#SECUESTRO_PDF =
+#["http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal122015.pdf",
+#"http://secretariadoejecutivo.gob.mx/docs/pdfs/fuero_federal/estadisticas%20fuero%20federal/secuestrofederal042016.pdf"]
+VICTIMAS_XLS = "http://secretariadoejecutivo.gob.mx/docs/datos_abiertos/Datos_abiertos_Victimas_Fuero_comun.xls"
 
 def write_file(fileName, md):
     f = open(fileName, 'w')
@@ -26,141 +28,82 @@ def write_file(fileName, md):
     f.close()
 
 
-def hashfile(fname):
-    afile = open(fname, 'rb')
-    hasher = hashlib.md5()
-    # skip the first line because the file header includes
-    # the date the csv was generated
-    i = 1
-    for line in afile:
-        if i > 1:
-            hasher.update(line)
-        i = i + 1
-    afile.close()
-    return hasher.hexdigest()
-
-
-def changed(fname):
-    md = hashfile(fname)
-    changed = False
-    try:
-        with open(fname + '.md5', 'r') as f:
-            checksum = f.read()
-            if checksum != md:
-                changed = True
-                write_file(fname + '.md5', md)
-    except IOError:
-        changed = True
-        write_file(fname + '.md5', md)
-    return changed
-
-def page_changed(lines, fname):
-    hasher = hashlib.md5()
-    hasher.update(lines)
-    md = hasher.hexdigest()
-    changed = False
-    try:
-        with open(fname + '.md5', 'r') as f:
-            checksum = f.read()
-            if checksum != md:
-                changed = True
-                write_file(fname + '.md5', md)
-    except IOError:
-        changed = True
-        write_file(fname + '.md5', md)
-    return changed
-
-
-
 def to_csv(fname, page, crime_name):
     os.system('java -jar ./tabula-java/tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar --spreadsheet -p' + str(
         page) + ' -o victimas-csv/' + fname + '.' + crime_name + '.csv ' + 'pdf/' + fname)
 
 
-
-
-def getPDF(link, crime_type):
-    #baseurl = "http://secretariadoejecutivo.gob.mx/incidencia-delictiva/"
-    # page = "incidencia-delictiva-victimas.php"
-    change = False
-    #r = requests.get(baseurl + page)
-
-    #data = r.text
-    #soup = BeautifulSoup(data)
-
-    #headers = StringIO()
-    #for i, link in enumerate(soup.findAll('a', href=re.compile(crime_type + '.*pdf'))):
-    for i, link in enumerate(link):
-        #print link['href']
-        #if link['href'] == '../docs/pdfs/victimas/Victimas2015_032015.pdf':
-        #    continue
-        #if link['href'] == '../docs/pdfs/victimas/Victimas2014_052015.pdf':
-        #    continue
-        year = re.findall('(?:[a-z]|\d{2})(\d{4})(?:_|\.)', link)[0]
-        fname = crime_type + '_' + year + '.pdf'
-        with open('pdf/' + fname, "wb") as fp:
-            curl = pycurl.Curl()
-            curl.setopt(pycurl.URL, link)
-            curl.setopt(pycurl.WRITEDATA, fp)
-            #curl.setopt(pycurl.HEADERFUNCTION, headers.write)
-            curl.perform()
-            curl.close()
-            fp.close()
-            if changed('pdf/' + fname):
-                change = True
-                if crime_type == "victima":
-                    to_csv(fname, 4, 'homicidio_doloso')
-                    to_csv(fname, 5, 'homicidio_culposo')
-                    to_csv(fname, 6, 'secuestro')
-                    to_csv(fname, 7, 'extorsion')
-                else:
-                    to_csv(fname, 3, 'secuestro-federal')
-    return change
-
-def get_filename_containing(files, string):
-    return os.path.splitext( [x for x in files if string in x][0])[0] + '.csv'
-
-def getXLSX(page, conn):
+def download_secuestro_pdf():
     baseurl = "http://secretariadoejecutivo.gob.mx/incidencia-delictiva/"
-    # page = "incidencia-delictiva-fuero-comun.php"
+    page = "incidencia-delictiva-fuero-federal.php"
     change = False
-    crime_files = []
-    print("Checking if page changed")
     r = requests.get(baseurl + page)
 
     data = r.text
     soup = BeautifulSoup(data)
-    if page_changed(str(soup), os.path.join('page-checksums', page)):
-        soup.find("div", {"id": "anois"})
 
-        for i, link in enumerate(soup.find("div", {"id": "anios", "class": "excel"}).
-                findAll('a', href=re.compile('.*pdf'))):
-            print link['href']
-            fname = ("estatal" if "Estatal" in link['href'] else "muncipal") + '.zip'
-            with open('snsp-data/' + fname, "wb") as fp:
-                curl = pycurl.Curl()
-                curl.setopt(pycurl.URL, baseurl + urllib.quote(link['href']))
-                curl.setopt(pycurl.WRITEDATA, fp)
-                #curl.setopt(pycurl.HEADERFUNCTION, headers.write)
-                curl.perform()
-                curl.close()
-                fp.close()
-                if changed(os.path.join('snsp-data', fname)):
-                    change = True
-                    with zipfile.ZipFile(os.path.join('snsp-data', fname), "r") as z:
-                        crime_files.append(z.namelist()[0])
-                        for name in z.namelist():
-                            outpath = 'snsp-data/'
-                            z.extract(name, outpath)
-                            os.system("cd 'snsp-data';libreoffice --headless --convert-to csv -env:UserInstallation=file:///tmp/foobar7665765 '" + name +"'")
-        if change:
-            #import pdb
-            #pdb.set_trace()
-	    print("writin state to db")
-            write_state_db(conn, get_filename_containing(crime_files, "Estatal"))
-            print("writin municipio to db")
-            write_mun_db(conn, get_filename_containing(crime_files, "Municipal"))
-    return change
+    for i, link in enumerate(soup.findAll('a',
+                                          href=re.compile('.*secuestrofederal.*'))):
+        print "Downloading: " + link['href']
+        year = re.findall('(?:[a-z]|\d{2})(\d{4})(?:_|\.)', link['href'])[0]
+        fname = "secuestro" + '_' + year + '.pdf'
+        with open('pdf/' + fname, "wb") as fp:
+            curl = pycurl.Curl()
+            curl.setopt(pycurl.URL, baseurl + urllib.quote(link['href']))
+            curl.setopt(pycurl.WRITEDATA, fp)
+            curl.perform()
+            curl.close()
+            fp.close()
+            to_csv(fname, 3, 'secuestro-federal')
+
+
+    return True
+
+def filename_with_csv(file):
+    return os.path.splitext(file)[0] + '.csv'
+
+def getXLSX(page, conn):
+    baseurl = "http://secretariadoejecutivo.gob.mx/incidencia-delictiva/"
+    # page = "incidencia-delictiva-fuero-comun.php"
+
+    print("Processing State and Municipio Averiguaciones del Fuero Comun Files")
+    r = requests.get(baseurl + page)
+
+    data = r.text
+    soup = BeautifulSoup(data)
+
+    soup.find("div", {"id": "anois"})
+
+    for i, link in enumerate(soup.find("div",
+                                       {"id": "anios", "class": "excel"}).
+                             findAll('a', href=re.compile('.*pdf'))):
+        print link['href']
+        fname = ("estatal" if "Estatal" in link['href'] else "muncipal") + '.zip'
+        with open('snsp-data/' + fname, "wb") as fp:
+            curl = pycurl.Curl()
+            curl.setopt(pycurl.URL, baseurl + urllib.quote(link['href']))
+            curl.setopt(pycurl.WRITEDATA, fp)
+            # curl.setopt(pycurl.HEADERFUNCTION, headers.write)
+            curl.perform()
+            curl.close()
+            fp.close()
+
+            with zipfile.ZipFile(os.path.join('snsp-data', fname), "r") as z:
+                crime_file = z.namelist()[0]
+                for name in z.namelist():
+                    outpath = 'snsp-data/'
+                    z.extract(name, outpath)
+                    os.system("cd 'snsp-data';libreoffice --headless --convert-to csv -env:UserInstallation=file:///tmp/foobar7665765 '" + name +"'")
+
+        if "Estatal" in crime_file:
+            print("writing state to db")
+            write_state_db(conn,
+                           filename_with_csv(crime_file))
+        elif "Municipal" in crime_file:
+            print("writing municipio to db")
+            write_mun_db(conn,
+                         filename_with_csv(crime_file))
+    return True
 
 
 def get_victimas():
@@ -235,14 +178,13 @@ def write_mun_db(conn, CSV_MUNICIPIOS):
 
 
 # Clean the PDFs with victim info
-#getPDF(VICTIMAS_PDF, "victima")
-getPDF(SECUESTRO_PDF, "secuestro")
+download_secuestro_pdf()
 
-victimas = v.clean_comun_xls("http://secretariadoejecutivo.gob.mx/docs/datos_abiertos/Datos_abiertos_Victimas_Fuero_comun.xls")
+victimas = v.clean_comun_xls(VICTIMAS_XLS)
 secuestros = pd.DataFrame()
 for file in os.listdir("victimas-csv"):
-    print(file)
     if "federal" in file:
+        print('Processing: ' + file)
         secuestros = secuestros.append(v.clean_federal(file))
 
 crimes = victimas.append(secuestros).sort_values(['fuero', 'state',  'modalidad', 'tipo', 'subtipo', 'date'])  # .to_csv("clean-data/victimas.csv", index=False)
