@@ -54,8 +54,14 @@
     - name: Creates .Rprofile with default repo
       lineinfile: dest=/root/.Rprofile line='local({r <- getOption("repos");r["CRAN"] <- "http://cran.cnr.berkeley.edu/";options(repos = r)})' create=True
 
-    - name: Clone new.crimenmexico
+    - name: Clone repo new.crimenmexico
       git: repo=https://github.com/diegovalle/new.crimenmexico dest=/root/new.crimenmexico
+
+    - name: Install fonts
+      command: find /root/new.crimenmexico/R/fonts/ -type f -name '*.ttf' -print -exec cp {} /usr/share/fonts/truetype/ \;
+      
+    - name: Refresh Font cache
+      command: fc-cache -f -v
  
     - name: Creates tabula-java directory
       file: path=/root/new.crimenmexico/downloader/tabula-java state=directory
@@ -71,7 +77,41 @@
         requirements=/root/new.crimenmexico/requirements.txt 
         virtualenv=/root/.virtualenvs/victimas/
 
-    - name: Add gpclib package
+    - name: Add packages
       command: /usr/bin/Rscript --slave --no-save --no-restore-history -e "if (! ('{{item}}' %in% installed.packages()[,'Package'])) install.packages(pkgs={{item}})"
       with_items:
         - gpclib
+        - extrafont
+        - inegiR
+        - dplyr
+        - ggplot2
+        - rgeos
+        - zoo
+
+    - apt_repository:
+        repo: "{{item}}"
+      register: multiverse_installed
+      update_cache: false  # We will do ourselfs afterwards
+      when: ansible_distribution == 'Ubuntu'
+      with_items:
+        - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
+        - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
+        - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
+        - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
+
+    - apt:
+        pgk: '{{item}}'
+      with_items:
+        - libfreetype6
+        - libfreetype6-dev
+        - libfontconfig
+    - name: 'Accept License'
+      shell: 'echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections'
+    - apt: pkg=ttf-mscorefonts-installer
+
+    - apt:
+      update_cache: true
+      when: multiverse_installed | changed
+
+    - name: Import fonts into R
+      command: /usr/bin/Rscript --slave --no-save --no-restore-history -e "extrafont::font_import()"
