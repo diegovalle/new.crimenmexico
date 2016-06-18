@@ -91,5 +91,5 @@ def monthdelta(date, delta):
 
 clean('en/', "C")
 clean('es/', 'es_ES.UTF-8')
-os.system(r"find . -name '*.png' -exec sh -c 'optipng {}' \;")
+os.system(r"find . -wholename '*thumbnails/*.png' -exec sh -c 'optipng {}' \;")
 os.system(r"cd assets/json; rm *.gz;gzip -k -f *")
