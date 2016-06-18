@@ -192,13 +192,18 @@ ll <- list()
 # })
 findAnomalies_c <- compiler::cmpfun(findAnomalies)
 
+print('homicides')
 ll$hom <- findAnomalies_c("HOMICIDIOS", "DOLOSOS", munvec = muns_to_analyze, fileName="hhom.RData")
+print('car robbery w/v')
 ll$rvcv = findAnomalies_c("ROBO COMUN", "CON VIOLENCIA", "DE VEHICULOS",muns_to_analyze, fileName="hrvcv.RData")
+print('car robbery wo/v')
 ll$rvsv = findAnomalies_c("ROBO COMUN", "SIN VIOLENCIA", "DE VEHICULOS", muns_to_analyze, fileName="hrvsv.RData")
-
+print('lesions')
 ll$lesions <- findAnomalies_c("LESIONES", "DOLOSAS", munvec = muns_to_analyze, fileName="hlesions.RData")
+print('kidnappings')
 ll$kidnapping = findAnomalies_c("PRIV. DE LA LIBERTAD (SECUESTRO)", "SECUESTRO", "SECUESTRO", 
                            muns_to_analyze, fileName="hkid.RData")
+print('extortion')
 ll$ext <- findAnomalies_c("DELITOS PATRIMONIALES", "EXTORSION", "EXTORSION", muns_to_analyze, fileName="hext.RData")
 
 write(toJSON(ll), "json/anomalies.json")
@@ -285,9 +290,9 @@ for(i in seq(1,length(ll2)*2, by=2)) {
 }
 dev.off()
 
-system(str_replace_all("convert graphs/municipios_XXX.svg graphs/municipios_XXX.png; 
-                       optipng graphs/municipios_XXX.png;", "XXX",
-                       tolower(str_replace(max_date, " ", "_"))))
+# system(str_replace_all("convert graphs/municipios_XXX.svg graphs/municipios_XXX.png; 
+#                        optipng graphs/municipios_XXX.png;", "XXX",
+#                        tolower(str_replace(max_date, " ", "_"))))
 
 
 lct <- Sys.getlocale("LC_TIME")
@@ -331,9 +336,9 @@ dev.off()
 
 Sys.setlocale("LC_TIME", lct)
 
-system(str_replace_all("convert graphs/municipios_es_XXX.svg graphs/municipios_es_XXX.png; 
-                       optipng graphs/municipios_es_XXX.png;", "XXX",
-                       tolower(str_replace(max_date, " ", "_"))))
+# system(str_replace_all("convert graphs/municipios_es_XXX.svg graphs/municipios_es_XXX.png; 
+#                        optipng graphs/municipios_es_XXX.png;", "XXX",
+#                        tolower(str_replace(max_date, " ", "_"))))
 
 
 

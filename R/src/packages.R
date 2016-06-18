@@ -40,7 +40,8 @@ pacman::p_load("dplyr",
                "RColorBrewer",
                "compiler",
                "data.table",
-               "mgcv")
+               "mgcv",
+               "mxmortalitydb")
 
 #font_import("fonts", prompt = FALSE) 
 loadfonts()
