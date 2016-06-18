@@ -14,7 +14,15 @@ casper.test.begin(
                 return __utils__
                     .findAll('.national-chart').length === 5;
             }, '5 charts of crime');
-            test.assertExists('#hexmap svg path', 'hexmap exists')
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line2-color').length === 1;
+            }, '1 line of INEGI homicides');
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line1-color').length === 5;
+            }, '5 line of SESNSP crimes');
+            test.assertExists('#hexmap svg path', 'hexmap exists');
         });
 
         casper.thenOpen(partialURL + '/es/', function() {
@@ -23,7 +31,15 @@ casper.test.begin(
                 return __utils__
                     .findAll('.national-chart').length === 5;
             }, 'es 5 charts of crime');
-            test.assertExists('#hexmap svg path', 'hexmap exists')
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line2-color').length === 1;
+            }, '1 line of INEGI homicides');
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line1-color').length === 5;
+            }, '5 line of SESNSP crimes');
+            test.assertExists('#hexmap svg path', 'hexmap exists');
         });
 
         casper.thenOpen(partialURL + '/en/states.html', function() {
@@ -31,6 +47,14 @@ casper.test.begin(
                 return __utils__
                     .findAll('.line-chart').length === 32;
             }, 'state small multiples');
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line2-color').length === 32;
+            }, '32 lines of INEGI homicides');
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line1-color').length === 32;
+            }, '32 line of SESNSP crimes');
         });
 
         casper.thenOpen(partialURL + '/es/states.html', function() {
@@ -38,6 +62,14 @@ casper.test.begin(
                 return __utils__
                     .findAll('.line-chart').length === 32;
             }, 'state small multiples');
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line2-color').length === 32;
+            }, '32 lines of INEGI homicides');
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line1-color').length === 32;
+            }, '32 line of SESNSP crimes');
         });
 
         // casper.thenOpen(partialURL + '/en/municipios-map.html', function() {
@@ -49,6 +81,15 @@ casper.test.begin(
                 return __utils__
                     .findAll('.line-chart').length > 30;
             }, 'municipio small multiples');
+
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line2-color').length > 32;
+            }, 'more than 30 lines of Municipio INEGI homicides');
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line1-color').length > 32;
+            }, 'more than 30 line of municipio SESNSP crimes');
         });
 
         casper.thenOpen(partialURL + '/es/municipios.html', function() {
@@ -56,11 +97,36 @@ casper.test.begin(
                 return __utils__
                     .findAll('.line-chart').length > 30;
             }, 'municipio small multiples');
+
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line2-color').length > 32;
+            }, 'more than 30 lines of Municipio INEGI homicides');
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line1-color').length > 32;
+            }, 'more than 30 line of municipio SESNSP crimes');
         });
 
         casper.thenOpen(partialURL + '/en/anomalies.html', function() {
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line1-color').length > 1;
+            }, 'more than 1 lines of Anomalies');
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg g path').length > 32;
+            }, 'more than 1 lines of Anomalies');
         });
         casper.thenOpen(partialURL + '/es/anomalies.html', function() {
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg > path.mg-line1-color').length > 1;
+            }, 'more than 1 lines of Anomalies');
+            test.assertEval(function() {
+                return __utils__
+                    .findAll('svg g path').length > 32;
+            }, 'more than 1 lines of Anomalies');
         });
 
         casper.thenOpen(partialURL + '/en/infographics.html', function() {
