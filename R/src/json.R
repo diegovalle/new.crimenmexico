@@ -23,7 +23,7 @@ ll.national$ext <- filter(national[,c("tipo", "date", "rate", "count", "pop")], 
 ll.national$sec <- filter(national[,c("tipo", "date", "rate", "count", "pop")], tipo == 'Secuestro')
 ll.national$rvcv <- filter(national[,c("tipo", "date", "rate", "count", "pop")], tipo == 'Robo de vehículo con violencia')
 ll.national$rvsv <- filter(national[,c("tipo", "date", "rate", "count", "pop")], tipo == 'Robo de vehículo sin violencia')
-write(toJSON(ll.national), "json/national.json")
+write(toJSON(ll.national, na = "null"), "json/national.json")
 
 
 states_last <- list()

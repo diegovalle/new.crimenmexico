@@ -118,9 +118,9 @@ attribution <- paste(
 toSvg(str_c("graphs/infographic_", tolower(str_replace(max_date, " ", "_")), ".svg"), 
       "CRIME in MEXICO", max_date, note, attribution)
 
-system(str_replace_all("convert graphs/infographic_XXX.svg graphs/infographic_XXX.png; 
-       optipng graphs/infographic_XXX.png;", "XXX",
-                       tolower(str_replace(max_date, " ", "_"))))
+## system(str_replace_all("convert graphs/infographic_XXX.svg graphs/infographic_XXX.png; 
+##        optipng graphs/infographic_XXX.png;", "XXX",
+##                        tolower(str_replace(max_date, " ", "_"))))
 
 ## Chart in Spanish
 
@@ -207,10 +207,10 @@ toSvg(str_c("graphs/infographic_es_", tolower(str_replace(max_date, " ", "_")), 
 
 Sys.setlocale("LC_TIME", lct)
 
-system(str_replace_all("
-       convert graphs/infographic_es_XXX.svg graphs/infographic_es_XXX.png; 
-       optipng graphs/infographic_es_XXX.png", "XXX", 
-                       tolower(str_replace(max_date, " ", "_"))))
+## system(str_replace_all("
+##        convert graphs/infographic_es_XXX.svg graphs/infographic_es_XXX.png; 
+##        optipng graphs/infographic_es_XXX.png", "XXX", 
+##                        tolower(str_replace(max_date, " ", "_"))))
 
 # 
 # head(vic)
