@@ -67,7 +67,7 @@ write.csv(filter(muns2, tipo == "Intentional Homicide")
           "interactive-map/municipios-centroids.csv",
           row.names = FALSE)
 
-system("cd interactive-map;./convert.sh")
+#system("cd interactive-map;./convert.sh")
 
 # ggplot(filter(muns, tipo == "Intentional Homicide"), aes(long, lat)) +
 #   geom_polygon(data = mx, aes(long, lat, group = group),

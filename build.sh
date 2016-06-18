@@ -18,26 +18,46 @@ then
   rm db/crimenmexico.db
 fi
 sqlite3 db/crimenmexico.db < downloader/meta/sql.sql
+echo "Downloading data"
 cd downloader && python scrape.py && cd ..
 
 # Statistics with R
 cd R && Rscript run_all.R && cd ..
+echo "Finished R script"
+# Convert the infographics R created to png and optimize for the web
+for filename in R/graphs/*.svg; do
+    if [ ! -f "R/graphs/$(basename "$filename" .svg).png" ]
+    then
+        echo "Converting $filename"
+        convert "$filename" R/graphs/"$(basename "$filename" .svg)".png
+        optipng -quiet R/graphs/"$(basename "$filename" .svg)".png
+    fi
+done
+
+
 
 # Move the json files with the chart data to the website directory
 cp R/json/*.json crimenmexico.diegovalle.net/assets/json/
 
 # Create a geojson with the lat and lng of Mexican municipios
-rm -rf R/interactive-map/municipios-centroids.json
+echo "Converting the municipio centroids to GeoJSON"
+if [ -f R/interactive-map/municipios-centroids.json ]
+then
+    rm R/interactive-map/municipios-centroids.json
+fi
 cd R/interactive-map/ && ogr2ogr -f "GeoJSON" municipios-centroids.json municipios-centroids.vrt && cd ../..
 cp R/interactive-map/municipios* crimenmexico.diegovalle.net/assets/json
 
+
 # Move images to the website directory
+echo "Creating website...."
 cp -n -v R/graphs/infographic_???_????.png crimenmexico.diegovalle.net/en/images/infographics/fulls/
 cp -n -v R/graphs/municipios_apr_2015.svg _???_????.png crimenmexico.diegovalle.net/en/images/infographics/fulls/
 cp -n -v R/graphs/infographic_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
 cp -n -v R/graphs/municipios_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
 cd infographics && python infographics.py && cd ..
 
+echo "Exporting database to csv.gz"
 # Export the sqlite database to csv and compress
 if [[ $SCRIPTPATH/db/crimenmexico.db -nt $SCRIPTPATH/$EXPORT/fuero-comun-estados.csv.gz ]]; then
     echo "exporting $SCRIPTPATH/$EXPORT/fuero-comun-estados.csv.gz"

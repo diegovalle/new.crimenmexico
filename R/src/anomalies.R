@@ -291,8 +291,8 @@ for(i in seq(1,length(ll2)*2, by=2)) {
 dev.off()
 
 # system(str_replace_all("convert graphs/municipios_XXX.svg graphs/municipios_XXX.png; 
-#                        optipng graphs/municipios_XXX.png;", "XXX",
-#                        tolower(str_replace(max_date, " ", "_"))))
+#                         optipng graphs/municipios_XXX.png;", "XXX",
+#                         tolower(str_replace(max_date, " ", "_"))))
 
 
 lct <- Sys.getlocale("LC_TIME")
@@ -337,8 +337,8 @@ dev.off()
 Sys.setlocale("LC_TIME", lct)
 
 # system(str_replace_all("convert graphs/municipios_es_XXX.svg graphs/municipios_es_XXX.png; 
-#                        optipng graphs/municipios_es_XXX.png;", "XXX",
-#                        tolower(str_replace(max_date, " ", "_"))))
+#                         optipng graphs/municipios_es_XXX.png;", "XXX",
+#                         tolower(str_replace(max_date, " ", "_"))))
 
 
 
