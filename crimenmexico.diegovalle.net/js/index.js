@@ -77,7 +77,7 @@ d3.json("/assets/json/mx_hexgrid.geojson", function(json) {
     d3.json("/assets/json/states_last.json", function(states_last) {
         d3.json('/assets/json/states.json', function(states) {
             format=d3.time.format('%b %Y')
-            d3.select('#map-date').html('Map of Crime Rates - ' + format(d3.time.format('%Y-%m-%d').parse(states_last.hd[0].date)))
+            d3.select('#map-date').html(map_of_crime_rates + format(d3.time.format('%Y-%m-%d').parse(states_last.hd[0].date)))
 
 
             last_date = states_last;
