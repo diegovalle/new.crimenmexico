@@ -7,7 +7,7 @@
     'libreoffice', 'npm', 'python-virtualenv', 'python-dev', 
     'libcurl4-openssl-dev', 'sqlite3', 'libxml2-dev',  
     'r-cran-xml', 'libgdal1-dev', 'libproj-dev', 
-    'imagemagick', 'optipng', 'htop', 'gdal-bin', 'phantomjs']
+    'imagemagick', 'optipng', 'htop', 'gdal-bin']
     r_repository:
       - type: deb
         url: "http://cran.rstudio.com/bin/linux/ubuntu  {{ ansible_distribution_release }}/"
@@ -138,6 +138,9 @@
         - diegovalle/mxmortalitydb
         - twitter/AnomalyDetection
         - diegovalle/mxmaps
+
+    - name: Install phantomjs
+      npm: name=phantomjs-prebuilt global=yes
 
     - name: Install casperjs
       npm:  name=casperjs global=yes
