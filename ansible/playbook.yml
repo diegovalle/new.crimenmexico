@@ -80,6 +80,8 @@
     - name: Add R packages
       command: /usr/bin/Rscript --slave --no-save --no-restore-history -e "if (! ('{{item}}' %in% installed.packages()[,'Package'])) install.packages(pkgs='{{item}}')"
       with_items:
+        - pacman
+        - devtools
         - dplyr
         - ggplot2		
         - rgeos
@@ -130,7 +132,7 @@
     - name: Import fonts into R
       command: /usr/bin/Rscript --slave --no-save --no-restore-history -e "extrafont::font_import()"
 
-    - name: Import github R packages
+    - name: Install github R packages
       command: /usr/bin/Rscript --slave --no-save --no-restore-history -e "devtools::install_github('{{item}}')"
       with_items:
         - diegovalle/mxmortalitydb
@@ -139,3 +141,7 @@
 
     - name: Install casperjs
       npm:  name=casperjs global=yes
+
+    - name: Install simplehttpserver
+      npm:  name=simplehttpserver global=yes
+
