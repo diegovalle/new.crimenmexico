@@ -1,6 +1,6 @@
 # new.crimenmexico
 
-File for generating the website
+Source code for generating the website
 [crimenmexico.diegovalle.net](http://crimenmexico.diegovalle.net)
 
 There is an ansible script in the ansible directory for setting up an
