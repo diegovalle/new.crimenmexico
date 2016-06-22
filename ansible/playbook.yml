@@ -4,7 +4,7 @@
     pacakges_to_remove: ['apache', 'samba', 'sendmail',
     'bind9', 'ncsd', 'sasl', 'exim', 'ntp']
     packages_to_install: [ 'git', 'r-base', 'r-base-dev', 'curl', 
-    'libreoffice', 'npm', 'python-virtualenv', 'python-dev', 
+    'libreoffice', 'python-virtualenv', 'python-dev', 
     'libcurl4-openssl-dev', 'sqlite3', 'libxml2-dev',  
     'r-cran-xml', 'libgdal1-dev', 'libproj-dev', 
     'imagemagick', 'optipng', 'htop', 'gdal-bin']
@@ -19,6 +19,17 @@
       raw: apt-get update -qq 
     # - name: Install python 2.7 
     #   raw: apt-get install -qq python2.7 
+
+    - name: Ensure the system can use the HTTPS transport for APT
+      stat:
+        path: /usr/lib/apt/methods/https
+        register: apt_https_transport
+
+    - name: Install HTTPS transport for APT
+      apt:
+        pkg: apt-transport-https
+        state: installed
+      when: not apt_https_transport.stat.exists
 
     - name: Add R repository public key
       apt_key:
@@ -138,6 +149,33 @@
         - diegovalle/mxmortalitydb
         - twitter/AnomalyDetection
         - diegovalle/mxmaps
+
+    - name: Import the NodeSource GPG key into apt
+      apt_key:
+        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        state: present
+
+    - name: Add NodeSource deb repository
+      apt_repository:
+        repo: 'deb https://deb.nodesource.com/node_4.x {{ ansible_distribution_release }} main'
+        state: present
+
+    - name: Add NodeSource deb-src repository
+      apt_repository:
+        repo: 'deb-src https://deb.nodesource.com/node_4.x {{ ansible_distribution_release }} main'
+        state: present
+
+    - name: Add NodeSource repository preferences
+      template:
+        src: etc/apt/preferences.d/deb_nodesource_com_node.pref.2
+        dest: /etc/apt/preferences.d/deb_nodesource_com_node.pref
+
+    - name: Install Node.js
+      apt:
+        pkg:
+          - nodejs=4.4
+        state: installed
+        update_cache: yes
 
     - name: Install phantomjs
       npm: name=phantomjs-prebuilt global=yes
