@@ -19,3 +19,4 @@ R/json/*.RData
 */en/images/infographics/thumbnails/*
 */es/images/infographics/thumbnails/*
 ansible/playbook.retry
+.idea/*
