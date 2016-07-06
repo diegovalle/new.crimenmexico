@@ -46,30 +46,30 @@ casper.test.begin(
             test.assertEval(function() {
                 return __utils__
                     .findAll('.line-chart').length === 32;
-            }, 'state small multiples');
+            }, '/en/states.html state small multiples');
             test.assertEval(function() {
                 return __utils__
                     .findAll('svg > path.mg-line2-color').length === 32;
-            }, '32 lines of INEGI homicides');
+            }, '/en/states.html 32 lines of INEGI homicides');
             test.assertEval(function() {
                 return __utils__
                     .findAll('svg > path.mg-line1-color').length === 32;
-            }, '32 line of SESNSP crimes');
+            }, '/en/states.html 32 line of SESNSP crimes');
         });
 
         casper.thenOpen(partialURL + '/es/states.html', function() {
             test.assertEval(function() {
                 return __utils__
                     .findAll('.line-chart').length === 32;
-            }, 'state small multiples');
+            }, '/es/states.html state small multiples');
             test.assertEval(function() {
                 return __utils__
                     .findAll('svg > path.mg-line2-color').length === 32;
-            }, '32 lines of INEGI homicides');
+            }, '/es/states.html 32 lines of INEGI homicides');
             test.assertEval(function() {
                 return __utils__
                     .findAll('svg > path.mg-line1-color').length === 32;
-            }, '32 line of SESNSP crimes');
+            }, '/es/states.html 32 line of SESNSP crimes');
         });
 
         // casper.thenOpen(partialURL + '/en/municipios-map.html', function() {
