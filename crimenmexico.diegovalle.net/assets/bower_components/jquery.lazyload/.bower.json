@@ -1,0 +1,37 @@
+{
+  "name": "jquery_lazyload",
+  "version": "1.9.5",
+  "homepage": "http://www.appelsiini.net/projects/lazyload",
+  "authors": [
+    "Mika Tuupola <tuupola@appelsiini.net>"
+  ],
+  "description": "jQuery plugin for lazy loading images",
+  "main": [
+    "jquery.lazyload.js",
+    "jquery.scrollstop.js"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "**/*.min.js",
+    "**/*.html",
+    "**/*.textile",
+    "Gruntfile.js",
+    "lazyload.jquery.json",
+    "package.json",
+    "node_modules",
+    "bower_components",
+    "test",
+    "img"
+  ],
+  "_release": "1.9.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.9.5",
+    "commit": "e54df43adef6ba76cb6f73edf80ec7f6935772d0"
+  },
+  "_source": "git://github.com/tuupola/jquery_lazyload.git",
+  "_target": "~1.9.5",
+  "_originalSource": "jquery.lazyload",
+  "_direct": true
+}
