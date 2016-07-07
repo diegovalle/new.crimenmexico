@@ -41,6 +41,7 @@ pacman::p_load("dplyr",
                "compiler",
                "data.table",
                "mgcv",
+               "tidyr",
                "mxmortalitydb")
 
 #font_import("fonts", prompt = FALSE) 

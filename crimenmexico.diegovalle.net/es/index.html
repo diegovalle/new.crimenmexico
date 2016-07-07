@@ -105,6 +105,14 @@ License: pixelarity.com/license
          .mg-area1-color {
              fill: #00BFC4;
          }
+         div#national90 svg > path.mg-line2-color {
+             stroke: #b35806;
+             stroke-width: 1.5;
+         }
+         div#national90 .mg-area2-color {
+             fill: #b35806;
+             color: #b35806;
+         }
 
         </style>
     </head>
@@ -245,6 +253,21 @@ clasificar las muertes de intención desconocida en base a un modelo
  La desventaja es que tienden a tardar más de un año en ser actualizados.</p>
 <br/>
                     </section></div>
+
+                <div class="wrapper">
+
+                <a name="historical"></a>
+                <div class="row ">
+                    <div class="12u 12u(movile)">
+                        <div class="legend"><span class="mg-line2-legend-color" style="color:#b35806">— INEGI <b><i>not</i></b> statistically adjusted&nbsp; </span></div>
+                        <div class="legend"><span class="mg-line1-legend-color">— SNSP victims&nbsp; </span></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="12u 12u(mobile) national90-chart"><div id="national90"></div></div>
+                </div>
+                <p>Las cifras correspondientes a los homicidios INEGI del periodo enero-junio de 2015 son de carácter preliminar.</p>
+                </div>
                 <!-- Portfolio Wrapper -->
                     <div class="wrapper">
                         <section id="portfolio-preview">
@@ -359,9 +382,49 @@ clasificar las muertes de intención desconocida en base a un modelo
              rate_text = ', tasa: ',
              count_text = ', número: ',
              rate = "Tasa:", count = "Número:", pop = "Población:";
-             map_of_crime_rates ='Tasa de Crímenes - ';
+         var map_of_crime_rates ='Tasa de Crímenes - ';
+         var national_title_text = "Homicidios en México desde 1990",
+             population_text = ', población: ';
         </script>
         <script src="/js/index.js"></script>
+        <script async>
+         d3.json('/assets/json/national_1990.json', function(data) {
+             for (var i = 0; i < data.length; i++) {
+                 data[i] = MG.convert.date(data[i], 'date');
+             }
+             MG.data_graphic({
+                 title: national_title_text,
+                 full_width: true,
+                 data: data,
+                 width: 600,
+                 height: 400,
+                 right:10,
+                 left: 77,
+                 top: 25,
+                 buffer: 0,
+                 right: 40,
+                 target: '#national90',
+                 y_extended_ticks: true,
+                 show_secondary_x_label: false,
+                 small_text: false,
+                 x_accessor: 'date',
+                 y_accessor: 'rate',
+                 xax_count: 4,
+                 yax_count: 3,
+                 xax_format: d3.time.format('%b-%Y'),
+                 y_label: annualized_rate,
+                 mouseover: function(d, i) {
+                     var date = new Date(d.date);
+                     var day = d.date.getDate();
+                     var monthIndex = d.date.getMonth();
+                     var year = d.date.getFullYear();
+                     d3.select('#national90' + ' svg .mg-active-datapoint')
+                       .text(monthNames[monthIndex] + '-' + year + rate_text + round(d.rate) + population_text + comma(d.pop) + count_text + comma(d.count));
+                 }
+                 //legend_target: '.legend'
+             });
+         });
+        </script>
         <!-- Google Analytics -->
         <script>
          window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

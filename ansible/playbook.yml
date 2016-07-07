@@ -3,22 +3,22 @@
   vars:
     pacakges_to_remove: ['apache', 'samba', 'sendmail',
     'bind9', 'ncsd', 'sasl', 'exim', 'ntp']
-    packages_to_install: [ 'git', 'r-base', 'r-base-dev', 'curl', 
-    'libreoffice', 'python-virtualenv', 'python-dev', 
-    'libcurl4-openssl-dev', 'sqlite3', 'libxml2-dev',  
-    'r-cran-xml', 'libgdal1-dev', 'libproj-dev', 
+    packages_to_install: [ 'git', 'r-base', 'r-base-dev', 'curl',
+    'libreoffice', 'python-virtualenv', 'python-dev',
+    'libcurl4-openssl-dev', 'sqlite3', 'libxml2-dev',
+    'r-cran-xml', 'libgdal1-dev', 'libproj-dev',
     'imagemagick', 'optipng', 'htop', 'gdal-bin']
     r_repository:
       - type: deb
         url: "http://cran.rstudio.com/bin/linux/ubuntu  {{ ansible_distribution_release }}/"
 
-  # gather_facts: False 
+  # gather_facts: False
 
-  tasks: 
-    - name: apt-get update 
-      raw: apt-get update -qq 
-    # - name: Install python 2.7 
-    #   raw: apt-get install -qq python2.7 
+  tasks:
+    - name: apt-get update
+      raw: apt-get update -qq
+    # - name: Install python 2.7
+    #   raw: apt-get install -qq python2.7
 
     - name: Ensure the system can use the HTTPS transport for APT
       stat:
@@ -49,7 +49,7 @@
         - r-repository-add
 
     - name: Update distro
-      apt: upgrade=dist update_cache=yes 
+      apt: upgrade=dist update_cache=yes
 
     - name: Spanish locale
       locale_gen: name=es_ES.UTF-8 state=present
@@ -70,10 +70,10 @@
 
     - name: Install fonts
       command: find /root/new.crimenmexico/R/fonts/ -type f -name '*.ttf' -print -exec cp {} /usr/share/fonts/truetype/ \;
-      
+
     - name: Refresh Font cache
       command: fc-cache -f -v
- 
+
     - name: Creates tabula-java directory
       file: path=/root/new.crimenmexico/downloader/tabula-java state=directory
 
@@ -84,8 +84,8 @@
       command: virtualenv /root/.virtualenvs/crimenmexico/ -p python2 creates="/home/root/.virtualenvs/crimenmexico/"
 
     - name: Install requirements.txt into virtualenv
-      pip: 
-        requirements=/root/new.crimenmexico/requirements.txt 
+      pip:
+        requirements=/root/new.crimenmexico/requirements.txt
         virtualenv=/root/.virtualenvs/crimenmexico/
 
     - name: Add R packages
@@ -94,7 +94,7 @@
         - pacman
         - devtools
         - dplyr
-        - ggplot2		
+        - ggplot2
         - rgeos
         - magrittr
         - RSQLite
@@ -116,6 +116,7 @@
         - compiler
         - data.table
         - mgcv
+        - tidyr
 
     - apt_repository:
         repo: "{{item}}"
@@ -132,13 +133,13 @@
         - libfreetype6
         - libfreetype6-dev
         - libfontconfig
-        
+
     - name: Accept License
       shell: 'echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections'
     - apt: pkg=ttf-mscorefonts-installer
 
     - name: Update distro
-      apt: upgrade=dist update_cache=yes 
+      apt: upgrade=dist update_cache=yes
 
     - name: Import fonts into R
       command: /usr/bin/Rscript --slave --no-save --no-restore-history -e "extrafont::font_import()"
@@ -185,4 +186,3 @@
 
     - name: Install simplehttpserver
       npm:  name=simplehttpserver global=yes
-
