@@ -244,9 +244,11 @@ License: pixelarity.com/license
                         federal level. Guerrero misreports the number of police reports as if they were the number of victims.
                         According to the National Crime Victimization Survey (ENVIPE) extortions have been rising, but according to the SNSP decreasing. Car Robberies
                         do match the ENVIPE trend, and homicides follow the trend reported by the INEGI.</p><br/>
-                    <p style="text-align:left;">INEGI homicide data tends to be more precise. Forensic coroners and the INEGI simply don't have the same incentives to lower the number of homicides that happen in Mexico as the police. In addition to adding deaths from Legal intervention, operations of war, military operations, and terrorism to the INEGI homicide count I used a statistical model to predict the intent of deaths of unknown intent similar to what I used in this <a href="https://blog.diegovalle.net/2012/07/machine-learning-for-better-homicide.html" >post</a>. The disadvantage of using the INEGI data is it is usally more than a year out of date.</p><br/>
+                    <p style="text-align:left;">INEGI homicide data tends to be more precise. Forensic coroners and the INEGI simply don't have the same incentives to lower the number of homicides that happen in Mexico as the police. In addition to adding deaths from Legal intervention, operations of war, military operations, and terrorism to the INEGI homicide count I used a statistical model to predict the intent of deaths of unknown intent similar to what I used in this <a href="https://blog.diegovalle.net/2012/07/machine-learning-for-better-homicide.html" >post</a>. The disadvantage of using the INEGI data is it is usually more than a year out of date.</p><br/>
 
                     <p style="text-align:left;">Intuitively, you can think of the statistical model as if someone were to ask you to guess the injury intent in the death of a 70 year old Mérida woman whose cause of death was transport related. You would probably answer it was an accident. On the other hand, if you had to guess the type of death of a young adult male whose cause of death was a firearm, and the injury took place on a public street in Ciudad Juárez, you would probably guess it was a homicide.</p><br/>
+
+                    <p style="text-align:left;">The chart below shows INEGI homicides without any statistical adjustment since 1990</p>
                     </section></div>
 
                 <div class="wrapper">
@@ -399,6 +401,7 @@ License: pixelarity.com/license
                  top: 25,
                  buffer: 0,
                  right: 40,
+                 interpolate: 'linear',
                  target: '#national90',
                  y_extended_ticks: true,
                  show_secondary_x_label: false,
