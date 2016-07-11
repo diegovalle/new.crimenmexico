@@ -16,12 +16,12 @@ casper.test.begin(
             }, '/en/ 5 charts of crime');
             test.assertEval(function() {
                 return __utils__
-                    .findAll('svg > path.mg-line2-color').length === 2;
-            }, '/en/ 2 line of INEGI homicides');
+                    .findAll('svg > path.mg-line2-color').length === 1;
+            }, '/en/ 1 line of INEGI homicides');
             test.assertEval(function() {
                 return __utils__
-                    .findAll('svg > path.mg-line1-color').length === 6;
-            }, '/en/ 6 lines of SESNSP crimes');
+                    .findAll('svg > path.mg-line1-color').length === 5;
+            }, '/en/ 5 lines of SESNSP crimes');
             test.assertExists('#hexmap svg path', 'hexmap exists');
         });
 
@@ -33,14 +33,25 @@ casper.test.begin(
             }, '/es/ es 5 charts of crime');
             test.assertEval(function() {
                 return __utils__
-                    .findAll('svg > path.mg-line2-color').length === 2;
-            }, '/es/ 2 line of INEGI homicides');
+                    .findAll('svg > path.mg-line2-color').length === 1;
+            }, '/es/ 1 line of INEGI homicides');
             test.assertEval(function() {
                 return __utils__
-                    .findAll('svg > path.mg-line1-color').length === 6;
-            }, '/es/ 6 lines of SESNSP crimes');
+                    .findAll('svg > path.mg-line1-color').length === 5;
+            }, '/es/ 5 lines of SESNSP crimes');
             test.assertExists('#hexmap svg path', 'hexmap exists');
         });
+
+        // casper.thenOpen(partialURL + '/es/#historical', function() {
+        //     casper.waitForSelector('#national90 svg > path.mg-line2-color',
+        //                            test.assertEval(function() {
+        //                                return __utils__
+        //                                    .findAll('svg > path.mg-line2-color').length === 2;
+        //                            }, '/es/#historical 2 lines of INEGI homicides + historical homicides'),
+        //                            function() {});
+
+
+        // });
 
         casper.thenOpen(partialURL + '/en/states.html', function() {
             test.assertEval(function() {
