@@ -40,7 +40,8 @@ vic %<>%
          tipo = str_replace(tipo, "SECUESTRO", "Kidnapping")) %>%
   group_by(date, modalidad, tipo, subtipo, state, state_code) %>%
   summarise(count = sum(count), population = population[1]) %>%
-  mutate(rate = ((count /  numberOfDays(date) * 30) * 12) / population * 10^5)
+  mutate(rate = ((count /  numberOfDays(date) * 30) * 12) / population * 10^5) %>%
+  mutate(rate = round(rate, 1))
 
 # Before 2015 kidnappings didn't include federal crimes
 vic[(vic$date <= as.Date("2014-12-31") & vic$tipo == "Kidnapping"),]$count <- NA

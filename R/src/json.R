@@ -1,7 +1,8 @@
 national <- vic %>% 
   group_by(date, modalidad, tipo, subtipo) %>% 
   summarise(count = sum(count), pop = sum(population)) %>%
-  mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / pop) * 10^5  ) 
+  mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / pop) * 10^5  )  %>%
+  mutate(rate = round(rate, 1))
 national$tipo <- reorder(national$tipo, -national$rate, mean, na.rm = TRUE)
 
 hd.inegi <- injury.intent %>%
@@ -11,7 +12,8 @@ hd.inegi <- injury.intent %>%
   mutate(date = as.Date(str_c(year_reg, "-", month_reg, "-01"))) %>%
   right_join(filter(national[,c("tipo", "date", "pop")],
                    tipo == 'Homicidio Doloso'), by = "date") %>%
-  mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / pop) * 10^5) %>%
+  mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / pop) * 10^5)  %>%
+  mutate(rate = round(rate, 1))%>%
   ungroup() %>%
   dplyr::select(-year_reg, -month_reg)
 
@@ -46,6 +48,7 @@ states.inegi <- injury.intent %>%
             [,c("tipo", "date", "population", "state_code")], 
             by = c("date" = "date", "state_occur_death" = "state_code")) %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / population) * 10^5) %>%
+  mutate(rate = round(rate, 1)) %>%
   ungroup() %>% 
   rename(state_code = state_occur_death) %>%
   dplyr::select(-year_reg, -month_reg)
@@ -77,6 +80,7 @@ states.inegi.name <- injury.intent %>%
              [,c("tipo", "date", "population", "state_code", "name")], 
              by = c("date" = "date", "state_occur_death" = "state_code")) %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / population) * 10^5) %>%
+  mutate(rate = round(rate, 1)) %>%
   ungroup() %>% 
   rename(state_code = state_occur_death) %>%
   dplyr::select(-year_reg, -month_reg)

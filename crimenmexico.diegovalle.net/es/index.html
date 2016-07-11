@@ -113,6 +113,32 @@ License: pixelarity.com/license
              fill: #b35806;
              color: #b35806;
          }
+         /* .select-style {
+            border: 1px solid #ccc;
+            width: 200px;
+            border-radius: 3px;
+            overflow: hidden;
+            background: #fafafa url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==") no-repeat 90% 50%;
+            display: block;
+            margin: 0 auto;
+            }
+            .select-style select {
+            padding: 5px 8px;
+            border: none;
+            width: 100%;
+            box-shadow: none;
+            background: transparent;
+            background-image: none;
+            -webkit-appearance: none;
+            font-size: 1em;
+            font-family: 'Source Sans Pro';
+            font-weight: 700;
+            color: #555;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            text-indent: 1px;
+            text-overflow: '';
+            } */
 
         </style>
     </head>
@@ -254,21 +280,62 @@ clasificar las muertes de intención desconocida en base a un modelo
                     <p style="text-align:left;">La gráfica de abajo muestra los homicidios sin ningún ajuste estadístico desde 1990</p>
 <br/>
                     </section></div>
-
                 <div class="wrapper">
+                    <a name="historical"></a>
+                    <div class="row ">
+                        <div class="6u 6u(mobile)">
+                            <div class="legend"><span class="mg-line2-legend-color" style="color:#b35806">— INEGI <b><i>no</i></b> ajustadas estadísticamente&nbsp; </span></div>
+                            <div class="legend"><span class="mg-line1-legend-color">— SESNSP victimas&nbsp; </span></div>
+                        </div>
+                        <div class="6u 6u(mobile)">
+                            <div class="select-style">
+                                <select id="state_select">
 
-                <a name="historical"></a>
-                <div class="row ">
-                    <div class="12u 12u(movile)">
-                        <div class="legend"><span class="mg-line2-legend-color" style="color:#b35806">— INEGI <b><i>not</i></b> statistically adjusted&nbsp; </span></div>
-                        <div class="legend"><span class="mg-line1-legend-color">— SNSP victims&nbsp; </span></div>
+                                    <option value="national">Todo México</option>
+                                    <option value="1">Aguascalientes</option>
+                                    <option value="2">Baja California</option>
+                                    <option value="3">Baja California Sur</option>
+                                    <option value="4">Campeche</option>
+                                    <option value="5">Coahuila</option>
+                                    <option value="6">Colima</option>
+                                    <option value="7">Chiapas</option>
+                                    <option value="8">Chihuahua</option>
+                                    <option value="9">Ciudad de México</option>
+                                    <option value="10">Durango</option>
+                                    <option value="11">Guanajuato</option>
+                                    <option value="12">Guerrero</option>
+                                    <option value="13">Hidalgo</option>
+                                    <option value="14">Jalisco</option>
+                                    <option value="15">México</option>
+                                    <option value="16">Michoacán</option>
+                                    <option value="17">Morelos</option>
+                                    <option value="18">Nayarit</option>
+                                    <option value="19">Nuevo León</option>
+                                    <option value="20">Oaxaca</option>
+                                    <option value="21">Puebla</option>
+                                    <option value="22">Querétaro</option>
+                                    <option value="23">Quintana Roo</option>
+                                    <option value="24">San Luis Potosí</option>
+                                    <option value="25">Sinaloa</option>
+                                    <option value="26">Sonora</option>
+                                    <option value="27">Tabasco</option>
+                                    <option value="28">Tamaulipas</option>
+                                    <option value="29">Tlaxcala</option>
+                                    <option value="30">Veracruz</option>
+                                    <option value="31">Yucatán</option>
+                                    <option value="32">Zacatecas</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
+
+
+                    <div class="row">
+                        <div class="12u 12u(mobile) national90-chart"><div id="national90"></div></div>
+                    </div>
+                    <p>Las cifras correspondientes a los homicidios INEGI del periodo enero-junio de 2015 son de carácter preliminar.</p>
                 </div>
-                <div class="row">
-                    <div class="12u 12u(mobile) national90-chart"><div id="national90"></div></div>
-                </div>
-                <p>Las cifras correspondientes a los homicidios INEGI del periodo enero-junio de 2015 son de carácter preliminar.</p>
-                </div>
+
                 <!-- Portfolio Wrapper -->
                     <div class="wrapper">
                         <section id="portfolio-preview">
@@ -389,12 +456,9 @@ clasificar las muertes de intención desconocida en base a un modelo
         </script>
         <script src="/js/index.js"></script>
         <script async>
-         d3.json('/assets/json/national_1990.json', function(data) {
-             for (var i = 0; i < data.length; i++) {
-                 data[i] = MG.convert.date(data[i], 'date');
-             }
+         create_historical_chart = function(data) {
              MG.data_graphic({
-                 title: national_title_text,
+                 title: "Historical trends",
                  full_width: true,
                  data: data,
                  width: 600,
@@ -409,21 +473,38 @@ clasificar las muertes de intención desconocida en base a un modelo
                  y_extended_ticks: true,
                  show_secondary_x_label: false,
                  small_text: false,
-                 x_accessor: 'date',
-                 y_accessor: 'rate',
-                 xax_count: 4,
+                 x_accessor: 'd',
+                 y_accessor: 'r',
+                 xax_count: 3,
                  yax_count: 3,
                  xax_format: d3.time.format('%b-%Y'),
                  y_label: annualized_rate,
                  mouseover: function(d, i) {
-                     var date = new Date(d.date);
-                     var day = d.date.getDate();
-                     var monthIndex = d.date.getMonth();
-                     var year = d.date.getFullYear();
+                     var date = new Date(d.d);
+                     var day = d.d.getDate();
+                     var monthIndex = d.d.getMonth();
+                     var year = d.d.getFullYear();
                      d3.select('#national90' + ' svg .mg-active-datapoint')
-                       .text(monthNames[monthIndex] + '-' + year + rate_text + round(d.rate) + population_text + comma(d.pop) + count_text + comma(d.count));
+                       .text(monthNames[monthIndex] + '-' + year + rate_text + round(d.r) + population_text + comma(d.p) + count_text + comma(d.c));
                  }
-                 //legend_target: '.legend'
+             });
+         }
+         var state_data;
+         $( window ).load(function() {
+             d3.json('/assets/json/national_1990.json', function(data) {
+                 state_data = data
+                 for (var key in state_data) {
+                     for(var i = 0; i < state_data[key].length; i++)
+                         state_data[key][i] = MG.convert.date(state_data[key][i], 'd');
+                 }
+
+                 d3.select('#state_select').on('change', function(d) {
+                     data = state_data[$( "#state_select" ).val()];
+                     create_historical_chart(data);
+                 })
+
+                 data = state_data[$( "#state_select" ).val()];
+                 create_historical_chart(data);
              });
          });
         </script>
