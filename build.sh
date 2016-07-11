@@ -7,6 +7,9 @@ SCRIPTPATH=$( cd "$(dirname "$0")" ; pwd -P )
 EXPORT=crimenmexico.diegovalle.net/data
 SQLITE3=sqlite3
 
+#Download INEGI homicide data for the national chart in index.html
+cd R/data && ./inegi.sh && cd ../..
+
 # Download the snsp data and create a sqlite db with the data
 . ~/.virtualenvs/crimenmexico/bin/activate
 rm -rf downloader/page-checksums/*.md5
