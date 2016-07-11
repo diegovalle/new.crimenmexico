@@ -330,7 +330,7 @@ License: pixelarity.com/license
                   <div class="row">
                     <div class="12u 12u(mobile) national90-chart"><div id="national90"></div></div>
                   </div>
-                  <p>INEGI January-June 2015 homicide counts are of a preliminary nature.</p>
+                  <p>2015 INEGI homicide counts are of a preliminary nature.</p>
                 </div>
                 <!-- Portfolio Wrapper -->
                     <div class="wrapper">
@@ -451,6 +451,7 @@ License: pixelarity.com/license
              population_text = ', population: ';
         </script>
         <script src="/js/index.js"></script>
+        <script src="/assets/js/jquery.inview.js"></script>
         <script async>
          create_historical_chart = function(data) {
              MG.data_graphic({
@@ -481,28 +482,34 @@ License: pixelarity.com/license
                      var monthIndex = d.d.getMonth();
                      var year = d.d.getFullYear();
                      d3.select('#national90' + ' svg .mg-active-datapoint')
-                       .text(monthNames[monthIndex] + '-' + year + rate_text + round(d.r) + population_text + comma(d.p) + count_text + comma(d.c));
+                       .text(monthNames[monthIndex] + '-' + year + population_text + comma(d.p) + rate_text + round(d.r) + count_text + comma(d.c));
                  }
              });
          }
          var state_data;
          $( window ).load(function() {
-             d3.json('/assets/json/national_1990.json', function(data) {
-                 state_data = data
-                 for (var key in state_data) {
-                     for(var i = 0; i < state_data[key].length; i++)
-                         state_data[key][i] = MG.convert.date(state_data[key][i], 'd');
+             $('#state_select').one('inview', function(event, isInView) {
+                 if (isInView) {
+                     d3.json('/assets/json/national_1990.json', function(data) {
+                         state_data = data
+                         for (var key in state_data) {
+                             for(var i = 0; i < state_data[key].length; i++)
+                                 state_data[key][i] = MG.convert.date(state_data[key][i], 'd');
+                         }
+
+                         d3.select('#state_select').on('change', function(d) {
+                             data = state_data[$( "#state_select" ).val()];
+                             create_historical_chart(data);
+                         })
+
+                         data = state_data[$( "#state_select" ).val()];
+                         create_historical_chart(data);
+                     });
+
                  }
-
-                 d3.select('#state_select').on('change', function(d) {
-                     data = state_data[$( "#state_select" ).val()];
-                     create_historical_chart(data);
-                 })
-
-                 data = state_data[$( "#state_select" ).val()];
-                 create_historical_chart(data);
              });
          });
+
         </script>
         <!-- Google Analytics -->
         <script>

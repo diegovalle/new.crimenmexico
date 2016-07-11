@@ -333,7 +333,7 @@ clasificar las muertes de intención desconocida en base a un modelo
                     <div class="row">
                         <div class="12u 12u(mobile) national90-chart"><div id="national90"></div></div>
                     </div>
-                    <p>Las cifras correspondientes a los homicidios INEGI del periodo enero-junio de 2015 son de carácter preliminar.</p>
+                    <p>Las cifras correspondientes a los homicidios INEGI del periodo 2015 son de carácter preliminar.</p>
                 </div>
 
                 <!-- Portfolio Wrapper -->
@@ -455,6 +455,7 @@ clasificar las muertes de intención desconocida en base a un modelo
              population_text = ', población: ';
         </script>
         <script src="/js/index.js"></script>
+        <script src="/assets/js/jquery.inview.js"></script>
         <script async>
          create_historical_chart = function(data) {
              MG.data_graphic({
@@ -485,28 +486,34 @@ clasificar las muertes de intención desconocida en base a un modelo
                      var monthIndex = d.d.getMonth();
                      var year = d.d.getFullYear();
                      d3.select('#national90' + ' svg .mg-active-datapoint')
-                       .text(monthNames[monthIndex] + '-' + year + rate_text + round(d.r) + population_text + comma(d.p) + count_text + comma(d.c));
+                       .text(monthNames[monthIndex] + '-' + year + population_text + comma(d.p) + rate_text + round(d.r) + count_text + comma(d.c));
                  }
              });
          }
          var state_data;
          $( window ).load(function() {
-             d3.json('/assets/json/national_1990.json', function(data) {
-                 state_data = data
-                 for (var key in state_data) {
-                     for(var i = 0; i < state_data[key].length; i++)
-                         state_data[key][i] = MG.convert.date(state_data[key][i], 'd');
+             $('#state_select').one('inview', function(event, isInView) {
+                 if (isInView) {
+                     d3.json('/assets/json/national_1990.json', function(data) {
+                         state_data = data
+                         for (var key in state_data) {
+                             for(var i = 0; i < state_data[key].length; i++)
+                                 state_data[key][i] = MG.convert.date(state_data[key][i], 'd');
+                         }
+
+                         d3.select('#state_select').on('change', function(d) {
+                             data = state_data[$( "#state_select" ).val()];
+                             create_historical_chart(data);
+                         })
+
+                         data = state_data[$( "#state_select" ).val()];
+                         create_historical_chart(data);
+                     });
+
                  }
-
-                 d3.select('#state_select').on('change', function(d) {
-                     data = state_data[$( "#state_select" ).val()];
-                     create_historical_chart(data);
-                 })
-
-                 data = state_data[$( "#state_select" ).val()];
-                 create_historical_chart(data);
              });
          });
+
         </script>
         <!-- Google Analytics -->
         <script>
