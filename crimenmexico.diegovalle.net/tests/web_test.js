@@ -42,16 +42,22 @@ casper.test.begin(
             test.assertExists('#hexmap svg path', 'hexmap exists');
         });
 
-        // casper.thenOpen(partialURL + '/es/#historical', function() {
-        //     casper.waitForSelector('#national90 svg > path.mg-line2-color',
-        //                            test.assertEval(function() {
-        //                                return __utils__
-        //                                    .findAll('svg > path.mg-line2-color').length === 2;
-        //                            }, '/es/#historical 2 lines of INEGI homicides + historical homicides'),
-        //                            function() {});
+        casper.thenOpen(partialURL + '/es/#historical', function() {
+            casper.waitForSelector('#national90 h2',
+                                   function pass() {
+                                       test.pass('h2 title in national chart')
+                                       test.assertEval(function() {
+                                           return __utils__
+                                               .findAll('svg > path.mg-line2-color').length === 2;
+                                       }, '/es/ 2 line of INEGI homicides + historical');
+                                   },
+                                   function fail() {
+                                       test.fail('h2 title')
+                                   }
+                                  );
 
 
-        // });
+         });
 
         casper.thenOpen(partialURL + '/en/states.html', function() {
             test.assertEval(function() {
@@ -83,9 +89,13 @@ casper.test.begin(
             }, '/es/states.html 32 line of SESNSP crimes');
         });
 
-        // casper.thenOpen(partialURL + '/en/municipios-map.html', function() {
-        //     test.assertExists('img.leaflet-tile-loaded', 'municipio map tiles exist');
-        // });
+        casper.thenOpen(partialURL + '/en/municipios-map.html', function() {
+            test.assertExists('img.leaflet-tile-loaded', '/en/municipios-map.html municipio map tiles exist');
+        });
+
+        casper.thenOpen(partialURL + '/es/municipios-map.html', function() {
+            test.assertExists('img.leaflet-tile-loaded', '/es/municipios-map.html municipio map tiles exist');
+        });
 
         casper.thenOpen(partialURL + '/en/municipios.html', function() {
             test.assertEval(function() {
