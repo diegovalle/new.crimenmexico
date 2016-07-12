@@ -49,15 +49,32 @@ casper.test.begin(
                                        test.assertEval(function() {
                                            return __utils__
                                                .findAll('svg > path.mg-line2-color').length === 2;
-                                       }, '/es/ 2 line of INEGI homicides + historical');
+                                       }, '/en/#historical 2 line of INEGI homicides + historical');
                                    },
                                    function fail() {
-                                       test.fail('h2 title')
+                                       test.fail('/en/#historical h2 title')
                                    }
                                   );
 
 
-         });
+        });
+
+        casper.thenOpen(partialURL + '/en/#historical', function() {
+            casper.waitForSelector('#national90 h2',
+                                   function pass() {
+                                       test.pass('h2 title in national chart')
+                                       test.assertEval(function() {
+                                           return __utils__
+                                               .findAll('svg > path.mg-line2-color').length === 2;
+                                       }, '/en/#historical 2 line of INEGI homicides + historical');
+                                   },
+                                   function fail() {
+                                       test.fail('/en/#historical h2 title')
+                                   }
+                                  );
+
+
+        });
 
         casper.thenOpen(partialURL + '/en/states.html', function() {
             test.assertEval(function() {
