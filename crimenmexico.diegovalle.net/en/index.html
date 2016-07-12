@@ -288,7 +288,7 @@ License: pixelarity.com/license
                       <div class="select-style">
                         <select id="state_select">
 
-                          <option value="national">Todo México</option>
+                          <option value="national">All of Mexico</option>
                           <option value="1">Aguascalientes</option>
                           <option value="2">Baja California</option>
                           <option value="3">Baja California Sur</option>
@@ -448,14 +448,15 @@ License: pixelarity.com/license
              count_text = ', count: ',
              rate = "Rate:", count = "Count:", pop = "Population:";
          var map_of_crime_rates ='Map of Crime Rates - ',
-             population_text = ', population: ';
+             population_text = ', population: ',
+             national_chart_title = 'Historical Trends';
         </script>
         <script src="/js/index.js"></script>
         <script src="/assets/js/jquery.inview.js"></script>
         <script async>
          create_historical_chart = function(data) {
              MG.data_graphic({
-                 title: "Historical trends",
+                 title: national_chart_title,
                  full_width: true,
                  data: data,
                  width: 600,

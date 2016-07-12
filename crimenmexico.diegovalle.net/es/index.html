@@ -452,14 +452,15 @@ clasificar las muertes de intención desconocida en base a un modelo
              rate = "Tasa:", count = "Número:", pop = "Población:";
          var map_of_crime_rates ='Tasa de Crímenes - ';
          var national_title_text = "Homicidios en México desde 1990",
-             population_text = ', población: ';
+             population_text = ', población: ',
+             national_chart_title = 'datos históricos';
         </script>
         <script src="/js/index.js"></script>
         <script src="/assets/js/jquery.inview.js"></script>
         <script async>
          create_historical_chart = function(data) {
              MG.data_graphic({
-                 title: "Historical trends",
+                 title: national_chart_title,
                  full_width: true,
                  data: data,
                  width: 600,
