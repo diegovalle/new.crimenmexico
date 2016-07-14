@@ -192,19 +192,38 @@ ll <- list()
 # })
 findAnomalies_c <- compiler::cmpfun(findAnomalies)
 
-print('homicides')
-ll$hom <- findAnomalies_c("HOMICIDIOS", "DOLOSOS", munvec = muns_to_analyze, fileName="hhom.RData")
-print('car robbery w/v')
-ll$rvcv = findAnomalies_c("ROBO COMUN", "CON VIOLENCIA", "DE VEHICULOS",muns_to_analyze, fileName="hrvcv.RData")
-print('car robbery w/o v')
-ll$rvsv = findAnomalies_c("ROBO COMUN", "SIN VIOLENCIA", "DE VEHICULOS", muns_to_analyze, fileName="hrvsv.RData")
-print('lesions')
-ll$lesions <- findAnomalies_c("LESIONES", "DOLOSAS", munvec = muns_to_analyze, fileName="hlesions.RData")
-print('kidnappings')
-ll$kidnapping = findAnomalies_c("PRIV. DE LA LIBERTAD (SECUESTRO)", "SECUESTRO", "SECUESTRO", 
-                           muns_to_analyze, fileName="hkid.RData")
-print('extortion')
-ll$ext <- findAnomalies_c("DELITOS PATRIMONIALES", "EXTORSION", "EXTORSION", muns_to_analyze, fileName="hext.RData")
+plan(multiprocess)
+ll_hom %<-% {
+  print('homicides')
+  findAnomalies_c("HOMICIDIOS", "DOLOSOS", munvec = muns_to_analyze, fileName="hhom.RData")
+}
+ll_rvcv %<-% {
+  print('car robbery w/v')
+  findAnomalies_c("ROBO COMUN", "CON VIOLENCIA", "DE VEHICULOS",muns_to_analyze, fileName="hrvcv.RData")
+}
+ll_rvsv %<-% {
+  print('car robbery w/o v')
+  findAnomalies_c("ROBO COMUN", "SIN VIOLENCIA", "DE VEHICULOS", muns_to_analyze, fileName="hrvsv.RData")
+}
+ll_lesions %<-% {
+  print('lesions')
+  findAnomalies_c("LESIONES", "DOLOSAS", munvec = muns_to_analyze, fileName="hlesions.RData")
+}
+ll_kidnapping %<-% {
+  print('kidnappings')
+  indAnomalies_c("PRIV. DE LA LIBERTAD (SECUESTRO)", "SECUESTRO", "SECUESTRO", 
+                 muns_to_analyze, fileName="hkid.RData")
+}
+ll_ext %<-% {
+  print('extortion')
+  findAnomalies_c("DELITOS PATRIMONIALES", "EXTORSION", "EXTORSION", muns_to_analyze, fileName="hext.RData")
+}
+ll$hom <- ll_hom
+ll$rvcv <- ll_rvcv
+ll$rvsv <- ll_rvsv
+ll$lesions <- ll_lesions
+ll$kidnapping <- ll_kidnapping
+ll$ext <- ll_ext
 
 write(toJSON(ll), "json/anomalies.json")
 save(ll, file = 'json/ll.RData')
