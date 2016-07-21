@@ -7,7 +7,8 @@
     'libreoffice', 'python-virtualenv', 'python-dev',
     'libcurl4-openssl-dev', 'sqlite3', 'libxml2-dev',
     'r-cran-xml', 'libgdal1-dev', 'libproj-dev',
-    'imagemagick', 'optipng', 'htop', 'gdal-bin']
+    'imagemagick', 'optipng', 'htop', 'gdal-bin', 'apt-transport-https']
+    nodejs_nodesource_pin_priority: 500
     r_repository:
       - type: deb
         url: "http://cran.rstudio.com/bin/linux/ubuntu  {{ ansible_distribution_release }}/"
@@ -19,17 +20,6 @@
       raw: apt-get update -qq
     # - name: Install python 2.7
     #   raw: apt-get install -qq python2.7
-
-    - name: Ensure the system can use the HTTPS transport for APT
-      stat:
-        path: /usr/lib/apt/methods/https
-        register: apt_https_transport
-
-    - name: Install HTTPS transport for APT
-      apt:
-        pkg: apt-transport-https
-        state: installed
-      when: not apt_https_transport.stat.exists
 
     - name: Add R repository public key
       apt_key:
@@ -169,13 +159,13 @@
 
     - name: Add NodeSource repository preferences
       template:
-        src: etc/apt/preferences.d/deb_nodesource_com_node.pref.2
+        src: deb_nodesource_com_node.pref.2
         dest: /etc/apt/preferences.d/deb_nodesource_com_node.pref
 
     - name: Install Node.js
       apt:
         pkg:
-          - nodejs=4.4
+          - nodejs
         state: installed
         update_cache: yes
 
