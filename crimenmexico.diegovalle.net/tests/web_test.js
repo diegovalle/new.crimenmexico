@@ -52,7 +52,7 @@ casper.test.begin(
                                        }, '/en/#historical 2 line of INEGI homicides + historical');
                                    },
                                    function fail() {
-                                       test.fail('/en/#historical h2 title')
+                                       test.fail('/es/#historical h2 title')
                                    }
                                   );
 
