@@ -81,7 +81,6 @@ fi
 # Test crimenmexico.diegovalle.net
 simplehttpserver crimenmexico.diegovalle.net/ > /dev/null  2>&1 &
 #cd crimenmexico.diegovalle.net && python -m SimpleHTTPServer 8000 > /dev/null 2>&1 &
-cd ..
 sleep 40
 cd crimenmexico.diegovalle.net/tests && casperjs --ssl-protocol=tlsv1 test web_test.js && cd ../..
 kill "$!"
