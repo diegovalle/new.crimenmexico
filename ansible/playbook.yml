@@ -13,14 +13,14 @@
       - type: deb
         url: "http://cran.rstudio.com/bin/linux/ubuntu  {{ ansible_distribution_release }}/"
 
-  # gather_facts: False
-
   tasks:
+   
     - name: apt-get update
       raw: apt-get update -qq
-    # - name: Install python 2.7
-    #   raw: apt-get install -qq python2.7
 
+    # needed for installing hashlib
+    - file: path=/usr/lib/python2.7/lib-dynload/_hashlib.x86_64-linux-gnu.so state=absent
+ 
     - name: Add R repository public key
       apt_key:
         id: E084DAB9
