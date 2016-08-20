@@ -1,26 +1,27 @@
 ---
+---
+- hosts: all
+  gather_facts: False
+
+  tasks:
+  - name: install python 2
+    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+
 - hosts: crimenmexico
   vars:
-    pacakges_to_remove: ['apache', 'samba', 'sendmail',
-    'bind9', 'ncsd', 'sasl', 'exim', 'ntp']
-    packages_to_install: [ 'git', 'r-base', 'r-base-dev', 'curl',
-    'libreoffice', 'python-virtualenv', 'python-dev',
-    'libcurl4-openssl-dev', 'sqlite3', 'libxml2-dev',
-    'r-cran-xml', 'libgdal1-dev', 'libproj-dev',
-    'imagemagick', 'optipng', 'htop', 'gdal-bin', 'apt-transport-https']
     nodejs_nodesource_pin_priority: 500
     r_repository:
       - type: deb
         url: "http://cran.rstudio.com/bin/linux/ubuntu  {{ ansible_distribution_release }}/"
 
   tasks:
-   
+
     - name: apt-get update
       raw: apt-get update -qq
 
     # needed for installing hashlib
     - file: path=/usr/lib/python2.7/lib-dynload/_hashlib.x86_64-linux-gnu.so state=absent
- 
+
     - name: Add R repository public key
       apt_key:
         id: E084DAB9
@@ -46,11 +47,37 @@
 
     - name: Remove Packages
       apt: name="{{ item }}" state=absent
-      with_items: packages_to_remove
+      with_items:
+        - apache
+        - samba
+        - sendmail
+        - bind9
+        - ncsd
+        - sasl
+        - exim
+        - ntp
 
     - name: Install Packages
       apt: name="{{ item }}" state=latest
-      with_items: packages_to_install
+      with_items:
+        - git
+        - r-base
+        - r-base-dev
+        - curl
+        - libreoffice
+        - python-virtualenv
+        - python-dev
+        - libcurl4-openssl-dev
+        - sqlite3
+        - libxml2-dev
+        - r-cran-xml
+        - libgdal1-dev
+        - libproj-dev
+        - imagemagick
+        - optipng
+        - htop
+        - gdal-bin
+        - apt-transport-https
 
     - name: Creates .Rprofile with default repo
       lineinfile: dest=/root/.Rprofile line='local({r <- getOption("repos");r["CRAN"] <- "http://cran.cnr.berkeley.edu/";options(repos = r)})' create=True
