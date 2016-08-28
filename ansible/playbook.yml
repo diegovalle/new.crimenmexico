@@ -80,7 +80,7 @@
         - apt-transport-https
 
     - name: Creates .Rprofile with default repo
-      lineinfile: dest=/root/.Rprofile line='local({r <- getOption("repos");r["CRAN"] <- "http://cran.cnr.berkeley.edu/";options(repos = r)})' create=True
+      lineinfile: dest=/root/.Rprofile line='local({r <- getOption("repos");r["CRAN"] <- "https://mran.revolutionanalytics.com/snapshot/2015-04-26";options(repos = r)})' create=True
 
     - name: Clone repo new.crimenmexico
       git: repo=https://github.com/diegovalle/new.crimenmexico dest=/root/new.crimenmexico
