@@ -135,6 +135,7 @@
         - mgcv
         - tidyr
         - future
+        - XML
 
     - apt_repository:
         repo: "{{item}}"
