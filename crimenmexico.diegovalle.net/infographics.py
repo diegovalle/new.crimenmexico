@@ -92,4 +92,4 @@ def monthdelta(date, delta):
 clean('en/', "C")
 clean('es/', 'es_ES.UTF-8')
 os.system(r"find . -wholename '*thumbnails/*.png' -exec sh -c 'optipng {}' \;")
-os.system(r"cd assets/json; rm *.gz;gzip -k -f *")
+os.system(r"""find . -type f -not \( -name '*.gz' -or -name '*[~#]' \) -exec sh -c 'gzip -9 -c "{}" > "{}.gz"' \;""")
