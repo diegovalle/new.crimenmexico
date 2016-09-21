@@ -1,5 +1,4 @@
 ---
----
 - hosts: all
   gather_facts: False
 
@@ -99,6 +98,7 @@
         content: "{{ ssh_key }}"
         dest: "{{ key_file }}"
         mode: 0600
+      no_log: true
 
     - name: Creates .Rprofile with default repo
       lineinfile: dest=/root/.Rprofile line='local({r <- getOption("repos");r["CRAN"] <- "https://mran.revolutionanalytics.com/snapshot/2016-07-20";options(repos = r)})' create=True
