@@ -5,6 +5,13 @@
   tasks:
   - name: install python 2
     raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+  - name: pip utilities for https
+    pip: name={{ item }} state=latest
+    with_items:
+      - pyopenssl
+      - ndg-httpsclient
+      - pyasn1
+      - ansible
 
 - hosts: crimenmexico
   vars:
@@ -78,7 +85,7 @@
         - gdal-bin
         - apt-transport-https
 
-    # ansible-playbook -i hosts playbook.yml --ask-vault-pass --extra-vars "secrets=true"
+    # ansible-playbook -i hosts playbook.yml --vault-password-file=password.txt --extra-vars "secrets=true"
     - name: Load secrets
       when: secrets == 'true'
       include_vars: secrets.yml
@@ -104,7 +111,7 @@
       lineinfile: dest=/root/.Rprofile line='local({r <- getOption("repos");r["CRAN"] <- "https://mran.revolutionanalytics.com/snapshot/2016-07-20";options(repos = r)})' create=True
 
     - name: Clone repo new.crimenmexico
-      git: repo=https://github.com/diegovalle/new.crimenmexico dest=/root/new.crimenmexico
+      git: repo=https://github.com/diegovalle/new.crimenmexico dest=/root/new.crimenmexico force=yes
 
     - name: Install fonts
       command: find /root/new.crimenmexico/R/fonts/ -type f -name '*.ttf' -print -exec cp {} /usr/share/fonts/truetype/ \;
