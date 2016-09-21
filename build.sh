@@ -84,3 +84,6 @@ simplehttpserver crimenmexico.diegovalle.net/ > /dev/null  2>&1 &
 sleep 40
 cd crimenmexico.diegovalle.net/tests && casperjs --ssl-protocol=tlsv1 test web_test.js && cd ../..
 kill "$!"
+rsync -Pavz -e 'ssh -i /root/.ssh/crimenmexico'  /root/new.crimenmexico crimenmexico@168.235.92.165:/home/crimenmexico
+# copy  to the beta website
+rsync -Pavz -e 'ssh -i /root/.ssh/crimenmexico'  /root/new.crimenmexico/crimenmexico.diegovalle.net/ crimenmexico@168.235.92.165:/var/www/bcrimenmexico.diegovalle.net
