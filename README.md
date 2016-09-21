@@ -3,7 +3,7 @@
 Source code for generating the website
 [crimenmexico.diegovalle.net](http://crimenmexico.diegovalle.net)
 
-ansible-playbook -i hosts playbook.yml
+ansible-playbook -i hosts playbook.yml --ask-vault-pass --extra-vars "secrets=true"
 
 There is an ansible script in the ansible directory for setting up an
 Ubuntu 14.04 64 bit instance with at least 8GB of RAM. Once the instance is
