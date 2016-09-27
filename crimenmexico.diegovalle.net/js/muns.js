@@ -24,7 +24,8 @@ var selected_value = 'hd', muns;
                      }
                  });
                  $('.line-chart').each(function(index, obj){
-                     $(obj).attr('id', 'line' + muns_ordered[index].replace(/ |\./g, '')
+                     if(typeof muns_ordered[index] !== "undefined")
+                       $(obj).attr('id', 'line' + muns_ordered[index].replace(/ |\./g, '')
                                                                    .replace(/,/g, ''));
                  });
                  return(muns_ordered)
