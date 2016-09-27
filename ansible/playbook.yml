@@ -261,5 +261,5 @@
 
     - name: install
       shell: if [ -f {{ mktemp_output.stdout }}/zopfli ]; then cp {{ mktemp_output.stdout }}/zopfli /usr/local/bin/zopfli; fi
-  when: result.rc != 0
+      when: result.rc != 0
 
