@@ -98,6 +98,11 @@
         mode: 0700
         state: directory
 
+    - name: tell the host about our servers it might want to ssh to
+      known_hosts: path='/etc/ssh/ssh_known_hosts'
+                   name='168.235.92.165'
+                   key="{{ ssh_key }}"
+
     # rsync -Pav -e 'ssh -i ~/.ssh/crimenmexico'  /root/new.crimenmexico crimenmexico@168.235.92.165:/home/crimenmexico
     - name: Install ssh key
       when: secrets == 'true'
@@ -233,3 +238,28 @@
 
     - name: Install simplehttpserver
       npm:  name=simplehttpserver global=yes
+
+    # Zopfli compression
+
+    - name: Create temp directory for downloading zopfli
+      command: mktemp -d /tmp/zopfli.XXXXXX
+      register: mktemp_output
+    
+    - name: check installed
+      command: /usr/local/bin/zopfli -h
+      register: result
+      ignore_errors: True
+      changed_when: False
+
+    - name: Clone zopfli repo
+      git: repo=https://github.com/google/zopfli dest={{ mktemp_output.stdout }} force=yes
+      when: result.rc != 0
+
+    - name: make
+      command: make -j{{ ansible_processor_cores }} chdir={{ mktemp_output.stdout }}
+      when: result.rc != 0
+
+    - name: install
+      shell: if [ -f {{ mktemp_output.stdout }}/zopfli ]; then cp {{ mktemp_output.stdout }}/zopfli /usr/local/bin/zopfli; fi
+  when: result.rc != 0
+
