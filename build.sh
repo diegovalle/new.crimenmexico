@@ -58,7 +58,7 @@ cp -n -v R/graphs/infographic_???_????.png crimenmexico.diegovalle.net/en/images
 cp -n -v R/graphs/municipios_???_????.png crimenmexico.diegovalle.net/en/images/infographics/fulls/
 cp -n -v R/graphs/infographic_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
 cp -n -v R/graphs/municipios_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
-cd crimenmexico.diegovalle.net && python infographics.py && cd ..
+cd crimenmexico.diegovalle.net && python create_website.py && cd ..
 
 echo "Exporting database to csv.gz"
 # Export the sqlite database to csv and compress

@@ -73,12 +73,26 @@ def clean(lang, t):
     filedata = f.read()
     f.close()
 
-    newdata = re.sub('Map of homicide in Mexico [a-zA-Z0-9 ]*',r'Map of homicide in Mexico from ' + datetime.strftime(monthdelta(datetime.strptime(dates[0], "%B %Y"), -5), "%B %Y") + ' to ' + dates[0], filedata)
+    newdata = re.sub('Map of homicide in Mexico [a-zA-Z0-9 ]*', r'Map of homicide in Mexico from ' + datetime.strftime(monthdelta(datetime.strptime(dates[0], "%B %Y"), -5), "%B %Y") + ' to ' + dates[0], filedata)
     newdata = re.sub('Mapa de homicidios [a-zA-Z0-9 úÚ]*',
                      r'Mapa de homicidios de ' + datetime.strftime(monthdelta(datetime.strptime(dates[0], "%B %Y"), -5), "%B %Y") + ' a ' + dates[0], newdata)
     # import pdb;pdb.set_trace()
 
     f = open(lang + 'municipios-map.html', 'w')
+    f.write(newdata)
+    f.close()
+
+    # replace the cluster map text
+    f = open(lang + 'lisa-map.html','r')
+    filedata = f.read()
+    f.close()
+
+    newdata = re.sub('Map of homicide clusters in Mexico [a-zA-Z0-9 ]*', r'Map of homicide clusters in Mexico from ' + datetime.strftime(monthdelta(datetime.strptime(dates[0], "%B %Y"), -5), "%B %Y") + ' to ' + dates[0], filedata)
+    newdata = re.sub('Clusters de homicidio de [a-zA-Z0-9 úÚ]*',
+                     r'Clusters de homicidio de ' + datetime.strftime(monthdelta(datetime.strptime(dates[0], "%B %Y"), -5), "%B %Y") + ' a ' + dates[0], newdata)
+    #import pdb;pdb.set_trace()
+
+    f = open(lang + 'lisa-map.html', 'w')
     f.write(newdata)
     f.close()
 
@@ -91,5 +105,7 @@ def monthdelta(date, delta):
 
 clean('en/', "C")
 clean('es/', 'es_ES.UTF-8')
+print("optimizing PNGs...")
 os.system(r"find . -wholename '*thumbnails/*.png' -exec sh -c 'optipng -quiet {}' \;")
+print("compress with zopfli")
 os.system(r"""find . -type f -not \( -name '*.gz' -or -name '*[~#]' -or -name '*.png' -or -name '*.jpg' -or -name '*.py' \) -exec sh -c 'zopfli "{}"' \;""")
