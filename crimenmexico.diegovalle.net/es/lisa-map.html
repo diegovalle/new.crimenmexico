@@ -1,0 +1,351 @@
+<!DOCTYPE HTML>
+<!--
+Focal Point by Pixelarity
+pixelarity.com @pixelarity
+License: pixelarity.com/license
+-->
+<html lang="es">
+    <head>
+
+        <link rel="preload" href="/assets/js/jquery.min.js" as="script">
+        <link rel="preload" href="/assets/js/jquery.dropotron.min.js" as="script">
+        <link rel="preload" href="/assets/js/jquery.selectorr.min.js" as="script">
+        <link rel="preload" href="/assets/js/jquery.poptrox.min.js" as="script">
+        <link rel="preload" href="/assets/js/skel.min.js" as="script">
+        <link rel="preload" href="/assets/js/skel-viewport.min.js" as="script">
+        <link rel="preload" href="/assets/js/util.js" as="script">
+        <link rel="preload" href="/assets/js/main.js" as="script">
+        <link rel="preload" href='/assets/js/d3.min.js' as="script">
+        <link rel="preload" href='/assets/js/topojson.min.js' as="script">
+        <link rel="preload" href='/assets/js/metricsgraphics.js' as="script">
+        <link rel="preload" href='/assets/js/lodash.min.js' as="script">
+        <link rel="preload" href="/assets/js/d3-tip/index.js" as="script">
+        <link rel="preload" href="/assets/css/main.css"  as="script">
+        <link rel="preload" href="/assets/css/metricsgraphics.min.css"  as="script">
+        <link rel="preload" href="/assets/css/leaflet.css"  as="script">
+        <link rel="preload" href="/assets/js/leaflet.min.js""  as="script">
+        <link rel="preload" href="/assets/js/L.Control.Locate.js"  as="script">
+        <link rel="preload" href="/assets/js/crosslet.es.js"  as="script">
+        <link rel="preload" href="/assets/json/municipios.topojson"  as="script">
+        <link rel="preload" href="/assets/json/lisa.json"  as="script">
+
+        <title>Clusters de homicidio - Delincuencia en México</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="alternate" hreflang="en" href="https://crimenmexico.diegovalle.net/en/lisa-map.html" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Mapa de clusters de homicidio en México a nivel municipio" />
+        <link rel="stylesheet" href="/assets/css/metricsgraphics.min.css" />
+        <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+        <link rel="stylesheet" href="/assets/css/main.css" />
+        <link rel="stylesheet/less" type="text/css" href="/assets/less/styles.less" />
+        <script src="/assets/js/less.min.js" type="text/javascript"></script>
+        <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+        <link rel="stylesheet" href="/assets/css/crimenmexico.css" />
+        <link rel="stylesheet" href="/assets/css/leaflet.css" />
+        <!--[if lte IE 8]>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.5/leaflet.ie.css" />
+        <![endif]-->
+        <script src="/assets/js/leaflet.min.js"></script>
+        <style>
+         input {
+             height: 2em;
+         }
+         .crosslet svg g.crosslet_geometry path {
+             stroke:black;
+             fill-opacity: .8;
+         }
+         .crosslet svg .hover rect {
+             fill-opacity: 1;
+             fill: #000;
+         }
+         .crosslet svg .hover text {
+             fill:white
+         }
+         .crosslet svg g.crosslet_geometry path:hover{
+             stroke:black;
+             //stroke-width:1.2px;
+             fill-opacity: 1;
+         }
+         .info {
+             padding: 6px 8px;
+             font: 14px/16px Arial, Helvetica, sans-serif;
+             background: #000;
+             //background: rgba(255,255,255,0.8);
+             box-shadow: 0 0 15px rgba(0,0,0,0.2);
+             border-radius: 5px;
+             color: #fff;
+         }
+         .info h4 {
+             font: 18px Verdana, Arial, Helvetica, sans-serif;
+             font-weight: bold;
+             margin: 0 0 5px;
+             color: #fff;
+         }
+
+         svg.leaflet-zoom-animated {
+             z-index:-9999;
+         }
+         div.tooltip {
+             position: absolute;
+             text-align: left;
+             z-index: 9999;
+             padding: 8px;
+             font: 12px sans-serif;
+             background: black;
+             color: white;
+             border: solid 1px #999;
+             border-radius: 5px;
+         }
+         #hom-map {
+             height:600px;
+         }
+         .county-name{
+             //position: absolute;
+             top:2em;
+             right:1em;
+             z-index:600000;
+             background:rgba(0,0,0,.75);
+             color:white;
+             padding:.5em .75em;
+             font-size:.85em;
+         }
+        </style>
+    </head>
+    <body class="no-sidebar">
+        <div id="page-wrapper">
+            <div class="container">
+
+                <!-- Header Wrapper -->
+                <div id="header-wrapper" class="wrapper">
+
+                    <!-- Header -->
+                    <div id="header">
+
+                        <!-- Logo -->
+                        <a href="index.html" id="logo">
+                            <span class="pennant"><span class="icon fa-bar-chart"></span></span>
+                            <h1>CrimenMexico</h1>
+                        </a>
+
+                        <!-- Nav -->
+                        <nav id="nav">
+                            <ul>
+                                <li><a href="/es/index.html">Inicio</a></li>
+                                <!-- <li>
+                                <a href="#">Dropdown</a>
+                                <ul>
+                                <li><a href="#">Lorem ipsum dolor</a></li>
+                                <li><a href="#">Magna phasellus</a></li>
+                                <li><a href="#">Etiam dolore nisl</a></li>
+                                <li>
+                                <a href="#">Phasellus consequat</a>
+                                <ul>
+                                <li><a href="#">Lorem ipsum dolor</a></li>
+                                <li><a href="#">Phasellus consequat</a></li>
+                                <li><a href="#">Magna phasellus</a></li>
+                                <li><a href="#">Etiam dolore nisl</a></li>
+                                <li><a href="#">Veroeros feugiat</a></li>
+                                </ul>
+                                </li>
+                                <li><a href="#">Veroeros feugiat</a></li>
+                                </ul>
+                                </li> -->
+                                <li><a href="/es/states.html">Estados</a></li>
+
+                                <li class="current_page_item"><a href="#">Municipios</a>
+                                    <ul>
+                                        <li><a href="/es/municipios-map.html">Mapa</a></li>
+                                        <li><a href="/es/municipios.html">Series de Tiempo</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/es/anomalies.html">Anomalías</a></li>
+                                <li><a href="/es/infographics.html">Infográficas</a></li>
+                                <li><a href="/es/datos.html">Datos</a></li>
+                            </ul>
+                        </nav>
+
+                    </div>
+
+                </div>
+
+                <!-- Portfolio Wrapper -->
+                <div class="wrapper">
+                    <section id="portfolio-preview">
+                        <header>
+                            <h2>Clusters de homicidio durante los últimos 6 meses</h2></h2>
+                            <!-- <span class="byline">Charts to explain the drug war</span>-->
+                        </header>
+                        <div class="row">
+                            <div class="12u 12u(mobile)" >
+                                <div style="top:2em;
+                                            right:1em;
+
+                                            background:rgba(0,0,0,.75);
+                                            color:white;
+                                            padding:.5em .75em;
+                                            font-size:.85em;
+                                            "><div class="county-name">&nbsp;</div>
+                                </div>
+                                <div id="hom-map"></div>
+                            </div>
+
+                        </div>
+
+                    </section>
+                    <p>El color de los municipios representa el cluster al que pertencen (Rojo = Alto-Alto, Rojo Claro = Alto-Bajo, Azul = Bajo-Bajo, Azul Calo = Bajo-Alto). Los clusters se obtuvieron al aplicar el método <a href="https://en.wikipedia.org/wiki/Indicators_of_spatial_association">LISA</a></p>
+                </div>
+
+                <!-- Footer Wrapper -->
+                <div id="footer-wrapper" class="wrapper">
+
+                    <!-- Footer -->
+                    <section id="footer">
+                        <header>
+                            <h2>Acerca de:</h2>
+                        </header>
+                        <p>Autor: <a href="http://www.diegovalle.net">Diego Valle</a></p>
+                        <p>Por favor visiten <a href="https://hoyodecrimen.com">hoyodecrimen.com</a> para información delincuencial del DF</p>
+                        <ul class="contact">
+                            <li><a href="https://twitter.com/diegovalle" class="icon fa-twitter"><span>Twitter</span></a></li>
+                            <li><a href="https://facebook.com/diegovalle" class="icon fa-facebook"><span>Facebook</span></a></li>
+                            <li><a href="https://github.com/diegovalle" class="icon fa-github"><span>Instagram</span></a></li>
+                            <li><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#100;&#105;&#101;&#103;&#111;&#64;&#100;&#105;&#101;&#103;&#111;&#118;&#97;&#108;&#108;&#101;&#46;&#110;&#101;&#116;"  class="icon fa-envelope"><span>&#100;&#105;&#101;&#103;&#111;&#64;&#100;&#105;&#101;&#103;&#111;&#118;&#97;&#108;&#108;&#101;&#46;&#110;&#101;&#116;</span></a>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Copyright -->
+                    <div id="copyright">
+                        &copy; Diego Valle-Jones. Todos los derechos reservados.<br>
+                        <a href="/en/index.html">English Version</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!--<div class="a2a_kit a2a_kit_size_32 a2a_floating_style a2a_vertical_style" style="left:0px; top:150px;">
+            <a class="a2a_button_facebook"></a>
+            <a class="a2a_button_twitter"></a>
+            <a class="a2a_button_reddit"></a>
+            <a class="a2a_dd" href="http://www.addtoany.com/share_save"></a>
+        </div>-->
+
+        <!--<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>-->
+
+
+
+        <!-- Scripts -->
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/jquery.dropotron.min.js"></script>
+        <script src="/assets/js/jquery.selectorr.min.js"></script>
+        <script src="/assets/js/jquery.poptrox.min.js"></script>
+        <script src="/assets/js/skel.min.js"></script>
+        <script src="/assets/js/skel-viewport.min.js"></script>
+        <script src="/assets/js/util.js"></script>
+        <!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
+        <script src="/assets/js/main.js"></script>
+        <script src='/assets/js/d3.min.js'></script>
+        <script src='/assets/js/topojson.min.js'></script>
+        <script src='/assets/js/metricsgraphics.js'></script>
+        <script src='/assets/js/lodash.min.js'></script>
+        <script src="/assets/js/d3-tip/index.js"></script>
+
+        <script type="text/javascript" src="/assets/js/chroma.min.js"></script>
+        <script src="/assets/js/backbone-min.js"></script>
+        <script src='/assets/js/L.Control.Locate.js'></script>
+        <link href='/assets/css/L.Control.Locate.css' rel='stylesheet' />
+        <!--[if lt IE 9]>
+        <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.ie.css' rel='stylesheet' />
+        <![endif]-->
+        <script>
+         L.TopoJSON = L.GeoJSON.extend({
+             addData: function(jsonData) {
+                 if (jsonData.type === "Topology") {
+                     for (key in jsonData.objects) {
+                         geojson = topojson.feature(jsonData, jsonData.objects[key]);
+                         geojson.features = _.filter(geojson.features,
+                                                     function(d) {
+                                                         return !_.includes(nulls, d.properties.id )
+                                                     })
+                         geojson.features.forEach(function(e) {
+                             index = _.findIndex(values['mun.map.id'], function(d) {return d === e.properties.id})
+                             e.properties['color'] = values['color'][index];
+                             e.properties['name'] = values['mun.map.municipio'][index] + ', ' + values['mun.map.state'][index];
+                         })
+                         L.GeoJSON.prototype.addData.call(this, geojson);
+                     }
+                 }
+                 else {
+                     L.GeoJSON.prototype.addData.call(this, jsonData);
+                 }
+             }
+         });
+         // Copyright (c) 2013 Ryan Clark
+         // create a map object and set the view to the coordinates 44,-31 with a zoom of 10
+         var map = L.map('hom-map', topoLayer = new L.TopoJSON())
+                    .setView([23.5,  -102.1], 5);
+         L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+	     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+	     subdomains: 'abcd',
+	     maxZoom: 19
+         }).addTo(map);
+         d3.json("/assets/json/lisa.json", function(d) {
+             nulls = d[0];
+             values = d[1];
+             $.getJSON('/assets/json/municipios.topojson').done(addTopoData);
+             function addTopoData(topoData){
+                 topoLayer.addData(topoData);
+                 topoLayer.addTo(map);
+                 topoLayer.eachLayer(handleLayer);
+             }
+             function handleLayer(layer){
+                 var fillColor = '#ca0020';
+
+                 layer.setStyle({
+                     fillColor : layer.feature.properties.color,
+                     fillOpacity: .5,
+                     color:'#555',
+                     weight:1,
+                     opacity:0.8
+                 });
+
+                 layer.on({
+                     mouseover: enterLayer,
+                     mouseout: leaveLayer
+                 });
+             }
+             var $tooltip = $('.county-name');
+             function enterLayer(){
+                 var countyName = this.feature.properties.name;
+                 $tooltip.text(countyName).show();
+
+                 this.bringToFront();
+                 this.setStyle({
+                     weight:2,
+                     opacity: 1
+                 });
+             }
+
+             function leaveLayer(){
+                 $tooltip.html("&nbsp;")
+
+                 this.bringToBack();
+                 this.setStyle({
+                     weight:1,
+                     opacity:.5
+                 });
+             }
+         });
+        </script>
+        <!-- Google Analytics -->
+        <script>
+         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+         ga('create', 'UA-100264-7', 'auto');
+         ga('send', 'pageview');
+        </script>
+        <script async src='https://www.google-analytics.com/analytics.js'></script>
+        <!-- End Google Analytics -->
+    </body>
+</html>

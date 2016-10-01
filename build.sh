@@ -52,7 +52,6 @@ fi
 cd R/interactive-map/ && ogr2ogr -f "GeoJSON" municipios-centroids.json municipios-centroids.vrt && cd ../..
 cp R/interactive-map/municipios* crimenmexico.diegovalle.net/assets/json
 
-
 # Move images to the website directory
 echo "Creating website...."
 cp -n -v R/graphs/infographic_???_????.png crimenmexico.diegovalle.net/en/images/infographics/fulls/
