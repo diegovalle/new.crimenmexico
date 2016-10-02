@@ -59,6 +59,15 @@
             />
     </url>
     <url>
+        <loc>http://crimenmexico.diegovalle.net/en/lisa-map.html</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="es"
+            href="http://crimenmexico.diegovalle.net/es/lisa-map.html"
+            />
+    </url>
+
+    <url>
         <loc>http://crimenmexico.diegovalle.net/es/</loc>
         <xhtml:link
             rel="alternate"
@@ -112,6 +121,14 @@
             rel="alternate"
             hreflang="es"
             href="http://crimenmexico.diegovalle.net/en/infographics.html"
+            />
+    </url>
+    <url>
+        <loc>http://crimenmexico.diegovalle.net/es/lisa-map.html</loc>
+        <xhtml:link
+            rel="alternate"
+            hreflang="es"
+            href="http://crimenmexico.diegovalle.net/en/lisa-map.html"
             />
     </url>
 
