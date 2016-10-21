@@ -5,9 +5,16 @@
   tasks:
   - name: install python 2
     raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+  - name: Install Python Packages
+    apt: name="{{ item }}" state=latest
+    with_items:
+        - python-pip
+        - python-virtualenv
+        - python-dev
   - name: pip utilities for https
     pip: name={{ item }} state=latest
     with_items:
+      - urllib3
       - pyopenssl
       - ndg-httpsclient
       - pyasn1
@@ -98,11 +105,6 @@
         mode: 0700
         state: directory
 
-    - name: tell the host about our servers it might want to ssh to
-      known_hosts: path='/etc/ssh/ssh_known_hosts'
-                   name='168.235.92.165'
-                   key="{{ ssh_key }}"
-
     # rsync -Pav -e 'ssh -i ~/.ssh/crimenmexico'  /root/new.crimenmexico crimenmexico@168.235.92.165:/home/crimenmexico
     - name: Install ssh key
       when: secrets == 'true'
@@ -111,6 +113,12 @@
         dest: "{{ key_file }}"
         mode: 0600
       no_log: true
+
+    - name: tell the host about our servers it might want to ssh to
+      when: secrets == 'true'
+      known_hosts: path='/etc/ssh/ssh_known_hosts'
+                   name='168.235.92.165'
+                   key="{{ lookup('file', 'crimenmexico.pub') }}"
 
     - name: Creates .Rprofile with default repo
       lineinfile: dest=/root/.Rprofile line='local({r <- getOption("repos");r["CRAN"] <- "https://mran.revolutionanalytics.com/snapshot/2016-07-20";options(repos = r)})' create=True
