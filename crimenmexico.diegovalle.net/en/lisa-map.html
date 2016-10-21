@@ -286,7 +286,7 @@ License: pixelarity.com/license
          // create a map object and set the view to the coordinates 44,-31 with a zoom of 10
          var map = L.map('hom-map', topoLayer = new L.TopoJSON())
                     .setView([23.5,  -102.1], 5);
-         L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+         L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
 	     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 	     subdomains: 'abcd',
 	     maxZoom: 19
