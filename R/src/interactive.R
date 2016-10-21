@@ -87,7 +87,6 @@ nulls <- mun.map[is.na(mun.map$rate),]$id
 
 mun.map <- mun.map[!is.na(mun.map$rate),]
 #mun.map$rate[is.na(mun.map$rate)] <- 0
-library(spdep)
 coords<-coordinates(mun.map)
 IDs <- row.names(as(mun.map, "data.frame"))
 mxnnb <- knn2nb(knearneigh(coords, k=20), row.names=IDs)
