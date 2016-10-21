@@ -20,3 +20,4 @@ R/json/*.RData
 */es/images/infographics/thumbnails/*
 ansible/playbook.retry
 .idea/*
+password.txt
