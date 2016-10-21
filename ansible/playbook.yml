@@ -11,6 +11,12 @@
         - python-pip
         - python-virtualenv
         - python-dev
+        - libffi-dev 
+        - libssl-dev 
+        - libxml2-dev 
+        - libxslt1-dev 
+        - libjpeg8-dev 
+        - zlib1g-dev
   - name: pip utilities for https
     pip: name={{ item }} state=latest
     with_items:
@@ -76,6 +82,7 @@
         - git
         - r-base
         - r-base-dev
+        - libv8-3.14-dev
         - curl
         - libreoffice
         - python-virtualenv
@@ -177,6 +184,9 @@
         - tidyr
         - future
         - XML
+        - geojsonio
+        - RJSONIO
+        - spdep
 
     - apt_repository:
         repo: "{{item}}"

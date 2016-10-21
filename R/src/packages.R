@@ -45,7 +45,8 @@ pacman::p_load("dplyr",
                "mxmortalitydb",
                "future",
                "geojsonio",
-               "RJSONIO")
+               "RJSONIO",
+               "spdep")
 
 #font_import("fonts", prompt = FALSE) 
 loadfonts()
