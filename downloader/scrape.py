@@ -172,6 +172,10 @@ def write_mun_db(conn, CSV_MUNICIPIOS):
     pd_sql.to_sql(crime_municipios.municipios, 'municipio_names', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_municipios.population, 'population_municipios', conn, if_exists='append', index=False, chunksize=20000)
     print("writing municipio data to db")
+
+    # Temporary fix because the SNSP duplicated (with different values sometimes) the data for 2055 TRINIDAD ZAACHILA
+    crime_municipios.data = crime_municipios.data[(crime_municipios.data['state_code'] != 22) & (crime_municipios.data['mun_code'] != 555)]
+
     pd_sql.to_sql(crime_municipios.data, 'municipios_fuero_comun', conn, if_exists='append', index=False, chunksize=20000)
     print("end writing municipio data to db")
 
