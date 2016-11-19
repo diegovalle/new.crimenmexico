@@ -168,6 +168,10 @@ dotMap <- function(centroids, mx, df, legend_title) {
     theme_bare() +
     theme(plot.title = element_blank(),
           axis.title = element_blank(),
+          panel.grid.major.y = element_blank(),
+          panel.grid.minor.y = element_blank(),
+          panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank(),
           legend.position = c(.89, .95), 
           legend.margin = unit(0, "lines"),
           legend.title = element_text(family = "Ubuntu", 
