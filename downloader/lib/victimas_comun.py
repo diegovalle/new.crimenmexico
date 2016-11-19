@@ -261,20 +261,23 @@ def clean_federal(file):
     df[u"V\xedctimas"] = df[u"V\xedctimas"].map(strip_accents)
     df[u"V\xedctimas"] = df[u"V\xedctimas"].map(toupper)
     df = df[df[u"V\xedctimas"] != 'NACIONAL']
+    df = df[df[u"V\xedctimas"] != 'NO ESPECIFICADO']
+    df = df[df[u"V\xedctimas"] != 'OTRO PAIS']
     df=df.dropna(axis=1, how='all')
     df=df.dropna(axis=0, how='all')
 
     # DISTRITO FEDERAL changed to CIUDAD DE MEXICO in some files but not others
     df.loc[df[u'V\xedctimas'] == "DISTRITO FEDERAL", u'V\xedctimas'] = "CIUDAD DE MEXICO"
+    import pdb; pdb.set_trace()
 
-    assert(all(df[u'V\xedctimas'].unique() == [u'AGUASCALIENTES', u'BAJA CALIFORNIA',
-       u'BAJA CALIFORNIA SUR', u'CAMPECHE', u'CHIAPAS', u'CHIHUAHUA',
-       u'COAHUILA', u'COLIMA', u'CIUDAD DE MEXICO', u'DURANGO',
-       u'GUANAJUATO', u'GUERRERO', u'HIDALGO', u'JALISCO', u'MEXICO',
-       u'MICHOACAN', u'MORELOS', u'NAYARIT', u'NUEVO LEON', u'OAXACA',
-       u'PUEBLA', u'QUERETARO', u'QUINTANA ROO', u'SAN LUIS POTOSI',
-       u'SINALOA', u'SONORA', u'TABASCO', u'TAMAULIPAS', u'TLAXCALA',
-       u'VERACRUZ', u'YUCATAN', u'ZACATECAS']))
+    assert(all(df[u'V\xedctimas'].sort_values().unique() == [u'AGUASCALIENTES', u'BAJA CALIFORNIA', u'BAJA CALIFORNIA SUR',
+       u'CAMPECHE', u'CHIAPAS', u'CHIHUAHUA', 'CIUDAD DE MEXICO',
+       u'COAHUILA', u'COLIMA', u'DURANGO', u'GUANAJUATO', u'GUERRERO',
+       u'HIDALGO', u'JALISCO', u'MEXICO', u'MICHOACAN', u'MORELOS',
+       u'NAYARIT', u'NUEVO LEON', u'OAXACA', u'PUEBLA', u'QUERETARO',
+       u'QUINTANA ROO', u'SAN LUIS POTOSI', u'SINALOA', u'SONORA',
+       u'TABASCO', u'TAMAULIPAS', u'TLAXCALA', u'VERACRUZ', u'YUCATAN',
+       u'ZACATECAS']))
     df = pd.melt(df, id_vars=u"V\xedctimas")
     
 
