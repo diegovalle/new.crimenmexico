@@ -26,7 +26,7 @@
       - pyasn1
       - ansible
 
-- hosts: crimenmexico
+- hosts: all
   vars:
     nodejs_nodesource_pin_priority: 500
     r_repository:
@@ -101,12 +101,12 @@
 
     # ansible-playbook -i hosts playbook.yml --vault-password-file=password.txt --extra-vars "secrets=true"
     - name: Load secrets
-      when: secrets == 'true'
+      when: secrets is defined
       include_vars: secrets.yml
       no_log: true
 
     - name: Ensure .ssh directory exists.
-      when: secrets == 'true'
+      when: secrets is defined
       file:
         dest: "{{ key_file | dirname }}"
         mode: 0700
@@ -114,7 +114,7 @@
 
     # rsync -Pav -e 'ssh -i ~/.ssh/crimenmexico'  /root/new.crimenmexico crimenmexico@168.235.92.165:/home/crimenmexico
     - name: Install ssh key
-      when: secrets == 'true'
+      when: secrets is defined
       copy:
         content: "{{ ssh_key }}"
         dest: "{{ key_file }}"
@@ -122,7 +122,7 @@
       no_log: true
 
     - name: tell the host about our servers it might want to ssh to
-      when: secrets == 'true'
+      when: secrets is defined
       known_hosts: path='/etc/ssh/ssh_known_hosts'
                    name='168.235.92.165'
                    key="{{ lookup('file', 'crimenmexico.pub') }}"
