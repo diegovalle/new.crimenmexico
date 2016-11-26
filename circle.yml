@@ -1,0 +1,22 @@
+## Customize dependencies
+dependencies:
+  pre:
+    - sudo apt update
+    - virtualenv crimenmexico && source crimenmexico/bin/activate && pip install ansible
+
+  override:
+    - echo "Just overriding CircleCI inferred dependency installation..."
+  
+  # we automatically cache and restore many dependencies between
+  # builds. If you need to, you can add custom paths to cache:
+  cache_directories:
+    - ~/.virtualenvs/crimenmexico
+    - /usr/local/lib/R/site-library	
+    - /usr/lib/R/site-library
+    - /usr/lib/R/library
+
+## Customize test commands
+test:
+  override:
+    - source crimenmexico/bin/activate && cd ansible && ansible-playbook -i "localhost," -c local playbook.yml --sudo && cd ..
+    - sudo bash -c "source ~/.virtualenvs/crimenmexico/bin/activate && sqlite3 db/crimenmexico.db < downloader/meta/sql.sql && cd downloader && python scrape.py && cd .."
