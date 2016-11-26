@@ -150,8 +150,8 @@
 
     - name: Install requirements.txt into virtualenv
       pip:
-        requirements=/root/new.crimenmexico/requirements.txt
-        virtualenv=/root/.virtualenvs/crimenmexico/
+        requirements=~/new.crimenmexico/requirements.txt
+        virtualenv=~/.virtualenvs/crimenmexico/
 
     - name: Add R packages
       command: /usr/bin/Rscript --slave --no-save --no-restore-history -e "if (! ('{{item}}' %in% installed.packages()[,'Package'])) install.packages(pkgs='{{item}}')"
