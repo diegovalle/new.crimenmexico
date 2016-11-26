@@ -29,8 +29,9 @@ def write_file(fileName, md):
 
 
 def to_csv(fname, page, crime_name):
-    os.system('java -jar ./tabula-java/tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar --spreadsheet -p' + str(
-        page) + ' -o victimas-csv/' + fname + '.' + crime_name + '.csv ' + 'pdf/' + fname)
+    if os.system('java -jar ./tabula-java/tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar --spreadsheet -p' + str(
+        page) + ' -o victimas-csv/' + fname + '.' + crime_name + '.csv ' + 'pdf/' + fname):
+      raise  Exception('Error converting the pdf to csv with tabula')
 
 
 def download_secuestro_pdf():
