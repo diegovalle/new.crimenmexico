@@ -146,7 +146,7 @@
       get_url: url=https://github.com/tabulapdf/tabula-java/releases/download/tabula-0.9.0/tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar dest=~/new.crimenmexico/downloader/tabula-java
 
     - name: Create the initial virtualenv
-      command: virtualenv /root/.virtualenvs/crimenmexico/ -p python2 creates="/home/root/.virtualenvs/crimenmexico/"
+      command: virtualenv ~/.virtualenvs/crimenmexico/ -p python2 creates="~/.virtualenvs/crimenmexico/"
 
     - name: Install requirements.txt into virtualenv
       pip:

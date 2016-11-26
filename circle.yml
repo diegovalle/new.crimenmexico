@@ -2,7 +2,7 @@
 dependencies:
   pre:
     - sudo apt update
-    - virtualenv crimenmexico && source crimenmexico/bin/activate && pip install ansible
+    - virtualenv crimenmexico_ansible && source crimenmexico_ansible/bin/activate && pip install ansible
 
   override:
     - echo "Just overriding CircleCI inferred dependency installation..."
@@ -18,5 +18,5 @@ dependencies:
 ## Customize test commands
 test:
   override:
-    - source crimenmexico/bin/activate && cd ansible && ansible-playbook -i "localhost," -c local playbook.yml --sudo && cd ..
+    - source crimenmexico_ansible/bin/activate && cd ansible && ansible-playbook -i "localhost," -c local playbook.yml --sudo && cd ..
     - sudo bash -c "source ~/.virtualenvs/crimenmexico/bin/activate && sqlite3 db/crimenmexico.db < downloader/meta/sql.sql && cd downloader && python scrape.py && cd .."
