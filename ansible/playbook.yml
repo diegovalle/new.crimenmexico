@@ -143,7 +143,7 @@
       file: path=~/new.crimenmexico/downloader/tabula-java state=directory
 
     - name: download tabula-java
-      get_url: url=https://github.com/tabulapdf/tabula-java/releases/download/tabula-0.9.0/tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar dest=/root/new.crimenmexico/downloader/tabula-java
+      get_url: url=https://github.com/tabulapdf/tabula-java/releases/download/tabula-0.9.0/tabula-0.9.0-SNAPSHOT-jar-with-dependencies.jar dest=~/new.crimenmexico/downloader/tabula-java
 
     - name: Create the initial virtualenv
       command: virtualenv /root/.virtualenvs/crimenmexico/ -p python2 creates="/home/root/.virtualenvs/crimenmexico/"
