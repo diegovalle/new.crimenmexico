@@ -2,15 +2,17 @@
 dependencies:
   pre:
     - sudo apt update
+    - if [ -d /tmp/.virtualenvs ]; then cp -r /tmp/.virtualenvs /root/.virtualenvs; fi
     - virtualenv crimenmexico_ansible && source crimenmexico_ansible/bin/activate && pip install ansible
 
   override:
     - source crimenmexico_ansible/bin/activate && cd ansible && ansible-playbook -i "localhost," -c local playbook.yml --sudo && cd ..
+    - sudo cp -r /root/.virtualenvs /tmp/.virtualenvs && sudo chown -R ubuntu:ubuntu /tmp/.virtualenvs
   
   # we automatically cache and restore many dependencies between
   # builds. If you need to, you can add custom paths to cache:
   cache_directories:
-    - /root/.virtualenvs/
+    - /tmp/.virtualenvs
     - /usr/local/lib/R/site-library	
     - /usr/lib/R/site-library
     - /usr/lib/R/library
