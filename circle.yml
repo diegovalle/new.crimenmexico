@@ -2,7 +2,7 @@
 dependencies:
   pre:
     - sudo apt update
-    - if [ -d /tmp/.virtualenvs ]; then cp -r /tmp/.virtualenvs /root/.virtualenvs; fi
+    - if [ -d /tmp/.virtualenvs ]; then sudo cp -r /tmp/.virtualenvs /root/.virtualenvs; fi
     - virtualenv crimenmexico_ansible && source crimenmexico_ansible/bin/activate && pip install ansible
 
   override:
@@ -20,4 +20,4 @@ dependencies:
 ## Customize test commands
 test:
   override:  
-    - sudo bash -H -c "cd /root/new.crimenmexico && source /root/.virtualenvs/crimenmexico/bin/activate && ./build.sh"
+    - sudo -H bash -c "cd /root/new.crimenmexico && source /root/.virtualenvs/crimenmexico/bin/activate && ./build.sh"
