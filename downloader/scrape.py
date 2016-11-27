@@ -56,11 +56,7 @@ def download_secuestro_pdf():
             curl.close()
             fp.close()
             
-            if year == "2016":
-                print(year)
-                to_csv(fname, 2, 'secuestro-federal')
-            else:
-                to_csv(fname, 3, 'secuestro-federal')
+            to_csv(fname, 3, 'secuestro-federal')
 
 
     return True
