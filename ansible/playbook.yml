@@ -128,7 +128,7 @@
                    key="{{ lookup('file', 'crimenmexico.pub') }}"
 
     - name: Creates .Rprofile with default repo
-      lineinfile: dest=/root/.Rprofile line='local({r <- getOption("repos");r["CRAN"] <- "https://mran.revolutionanalytics.com/snapshot/2016-07-20";options(repos = r)})' create=True
+      lineinfile: dest=/root/.Rprofile line='local({r <- getOption("repos");r["CRAN"] <- "https://mran.revolutionanalytics.com/snapshot/2016-10-20";options(repos = r)})' create=True
 
     - name: Clone repo new.crimenmexico
       git: repo=https://github.com/diegovalle/new.crimenmexico dest=/root/new.crimenmexico force=yes
