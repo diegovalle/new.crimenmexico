@@ -7,25 +7,28 @@ casper.test.begin(
     1,
     function suite(test) {
         casper.start(partialURL + '/en/', function() {
-            test.assertTitle('Mexico Crime Report - Monthly Crime Info from Mexico',
-                             'homepage title is the one expected');
-            test.assertExists('svg g path', 'chart exists');
-            test.assertEval(function() {
-                return __utils__
-                    .findAll('.national-chart').length === 5;
-            }, '/en/ 5 charts of crime');
-            test.assertEval(function() {
-                return __utils__
-                    .findAll('svg > path.mg-line2-color').length === 1;
-            }, '/en/ 1 line of INEGI homicides');
-            test.assertEval(function() {
-                return __utils__
-                    .findAll('svg > path.mg-line1-color').length === 5;
-            }, '/en/ 5 lines of SESNSP crimes');
-            test.assertExists('#hexmap svg path', 'hexmap exists');
+            this.wait(10000, function() {
+                test.assertTitle('Mexico Crime Report - Monthly Crime Info from Mexico',
+                                 'homepage title is the one expected');
+                test.assertExists('svg g path', 'chart exists');
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('.national-chart').length === 5;
+                }, '/en/ 5 charts of crime');
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > path.mg-line2-color').length === 1;
+                }, '/en/ 1 line of INEGI homicides');
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > path.mg-line1-color').length === 5;
+                }, '/en/ 5 lines of SESNSP crimes');
+                test.assertExists('#hexmap svg path', 'hexmap exists');
+            });
         });
 
         casper.thenOpen(partialURL + '/es/', function() {
+            this.wait(10000, function() {
             test.assertExists('svg g path', 'chart exists');
             test.assertEval(function() {
                 return __utils__
@@ -39,7 +42,8 @@ casper.test.begin(
                 return __utils__
                     .findAll('svg > path.mg-line1-color').length === 5;
             }, '/es/ 5 lines of SESNSP crimes');
-            test.assertExists('#hexmap svg path', 'hexmap exists');
+                test.assertExists('#hexmap svg path', 'hexmap exists');
+            });
         });
 
         casper.thenOpen(partialURL + '/es/#historical', function() {
@@ -77,6 +81,7 @@ casper.test.begin(
         });
 
         casper.thenOpen(partialURL + '/en/states.html', function() {
+            this.wait(10000, function() {
             test.assertEval(function() {
                 return __utils__
                     .findAll('.line-chart').length === 32;
@@ -89,9 +94,11 @@ casper.test.begin(
                 return __utils__
                     .findAll('svg > path.mg-line1-color').length === 32;
             }, '/en/states.html 32 line of SESNSP crimes');
+            });
         });
 
         casper.thenOpen(partialURL + '/es/states.html', function() {
+            this.wait(10000, function() {
             test.assertEval(function() {
                 return __utils__
                     .findAll('.line-chart').length === 32;
@@ -104,17 +111,35 @@ casper.test.begin(
                 return __utils__
                     .findAll('svg > path.mg-line1-color').length === 32;
             }, '/es/states.html 32 line of SESNSP crimes');
+            });
         });
 
         casper.thenOpen(partialURL + '/en/municipios-map.html', function() {
-            test.assertExists('img.leaflet-tile-loaded', '/en/municipios-map.html municipio map tiles exist');
+            this.wait(10000, function() {
+                test.assertExists('img.leaflet-tile-loaded', '/en/municipios-map.html municipio map tiles exist');
+            });
         });
 
         casper.thenOpen(partialURL + '/es/municipios-map.html', function() {
-            test.assertExists('img.leaflet-tile-loaded', '/es/municipios-map.html municipio map tiles exist');
+            this.wait(10000, function() {
+                test.assertExists('img.leaflet-tile-loaded', '/es/municipios-map.html municipio map tiles exist');
+            });
+        });
+
+        casper.thenOpen(partialURL + '/en/lisa-map.html', function() {
+            this.wait(10000, function() {
+                test.assertExists('img.leaflet-tile-loaded', '/en/municipios-map.html municipio map tiles exist');
+            });
+        });
+
+        casper.thenOpen(partialURL + '/es/lisa-map.html', function() {
+            this.wait(10000, function() {
+                test.assertExists('img.leaflet-tile-loaded', '/es/municipios-map.html municipio map tiles exist');
+            });
         });
 
         casper.thenOpen(partialURL + '/en/municipios.html', function() {
+            this.wait(10000, function() {
             test.assertEval(function() {
                 return __utils__
                     .findAll('.line-chart').length > 30;
@@ -128,9 +153,11 @@ casper.test.begin(
                 return __utils__
                     .findAll('svg > path.mg-line1-color').length > 32;
             }, '/en/municipios.html more than 30 lines of municipio SESNSP crimes');
+            });
         });
 
         casper.thenOpen(partialURL + '/es/municipios.html', function() {
+            this.wait(10000, function() {
             test.assertEval(function() {
                 return __utils__
                     .findAll('.line-chart').length > 30;
@@ -144,9 +171,11 @@ casper.test.begin(
                 return __utils__
                     .findAll('svg > path.mg-line1-color').length > 32;
             }, '/es/municipios.html more than 30 lines of municipio SESNSP crimes');
+            });
         });
 
         casper.thenOpen(partialURL + '/en/anomalies.html', function() {
+            this.wait(10000, function() {
             test.assertEval(function() {
                 return __utils__
                     .findAll('svg > path.mg-line1-color').length > 1;
@@ -155,8 +184,10 @@ casper.test.begin(
                 return __utils__
                     .findAll('svg g path').length > 32;
             }, 'more than 1 lines of Anomalies');
+            });
         });
         casper.thenOpen(partialURL + '/es/anomalies.html', function() {
+            this.wait(10000, function() {
             test.assertEval(function() {
                 return __utils__
                     .findAll('svg > path.mg-line1-color').length > 1;
@@ -165,6 +196,7 @@ casper.test.begin(
                 return __utils__
                     .findAll('svg g path').length > 32;
             }, 'more than 1 lines of Anomalies');
+            });
         });
 
         casper.thenOpen(partialURL + '/en/infographics.html', function() {
@@ -177,6 +209,11 @@ casper.test.begin(
         casper.thenOpen(partialURL + '/es/datos.html', function() {
         });
 
+        //casper.test.on("fail", function () {
+        //     setTimeout(function(){
+        //         phantom.exit(1);
+        //     }, 0);
+        //});
 
         casper.on('page.error', function(msg, trace) {
             this.echo('Error:    ' + msg, 'ERROR');
@@ -205,7 +242,7 @@ casper.test.begin(
         casper.run(function() {
             if (errors.length > 0) {
                 this.echo(errors.length +
-                          'errors found', 'WARNING');
+                          ' Javascript errors found', 'WARNING');
             } else {
                 this.echo(errors.length + ' Javascript errors found', 'INFO');
             }
