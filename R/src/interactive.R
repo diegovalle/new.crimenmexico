@@ -68,10 +68,12 @@ write.csv(filter(muns2, tipo == "Intentional Homicide")
           row.names = FALSE)
 
 
-tmpdir <- tempdir()
+#tmpdir <- tempdir()
 # have to use RJSONIO or else the topojson isn't valid
-write(RJSONIO::toJSON(mxmunicipio.topoJSON), file.path(tmpdir, "mun.topojson"))
-mun.map <- topojson_read(file.path(tmpdir, "mun.topojson"))
+#write(RJSONIO::toJSON(mxmunicipio.topoJSON), file.path(tmpdir, "mun.topojson"))
+#mun.map <- topojson_read(file.path(tmpdir, "mun.topojson"))
+
+mun.map <- readOGR("maps/municipios.shp", "municipios")
 # remove bad polygons
 #mun.map <- gBuffer(mun.map, byid=TRUE, width=0)
 
