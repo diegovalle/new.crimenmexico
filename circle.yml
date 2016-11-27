@@ -18,4 +18,4 @@ dependencies:
 ## Customize test commands
 test:
   override:  
-    - sudo bash -c "cd /root && source /root/.virtualenvs/crimenmexico/bin/activate && ./build.sh"
+    - sudo bash -c "cd /root/new.crimenmexico && source /root/.virtualenvs/crimenmexico/bin/activate && ./build.sh"
