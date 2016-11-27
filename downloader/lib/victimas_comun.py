@@ -268,7 +268,7 @@ def clean_federal(file):
 
     # DISTRITO FEDERAL changed to CIUDAD DE MEXICO in some files but not others
     df.loc[df[u'V\xedctimas'] == "DISTRITO FEDERAL", u'V\xedctimas'] = "CIUDAD DE MEXICO"
-    import pdb; pdb.set_trace()
+    #import pdb; pdb.set_trace()
 
     assert(all(df[u'V\xedctimas'].sort_values().unique() == [u'AGUASCALIENTES', u'BAJA CALIFORNIA', u'BAJA CALIFORNIA SUR',
        u'CAMPECHE', u'CHIAPAS', u'CHIHUAHUA', 'CIUDAD DE MEXICO',
