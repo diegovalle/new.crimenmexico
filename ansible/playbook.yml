@@ -121,7 +121,7 @@
         mode: 0600
       no_log: true
 
-    - name: tell the host about our servers it might want to ssh to
+    - name: tell the host about servers it might want to ssh to
       when: secrets is defined
       known_hosts: path='/etc/ssh/ssh_known_hosts'
                    name='168.235.92.165'

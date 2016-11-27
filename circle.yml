@@ -6,7 +6,9 @@ dependencies:
     - virtualenv crimenmexico_ansible && source crimenmexico_ansible/bin/activate && pip install ansible
 
   override:
-    - source crimenmexico_ansible/bin/activate && cd ansible && ansible-playbook -i "localhost," -c local playbook.yml --sudo && cd ..
+    # password for ansible ssh keys
+    - echo $ANSIBLE_PASSWORD > ansible/password.txt
+    - source crimenmexico_ansible/bin/activate && cd ansible && ansible-playbook -i "localhost," -c local playbook.yml --sudo --vault-password-file=password.txt  --extra-vars "secrets=true" && cd ..
     - sudo cp -r /root/.virtualenvs /tmp/.virtualenvs && sudo chown -R ubuntu:ubuntu /tmp/.virtualenvs
   
   # we automatically cache and restore many dependencies between
