@@ -209,11 +209,11 @@ casper.test.begin(
         casper.thenOpen(partialURL + '/es/datos.html', function() {
         });
 
-        //casper.test.on("fail", function () {
-        //     setTimeout(function(){
-        //         phantom.exit(1);
-        //     }, 0);
-        //});
+        casper.test.on("fail", function () {
+            setTimeout(function(){
+                phantom.exit(1);
+            }, 0);
+        });
 
         casper.on('page.error', function(msg, trace) {
             this.echo('Error:    ' + msg, 'ERROR');
