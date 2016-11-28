@@ -23,3 +23,10 @@ dependencies:
 test:
   override:  
     - sudo -H bash -c "cd /root/new.crimenmexico && source /root/.virtualenvs/crimenmexico/bin/activate && ./build.sh"
+
+general:
+  branches:
+    only:
+      - master # list of branches to build
+      - develop
+
