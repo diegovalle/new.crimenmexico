@@ -78,6 +78,7 @@ findAnomalies <- function(category, type, subtype="", munvec, fileName){
       }
     }
     hom <- na.omit(as.data.frame(hom))
+    hom <- subset(hom, date >= as.Date('2014-01-01'))
     hom$date  <- as.POSIXlt(str_c(hom$date), tz = "CTZ")
     max_date <- max(hom$date)
     if(new)
@@ -211,6 +212,8 @@ findAnomalies_c <- compiler::cmpfun(findAnomalies)
 # print("extortion")
 # ll$ext <- findAnomalies_c("DELITOS PATRIMONIALES", "EXTORSION", "EXTORSION", muns_to_analyze, fileName="hext.RData")
 
+print(availableCores())
+#plan(tweak(multiprocess, workers = 1L))
 plan(multiprocess)
 ll_hom %<-% {
   print('homicides')
