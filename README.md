@@ -1,3 +1,5 @@
+https://circleci.com/gh/diegovalle/new.crimenmexico.png?style=shield&circle-token=:circle-token
+
 # new.crimenmexico
 
 Source code for generating the website
