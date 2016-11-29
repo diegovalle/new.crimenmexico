@@ -1,4 +1,4 @@
-https://circleci.com/gh/diegovalle/new.crimenmexico.png?style=shield&circle-token=:circle-token
+[![Build Status](https://circleci.com/gh/diegovalle/new.crimenmexico.png?style=shield&circle-token=:circle-token)]
 
 # new.crimenmexico
 
