@@ -213,8 +213,8 @@ findAnomalies_c <- compiler::cmpfun(findAnomalies)
 # ll$ext <- findAnomalies_c("DELITOS PATRIMONIALES", "EXTORSION", "EXTORSION", muns_to_analyze, fileName="hext.RData")
 
 print(availableCores())
-#plan(tweak(multiprocess, workers = 1L))
-plan(multiprocess)
+plan(tweak(multiprocess, workers = 1L))
+#plan(multiprocess)
 ll_hom %<-% {
   print('homicides')
   findAnomalies_c("HOMICIDIOS", "DOLOSOS", munvec = muns_to_analyze, fileName="hhom.RData")
