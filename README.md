@@ -1,4 +1,4 @@
-[![Build Status](https://circleci.com/gh/diegovalle/new.crimenmexico.png?style=shield&circle-token=:circle-token)]
+![Build Status](https://circleci.com/gh/diegovalle/new.crimenmexico.png?style=shield&circle-token=:circle-token)
 
 # new.crimenmexico
 
@@ -8,11 +8,14 @@ Source code for generating the website
 
 
 There is an ansible script in the ansible directory for setting up an
-Ubuntu 14.04 64 bit instance with at least 32GB of RAM. 
+Ubuntu 14.04 64 bit instance. You'll need one with at least 32GB of RAM (maybe more?). 
+Run the following command to set up the server:
 
+```sh
 ansible-playbook -i hosts playbook.yml --vault-password-file=password.txt --extra-vars "secrets=true"
+```
 
-The structure of the secrets.yml file is:
+The ansible script depends on a secrets.yml file whose structure is:
 
 ```
 ssh_key: |
@@ -22,7 +25,7 @@ ssh_key: |
 key_file: /root/.ssh/crimenmexico
 ```
 
-This key is needed to copy the website to the staging server.
+The ssh key is needed to copy the website to the staging server.
 
 Once the instance is
 setup you can run the build.sh script in the new.crimenmexico
