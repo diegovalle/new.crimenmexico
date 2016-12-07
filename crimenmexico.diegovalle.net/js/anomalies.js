@@ -48,7 +48,8 @@ var selected_value = 'hd', muns;
                          full_width: true,
                          left: 60,
                          buffer: 0,
-                         show_year_markers: false,
+                         show_year_markers: true,
+                         show_secondary_x_label: false,
                          // width:281,
                          //missing_is_hidden: true,
                          interpolate: "linear",
@@ -56,7 +57,7 @@ var selected_value = 'hd', muns;
                          y_accessor: 'rate',
                          small_text: true,
                          xax_count: 3,
-                         xax_format: d3.time.format('%b'),
+                         xax_format: d3.time.format('%Y'),
                          y_extended_ticks: true,
                          y_label: annualized_rate,
                          mouseover: function(d, i) {
