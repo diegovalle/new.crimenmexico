@@ -3,6 +3,7 @@ dependencies:
   pre:
     - sudo apt update
     - if [ -d /tmp/.virtualenvs ]; then sudo cp -r /tmp/.virtualenvs /root/.virtualenvs; fi
+    - sudo python -m pip install -U pip
     - virtualenv crimenmexico_ansible && source crimenmexico_ansible/bin/activate && pip install ansible
 
   override:
