@@ -18,7 +18,7 @@ modalidad_text  = 'PRIV. DE LA LIBERTAD (SECUESTRO)' or
 (modalidad_text  = 'ROBO COMUN' and subtipo_text = 'DE VEHICULOS')")
 dbDisconnect(db)
 
-muns <- left_join(muns, abbrev)
+muns <- left_join(muns, abbrev) %>% filter(date >= '2014-01')
 muns$name <- str_c(muns$municipio, ", ", muns$state_abbrv)
 muns$date <- as.Date(as.yearmon(muns$date))
 muns %<>% mutate(rate = round(((count /  numberOfDays(date) * 30) * 12) / population * 10^5, 1))
@@ -78,7 +78,6 @@ findAnomalies <- function(category, type, subtype="", munvec, fileName){
       }
     }
     hom <- na.omit(as.data.frame(hom))
-    hom <- subset(hom, date >= as.Date('2014-01-01'))
     hom$date  <- as.POSIXlt(str_c(hom$date), tz = "CTZ")
     max_date <- max(hom$date)
     if(new)
