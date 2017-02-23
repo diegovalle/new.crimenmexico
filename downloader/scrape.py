@@ -97,14 +97,16 @@ def getXLSX(page, conn):
                     z.extract(name, outpath)
                     os.system("cd 'snsp-data';libreoffice --headless --convert-to csv -env:UserInstallation=file:///tmp/foobar7665765 '" + name +"'")
 
-        if "Estatal" in crime_file:
+        if "estatal" in crime_file.lower():
             print("writing state to db")
             write_state_db(conn,
                            filename_with_csv(crime_file))
-        elif "Municipal" in crime_file:
+        elif "municipal" in crime_file.lower():
             print("writing municipio to db")
             write_mun_db(conn,
                          filename_with_csv(crime_file))
+        else:
+            print "Can't determine which file is estatal and municipal. Something changed..."
     return True
 
 
