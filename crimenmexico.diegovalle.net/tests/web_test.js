@@ -27,7 +27,7 @@ casper.test.begin(
             });
         });
 
-        casper.thenOpen(partialURL + '/es/', function() {
+        casper.thenOpen(partialURL + '/', function() {
             this.wait(10000, function() {
             test.assertExists('svg g path', 'chart exists');
             test.assertEval(function() {

@@ -50,8 +50,10 @@ def clean(lang, t):
     f.close()
 
 
-
-    f = open(lang + 'index.html','r')
+    if lang == "en/":
+        f = open(lang + 'index.html','r')
+    else:
+        f = open('index.html', 'r')
     filedata = f.read()
     f.close()
 
@@ -65,7 +67,10 @@ def clean(lang, t):
                      'src="/' + files_mun[0] + '"', newdata)
     # newdata = filedata.replace("{{INFOGRAPHICS}}", s)
 
-    f = open(lang + 'index.html', 'w')
+    if lang == "en/":
+        f = open(lang + 'index.html','w')
+    else:
+        f = open('index.html', 'w')
     f.write(newdata)
     f.close()
 

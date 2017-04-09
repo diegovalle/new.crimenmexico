@@ -89,8 +89,8 @@ kill "$!"
 # rsync --compress-level=9 --exclude='.git/' -Pavz -e 'ssh -i /root/.ssh/crimenmexico' --delete /root/new.crimenmexico/crimenmexico.diegovalle.net/ crimenmexico@168.235.92.165:/var/www/bcrimenmexico.diegovalle.net
 rsync --compress-level=9 --exclude='.git/' -Pavz -e 'ssh -i /root/.ssh/crimenmexico' --delete /root/new.crimenmexico crimenmexico@168.235.92.165:/home/crimenmexico
 
-DATE=$(date +%Y-%m-%d)
+DATE=$(date +%Y-%m-%d-%H-%Z)
 LATEST_RELEASE=/var/www/bcrimenmexico.diegovalle.net/$DATE
-CURRENT_PATH=/var/www/crimenmexico.diegovalle.net/public
+CURRENT_PATH=/var/www/elcri.men/public
 CURRENT_PATH_TMP=/var/www/bcrimenmexico.diegovalle.net/$DATE.tmp
 ssh -i /root/.ssh/crimenmexico crimenmexico@168.235.92.165 "mkdir -p $LATEST_RELEASE && cp -r /home/crimenmexico/new.crimenmexico/crimenmexico.diegovalle.net/* $LATEST_RELEASE && ln -s $LATEST_RELEASE $CURRENT_PATH_TMP && mv -T $CURRENT_PATH_TMP $CURRENT_PATH"
