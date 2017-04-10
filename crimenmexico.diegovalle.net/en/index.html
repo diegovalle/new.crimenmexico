@@ -494,7 +494,7 @@
              if(window.location.hash) {
                  var hash = window.location.hash.substring(1);
                  if(_.includes(hash.toLowerCase(), "historical"))
-                     $(document.body).scrollTop($('#historical').offset().top);
+                     $(window).scrollTop($('#historical').offset().top);
              }
              $('#state_select').one('inview', function(event, isInView) {
                  if (isInView) {
