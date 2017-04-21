@@ -342,8 +342,8 @@
                             <span class="byline">Charts to explain the drug war</span>
                         </header>
                         <div class="row">
-                            <div class="6u 12u(mobile)"><a href="/en/images/infographics/fulls/infographic_feb_2017.png" class="fit"><img src="/en/images/infographics/thumbnails/infographic_feb_2017.png" alt=""></a></div>
-                            <div class="6u 12u(mobile)"><a href="/en/images/infographics/fulls/municipios_feb_2017.png" class=" fit"><img src="/en/images/infographics/thumbnails/municipios_feb_2017.png" alt=""></a></div>
+                            <div class="6u 12u(mobile)"><a href="/en/images/infographics/fulls/infographic_mar_2017.png" class="fit"><img src="/en/images/infographics/thumbnails/infographic_mar_2017.png" alt=""></a></div>
+                            <div class="6u 12u(mobile)"><a href="/en/images/infographics/fulls/municipios_mar_2017.png" class=" fit"><img src="/en/images/infographics/thumbnails/municipios_mar_2017.png" alt=""></a></div>
                         </div>
                         <footer>
                             <a href="/en/infographics.html" class="button button-alt">View More Infographics</a>
@@ -515,8 +515,8 @@
                                  if(i==0)
                                      value = "national"
                                  var hash = window.location.hash.substring(1);
-                                 if(_.includes(decodeURIComponent(hash.toLowerCase()),
-                                               $("#state_select option[value='" + value + "']").text().toLowerCase())) {
+                                 if((decodeURIComponent(hash.toLowerCase()).endsWith(
+                                     $("#state_select option[value='" + value + "']").text().toLowerCase()))) {
                                      $( "#state_select" ).val(value);
                                      //window.location.hash='#historical';
                                      break;
