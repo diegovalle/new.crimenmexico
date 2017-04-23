@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
     <url>
-        <loc>htts://elcri.men/en/</loc>
+        <loc>https://elcri.men/en/</loc>
         <xhtml:link
             rel="alternate"
             hreflang="es"
