@@ -21,3 +21,4 @@ R/json/*.RData
 ansible/playbook.retry
 .idea/*
 password.txt
+tweets.txt
