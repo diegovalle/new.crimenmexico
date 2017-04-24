@@ -27,7 +27,7 @@
         <link rel="preload" href="/assets/json/states_last.json"   as="script">
         <link rel="preload" href='/assets/json/states.json'   as="script">
         <link rel="preload" href="/assets/json/national.json"  as="script">
-        <link rel="preload" href="/assets/json/national.json"  as="script">
+        <link rel="preload" href="/assets/json/national_1990.json"  as="script">
 
         <title>El Crimen en México - Reporte Mensual Delictivo</title>
         <meta charset="utf-8" />
@@ -462,6 +462,10 @@
         <script src="/assets/js/jquery.inview.js"></script>
         <script>
          create_historical_chart = function(data) {
+             if (typeof(data[0][0].d) !== "object") {
+                 for(var i = 0; i < data.length; i++)
+                     data[i] = MG.convert.date(data[i], 'd');
+             }
              MG.data_graphic({
                  title: national_chart_title,
                  full_width: true,
@@ -505,11 +509,12 @@
                  if (isInView) {
                      d3.json('/assets/json/national_1990.json', function(data) {
                          state_data = data
-                         for (var key in state_data) {
-                             for(var i = 0; i < state_data[key].length; i++)
-                                 state_data[key][i] = MG.convert.date(state_data[key][i], 'd');
-                         }
-
+                         /* console.time('date');
+                          * for (var key in state_data) {
+                          *     for(var i = 0; i < state_data[key].length; i++)
+                          *         state_data[key][i] = MG.convert.date(state_data[key][i], 'd');
+                          * }
+                          * console.timeEnd('date');*/
                          d3.select('#state_select').on('change', function(d) {
                              data = state_data[$( "#state_select" ).val()];
                              create_historical_chart(data);
