@@ -4,6 +4,8 @@
 
     <url>
         <loc>https://elcri.men/en/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>1</priority>
         <xhtml:link
             rel="alternate"
             hreflang="es"
@@ -12,6 +14,7 @@
     </url>
     <url>
         <loc>https://elcri.men/en/municipios.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="es"
@@ -20,6 +23,7 @@
     </url>
     <url>
         <loc>https://elcri.men/en/municipios-map.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="es"
@@ -28,6 +32,7 @@
     </url>
     <url>
         <loc>https://elcri.men/en/datos.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="es"
@@ -36,6 +41,7 @@
     </url>
     <url>
         <loc>https://elcri.men/en/states.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="es"
@@ -44,6 +50,7 @@
     </url>
     <url>
         <loc>https://elcri.men/en/anomalies.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="es"
@@ -52,6 +59,7 @@
     </url>
     <url>
         <loc>https://elcri.men/en/infographics.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="es"
@@ -60,6 +68,7 @@
     </url>
     <url>
         <loc>https://elcri.men/en/lisa-map.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="es"
@@ -69,6 +78,8 @@
 
     <url>
         <loc>https://elcri.men/</loc>
+        <changefreq>monthly</changefreq>
+        <priority>1</priority>
         <xhtml:link
             rel="alternate"
             hreflang="en"
@@ -77,6 +88,7 @@
     </url>
     <url>
         <loc>https://elcri.men/es/municipios.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="en"
@@ -85,6 +97,7 @@
     </url>
     <url>
         <loc>https://elcri.men/es/municipios-map.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="en"
@@ -93,6 +106,7 @@
     </url>
     <url>
         <loc>https://elcri.men/es/datos.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="en"
@@ -101,6 +115,7 @@
     </url>
     <url>
         <loc>https://elcri.men/es/states.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="en"
@@ -109,6 +124,7 @@
     </url>
     <url>
         <loc>https://elcri.men/es/anomalies.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="en"
@@ -117,6 +133,7 @@
     </url>
     <url>
         <loc>https://elcri.men/es/infographics.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="es"
@@ -125,6 +142,7 @@
     </url>
     <url>
         <loc>https://elcri.men/es/lisa-map.html</loc>
+        <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
             hreflang="es"
