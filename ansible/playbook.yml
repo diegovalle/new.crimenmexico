@@ -21,10 +21,6 @@
     pip: name={{ item }} state=latest
     with_items:
       - urllib3
-      - pyopenssl
-      - ndg-httpsclient
-      - pyasn1
-      - ansible
 
 - hosts: all
   vars:
@@ -64,6 +60,9 @@
     - name: Spanish locale
       locale_gen: name=es_ES.UTF-8 state=present
 
+    - name: English locale
+      locale_gen: name=en_US.UTF-8 state=present
+
     - name: Remove Packages
       apt: name="{{ item }}" state=absent
       with_items:
@@ -98,6 +97,9 @@
         - htop
         - gdal-bin
         - apt-transport-https
+        - openssh-client
+        - rsync
+        - nano
 
     # ansible-playbook -i hosts playbook.yml --vault-password-file=password.txt --extra-vars "secrets=true"
     - name: Load secrets
