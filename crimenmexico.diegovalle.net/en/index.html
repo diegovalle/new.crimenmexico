@@ -520,7 +520,7 @@
                                  if(i==0)
                                      value = "national"
                                  var hash = window.location.hash.substring(1);
-                                 if((decodeURIComponent(hash.toLowerCase()).endsWith(
+                                 if((_.endsWith(decodeURIComponent(hash.toLowerCase()),
                                      $("#state_select option[value='" + value + "']").text().toLowerCase()))) {
                                      $( "#state_select" ).val(value);
                                      //window.location.hash='#historical';
