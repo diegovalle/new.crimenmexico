@@ -1,9 +1,9 @@
-![Build Status](https://circleci.com/gh/diegovalle/new.crimenmexico.png?style=shield&circle-token=:circle-token)
+[![Build Status](https://circleci.com/gh/diegovalle/new.crimenmexico.png?style=shield&circle-token=:circle-token)](https://circleci.com/gh/diegovalle/new.crimenmexico)
 
 # new.crimenmexico
 
 Source code for generating the website
-[crimenmexico.diegovalle.net](http://crimenmexico.diegovalle.net)
+[elcri.men](https://elcri.men)
 
 
 
