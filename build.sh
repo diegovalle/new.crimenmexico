@@ -87,7 +87,7 @@ kill "$!"
 # copy  to the staging website
 # ln -s #{latest_release} #{current_path}.date && mv -f #{current_path}.date #{current_path}
 # rsync --compress-level=9 --exclude='.git/' -Pavz -e 'ssh -i /root/.ssh/crimenmexico' --delete /root/new.crimenmexico/crimenmexico.diegovalle.net/ crimenmexico@168.235.92.165:/var/www/bcrimenmexico.diegovalle.net
-rsync --compress-level=9 --exclude='.git/' -Pavz -e 'ssh -i /root/.ssh/crimenmexico' --delete /root/new.crimenmexico crimenmexico@168.235.92.165:/home/crimenmexico
+rsync --compress-level=9 --exclude='.git/' -Paz -e 'ssh -i /root/.ssh/crimenmexico' --delete /root/new.crimenmexico crimenmexico@168.235.92.165:/home/crimenmexico
 
 DATE=$(date +%Y-%m-%d-%H-%Z)
 LATEST_RELEASE=/var/www/bcrimenmexico.diegovalle.net/$DATE
