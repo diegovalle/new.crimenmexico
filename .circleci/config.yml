@@ -1,0 +1,9 @@
+version: 2
+jobs:
+  build:
+    working_directory:  /var/tmp
+    docker:
+      - image: diegovalle/elcrimen-docker
+    steps:
+      - checkout
+      - run: sudo -H bash -c "cd /etc/ansible && echo $ANSIBLE_PASSWORD > password.txt && ansible-playbook -c local ssh.yml --vault-password-file=/etc/ansible/password.txt --extra-vars 'secrets=true' && cd /root/new.crimenmexico && git pull && ./build.sh"
