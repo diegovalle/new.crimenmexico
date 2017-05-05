@@ -143,10 +143,23 @@ muns <- muns %>%
 #     str_pad(state_code, width = 2, pad = "0"), 
 #     str_pad(mun_code, width = 3, pad = "0"))) 
 
-muns <- inner_join(muns, abbrev) %>%
+muns <- inner_join(muns, abbrev, by = "state_code") %>%
   mutate(name = str_c(str_sub(municipio, 1, 21), ", ", state_abbrv))
 muns$date %<>% as.yearmon  %>% as.Date %>% as.character 
 
+
+fullmuns <- expand.grid(id = unique(str_c(str_mxmunicipio(muns$state_code, muns$mun_code), 
+                                          "#", muns$tipo,
+                                          "#", muns$name)),
+           date = unique(muns$date))
+fullmuns$date <- as.character(fullmuns$date)
+fullmuns$state_code <- as.integer(str_sub(fullmuns$id, 1, 2))
+fullmuns$mun_code <- as.integer(str_sub(fullmuns$id, 3, 5))
+fullmuns$tipo <- str_split(fullmuns$id, "#", simplify = TRUE)[ ,2]
+fullmuns$name <- str_split(fullmuns$id, "#", simplify = TRUE)[ ,3]
+fullmuns$id <- NULL
+muns <- full_join(muns, fullmuns, by = c("date", "tipo", "state_code", "mun_code", "name"))
+rm(fullmuns)
 
 muns.inegi <- injury.intent %>%
   filter(year_reg >= 2011 & intent.imputed == "Homicide" &

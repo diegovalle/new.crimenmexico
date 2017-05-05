@@ -47,7 +47,7 @@ vic %<>%
 vic[(vic$date <= as.Date("2014-12-31") & vic$tipo == "Kidnapping"),]$count <- NA
 vic[(vic$date <= as.Date("2014-12-31") & vic$tipo == "Kidnapping"),]$rate <- NA
 
-vic <- inner_join(vic, abbrev)
+vic <- inner_join(vic, abbrev, by = "state_code")
 # 
 # year  <- vic %>%
 #   group_by(year(date), modalidad, tipo, subtipo) %>%

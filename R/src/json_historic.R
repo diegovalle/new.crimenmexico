@@ -17,7 +17,7 @@ pop_states <-  read.csv('../downloader/data/pop_states.csv') %>%
   mutate(date = str_sub(date, 1, 7))
 pop_states <- rbind(pop_states, pop_states_national)
 
-months <- c(1:12)
+months <- as.character(c(1:12))
 names(months) <- unique(c("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", 
                           "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"))
 inegi90 <- read.csv('data/INEGI_exporta.csv', skip = 3, 
