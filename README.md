@@ -5,7 +5,16 @@
 Source code for generating the website
 [elcri.men](https://elcri.men)
 
+The easiest way to create the website is to run the docker container
 
+```
+docker pull diegovalle/elcrimen-docker
+docker run -it diegovalle/elcrimen-docker
+```
+
+and change to the /root/new.crimenmexico directory and run build.sh. The website will
+be available in the _crimenmexico.diegovalle.net_ subdir. If you don't have 
+the private key to deploy when building the software it will report some errors.
 
 There is an ansible script in the ansible directory for setting up an
 Ubuntu 14.04 64 bit instance. You'll need one with at least 32GB of RAM (maybe more?). 
