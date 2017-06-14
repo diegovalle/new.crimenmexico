@@ -110,7 +110,7 @@ According to the National Crime Victimization Survey (ENVIPE) extortions have be
 do match the ENVIPE trend, and homicides follow the trend reported by the INEGI"
 
 attribution <- paste(
-  "Website: https://crimenmexico.diegovalle.net/en/",
+  "Website: https://elcri.men/en/",
   "Author: Diego Valle-Jones @diegovalle",
   "Data Source: Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (secretariadoejecutivo.gob.mx) and CONAPO",
   sep = "\n")
@@ -197,7 +197,7 @@ Según la ENVIPE las extorsiones han aumentado, pero según el SNSP las extorsio
 tendencia de la ENVIPE, los homicidios también coinciden en tendencia con datos del INEGI/SSA"
 
 attribution <- paste(
-  "Web: https://crimenmexico.diegovalle.net/es/",
+  "Web: https://elcri.men/",
   "Autor: Diego Valle @diegovalle",
   "Fuente: Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (secretariadoejecutivo.gob.mx) y CONAPO",
   sep = "\n")

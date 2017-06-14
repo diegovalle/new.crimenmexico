@@ -166,14 +166,33 @@ smNational <- function(vic, rate, title, date, max_date, min_date) {
     group_by(date, modalidad, tipo, subtipo) %>% 
     summarise(count = sum(count), pop = sum(population)) %>%
     mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / pop) * 10^5  ) 
-  national$tipo <- reorder(national$tipo, -national$rate, mean, na.rm = TRUE)
+  #national$tipo <- reorder(national$tipo, -national$rate, mean, na.rm = TRUE)
+  if ("Intentional Homicide" %in% national$tipo) {
+    national$tipo <- factor(national$tipo, levels = c("Intentional Homicide",  
+                                                      "Car Robbery with Violence", 
+                                                      "Car Robbery without Violence",
+                                                      "Extortion",  
+                                                      "Kidnapping",
+                                                      "Accidental Homicide"))
+  } else {
+    national$tipo <- factor(national$tipo, levels = c("Homicidio Doloso", 
+                                                      "Robo de vehículo con violencia",
+                                                      "Robo de vehículo sin violencia",
+                                                      "Extorsión", 
+                                                      "Secuestro",
+                                                      "Homicidio Accidental"))
+  }
+  national$color <- "#005ab3"
+  national$color[national$tipo %in% c("Intentional Homicide")] <-  "#b30000"
   
   ggplot(national, aes(date, rate, group = tipo)) +
     geom_point(color = "#222222", size =1.5) +
     geom_smooth(method = "gam", formula = y ~s(x, k = 5), 
-                se = FALSE, color = "#b30000", size = 1.2, alpha = .8) +
+                se = FALSE, aes(color = color), size = 1.2, alpha = .8) +
     facet_wrap(~tipo, scale = "free") + 
-    expand_limits(y = 0)+ 
+    expand_limits(y = 0) + 
+    scale_color_manual(values = c("#b30000", "#b30000")) +
+    guides(colour=FALSE) +
     ggtitle(str_c(title, ", ",min_date, "–", max_date)) +
     infographic_theme2() +
     ylab(rate) +
