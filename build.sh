@@ -64,17 +64,17 @@ echo "Exporting database to csv.gz"
 # Export the sqlite database to csv and compress
 if [[ $SCRIPTPATH/db/crimenmexico.db -nt $SCRIPTPATH/$EXPORT/fuero-comun-estados.csv.gz ]]; then
     echo "exporting $SCRIPTPATH/$EXPORT/fuero-comun-estados.csv.gz"
-    $SQLITE3 "$SCRIPTPATH"/db/crimenmexico.db -csv -header 'select estados_fuero_comun.state_code, state, modalidad_text as modalidad, tipo_text as tipo, subtipo_text as subtipo, estados_fuero_comun.date,  count, population from estados_fuero_comun NATURAL JOIN modalidad_states NATURAL JOIN tipo_states  NATURAL JOIN subtipo_states NATURAL JOIN state_names NATURAL JOIN population_states;' | gzip > "$SCRIPTPATH"/$EXPORT/fuero-comun-estados.csv.gz
+    $SQLITE3 "$SCRIPTPATH"/db/crimenmexico.db -csv -header 'select estados_fuero_comun.state_code, state, modalidad_text as modalidad, tipo_text as tipo, subtipo_text as subtipo, estados_fuero_comun.date,  count, population from estados_fuero_comun NATURAL JOIN modalidad_states NATURAL JOIN tipo_states  NATURAL JOIN subtipo_states NATURAL JOIN state_names NATURAL JOIN population_states;' | gzip -9 > "$SCRIPTPATH"/$EXPORT/fuero-comun-estados.csv.gz
 fi
 
 if [[ $SCRIPTPATH/db/crimenmexico.db -nt $SCRIPTPATH/$EXPORT/fuero-comun-municipios.csv.gz ]]; then
     echo "exporting $SCRIPTPATH/$EXPORT/fuero-comun-municipios.csv.gz"
-    $SQLITE3 "$SCRIPTPATH"/db/crimenmexico.db -csv -header 'SELECT municipios_fuero_comun.state_code, state, municipios_fuero_comun.mun_code, municipio, modalidad_text as modalidad, tipo_text as tipo, subtipo_text as subtipo, municipios_fuero_comun.date, count, population FROM municipios_fuero_comun NATURAL JOIN modalidad_municipios NATURAL JOIN  tipo_municipios NATURAL JOIN subtipo_municipios NATURAL JOIN state_names NATURAL JOIN municipio_names NATURAL JOIN  population_municipios;' | gzip  > "$SCRIPTPATH"/$EXPORT/fuero-comun-municipios.csv.gz
+    $SQLITE3 "$SCRIPTPATH"/db/crimenmexico.db -csv -header 'SELECT municipios_fuero_comun.state_code, state, municipios_fuero_comun.mun_code, municipio, modalidad_text as modalidad, tipo_text as tipo, subtipo_text as subtipo, municipios_fuero_comun.date, count, population FROM municipios_fuero_comun NATURAL JOIN modalidad_municipios NATURAL JOIN  tipo_municipios NATURAL JOIN subtipo_municipios NATURAL JOIN state_names NATURAL JOIN municipio_names NATURAL JOIN  population_municipios;' | gzip -9  > "$SCRIPTPATH"/$EXPORT/fuero-comun-municipios.csv.gz
 fi
 
 if [[ $SCRIPTPATH/db/crimenmexico.db -nt $SCRIPTPATH/$EXPORT/victimas.csv.gz ]]; then
     echo "exporting $SCRIPTPATH/$EXPORT/victimas.csv.gz"
-    $SQLITE3 "$SCRIPTPATH"/db/crimenmexico.db -csv -header 'select state, state_code, modalidad, tipo, subtipo, date, sum(count) as count, sum(population) as population, fuero, "victimas" as type from victimas group by state, state_code, modalidad, tipo, subtipo, date, fuero' | gzip  > "$SCRIPTPATH"/$EXPORT/victimas.csv.gz
+    $SQLITE3 "$SCRIPTPATH"/db/crimenmexico.db -csv -header 'select state, state_code, modalidad, tipo, subtipo, date, sum(count) as count, sum(population) as population, fuero, "victimas" as type from victimas group by state, state_code, modalidad, tipo, subtipo, date, fuero' | gzip -9 > "$SCRIPTPATH"/$EXPORT/victimas.csv.gz
 fi
 
 # Test crimenmexico.diegovalle.net
