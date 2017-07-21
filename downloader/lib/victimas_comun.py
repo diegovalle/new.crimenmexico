@@ -137,8 +137,9 @@ def clean_comun_xls(url):
     
     if 'TOTAL' in df.columns:
       del df['TOTAL']
+    df.columns = df.columns.str.replace(u'ANO',u'AÑO')
     #assert structure of file
-    assert(all(df.columns == [u'ANO', u'INEGI', u'ENTIDAD', u'DELITO', u'MODALIDAD',
+    assert(all(df.columns == [u'AÑO', u'INEGI', u'ENTIDAD', u'DELITO', u'MODALIDAD',
                               u'ENERO', u'FEBRERO', u'MARZO',
                               u'ABRIL', u'MAYO', u'JUNIO', u'JULIO', u'AGOSTO',
                               u'SEPTIEMBRE', u'OCTUBRE', u'NOVIEMBRE', u'DICIEMBRE']))
