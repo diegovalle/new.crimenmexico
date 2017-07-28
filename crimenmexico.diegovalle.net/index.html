@@ -27,7 +27,6 @@
         <link rel="preload" href="/assets/json/states_last.json"   as="script">
         <link rel="preload" href='/assets/json/states.json'   as="script">
         <link rel="preload" href="/assets/json/national.json"  as="script">
-        <link rel="preload" href="/assets/json/national_1990.json"  as="script">
 
         <title>El Crimen en México - Reporte Mensual Delictivo</title>
         <meta charset="utf-8" />
@@ -113,6 +112,12 @@
          div#national90 .mg-area2-color {
              fill: #b35806;
              color: #b35806;
+         }
+
+         div#national90 svg > path.mg-line3-color {
+             stroke-dasharray: 4,1;
+             stroke: #b35806;
+             stroke-width: 1.6px;
          }
          /* .select-style {
             border: 1px solid #ccc;
@@ -467,6 +472,10 @@
                  for(var i = 0; i < data.length; i++)
                      data[i] = MG.convert.date(data[i], 'd');
              }
+             // This is only needed for the preliminary INEGI data
+             data = [data[0],
+                     data[1].slice(0, data[1].length - 12),
+                     data[1].slice(data[1].length - 13, data[1].length)]
              MG.data_graphic({
                  title: national_chart_title,
                  full_width: true,

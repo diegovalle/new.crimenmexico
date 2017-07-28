@@ -113,33 +113,39 @@
          div#national90 .mg-area2-color {
              fill: #b35806;
              color: #b35806;
-         }/*
-             .select-style {
-             border: 1px solid #ccc;
-             width: 200px;
-             border-radius: 3px;
-             overflow: hidden;
-             background: #fafafa url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==") no-repeat 90% 50%;
-             display: block;
-             margin: 0 auto;
-             }
-             .select-style select {
-             padding: 5px 8px;
-             border: none;
-             width: 100%;
-             box-shadow: none;
-             background: transparent;
-             background-image: none;
-             -webkit-appearance: none;
-             font-size: 1em;
-             font-family: 'Source Sans Pro';
-             font-weight: 700;
-             color: #555;
-             -webkit-appearance: none;
-             -moz-appearance: none;
-             text-indent: 1px;
-             text-overflow: '';
-             } */
+         }
+         div#national90 svg > path.mg-line3-color {
+             stroke-dasharray: 4,1;
+             stroke: #b35806;
+             stroke-width: 1.6px;
+         }
+         /*
+            .select-style {
+            border: 1px solid #ccc;
+            width: 200px;
+            border-radius: 3px;
+            overflow: hidden;
+            background: #fafafa url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==") no-repeat 90% 50%;
+            display: block;
+            margin: 0 auto;
+            }
+            .select-style select {
+            padding: 5px 8px;
+            border: none;
+            width: 100%;
+            box-shadow: none;
+            background: transparent;
+            background-image: none;
+            -webkit-appearance: none;
+            font-size: 1em;
+            font-family: 'Source Sans Pro';
+            font-weight: 700;
+            color: #555;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            text-indent: 1px;
+            text-overflow: '';
+            } */
         </style>
     </head>
     <body class="homepage">
@@ -463,6 +469,10 @@
                  for(var i = 0; i < data.length; i++)
                      data[i] = MG.convert.date(data[i], 'd');
              }
+             // This is only needed for the preliminary INEGI data
+             data = [data[0],
+                     data[1].slice(0, data[1].length - 12),
+                     data[1].slice(data[1].length - 13, data[1].length)]
              MG.data_graphic({
                  title: national_chart_title,
                  full_width: true,
@@ -522,18 +532,18 @@
                                      value = "national"
                                  var hash = window.location.hash.substring(1);
                                  if((_.endsWith(decodeURIComponent(hash.toLowerCase()),
-                                     $("#state_select option[value='" + value + "']").text().toLowerCase()))) {
+                                                $("#state_select option[value='" + value + "']").text().toLowerCase()))) {
                                      $( "#state_select" ).val(value);
                                      //window.location.hash='#historical';
                                      break;
                                  }
 
                              }
-                                     data = state_data[$("#state_select").val()];
+                             data = state_data[$("#state_select").val()];
                          } else {
                              data = state_data[$( "#state_select").val()];
                          }
-                                     create_historical_chart(data);
+                         create_historical_chart(data);
                      });
 
                  }
