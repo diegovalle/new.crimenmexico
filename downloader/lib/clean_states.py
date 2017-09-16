@@ -201,7 +201,7 @@ class CrimeMunicipios(CrimeStates):
         assert(df.query('mun_code > 570 & mun_code < 998').empty)
         # Check that all states exist (sometimes Queretaro is missing)
         for i in range(1, 33):
-            print(df[df.state_code == i].count)
+            print(df[df.state_code == i].head(1))
         # The SNSP uses different municipio names in the same db
         #self.municipios = pd.concat([df['state_code'], df['mun_code'], df['municipio']], axis=1).drop_duplicates()
 
