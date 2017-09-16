@@ -189,19 +189,25 @@ class CrimeMunicipios(CrimeStates):
 
         df.columns = self._columnNames
 
-        df = pd.melt(df, id_vars=['year', 'inegi', 'state', 'municipio', 'modalidad', 'tipo', 'subtipo'])
+        del df['municipio']
+        del df['state']
+
+        df = pd.melt(df, id_vars=['year', 'inegi', 'modalidad', 'tipo', 'subtipo'])
         df['inegi'] = pd.to_numeric(df['inegi'])
         df['state_code'] = df['inegi'].apply(lambda x: math.floor(x / 1000)).astype(int)
         df['mun_code'] = df['inegi'].apply(lambda x: x % 1000)
 
         # Check that no weird mun codes have been added
         assert(df.query('mun_code > 570 & mun_code < 998').empty)
+        # Check that all states exist (sometimes Queretaro is missing)
+        for i in range(1, 33):
+            print(df[df.state_code == i].count)
         # The SNSP uses different municipio names in the same db
         #self.municipios = pd.concat([df['state_code'], df['mun_code'], df['municipio']], axis=1).drop_duplicates()
 
-        del df['state']
+
         del df['inegi']
-        del df['municipio']
+        
         df['date'] = df["year"].map(int).map(str) + '-' + df['variable']
         del df['variable']  # delete month
         del df['year']
