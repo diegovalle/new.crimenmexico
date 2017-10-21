@@ -173,14 +173,14 @@ smNational <- function(vic, rate, title, date, max_date, min_date) {
                                                       "Car Robbery without Violence",
                                                       "Extortion",  
                                                       "Kidnapping",
-                                                      "Accidental Homicide"))
+                                                      "Negligent Homicide"))
   } else {
     national$tipo <- factor(national$tipo, levels = c("Homicidio Doloso", 
                                                       "Robo de vehículo con violencia",
                                                       "Robo de vehículo sin violencia",
                                                       "Extorsión", 
                                                       "Secuestro",
-                                                      "Homicidio Accidental"))
+                                                      "Homicidio con Negligencia"))
   }
   national$color <- "#005ab3"
   national$color[national$tipo %in% c("Intentional Homicide")] <-  "#b30000"

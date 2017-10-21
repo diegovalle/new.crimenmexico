@@ -34,7 +34,7 @@ vic %<>%
   mutate(date = as.Date(as.yearmon(date))) %>%
   mutate(tipo = str_replace(tipo, "CON VIOLENCIA","Car Robbery with Violence"),
          tipo = str_replace(tipo, "SIN VIOLENCIA", "Car Robbery without Violence"),
-         tipo = str_replace(tipo, "CULPOSOS", "Accidental Homicide"),
+         tipo = str_replace(tipo, "CULPOSOS", "Negligent Homicide"),
          tipo = str_replace(tipo, "DOLOSOS", "Intentional Homicide"),
          tipo = str_replace(tipo, "EXTORSION", "Extortion"),
          tipo = str_replace(tipo, "SECUESTRO", "Kidnapping")) %>%
@@ -128,7 +128,7 @@ toSvg(str_c("graphs/infographic_", tolower(str_replace(max_date, " ", "_")), ".s
 vic  <- 
   mutate(as.data.frame(vic), tipo = str_replace(tipo, "Car Robbery with Violence","Robo de vehículo con violencia"),
          tipo = str_replace(tipo, "Car Robbery without Violence", "Robo de vehículo sin violencia"),
-         tipo = str_replace(tipo, "Accidental Homicide", "Homicidio Accidental"),
+         tipo = str_replace(tipo, "Negligent Homicide", "Homicidio con Negligencia"),
          tipo = str_replace(tipo, "Intentional Homicide", "Homicidio Doloso"),
          tipo = str_replace(tipo, "Extortion", "Extorsión"),
          tipo = str_replace(tipo, "Kidnapping", "Secuestro")) 
