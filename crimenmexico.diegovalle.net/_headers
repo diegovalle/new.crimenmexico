@@ -1,0 +1,412 @@
+/
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </js/index.js>; rel=preload; as=script
+    Link: </assets/json/mx_hexgrid.geojson>; rel=preload; as=script
+    Link: </assets/json/states_last.json>; rel=preload;  as=script
+    Link: </assets/json/states.json>; rel=preload;  as=script
+    Link: </assets/json/national.json>; rel=preload; as=script
+    Link: </assets/js/jquery.inview.js>; rel=preload; as=script
+    Link: </assets/js/d3.min.js>; rel=preload;  as=script
+    Link: </assets/js/topojson.min.js>; rel=preload;  as=script
+    Link: </assets/js/metricsgraphics.js>; rel=preload;  as=script
+    Link: </assets/js/lodash.min.js>; rel=preload;  as=script
+    Link: </assets/css/metricsgraphics.min.css>; rel=preload;  as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload;  as=font
+    Link: </assets/css/images/bg01-blue.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+/en/
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </js/index.js>; rel=preload; as=script
+    Link: </assets/json/mx_hexgrid.geojson>; rel=preload; as=script
+    Link: </assets/json/states_last.json>; rel=preload;  as=script
+    Link: </assets/json/states.json>; rel=preload;  as=script
+    Link: </assets/json/national.json>; rel=preload; as=script
+    Link: </assets/js/jquery.inview.js>; rel=preload; as=script
+    Link: </assets/js/d3.min.js>; rel=preload;  as=script
+    Link: </assets/js/topojson.min.js>; rel=preload;  as=script
+    Link: </assets/js/metricsgraphics.js>; rel=preload;  as=script
+    Link: </assets/js/lodash.min.js>; rel=preload;  as=script
+    Link: </assets/css/metricsgraphics.min.css>; rel=preload;  as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload;  as=font
+    Link: </assets/css/images/bg01-blue.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+
+/index.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </js/index.js>; rel=preload; as=script
+    Link: </assets/json/mx_hexgrid.geojson>; rel=preload; as=script
+    Link: </assets/json/states_last.json>; rel=preload;  as=script
+    Link: </assets/json/states.json>; rel=preload;  as=script
+    Link: </assets/json/national.json; rel=preload; as=script
+    Link: </assets/js/jquery.inview.js>; rel=preload; as=script
+    Link: </assets/js/d3.min.js>; rel=preload;  as=script
+    Link: </assets/js/topojson.min.js>; rel=preload;  as=script
+    Link: </assets/js/metricsgraphics.js>; rel=preload;  as=script
+    Link: </assets/js/lodash.min.js>; rel=preload;  as=script
+    Link: </assets/css/metricsgraphics.min.css>; rel=preload;  as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload;  as=font
+    Link: </assets/css/images/bg01-blue.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+
+/en/index.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </js/index.js>; rel=preload; as=script
+    Link: </assets/json/mx_hexgrid.geojson>; rel=preload; as=script
+    Link: </assets/json/states_last.json>; rel=preload;  as=script
+    Link: </assets/json/states.json>; rel=preload;  as=script
+    Link: </assets/json/national.json; rel=preload; as=script
+    Link: </assets/js/jquery.inview.js>; rel=preload; as=script
+    Link: </assets/js/d3.min.js>; rel=preload;  as=script
+    Link: </assets/js/topojson.min.js>; rel=preload;  as=script
+    Link: </assets/js/metricsgraphics.js>; rel=preload;  as=script
+    Link: </assets/js/lodash.min.js>; rel=preload;  as=script
+    Link: </assets/css/metricsgraphics.min.css>; rel=preload;  as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload;  as=font
+    Link: </assets/css/images/bg01-blue.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+/es/states.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </js/states.js>; rel=preload; as=script
+    Link: </assets/json/states_sm.json>; rel=preload;  as=script
+    Link: </assets/js/d3.min.js>; rel=preload;  as=script
+    Link: </assets/js/topojson.min.js>; rel=preload;  as=script
+    Link: </assets/js/metricsgraphics.js>; rel=preload;  as=script
+    Link: </assets/js/lodash.min.js>; rel=preload;  as=script
+    Link: </assets/css/metricsgraphics.min.css>; rel=preload;  as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload;  as=font
+    Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+/en/states.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </js/states.js>; rel=preload; as=script
+    Link: </assets/json/states_sm.json>; rel=preload;  as=script
+    Link: </assets/js/d3.min.js>; rel=preload;  as=script
+    Link: </assets/js/topojson.min.js>; rel=preload;  as=script
+    Link: </assets/js/metricsgraphics.js>; rel=preload;  as=script
+    Link: </assets/js/lodash.min.js>; rel=preload; as=script
+    Link: </assets/css/metricsgraphics.min.css>; rel=preload; as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload; as=font
+    Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+/es/municipios.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </js/muns.js>; rel=preload; as=script
+    Link: </assets/json/municipios.json>; rel=preload; as=script
+    Link: </assets/js/d3.min.js>; rel=preload; as=script
+    Link: </assets/js/topojson.min.js>; rel=preload; as=script
+    Link: </assets/js/metricsgraphics.js>; rel=preload; as=script
+    Link: </assets/js/lodash.min.js>; rel=preload; as=script
+    Link: </assets/css/metricsgraphics.min.css>; rel=preload; as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload; as=style
+    Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+/en/municipios.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </js/muns.js>; rel=preload; as=script
+    Link: </assets/json/municipios.json>; rel=preload; as=script
+    Link: </assets/js/d3.min.js>; rel=preload; as=script
+    Link: </assets/js/topojson.min.js>; rel=preload; as=script
+    Link: </assets/js/metricsgraphics.js>; rel=preload; as=script
+    Link: </assets/js/lodash.min.js>; rel=preload; as=script
+    Link: </assets/css/metricsgraphics.min.css>; rel=preload; as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload; as=style
+    Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+/es/municipios-map.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </assets/json/municipios-centroids.json>; rel=preload; as=script
+    Link: </assets/js/crosslet.es.js>; rel=preload; as=script
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload; as=font
+    Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+
+/en/municipios-map.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </assets/json/municipios-centroids.json>; rel=preload; as=script
+    Link: </assets/js/crosslet.es.js>; rel=preload; as=script
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload; as=font
+    Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+/es/anomalies.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </assets/json/estatal.json>; rel=preload; as=script
+    Link: </assets/json/cities.json>; rel=preload; as=script
+    Link: </assets/json/anomalies.json>; rel=preload; as=script
+    Link: </assets/js/d3.min.js>; rel=preload; as=script
+    Link: </assets/js/topojson.min.js>; rel=preload; as=script
+    Link: </assets/js/metricsgraphics.js>; rel=preload; as=script
+    Link: </assets/js/lodash.min.js>; rel=preload; as=script
+    Link: </assets/css/metricsgraphics.min.css>; rel=preload; as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload; as=font
+    Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+/en/anomalies.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </assets/json/estatal.json>; rel=preload; as=script
+    Link: </assets/json/cities.json>; rel=preload; as=script
+    Link: </assets/json/anomalies.json>; rel=preload; as=script
+    Link: </assets/js/d3.min.js>; rel=preload; as=script
+    Link: </assets/js/topojson.min.js>; rel=preload; as=script
+    Link: </assets/js/metricsgraphics.js>; rel=preload; as=script
+    Link: </assets/js/lodash.min.js>; rel=preload; as=script
+    Link: </assets/css/metricsgraphics.min.css>; rel=preload; as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload; as=font
+    Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+/es/datos.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload; as=font
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+/en/datos.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload; as=style
+    Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/js/jquery.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload; as=script
+    Link: </assets/js/skel.min.js>; rel=preload; as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload; as=script
+    Link: </assets/js/util.js>; rel=preload; as=script
+    Link: </assets/js/main.js>; rel=preload; as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload; as=script
+    Link: </assets/css/main.css>; rel=preload; as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload; as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload; as=font
+    Link: </assets/css/images/bg01.png>; rel=preload; as=image
+    Link: </assets/css/images/loader.gif>; rel=preload; as=image
+
+/es/infographics.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload;\ as=style
+    Link: </assets/js/jquery.min.js>; rel=preload;\ as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload;\ as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload;\ as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload;\ as=script
+    Link: </assets/js/skel.min.js>; rel=preload;\ as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload;\ as=script
+    Link: </assets/js/util.js>; rel=preload;\ as=script
+    Link: </assets/js/main.js>; rel=preload;\ as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload;\ as=script
+    Link: </assets/css/main.css>; rel=preload;\ as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload;\ as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload;\ as=font
+    Link: </assets/css/images/bg01.png>; rel=preload;\ as=image
+    Link: </assets/css/images/loader.gif>; rel=preload;\ as=image
+
+/en/infographics.html
+    Strict-Transport-Security: max-age=31536000
+    Link: </assets/css/css/font.css>; rel=preload;\ as=style
+    Link: </assets/js/jquery.min.js>; rel=preload;\ as=script
+    Link: </assets/js/jquery.dropotron.min.js>; rel=preload;\ as=script
+    Link: </assets/js/jquery.selectorr.min.js>; rel=preload;\ as=script
+    Link: </assets/js/jquery.poptrox.min.js>; rel=preload;\ as=script
+    Link: </assets/js/skel.min.js>; rel=preload;\ as=script
+    Link: </assets/js/skel-viewport.min.js>; rel=preload;\ as=script
+    Link: </assets/js/util.js>; rel=preload;\ as=script
+    Link: </assets/js/main.js>; rel=preload;\ as=script
+    Link: </assets/js/d3-tip/index.js>; rel=preload;\ as=script
+    Link: </assets/css/main.css>; rel=preload;\ as=style
+    Link: </assets/css/crimenmexico.css>; rel=preload;\ as=style
+    Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload;\ as=font
+    Link: </assets/css/images/bg01.png>; rel=preload;\ as=image
+    Link: </assets/css/images/loader.gif>; rel=preload;\ as=image
