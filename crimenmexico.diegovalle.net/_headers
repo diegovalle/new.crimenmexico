@@ -1,5 +1,11 @@
-/
+/*
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
+
+/
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -32,6 +38,10 @@
 
 /en/
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -65,6 +75,10 @@
 
 /index.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -98,6 +112,10 @@
 
 /en/index.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -130,6 +148,10 @@
 
 /es/states.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -157,6 +179,10 @@
 
 /en/states.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -184,6 +210,10 @@
 
 /es/municipios.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -211,6 +241,10 @@
 
 /en/municipios.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -238,6 +272,10 @@
 
 /es/municipios-map.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -261,6 +299,10 @@
 
 /en/municipios-map.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -283,6 +325,10 @@
 
 /es/anomalies.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -311,6 +357,10 @@
 
 /en/anomalies.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -339,6 +389,10 @@
 
 /es/datos.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -358,6 +412,10 @@
 
 /en/datos.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
@@ -377,6 +435,10 @@
 
 /es/infographics.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload;\ as=style
     Link: </assets/js/jquery.min.js>; rel=preload;\ as=script
     Link: </assets/js/jquery.dropotron.min.js>; rel=preload;\ as=script
@@ -395,6 +457,10 @@
 
 /en/infographics.html
     Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload;\ as=style
     Link: </assets/js/jquery.min.js>; rel=preload;\ as=script
     Link: </assets/js/jquery.dropotron.min.js>; rel=preload;\ as=script
