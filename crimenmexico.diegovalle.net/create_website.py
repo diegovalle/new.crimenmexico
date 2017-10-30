@@ -78,7 +78,7 @@ def clean(lang, t):
     filedata = f.read()
     f.close()
 
-    newdata = re.sub('Map of homicide in Mexico [a-zA-Z0-9 ]*', r'Map of homicide in Mexico from ' + datetime.strftime(monthdelta(datetime.strptime(dates[0], "%B %Y"), -5), "%B %Y") + ' to ' + dates[0], filedata)
+    newdata = re.sub('Map of homicides in Mexico [a-zA-Z0-9 ]*', r'Map of homicides in Mexico from ' + datetime.strftime(monthdelta(datetime.strptime(dates[0], "%B %Y"), -5), "%B %Y") + ' to ' + dates[0], filedata)
     newdata = re.sub('Mapa de homicidios [a-zA-Z0-9 úÚ]*',
                      r'Mapa de homicidios de ' + datetime.strftime(monthdelta(datetime.strptime(dates[0], "%B %Y"), -5), "%B %Y") + ' a ' + dates[0], newdata)
     # import pdb;pdb.set_trace()

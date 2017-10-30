@@ -1348,7 +1348,7 @@ crosslet.MapView = (function(_super) {
     this.map = L.map(el[0]).setView(this.config.map.view.center, this.config.map.view.zoom);
 //Changed to use toner tiles
 
-    L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png", this.config.map.leaflet).addTo(this.map);
+    L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZGllZ292YWxsZW5ldCIsImEiOiJjajllZmRsMnYyYnE5MzJveXl2emZkOTFrIn0.u-acHdSdmkYBnwaArqYPZw", this.config.map.leaflet).addTo(this.map);
 
 // captions
 var info =  L.control({position: 'bottomright'});
