@@ -342,7 +342,7 @@
                     <div class="row">
                         <div class="12u 12u(mobile) national90-chart"><div id="national90"></div></div>
                     </div>
-                    <p>Las cifras correspondientes a los homicidios INEGI del periodo 2016 son de carácter preliminar y muy probablemente presentan un subregistro.</p>
+                   <!-- <p>Las cifras correspondientes a los homicidios INEGI del periodo 2016 son de carácter preliminar y muy probablemente presentan un subregistro.</p>-->
                 </div>
 
                 <!-- Portfolio Wrapper -->
@@ -473,9 +473,9 @@
                      data[i] = MG.convert.date(data[i], 'd');
              }
              // This is only needed for the preliminary INEGI data
-             data = [data[0],
-                     data[1].slice(0, data[1].length - 12),
-                     data[1].slice(data[1].length - 13, data[1].length)]
+             //data = [data[0],
+             //        data[1].slice(0, data[1].length - 12),
+             //        data[1].slice(data[1].length - 13, data[1].length)]
              MG.data_graphic({
                  title: national_chart_title,
                  full_width: true,
