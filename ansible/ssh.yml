@@ -28,5 +28,5 @@
     - name: tell the host about servers it might want to ssh to
       when: secrets is defined
       known_hosts: path='/etc/ssh/ssh_known_hosts'
-                   name="{{  lookup('env','IPADDRESS') }}"
+                   name="104.168.30.187"
                    key="{{ lookup('file', 'crimenmexico.pub') }}"
