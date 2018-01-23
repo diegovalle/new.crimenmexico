@@ -189,7 +189,13 @@
                                      <li><a href="#">Veroeros feugiat</a></li>
                                      </ul>
                                      </li> -->
-                                <li><a href="/es/states.html">Estados</a></li>
+                                <li><a href="#">Estados</a>
+                                    <ul>
+                                        <li><a href="/es/states.html">Series de Tiempo</a></li>
+                                        <li><a href="/es/estados-mujeres.html">Homicidios de Mujeres</a></li>
+                                        <li><a href="/es/estados-feminicidio.html">Feminicidios</a></li>
+                                    </ul>
+                                </li>
                                 <li><a href="#">Municipios</a>
                                     <ul>
                                         <li><a href="/es/municipios-map.html">Mapa</a></li>
@@ -222,8 +228,8 @@
                                         <option value="hd">Homicidio Intencional</option>
                                         <option value="sec">Secuestro</option>
                                         <option value="ext">Extorsión</option>
-                                        <option value="rvcv">Robo de Vehículo con Violencia</option>
-                                        <option value="rvsv">Robo de Vehículo sin Violencia</option>
+                                        <option value="rvcv">Robo de Coches con Violencia</option>
+                                        <option value="rvsv">Robo de Coches sin Violencia</option>
                                     </select>
                                     <!-- <select id="crimeSelect">
                                          <option value="hd">Homicidio Doloso</option>
@@ -261,7 +267,9 @@
                                     <div class="6u 12u(mobile) national-chart"><div id="nat_rvsv"></div></div>
 
                                 </div>
-                                <p><br>Puedes hacer click en el mapa para mostrar la información de cada estado. Las tasas son calculadas usando meses de 30 días</p>
+                                <p><br><small style="font-size: 80%;
+                                                     line-height: 1.5em;
+                                                     display: block;">Puedes hacer click en el mapa para mostrar la información de cada estado. Las tasas son calculadas usando meses de 30 días. Los homicidios intencionales incluyen los feminicidios.</small></p>
                             </section>
                         </div>
                     </div>
@@ -274,10 +282,17 @@
                     <p style="text-align:left;">Cada mes el <a href="http://secretariadoejecutivo.gob.mx/index.php">Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública</a>
                         publica información de incidencia delictiva en su sitio web. Este sitio web descarga, procesa y presenta los datos de una manera fácil de interpretar.</p><br>
                     <p style="text-align:left;">
-                        Los secuestros, homicidios y extorsiones refieren el número de víctimas, pero los robos de vehículo las averiguaciones previas. Desde enero
-                        del 2015 los datos de secuestro incluyen víctimas a nivel federal. Guerrero reporta el número de averiguaciones como si fueran número de víctimas.
-                        Según la ENVIPE las extorsiones han aumentado, pero según el SNSP las extorsiones han bajado. Los robos de vehículo sí coinciden con la
-                        tendencia de la ENVIPE, los homicidios también coinciden en tendencia con datos del INEGI/SSA</p>
+                        Los secuestros, homicidios y extorsiones
+                        refieren el número
+                        de víctimas, pero los robos de vehículo las
+                        averiguaciones previas. Los robos de vehículo
+                        incluyen sólamente robo de coche de 4 ruedas. Los homicidios incluyen los feminicidios. El secuestro incluye todas las modalidades. Según la ENVIPE las
+                        extorsiones han permanesido
+                        estables, lo mismo que reporta el el SNSP. Los
+                        robos de vehículo coinciden con la tendencia
+                        estable de la ENVIPE (2015-2016), los
+                        homicidios también coinciden en tendencia con
+                        datos del INEGI/SSA</p>
                     <br/>
                     <p style="text-align:left;">Los datos de homicidio
                         del INEGI tienden a ser más precisos. Además de incluir muertes por
@@ -342,7 +357,7 @@
                     <div class="row">
                         <div class="12u 12u(mobile) national90-chart"><div id="national90"></div></div>
                     </div>
-                   <!-- <p>Las cifras correspondientes a los homicidios INEGI del periodo 2016 son de carácter preliminar y muy probablemente presentan un subregistro.</p>-->
+                    <!-- <p>Las cifras correspondientes a los homicidios INEGI del periodo 2016 son de carácter preliminar y muy probablemente presentan un subregistro.</p>-->
                 </div>
 
                 <!-- Portfolio Wrapper -->
@@ -353,8 +368,8 @@
                             <span class="byline">Gráficas que explican la guerra contra el narco</span>
                         </header>
                         <div class="row">
-                            <div class="6u 12u(mobile)"><a href="/es/images/infographics/fulls/infographic_es_oct_2017.png" class=" fit"><img src="/es/images/infographics/thumbnails/infographic_es_oct_2017.png" alt=""></a></div>
-                            <div class="6u 12u(mobile)"><a href="/es/images/infographics/fulls/municipios_es_oct_2017.png" class=" fit"><img src="/es/images/infographics/thumbnails/municipios_es_oct_2017.png" alt=""></a></div>
+                            <div class="6u 12u(mobile)"><a href="/es/images/infographics/fulls/infographic_es_dic_2017.png" class=" fit"><img src="/es/images/infographics/thumbnails/infographic_es_dic_2017.png" alt=""></a></div>
+                            <div class="6u 12u(mobile)"><a href="/es/images/infographics/fulls/municipios_es_dic_2017.png" class=" fit"><img src="/es/images/infographics/thumbnails/municipios_es_dic_2017.png" alt=""></a></div>
                         </div>
                         <footer>
                             <a href="/es/infographics.html" class="button button-alt">Ver Más Infográficas</a>
@@ -452,8 +467,8 @@
          var homicidio_doloso = 'Homicidio Intencional - ',
              secuestro = 'Secuestro - ',
              extorsion = 'Extorsión - ',
-             rvcv = 'Robo de Vehículo C.V. - ',
-             rvsv = 'Robo de Vehículo S.V. - ',
+             rvcv = 'Robo de Coches C.V. - ',
+             rvsv = 'Robo de Coches S.V. - ',
              national_text = 'Nacional',
              annualized_rate = 'tasa anualizada',
              rate_text = ', tasa: ',
@@ -536,7 +551,7 @@
                                      value = "national"
                                  var hash = window.location.hash.substring(1);
                                  if((_.endsWith(decodeURIComponent(hash.toLowerCase()),
-                                               $("#state_select option[value='" + value + "']").text().toLowerCase()))) {
+                                                $("#state_select option[value='" + value + "']").text().toLowerCase()))) {
                                      $( "#state_select" ).val(value);
                                      //window.location.hash='#historical';
                                      break;

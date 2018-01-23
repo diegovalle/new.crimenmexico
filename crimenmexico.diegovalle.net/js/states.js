@@ -28,7 +28,7 @@
                      $(obj).attr('id', 'line' + muns_ordered[index].replace(/ |\./g, '')
                                                                    .replace(/,/g, ''));
                  });
-                 return(muns_ordered)
+                 return(muns_ordered);
              };
              if (muns[selected_value].length === 2) {
                  muns_ordered = createChartDivs(muns[selected_value][0]);
@@ -90,12 +90,12 @@
                  line_options.target = "#line" + target.replace(/ |\./g, '')
                                                        .replace(/,/g, '');
                  MG.data_graphic(line_options);
-             }
+             };
              //console.time("concatenation");
              _.forEach(muns_ordered, function(x) {
                  line_values = filterCrime(muns[selected_value], x);
-                 line_chart(line_values, x, x)
-                     return
+                 line_chart(line_values, x, x);
+                 return;
              });
          };
 

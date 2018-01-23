@@ -1,42 +1,40 @@
-var selected_value = 'hd', muns;
+         var selected_value = 'hd';
+         var muns;
          var monthNames = [
              "Jan", "Feb", "Mar",
              "Apr", "May", "Jun", "Jul",
              "Aug", "Sep", "Oct",
              "Nov", "Dec"
          ];
-         var round = d3.format(".1f");
+var round = d3.format(".1f");
+var comma = d3.format(",");
          var format=d3.time.format('%b %Y');
          var draw_line_chart = function(muns){
              var createChartDivs = function(muns) {
-                 groups=_.groupBy(muns, function(x) {return x.name});
+                 groups=_.groupBy(muns, function(x) {return x.name;});
                  byrate = _.map(groups, function(g, key) {
                      return { name: key,
                               rate: _.reduce(g, function(m,x) { return (x.rate === null ? m : x.rate); }, 0) };
                  });
                  muns_ordered = _.pluck(_.sortBy(byrate, "rate"), "name").reverse();
 
-                 $('*[class^="parent-line-chart"]').remove();
                  _.map(muns_ordered, function(x) {
                      if (document.getElementById('line' + x.replace(/ |\./g, '')
                                                            .replace(/,/g, '')) === null) {
-                                                               $('<div  class="parent-line-chart 3u 12u(mobile)"><div style="width:100%" class ="line-chart" id="'+ 'line' + x.replace(/ |\./g, '')
+                                                               $('<div  class="3u 12u(mobile)" ><div style="width:100%" class ="line-chart" id="'+ 'line' + x.replace(/ |\./g, '')
                                                                                                                                                              .replace(/,/g, '') +'"></div></div>').appendTo('#small-multiples');
                      }
                  });
                  $('.line-chart').each(function(index, obj){
-                     if(typeof muns_ordered[index] !== "undefined")
-                       $(obj).attr('id', 'line' + muns_ordered[index].replace(/ |\./g, '')
+                     $(obj).attr('id', 'line' + muns_ordered[index].replace(/ |\./g, '')
                                                                    .replace(/,/g, ''));
                  });
-                 return(muns_ordered)
+                 return(muns_ordered);
              };
              if (muns[selected_value].length === 2) {
                  muns_ordered = createChartDivs(muns[selected_value][0]);
-                 /* max_rate = _.max([_.max(muns[selected_value][0], 'rate')['rate'],
-                    _.max(muns[selected_value][1], 'rate')['rate']]);
-                  */
-                 max_rate = _.max(muns[selected_value][0], 'rate')['rate'];
+                 max_rate = _.max([_.max(muns[selected_value][0], 'rate')['rate'],
+                                   _.max(muns[selected_value][1], 'rate')['rate']]);
              } else {
                  muns_ordered = createChartDivs(muns[selected_value]);
                  max_rate = _.max(muns[selected_value], 'rate')['rate'];
@@ -55,8 +53,10 @@ var selected_value = 'hd', muns;
                          data = MG.convert.date(data, 'date');
                  }
 
-                 return(data)
+                 return(data);
              };
+
+             //console.log("create")
 
              var line_chart = function(data, title, target) {
                  var line_options = {
@@ -64,7 +64,7 @@ var selected_value = 'hd', muns;
                      max_y: max_rate,
                      area: false,
                      full_width: true,
-                     left: 70,
+                     left: 60,
                      buffer: 0,
                      // width:281,
                      //missing_is_hidden: true,
@@ -74,6 +74,7 @@ var selected_value = 'hd', muns;
                      small_text: true,
                      xax_count: 3,
                      xax_format: d3.time.format('%b'),
+                     yax_count: 4,
                      y_extended_ticks: true,
                      y_label: annualized_rate,
                      mouseover: function(d, i) {
@@ -84,33 +85,72 @@ var selected_value = 'hd', muns;
                          d3.select("#line" + target.replace(/ |\./g, '')
                                                    .replace(/,/g, '') + ' svg .mg-active-datapoint')
                            .text(monthNames[monthIndex] + '-' + year + rate_text + round(d.rate) + count_text + d.count);
-                     },
+                     }
                  };
                  line_options.data = line_values;
                  line_options.title = title;
                  line_options.target = "#line" + target.replace(/ |\./g, '')
                                                        .replace(/,/g, '');
                  MG.data_graphic(line_options);
-             }
+             };
              //console.time("concatenation");
              _.forEach(muns_ordered, function(x) {
                  line_values = filterCrime(muns[selected_value], x);
-                 line_chart(line_values, x, x)
-                     return
+                 line_chart(line_values, x, x);
+                 return;
              });
          };
+
+
          $( window ).load(function() {
-             d3.json('/assets/json/municipios.json', function(data) {
+             d3.json(sm_file, function(data) {
                  muns = data;
                  draw_line_chart(muns);
-
+                 $('#crimeSelect').on('change', function() {
+                     selected_value = this.value;
+                     $("body").addClass("loading");
+                     draw_line_chart(muns);
+                     $("body").removeClass("loading");
+                 });
 
              });
+             d3.json(total_file, function(total) {
+                 MG.convert.date(total[0], 'date');
+                 if(typeof total[1] != 'undefined') {
+                     MG.convert.date(total[1], 'date');
+                 }
+                 var line_options = {
+                     height: 300,
+                     max_y: _.max([_.max(total[0], 'rate')['rate'],
+                                   _.max(total[1], 'rate')['rate']]),
+                     area: false,
+                     full_width: true,
+                     left: 60,
+                     buffer: 0,
+                     // width:281,
+                     //missing_is_hidden: true,
+                     interpolate: "linear",
+                     x_accessor: 'date',
+                     y_accessor: 'rate',
+                     small_text: true,
+                     xax_count: 3,
+                     xax_format: d3.time.format('%b'),
+                     yax_count: 5,
+                     y_extended_ticks: true,
+                     y_label: annualized_rate,
+                     mouseover: function(d, i) {
+                         var date = new Date(d.date);
+                         var day = d.date.getDate();
+                         var monthIndex = d.date.getMonth();
+                         var year = d.date.getFullYear();
+                         d3.select("#total-chart" + ' svg .mg-active-datapoint')
+                             .text(monthNames[monthIndex] + '-' + year  +rate_text + round(d.rate) + count_text + d.count);
+                     }
+                 };
+                 line_options.data = total;
+                 line_options.title = national_text;
+                 line_options.target = "#total-chart";
+                 MG.data_graphic(line_options);
 
-             $('#crimeSelect').on('change', function() {
-                 selected_value = this.value;
-                 $("body").addClass("loading");
-                 draw_line_chart(muns);
-                 $("body").removeClass("loading");
              });
          });

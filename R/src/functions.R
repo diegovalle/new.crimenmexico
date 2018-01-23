@@ -339,7 +339,7 @@ sm_theme <- function() {
     panel.grid.minor.y = element_blank(),
     panel.grid.major.x = element_blank(),
     panel.grid.minor.x = element_blank(),
-    strip.text = element_text(family = "Lato Black", colour = "white", size = 7),
+    strip.text = element_text(family = "Lato Black", colour = "white", size = 6, margin = margin(1,0,1,0)),
     strip.background =  element_rect(fill = "#7B6824"),
     #axis.ticks = element_blank(),
     axis.text.x = element_text(angle = 70, hjust = 1)

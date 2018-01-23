@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <!--
-Focal Point by Pixelarity
-pixelarity.com @pixelarity
-License: pixelarity.com/license
--->
+     Focal Point by Pixelarity
+     pixelarity.com @pixelarity
+     License: pixelarity.com/license
+   -->
 <html lang="en">
     <head>
 
@@ -104,30 +104,36 @@ License: pixelarity.com/license
                             <ul>
                                 <li><a href="/en/index.html">Home</a></li>
                                 <!-- <li>
-                                <a href="#">Dropdown</a>
-                                <ul>
-                                <li><a href="#">Lorem ipsum dolor</a></li>
-                                <li><a href="#">Magna phasellus</a></li>
-                                <li><a href="#">Etiam dolore nisl</a></li>
-                                <li>
-                                <a href="#">Phasellus consequat</a>
-                                <ul>
-                                <li><a href="#">Lorem ipsum dolor</a></li>
-                                <li><a href="#">Phasellus consequat</a></li>
-                                <li><a href="#">Magna phasellus</a></li>
-                                <li><a href="#">Etiam dolore nisl</a></li>
-                                <li><a href="#">Veroeros feugiat</a></li>
-                                </ul>
+                                     <a href="#">Dropdown</a>
+                                     <ul>
+                                     <li><a href="#">Lorem ipsum dolor</a></li>
+                                     <li><a href="#">Magna phasellus</a></li>
+                                     <li><a href="#">Etiam dolore nisl</a></li>
+                                     <li>
+                                     <a href="#">Phasellus consequat</a>
+                                     <ul>
+                                     <li><a href="#">Lorem ipsum dolor</a></li>
+                                     <li><a href="#">Phasellus consequat</a></li>
+                                     <li><a href="#">Magna phasellus</a></li>
+                                     <li><a href="#">Etiam dolore nisl</a></li>
+                                     <li><a href="#">Veroeros feugiat</a></li>
+                                     </ul>
+                                     </li>
+                                     <li><a href="#">Veroeros feugiat</a></li>
+                                     </ul>
+                                     </li> -->
+                                <li><a href="#">States</a>
+                                    <ul>
+                                        <li><a href="/en/states.html">Time Series</a></li>
+                                        <li><a href="/en/states-female.html">Female Homicides</a></li>
+                                        <li><a href="/en/states-feminicide.html">Feminicides</a></li>
+                                    </ul>
                                 </li>
-                                <li><a href="#">Veroeros feugiat</a></li>
-                                </ul>
-                                </li> -->
-                                <li><a href="/en/states.html">States</a></li>
                                 <li><a href="#">Municipios</a>
                                     <ul>
                                         <li><a href="/en/municipios-map.html">Map</a></li>
                                         <li><a href="/en/municipios.html">Time Series</a></li>
-<li><a href="/en/lisa-map.html">Cluster Map</a></li>
+                                        <li><a href="/en/lisa-map.html">Cluster Map</a></li>
                                     </ul>
                                 </li>
                                 <li class="current_page_item"><a href="/en/anomalies.html">Anomalies</a></li>
@@ -262,6 +268,24 @@ License: pixelarity.com/license
                         </div>
                     </div>
 
+                    <div class="row 200%">
+                        <!-- Content -->
+                        <div id="content" class="8u 12u(mobile)">
+                            <a name="reos"></a>
+
+                            <article>
+                                <h2 id ="reos" class="chart-title"></h2>
+                                <div class="row" id="small-multiples-reos"></div>
+                            </article>
+                        </div>
+                        <!-- Sidebar -->
+                        <div id="sidebar" class="4u 12u(mobile)">
+                            <section>
+                                <div class="12u 12u(mobile)" id="reos-map"></div>
+                            </section>
+                        </div>
+                    </div>
+
 
                 </div>
                 <div id="banner-wrapper" class="wrapper">
@@ -274,18 +298,20 @@ License: pixelarity.com/license
                         each of the more than 2,400 Mexican municipios
                         for selected crimes so that the Mexican
                         government can take prompt action (LOL). Crime spikes are only monitored for the data that was added since the last update (usually the last month), but you can
-                        consult historical information from the <a href="/en/infographics.html">infographics page</a>.
-                    </p><p style="text-align:left;">Both
-                        positive and negative trends are detected and
-                        should be obvious from the charts. Some
-                        municipalities incorrectly report missing
-                        values as zero, or have coding errors. Since it's hard to figure out
-                        which values are truly zero or simply missing,
-                        and I believe false positives are less costly
-                        than false negatives, I didn't adjust for this.
-                        This are point-in-time anomalous
-                        data points, not the most violent
-                        municipalities</p>
+                        consult historical information from the <a href="/en/infographics.html">infographics page</a>. Homicides include feminicides.
+                    </p><p style="text-align:left;">Both positive and
+                        negative trends are detected and should be
+                        obvious from the charts. Some municipalities
+                        incorrectly report missing values as zero, or
+                        have coding errors. Since it's hard to figure
+                        out which values are truly zero or simply
+                        missing, and I believe false positives are
+                        less costly than false negatives, I didn't
+                        adjust for this.  This are point-in-time
+                        anomalous data points, not the most violent
+                        municipalities. Only <i>municipios</i> with more than 10 homicides,
+                        10 car robberies with violence, 10 car
+                        robberies without violence and 5 lesions are taken into account.</p>
                     </section></div>
 
 
@@ -320,11 +346,11 @@ License: pixelarity.com/license
             </div>
         </div>
         <!--<div class="a2a_kit a2a_kit_size_32 a2a_floating_style a2a_vertical_style" style="left:0px; top:150px;">
-            <a class="a2a_button_facebook"></a>
-            <a class="a2a_button_twitter"></a>
-            <a class="a2a_button_reddit"></a>
-            <a class="a2a_dd" href="http://www.addtoany.com/share_save"></a>
-        </div>-->
+             <a class="a2a_button_facebook"></a>
+             <a class="a2a_button_twitter"></a>
+             <a class="a2a_button_reddit"></a>
+             <a class="a2a_dd" href="http://www.addtoany.com/share_save"></a>
+             </div>-->
 
         <!--<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>-->
 
@@ -360,7 +386,8 @@ License: pixelarity.com/license
              crwov = 'Car Robbery without Violence',
              int_lesions = 'Intentional Lesions',
              kidnappings = 'Kidnappings',
-             extortions = 'Extortions';
+             extortions = 'Extortions',
+             reos = 'Prison Breaks';
         </script>
         <script src="/js/anomalies.js">
         </script>
@@ -371,5 +398,6 @@ License: pixelarity.com/license
          ga('send', 'pageview');
         </script>
         <script async src='https://www.google-analytics.com/analytics.js'></script>
-        <!-- End Google Analytics -->ody>
+        <!-- End Google Analytics -->
+    <body>
 </html>

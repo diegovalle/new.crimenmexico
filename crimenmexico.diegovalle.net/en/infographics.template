@@ -57,7 +57,13 @@
                                                                                                         <li><a href="#">Veroeros feugiat</a></li>
                                                                                                 </ul>
                                                                                         </li> -->
-                                                                                        <li><a href="/en/states.html">States</a></li>
+                                                                                        <li><a href="#">States</a>
+                                    <ul>
+                                        <li><a href="/en/states.html">Time Series</a></li>
+                                        <li><a href="/en/states-female.html">Female Homicides</a></li>
+<li><a href="/en/states-feminicide.html">Feminicides</a></li>
+                                    </ul>
+                                </li>
                                                                                         <li><a href="#">Municipios</a>
                                     <ul>
                                         <li><a href="/en/municipios-map.html">Map</a></li>

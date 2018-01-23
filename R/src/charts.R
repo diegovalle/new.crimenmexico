@@ -10,24 +10,61 @@ abbrev <- read.csv(file.path("data", "state_abbreviations.csv"))
 db <- dbConnect(SQLite(), dbname="../db/crimenmexico.db")
 dbListTables(db) 
 #vic <- dbReadTable(db, "victimas") 
-vic <- dbGetQuery(db, "select state, state_code, modalidad, tipo, subtipo, date, 
-                  sum(count) as count, population, 
-                  fuero,
-                  'victimas'as type from victimas group by state, state_code, modalidad, tipo, subtipo, date
+vic <- dbGetQuery(db, "select state, 
+state_code,
+                  'TOTAL' as modalidad, 
+                  subtipo  as tipo, 
+                  subtipo, 
+                  date, 
+                  count, 
+                  population, 
+                  'COMUN' as fuero, 
+                  'victimas'as type
+                  FROM (select  state, v.state_code, 
+                  CASE subtipo_text
+                  WHEN 'HOMICIDIO DOLOSO' THEN 'DOLOSOS'
+                  WHEN 'FEMINICIDIO' THEN 'DOLOSOS'
+                  WHEN 'HOMICIDIO CULPOSO' THEN 'CULPOSOS'
+                  WHEN 'EXTORSIÓN' THEN 'EXTORSIÓN'
+                  WHEN 'SECUESTRO' THEN 'SECUESTRO'
+                  END subtipo,
+                  v.date, 
+                  sum(count) as count
+                  from estados_victimas v
+                  NATURAL JOIN state_names
+                  NATURAL JOIN subtipo_states_victimas
+                  where subtipo_text = 'HOMICIDIO DOLOSO' or 
+                  subtipo_text = 'FEMINICIDIO' or 
+                  subtipo_text = 'HOMICIDIO CULPOSO' or 
+                  subtipo_text = 'SECUESTRO' or 
+                  subtipo_text = 'EXTORSIÓN'
+                  group by v.state_code, v.date, subtipo_text)
+                  NATURAL JOIN population_states
                   UNION ALL
-                  select state, state_code, modalidad_text as modalidad, 
-                  tipo_text as tipo, 
-                  subtipo_text as subtipo, date, count, population, 
-                  'comun' as fuero, 
-                  'averiguaciones' as type 
-                  from estados_fuero_comun natural join state_names 
-                  natural join population_states natural join modalidad_states 
-                  natural join subtipo_states natural 
-                  join tipo_states 
-                  where modalidad_text = 'ROBO COMUN' and 
-                  (tipo_text ='SIN VIOLENCIA' or tipo_text ='CON VIOLENCIA') 
-                  and subtipo_text = 'DE VEHICULOS' and date >= '2014-01'
-                  ORDER BY state, modalidad, tipo, subtipo")
+                  select state, 
+                  state_code,
+                  'TOTAL' as modalidad, 
+                  tipo  as tipo, 
+                  'ROBO DE VEHÍCULO AUTOMOTOR' as subtipo,
+                  date, 
+                  count, 
+                  population, 
+                  'COMUN' as fuero, 
+                  'averiguaciones'as type
+                  FROM (select  state, v.state_code, 
+                  CASE modalidad_text
+                  WHEN 'ROBO DE COCHE DE 4 RUEDAS CON VIOLENCIA' THEN 'CON VIOLENCIA'
+                  WHEN 'ROBO DE COCHE DE 4 RUEDAS SIN VIOLENCIA' THEN 'SIN VIOLENCIA'
+                  END tipo,
+                  v.date, 
+                  sum(count) as count
+                  from estados_fuero_comun v
+                  NATURAL JOIN state_names
+                  NATURAL JOIN modalidad_states
+                  where modalidad_text = 'ROBO DE COCHE DE 4 RUEDAS CON VIOLENCIA' or 
+                  modalidad_text = 'ROBO DE COCHE DE 4 RUEDAS SIN VIOLENCIA'
+                  group by v.state_code, v.date, modalidad_text)
+                  NATURAL JOIN population_states")
 dbDisconnect(db)
 
 vic %<>%
@@ -36,7 +73,7 @@ vic %<>%
          tipo = str_replace(tipo, "SIN VIOLENCIA", "Car Robbery without Violence"),
          tipo = str_replace(tipo, "CULPOSOS", "Negligent Homicide"),
          tipo = str_replace(tipo, "DOLOSOS", "Intentional Homicide"),
-         tipo = str_replace(tipo, "EXTORSION", "Extortion"),
+         tipo = str_replace(tipo, "EXTORSIÓN", "Extortion"),
          tipo = str_replace(tipo, "SECUESTRO", "Kidnapping")) %>%
   group_by(date, modalidad, tipo, subtipo, state, state_code) %>%
   summarise(count = sum(count), population = population[1]) %>%
@@ -44,8 +81,8 @@ vic %<>%
   mutate(rate = round(rate, 1))
 
 # Before 2015 kidnappings didn't include federal crimes
-vic[(vic$date <= as.Date("2014-12-31") & vic$tipo == "Kidnapping"),]$count <- NA
-vic[(vic$date <= as.Date("2014-12-31") & vic$tipo == "Kidnapping"),]$rate <- NA
+#vic[(vic$date <= as.Date("2014-12-31") & vic$tipo == "Kidnapping"),]$count <- NA
+#vic[(vic$date <= as.Date("2014-12-31") & vic$tipo == "Kidnapping"),]$rate <- NA
 
 vic <- inner_join(vic, abbrev, by = "state_code")
 # 
@@ -62,7 +99,7 @@ homicide.map <- bigBins(vic, max_date,
                         "Annualized\nIntentional Homicide\nVictimization Rate",
                         "HOMICIDE RATES IN MEXICO",
                         "Intentional Homicide")
-national.chart <- smNational(vic, "annualized crime rate",
+national.chart <- smNational(na.omit(vic), "annualized crime rate",
                              "VICTIMIZATION RATES AT THE NATIONAL LEVEL", "date",
                              toupper(max_date), toupper(min_date))
 # homicide.map <- bigMapHom(vic, "Intentional Homicide", "Annualized Homicide Victimization Rates",
@@ -104,10 +141,10 @@ rvsv.map <- bottomMap(vic, "Car Robbery without Violence",
                       low = "#fff7fb", high = "#023858", mid = "#74a9cf", "CAR ROBBERY W/O V.",
                       max_date)
 
-note <- "Kidnappings, homicides, and extortions refer to victims; car robberies to police reports. Since January 2015 kidnappings include victims at the 
-federal level. Guerrero misreports the number of police reports as if they were the number of victims.
-According to the National Crime Victimization Survey (ENVIPE) extortions have been rising, but according to the SNSP decreasing. Car Robberies 
-do match the ENVIPE trend, and homicides follow the trend reported by the INEGI"
+note <- "Kidnappings, homicides, and extortions refer to victims; car robberies to police reports. Car robberies include ROBO DE COCHE DE 4 RUEDAS under 
+the new methodology. Homicides include HOMICIDIOS DOLOSOS and FEMINICIDIO.
+According to the National Crime Victimization Survey (ENVIPE) extortions have remained roughly stabe, the same as according to the SNSP. Car Robberies 
+do match the stable ENVIPE trend (2015-2016), and homicides follow the trend reported by the INEGI"
 
 attribution <- paste(
   "Website: https://elcri.men/en/",
@@ -146,7 +183,7 @@ Sys.setlocale("LC_TIME", "es_ES.UTF-8")
 max_date = vic$date %>% max(., na.rm = TRUE) %>% as.yearmon  %>% as.character 
 min_date = vic$date %>% min(., na.rm = TRUE) %>% as.yearmon  %>% as.character
 
-national.chart <- smNational(vic, "tasa anualizada",
+national.chart <- smNational(na.omit(vic), "tasa anualizada",
                              "TASAS A NIVEL NACIONAL", "fecha",
                              toupper(max_date), toupper(min_date))
 # homicide.map <- bigMapHom(vic, "Homicidio Doloso", "tasa anualizada de homicidio",
@@ -191,10 +228,9 @@ rvsv.map <- bottomMap(vic, "Robo de vehículo sin violencia",
                       low = "#fff7fb", high = "#023858", mid = "#74a9cf", "ROBO DE VEHÍCULO S/V",
                       max_date)
 
-note <- "Los secuestros, homicidios y extorsiones refieren el número de victimas, pero los robos de vehículo las averiguaciones previas. Desde enero 
-del 2015 los datos de secuestro incluyen víctimas a nivel federal. Guerro reporta el número de averiguaciones como si fueran número de víctimas.
-Según la ENVIPE las extorsiones han aumentado, pero según el SNSP las extorsiones han bajado. Los robos de vehículo sí coinciden con la 
-tendencia de la ENVIPE, los homicidios también coinciden en tendencia con datos del INEGI/SSA"
+note <- "Los secuestros, homicidios y extorsiones refieren el número de victimas, pero los robos de vehículo las averiguaciones previas. Los datos corresponden a la nueva metodología. Los robos de vehículo son los de cuarto ruedas. Los homicidios incluyen feminicidios
+Según la ENVIPE las extorsiones han permanesido estables, lo mismo que reporta el el SNSP. Los robos de vehículo coinciden con la 
+tendencia estable de la ENVIPE (2015-2016), los homicidios también coinciden en tendencia con datos del INEGI/SSA"
 
 attribution <- paste(
   "Web: https://elcri.men/",

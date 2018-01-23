@@ -8,7 +8,7 @@ var selected_value = 'hd', muns;
          var round = d3.format(".1f");
          var format=d3.time.format('%b %Y');
              var draw_line_chart = function(crime_type, id){
-                 groups=_.groupBy(muns[crime_type], function(x) {return x.name});
+                 groups=_.groupBy(muns[crime_type], function(x) {return x.name;});
                  byrate = _.map(groups, function(g, key) {
                      return { name: key,
                               rate: _.reduce(g, function(m,x) { return (x.rate === null ? m : x.rate); }, 0) };
@@ -32,8 +32,8 @@ var selected_value = 'hd', muns;
                      data = _.filter(data, { 'name': name });
                      if (typeof(data[0].date) !== 'object')
                          data = MG.convert.date(data, 'date');
-                     return(data)
-                 }
+                     return(data);
+                 };
                  max_rate = _.max(muns[crime_type], 'rate')['rate'];
                  var markers = [{
                      'date': new Date('Mon Jun 01 2015 00:00:00 GMT-0600 (CST)'),
@@ -43,7 +43,7 @@ var selected_value = 'hd', muns;
                  var line_chart = function(data, title, target) {
                      var line_options = {
                          height: 150,
-                         max_y: max_rate,
+                         //max_y: max_rate,
                          area: false,
                          full_width: true,
                          left: 60,
@@ -53,11 +53,13 @@ var selected_value = 'hd', muns;
                          // width:281,
                          //missing_is_hidden: true,
                          interpolate: "linear",
+                         //y_scale_type: 'log',
                          x_accessor: 'date',
                          y_accessor: 'rate',
                          small_text: true,
                          xax_count: 3,
                          xax_format: d3.time.format('%Y'),
+                         yax_count: 3,
                          y_extended_ticks: true,
                          y_label: annualized_rate,
                          mouseover: function(d, i) {
@@ -75,14 +77,14 @@ var selected_value = 'hd', muns;
                      line_options.target = "#line" + target.replace(/ |\./g, '')
                                                            .replace(/,/g, '') + crime_type;
                      MG.data_graphic(line_options);
-                 }
+                 };
                  //console.time("concatenation");
                  _.forEach(muns_ordered, function(x) {
                      line_values = filterCrime(muns[crime_type], x);
-                     line_chart(line_values, x, x)
-                         return
+                     line_chart(line_values, x, x);
+                     return;
                  });
-             }
+             };
 
 
 
@@ -91,13 +93,13 @@ var selected_value = 'hd', muns;
 
                  draw_map = function(id, crime) {
                      if (typeof(cities[crime]) === "undefined") {
-                         return
+                         return;
                      };
                      var selection = d3.select(id);
                      var width = selection[0][0].clientWidth - 20;
                      var height = width*1;
                      // new projection
-                     var center = d3.geo.centroid(topojson.feature(mx, mx.objects.collection))
+                     var center = d3.geo.centroid(topojson.feature(mx, mx.objects.collection));
                          var scale  = 130;
                      var offset = [width/2, height/2];
                      var vis = d3.select(id).append("svg")
@@ -167,7 +169,7 @@ var selected_value = 'hd', muns;
                                         "<strong>"+rate+"</strong> <span style='color:white'>" + round(d.rate) + "</span><br>" +
                                         "<strong>"+count+"</strong> <span style='color:white'>" +d.count + "</span><br>";
                              });
-                     vis.call(tip)
+                     vis.call(tip);
 
                          features.append("g")
                         .attr("class", "bubble").selectAll("circle")
@@ -180,13 +182,14 @@ var selected_value = 'hd', muns;
                         .attr("r", function(d) { return radius(d.count); })
                         .on('mouseover', tip.show)
                         .on('mouseout', tip.hide);
-                 }
+                 };
                  draw_map("#hom-map", "hom");
                  draw_map("#rvcv-map", "rvcv");
                  draw_map("#rvsv-map", "rvsv");
                  draw_map("#lesions-map", "lesions");
                  draw_map("#kidnapping-map", "kidnapping");
                  draw_map("#ext-map", "ext");
+                 draw_map("#reos-map", "reos");
              });
          });
 
@@ -216,6 +219,10 @@ var selected_value = 'hd', muns;
                  if (muns['ext'].length !== 0) {
                      d3.select('#ext').text(extortions).style('padding', '10px');
                      draw_line_chart('ext', '#small-multiples-ext');
+                 }
+                 if (muns['reos'].length !== 0) {
+                     d3.select('#reos').text(reos).style('padding', '10px');
+                     draw_line_chart('reos', '#small-multiples-reos');
                  }
 
              });

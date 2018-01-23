@@ -19,8 +19,8 @@ muns2 <- dbGetQuery(db2, str_c("SELECT state_code, state, mun_code, municipio,
                     WHERE
                     (date in (", last_six_dates_txt, ")) AND (
                     (
-                    modalidad_text  = 'HOMICIDIOS'
-                    AND tipo_text = 'DOLOSOS'))"))
+                    subtipo_text = 'HOMICIDIO DOLOSO' or 
+                    subtipo_text = 'FEMINICIDIO'))"))
 #select distinct date from municipios_fuero_comun order by date desc limit 6
 dbDisconnect(db2)
 unique(muns2$date)
@@ -45,13 +45,10 @@ for(i in last_six_dates) {
 }
 
 
-muns2 <- muns2 %>% 
-  mutate(tipo = str_replace(tipo, "CON VIOLENCIA","Car Robbery with Violence"),
-         tipo = str_replace(tipo, "SIN VIOLENCIA", "Car Robbery without Violence"),
-         tipo = str_replace(tipo, "CULPOSOS", "Accidental Homicide"),
-         tipo = str_replace(tipo, "DOLOSOS", "Intentional Homicide"),
-         tipo = str_replace(tipo, "EXTORSION", "Extortion"),
-         tipo = str_replace(tipo, "SECUESTRO", "Kidnapping")) %>%
+muns2 <- muns2 %>%
+  mutate(tipo = subtipo) %>%
+  mutate(tipo = str_replace(tipo, "HOMICIDIO DOLOSO", "Intentional Homicide")) %>%
+  mutate(tipo = str_replace(tipo, "OTROS HOMICIDIOS DOLOSOS", "Intentional Homicide")) %>%
   group_by(tipo, state, state_code, municipio, mun_code) %>%
   summarise(count = sum(count, na.rm = TRUE), population = population[1], len = length(unique(date))) %>%
   mutate(rate = ((count ) * (12/len)) / population * 10^5) %>%
@@ -60,7 +57,7 @@ muns2 <- muns2 %>%
 muns2$code <- as.numeric(muns2$code)
 
 #mun_map <- right_join(filter(muns, tipo == "Intentional Homicide"), mun_map)
-muns2 <- left_join(muns2, centroids)
+muns2 <- left_join(muns2, centroids, by = c("state_code", "mun_code"))
 muns2$rate2 <- ifelse(muns2$rate <= 120, muns2$rate, 120)
 write.csv(filter(muns2, tipo == "Intentional Homicide")
           [,c("rate", "rate2", "name", "count", "population", "code", "long", "lat", "len")], 

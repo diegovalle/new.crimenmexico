@@ -69,15 +69,15 @@ national_chart = function(data, obj, target, title) {
             var year = d.date.getFullYear();
             d3.select(target + ' svg .mg-active-datapoint')
                 .text(monthNames[monthIndex] + '-' + year + rate_text + round(d.rate) + count_text + comma(d.count));
-        },
+        }
     });
-}
+};
 
 d3.json("/assets/json/mx_hexgrid.geojson", function(json) {
     d3.json("/assets/json/states_last.json", function(states_last) {
         d3.json('/assets/json/states.json', function(states) {
-            format=d3.time.format('%b %Y')
-            d3.select('#map-date').html(map_of_crime_rates + format(d3.time.format('%Y-%m-%d').parse(states_last.hd[0].date)))
+            format=d3.time.format('%b %Y');
+            d3.select('#map-date').html(map_of_crime_rates + format(d3.time.format('%Y-%m-%d').parse(states_last.hd[0].date)));
 
 
             last_date = states_last;
@@ -86,7 +86,7 @@ d3.json("/assets/json/mx_hexgrid.geojson", function(json) {
             quantize = createQuantized(extent);
 
             // create a first guess for the projection
-            var center = d3.geo.centroid(json)
+            var center = d3.geo.centroid(json);
             var scale  = 130;
             var offset = [width/2, height/2];
             projection = d3.geo.mercator().scale(scale).center(center)
@@ -120,7 +120,7 @@ d3.json("/assets/json/mx_hexgrid.geojson", function(json) {
             projection = d3.geo.mercator().center(center)
                 .scale(scale * 0.89).translate(offset);
             path = path.projection(projection);
-            vis.call(tip)
+            vis.call(tip);
             vis.selectAll("path").data(json.features).enter().append("path")
                 .attr("d", path)
                 .attr("class", function(d) {
@@ -131,7 +131,7 @@ d3.json("/assets/json/mx_hexgrid.geojson", function(json) {
                     return quantize(states_last.hd[index].rate);
                 })
                 .style("stroke-width", "1")
-                .style("stroke", "black")
+                .style("stroke", "black");
 
 
             vis.selectAll("text")
@@ -155,21 +155,21 @@ d3.json("/assets/json/mx_hexgrid.geojson", function(json) {
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide)
                 .on('click', function(d) {
-                    d3.selectAll("#hexmap g path").style("stroke", "black").style("opacity", "0").style("stroke-width", "0")
-                    d3.select(this).style("stroke", "black").style("opacity", "1").style("stroke-width", "4px")
+                    d3.selectAll("#hexmap g path").style("stroke", "black").style("opacity", "0").style("stroke-width", "0");
+                    d3.select(this).style("stroke", "black").style("opacity", "1").style("stroke-width", "4px");
                     national_chart({'hd': [_.filter(states.hd[0], {'state_code':d.properties.state_code}),
                                            _.filter(states.hd[1], {'state_code':d.properties.state_code})]}, 'hd', '#nat_hd', homicidio_doloso  + d.properties.state_abbr);
                     national_chart({'sec': _.filter(states.sec, {'state_code':d.properties.state_code})},'sec', '#nat_sec', secuestro + d.properties.state_abbr);
                     national_chart({'ext': _.filter(states.ext, {'state_code':d.properties.state_code})},'ext', '#nat_ext', extorsion + d.properties.state_abbr);
                     national_chart({'rvcv': _.filter(states.rvcv, {'state_code':d.properties.state_code})},'rvcv', '#nat_rvcv', rvcv + d.properties.state_abbr);
                     national_chart({'rvsv': _.filter(states.rvsv, {'state_code':d.properties.state_code})},'rvsv', '#nat_rvsv', rvsv + d.properties.state_abbr);
-                    d3.select("#crime_charts").text(stateNames[d.properties.state_abbr])
+                    d3.select("#crime_charts").text(stateNames[d.properties.state_abbr]);
                     change_small_multiples(selected_value);
                 })
                 .style("stroke-width", "1")
                 .style("stroke", "transparent")
                 .style("opacity", "0")
-                .style("fill", "transparent")
+                .style("fill", "transparent");
 
             legend = d3.select('#legend')
                 .append('ul')
@@ -197,7 +197,7 @@ create_national_charts = function() {
     national_chart(national,'ext', '#nat_ext', extorsion + national_text);
     national_chart(national,'rvcv', '#nat_rvcv', rvcv + national_text);
     national_chart(national,'rvsv', '#nat_rvsv', rvsv + national_text);
-}
+};
 
 d3.json('/assets/json/national.json', function(data) {
     national = data;
@@ -208,10 +208,10 @@ d3.json('/assets/json/national.json', function(data) {
 //d3.select(window).on('resize', resize);
 d3.select('#reset').on('click', function(d) {
     create_national_charts();
-    d3.select("#crime_charts").text(national_text)
-    d3.selectAll("#hexmap g path").style("stroke", "black").style("opacity", "0").style("stroke-width", "0")
+    d3.select("#crime_charts").text(national_text);
+    d3.selectAll("#hexmap g path").style("stroke", "black").style("opacity", "0").style("stroke-width", "0");
     change_small_multiples(selected_value);
-})
+});
 function resize() {
     // adjust things when the window size changes
     width = parseInt(d3.select('#hexmap').style('width'));
@@ -252,7 +252,7 @@ change_small_multiples = function(selected_value) {
     d3.select("#nat_" + 'rvcv' + ' svg').style("background-image", "url(/assets/css/images/bg01-blue.png");
     d3.select("#nat_" + 'rvsv' + ' svg').style("background-image", "url(/assets/css/images/bg01-blue.png");
     d3.select("#nat_" + selected_value + ' svg').style("background-image", "url(/assets/css/images/bg01-brown.png");
-}
+};
 
 change_map = function(value){
     extent = d3.extent(last_date[value], function(d) {return d.rate});

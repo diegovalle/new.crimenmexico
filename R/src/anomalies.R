@@ -1,44 +1,77 @@
 
 db <- dbConnect(SQLite(), dbname="../db/crimenmexico.db")
-muns <- dbGetQuery(db, "SELECT state_code, state, mun_code, municipio, 
-                   tipo_text as tipo, subtipo_text as subtipo, modalidad_text as modalidad,
-                   date, count, population,
-                   (count * 12) / population * 100000 as rate
-                   FROM municipios_fuero_comun 
-                   NATURAL JOIN modalidad_municipios 
-                   NATURAL JOIN tipo_municipios  
-                   NATURAL JOIN subtipo_municipios 
-                   NATURAL JOIN state_names 
-                   NATURAL JOIN municipio_names  
-                   NATURAL JOIN population_municipios
-WHERE modalidad_text  = 'DELITOS PATRIMONIALES' or
-modalidad_text  = 'HOMICIDIOS' or
-modalidad_text  = 'LESIONES' or
-modalidad_text  = 'PRIV. DE LA LIBERTAD (SECUESTRO)' or
-(modalidad_text  = 'ROBO COMUN' and subtipo_text = 'DE VEHICULOS')")
+muns <- dbGetQuery(db, "
+                   SELECT * 
+FROM  (SELECT m.state_code, 
+                   m.mun_code, 
+                   'HOMICIDIO DOLOSO' AS crime, 
+                   m.date, 
+                   Sum(count)         AS count 
+                   FROM   municipios_fuero_comun m 
+                   natural JOIN subtipo_municipios 
+                   WHERE  subtipo_text = 'HOMICIDIO DOLOSO' 
+                   OR subtipo_text = 'FEMINICIDIO' 
+                   GROUP  BY m.state_code, 
+                   m.mun_code, 
+                   m.date 
+                   UNION 
+                   SELECT m.state_code, 
+                   m.mun_code, 
+                   CASE subtipo_text 
+                   WHEN 'EXTORSIÓN' THEN 'EXTORSIÓN' 
+                   WHEN 'SECUESTRO' THEN 'SECUESTRO' 
+                   WHEN 'LESIONES DOLOSAS' THEN 'LESIONES DOLOSAS' 
+                   WHEN 'EVASIÓN DE PRESOS' THEN 'EVASIÓN DE PRESOS' 
+                   END        crime, 
+                   m.date, 
+                   Sum(count) AS count 
+                   FROM   municipios_fuero_comun m 
+                   natural JOIN subtipo_municipios 
+                   WHERE  subtipo_text = 'SECUESTRO' 
+                   OR subtipo_text = 'EXTORSIÓN' 
+                   OR subtipo_text = 'LESIONES DOLOSAS' 
+                   OR subtipo_text = 'EVASIÓN DE PRESOS' 
+                   GROUP  BY m.state_code, 
+                   m.mun_code, 
+                   subtipo_text , 
+                   m.date 
+                   UNION 
+                   SELECT state_code, 
+                   mun_code, 
+                   crime, 
+                   date, 
+                   Sum(count) AS count 
+                   FROM   (SELECT m.state_code, 
+                   m.mun_code, 
+                   CASE modalidad_text 
+                   WHEN 'ROBO DE COCHE DE 4 RUEDAS CON VIOLENCIA' THEN 
+                   'ROBO DE VEHÍCULO CON VIOLENCIA' 
+                   WHEN 'ROBO DE COCHE DE 4 RUEDAS SIN VIOLENCIA' THEN 
+                   'ROBO DE VEHÍCULO SIN VIOLENCIA' 
+                   END        crime, 
+                   m.date, 
+                   count 
+                   FROM   municipios_fuero_comun m 
+                   natural JOIN modalidad_municipios 
+                   WHERE  modalidad_text = 'ROBO DE COCHE DE 4 RUEDAS CON VIOLENCIA' 
+                   OR modalidad_text = 
+                   'ROBO DE COCHE DE 4 RUEDAS SIN VIOLENCIA'
+                   ) 
+                   GROUP  BY state_code, 
+                   mun_code, 
+                   date,
+                   crime) 
+                   natural JOIN population_municipios 
+                   natural JOIN state_names 
+                   natural JOIN municipio_names ")
 dbDisconnect(db)
 
-muns <- left_join(muns, abbrev) %>% filter(date >= '2014-01')
+muns <- left_join(muns, abbrev, by = "state_code") %>% filter(date >= '2015-01')
 muns$name <- str_c(muns$municipio, ", ", muns$state_abbrv)
 muns$date <- as.Date(as.yearmon(muns$date))
 muns %<>% mutate(rate = round(((count /  numberOfDays(date) * 30) * 12) / population * 10^5, 1))
-# muns$name <- reorder(muns$name, -muns$rate, function(x) {
-#   i = length(x)
-#   print(i)
-#   while(is.na(x[i]) & i > 0) {
-#     i = i -1
-#     print(i)
-#   }
-#   return(x[i])
-#   })
-# ggplot(muns, aes(date, rate, group = name)) +
-#   geom_line(color = "#555555") +
-#   geom_smooth(se = FALSE) +
-#   facet_wrap(~name) +
-#   sm_theme()
 
-
-findAnomalies <- function(category, type, subtype="", munvec, fileName){
+findAnomalies <- function(crime_name, munvec, fileName, maxn = 5){
   if(!file.exists(str_c("data/hashes/", fileName))) {
     h <- hash(keys = munvec, values = "")
     new <- TRUE
@@ -52,22 +85,15 @@ findAnomalies <- function(category, type, subtype="", munvec, fileName){
   l <- 1
   muns <- data.table(muns)
   for(munname in munvec){
-    if (subtype != "") {
+    
       df <- muns[muns$name == munname & 
-                   muns$modalidad == category & 
-                   muns$tipo == type &
-                   muns$subtipo == subtype,]
-    } else
-      df <- muns[muns$name == munname & 
-                   muns$modalidad == category & 
-                   muns$tipo == type,]
+                   muns$crime == crime_name,]
+    
     df <- df[order(df$date),]
     df <- as.data.frame(df)
-    df <- df %>%
-      group_by(date, name, state_code, mun_code)  %>%
-      summarise(count = sum(count, na.rm = TRUE),
-                rate = ((count /  numberOfDays(date[1]) * 30) * 12) / population[1] * 10^5)
     i = nrow(df)
+    if(all(is.na(df$rate))) {pb$tick();next}
+    if(all(df$rate == 0, na.rm = TRUE)) {pb$tick();next}
     while(is.na(df$rate[i]) & i > 0) {
       i = i -1
     }
@@ -82,13 +108,13 @@ findAnomalies <- function(category, type, subtype="", munvec, fileName){
     max_date <- max(hom$date)
     if(new)
       h[munname] <- max_date
-    if((hom$count[nrow(hom)] >= 5) ) {
+    if((hom$count[nrow(hom)] >= maxn) ) {
       #if(!(hom$name[1] == "GUADALUPE, ZAC" & category == "HOMICIDIOS")) {
       #print(hom$name[1])
       #hom$rate[is.na(hom$rate)] <- mean(hom$rate, na.rm = TRUE)
       #breakout(hom$rate, min.size = 2, method = 'multi', beta=0.001, plot=TRUE)
       anoms <- tryCatch(AnomalyDetectionTs(hom[ ,c("date", "rate")], 
-                                           max_anoms = 0.02,
+                                           max_anoms = 0.1,
                                            direction = 'both')$anoms$timestamp,
                         error = function(e) {print(e);NULL})
         
@@ -143,13 +169,13 @@ sm_anom_en <- function(df, title, xtitle, ytitle) {
     sm_theme() +
     ggtitle(title) +
     xlab(xtitle) +
-    ylab(ytitle)
+    ylab(ytitle) 
 }
 
 
 
 dotMap <- function(centroids, mx, df, legend_title) {
-  centroids <- right_join(centroids, df)
+  centroids <- right_join(centroids, df, by = c("state_code", "mun_code"))
   centroids %<>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
@@ -216,28 +242,33 @@ plan(tweak(multiprocess, workers = 1L))
 #plan(multiprocess)
 ll_hom %<-% {
   print('homicides')
-  findAnomalies_c("HOMICIDIOS", "DOLOSOS", munvec = muns_to_analyze, fileName="hhom.RData")
+  findAnomalies_c("HOMICIDIO DOLOSO", munvec = muns_to_analyze, fileName="hhom.RData")
 }
 ll_rvcv %<-% {
   print('car robbery w/v')
-  findAnomalies_c("ROBO COMUN", "CON VIOLENCIA", "DE VEHICULOS",muns_to_analyze, fileName="hrvcv.RData")
+  findAnomalies_c("ROBO DE VEHÍCULO CON VIOLENCIA",muns_to_analyze, fileName="hrvcv.RData", 10)
 }
 ll_rvsv %<-% {
   print('car robbery w/o v')
-  findAnomalies_c("ROBO COMUN", "SIN VIOLENCIA", "DE VEHICULOS", muns_to_analyze, fileName="hrvsv.RData")
+  findAnomalies_c("ROBO DE VEHÍCULO SIN VIOLENCIA", muns_to_analyze, fileName="hrvsv.RData", 10)
 }
 ll_lesions %<-% {
   print('lesions')
-  findAnomalies_c("LESIONES", "DOLOSAS", munvec = muns_to_analyze, fileName="hlesions.RData")
+  findAnomalies_c("LESIONES DOLOSAS", munvec = muns_to_analyze, fileName="hlesions.RData", 10)
 }
 ll_kidnapping %<-% {
   print('kidnappings')
-  findAnomalies_c("PRIV. DE LA LIBERTAD (SECUESTRO)", "SECUESTRO", "SECUESTRO",
+  findAnomalies_c("SECUESTRO",
                  muns_to_analyze, fileName="hkid.RData")
 }
 ll_ext %<-% {
   print('extortion')
-  findAnomalies_c("DELITOS PATRIMONIALES", "EXTORSION", "EXTORSION", muns_to_analyze, fileName="hext.RData")
+  findAnomalies_c("EXTORSIÓN", muns_to_analyze, fileName="hext.RData")
+}
+
+ll_reos %<-% {
+  print('evasión de reos')
+  findAnomalies_c("EVASIÓN DE PRESOS", muns_to_analyze, fileName="hext.RData")
 }
 ll$hom <- ll_hom
 ll$rvcv <- ll_rvcv
@@ -245,41 +276,43 @@ ll$rvsv <- ll_rvsv
 ll$lesions <- ll_lesions
 ll$kidnapping <- ll_kidnapping
 ll$ext <- ll_ext
+ll$reos <- ll_reos
 ## 
 write(toJSON(ll), "json/anomalies.json")
 save(ll, file = 'json/ll.RData')
+ll$reos <- NULL
 # load('json/ll.RData')
 
 centroids <- read.csv("data/mun_centroids.csv")
 cities <- list()
 if(nrow(ll$hom) > 0) {
-  cities$hom <- right_join(centroids, ll$hom) %>%
+  cities$hom <- right_join(centroids, ll$hom, by = c("state_code", "mun_code")) %>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
 }
 if(nrow(ll$rvcv) > 0) {
-  cities$rvcv <- right_join(centroids, ll$rvcv) %>%
+  cities$rvcv <- right_join(centroids, ll$rvcv, by = c("state_code", "mun_code")) %>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
 }
 if(nrow(ll$rvsv) > 0) {
-  cities$rvsv <- right_join(centroids, ll$rvsv) %>%
+  cities$rvsv <- right_join(centroids, ll$rvsv, by = c("state_code", "mun_code")) %>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
 }
 if(nrow(ll$lesions) > 0) {
-  cities$lesions <- right_join(centroids, ll$lesions) %>%
+  cities$lesions <- right_join(centroids, ll$lesions, by = c("state_code", "mun_code")) %>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
   
 }
 if(nrow(ll$kidnapping) > 0) {
-  cities$kidnapping <- right_join(centroids, ll$kidnapping) %>%
+  cities$kidnapping <- right_join(centroids, ll$kidnapping, by = c("state_code", "mun_code")) %>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
 }
 if(nrow(ll$ext) > 0) {
-  cities$ext <- right_join(centroids, ll$ext) %>%
+  cities$ext <- right_join(centroids, ll$ext, by = c("state_code", "mun_code")) %>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
 }

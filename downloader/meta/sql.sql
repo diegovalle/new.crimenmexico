@@ -24,6 +24,30 @@ CREATE TABLE subtipo_states(
   subtipo_text TEXT UNIQUE NOT NULL
 );
 
+
+--
+-- bien_juridico_states
+--
+CREATE TABLE bien_juridico_states(
+  bien_juridico INTEGER UNIQUE NOT NULL PRIMARY KEY,
+  bien_juridico_text TEXT UNIQUE NOT NULL
+);
+
+--
+-- population_age_sex
+--
+CREATE TABLE population_age_sex(
+  population INTEGER NOT NULL,
+  date TEXT NOT NULL,
+  state_code INTEGER NOT NULL,
+  age_group INTEGER NOT NULL,
+  sex INTEGER NOT NULL,
+  FOREIGN KEY(state_code) REFERENCES state_names(state_code),
+  FOREIGN KEY(age_group) REFERENCES age_group(age_group),
+  FOREIGN KEY(sex) REFERENCES sex(sex),
+  PRIMARY KEY (date, state_code, age_group, sex)
+);
+
 --
 -- population_states
 --
@@ -60,6 +84,14 @@ CREATE TABLE subtipo_municipios(
 );
 
 --
+-- bien_juridico_municipios
+--
+CREATE TABLE bien_juridico_municipios(
+  bien_juridico INTEGER UNIQUE NOT NULL PRIMARY KEY,
+  bien_juridico_text TEXT UNIQUE NOT NULL
+);
+
+--
 -- population_municipios
 --
 CREATE TABLE population_municipios(
@@ -81,6 +113,24 @@ CREATE TABLE state_names(
 );
 
 --
+-- age_groups
+--
+CREATE TABLE age_group(
+  age_group FLOAT UNIQUE,
+  age_group_text TEXT UNIQUE,
+  PRIMARY KEY (age_group)
+);
+
+--
+-- sex names
+--
+CREATE TABLE sex(
+  sex FLOAT UNIQUE,
+  sex_text TEXT UNIQUE,
+  PRIMARY KEY (sex)
+);
+
+--
 -- municipio names
 --
 CREATE TABLE municipio_names(
@@ -99,15 +149,17 @@ CREATE TABLE municipio_names(
 CREATE TABLE estados_fuero_comun(
   state_code INTEGER NOT NULL,
   date VARCHAR(7) NOT NULL,
+  bien_juridico INTEGER NOT NULL,
   modalidad INTEGER NOT NULL,
   tipo INTEGER NOT NULL,
   subtipo INTEGER NOT NULL,
   count FLOAT,
-  FOREIGN KEY(tipo) REFERENCES tipo_states(tipo),
+--  FOREIGN KEY(tipo) REFERENCES tipo_states(tipo),
   FOREIGN KEY(modalidad) REFERENCES modalidad_states(modalidad),
   FOREIGN KEY(subtipo) REFERENCES subtipo_states(subtipo),
+  FOREIGN KEY(bien_juridico) REFERENCES bien_juridico_states(bien_juridico),
   FOREIGN KEY(state_code) REFERENCES state_names(state_code),
-  PRIMARY KEY (state_code, modalidad, tipo, subtipo, date)
+  PRIMARY KEY (state_code, bien_juridico, modalidad, tipo, subtipo, date)
 );
 
 --
@@ -117,6 +169,7 @@ CREATE TABLE municipios_fuero_comun(
   state_code INTEGER NOT NULL,
   mun_code INTEGER NOT NULL,
   date VARCHAR(7) NOT NULL,
+  bien_juridico INTEGER NOT NULL,
   modalidad INTEGER NOT NULL,
   tipo INTEGER NOT NULL,
   subtipo INTEGER NOT NULL,
@@ -124,8 +177,62 @@ CREATE TABLE municipios_fuero_comun(
   FOREIGN KEY(tipo) REFERENCES tipo_municipios(tipo),
   FOREIGN KEY(modalidad) REFERENCES modalidad_municipios(modalidad),
   FOREIGN KEY(subtipo) REFERENCES subtipo_municipios(subtipo),
+  FOREIGN Key(bien_juridico) REFERENCES bien_juridico_municipios(bien_juridico),
   FOREIGN KEY(state_code, mun_code) REFERENCES municipio_names(state_code, mun_code)
-  PRIMARY KEY (state_code, mun_code, modalidad, tipo, subtipo, date)
+  PRIMARY KEY (state_code, mun_code, bien_juridico, modalidad, tipo, subtipo, date)
+);
+
+CREATE TABLE modalidad_states_victimas(
+  modalidad INTEGER UNIQUE NOT NULL PRIMARY KEY,
+  modalidad_text TEXT UNIQUE NOT NULL
+);
+
+--
+-- tipo_states
+--
+CREATE TABLE tipo_states_victimas(
+  tipo INTEGER UNIQUE NOT NULL PRIMARY KEY,
+  tipo_text TEXT UNIQUE NOT NULL
+);
+
+--
+-- subtipo_states
+--
+CREATE TABLE subtipo_states_victimas(
+  subtipo INTEGER UNIQUE NOT NULL PRIMARY KEY,
+  subtipo_text TEXT UNIQUE NOT NULL
+);
+
+
+--
+-- bien_juridico_states
+--
+CREATE TABLE bien_juridico_states_victimas(
+  bien_juridico INTEGER UNIQUE NOT NULL PRIMARY KEY,
+  bien_juridico_text TEXT UNIQUE NOT NULL
+);
+
+--
+-- estados_victimas
+--
+CREATE TABLE estados_victimas(
+  state_code INTEGER NOT NULL,
+  date VARCHAR(7) NOT NULL,
+  bien_juridico INTEGER NOT NULL,
+  modalidad INTEGER NOT NULL,
+  tipo INTEGER NOT NULL,
+  subtipo INTEGER NOT NULL,
+  sex FLOAT,
+  age_group FLOAT,
+  count FLOAT,
+  FOREIGN KEY(tipo) REFERENCES tipo_states_victimas(tipo),
+  FOREIGN KEY(modalidad) REFERENCES modalidad_states_victimas(modalidad),
+  FOREIGN KEY(subtipo) REFERENCES subtipo_states_victimas(subtipo),
+  FOREIGN KEY(bien_juridico) REFERENCES bien_juridico_states_victimas(bien_juridico),
+  FOREIGN KEY(state_code) REFERENCES state_names(state_code),
+  FOREIGN KEY(sex) REFERENCES sex(sex),
+  FOREIGN KEY(age_group) REFERENCES age_group(age_group),
+  PRIMARY KEY (state_code, bien_juridico, modalidad, tipo, subtipo, date, age_group, sex)
 );
 
 

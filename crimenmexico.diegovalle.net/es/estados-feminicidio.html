@@ -23,15 +23,13 @@ License: pixelarity.com/license
         <link rel="preload" href="/assets/css/main.css"  as="script">
         <link rel="preload" href="/assets/css/metricsgraphics.min.css"  as="script">
         <link rel="preload" href="/assets/css/crimenmexico.css"  as="script">
-        <link rel="preload" href="/js/muns.js" as="script">
 
-
-        <title>Crimen por Municipio - Delincuencia en México</title>
+        <title>Feminicidios por Estado - Delincuencia en México</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="alternate" hreflang="en" href="https://elcri.men/en/municipios.html" />
+        <link rel="alternate" hreflang="en" href="https://elcri.men/en/states-feminicide.html" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta name="description" content="Series de tiempo de los municipios más violentos de México con datos del INEGI y del SESNSP actualizados cada mes" />
+        <meta name="description" content="Feminicidios en México por Estado" />
         <link rel="stylesheet" href="/assets/css/metricsgraphics.min.css" />
         <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="/assets/css/main.css" />
@@ -39,7 +37,7 @@ License: pixelarity.com/license
         <link rel="stylesheet" href="/assets/css/crimenmexico.css" />
         <style>
          svg  > path.mg-line1-color {
-             stroke: #542788;
+             stroke: #00BFC4;
              stroke-width: 1.5;
          }
          svg  > path.mg-line2-color {
@@ -51,14 +49,14 @@ License: pixelarity.com/license
              fill: #F8766D;
          }
          .mg-line1-legend-color {
-             color: #542788;
-             fill: #542788;
+             color: #00BFC4;
+             fill: #00BFC4;
          }
          .mg-area2-color {
              fill: #F8766D;
          }
          .mg-area1-color {
-             fill: #542788;
+             fill: #00BFC4;
          }
 
         </style>
@@ -102,25 +100,24 @@ License: pixelarity.com/license
                                 <li><a href="#">Veroeros feugiat</a></li>
                                 </ul>
                                 </li> -->
-                                <li><a href="#">Estados</a>
+                                <li class="current_page_item"><a href="#">Estados</a>
                                     <ul>
                                         <li><a href="/es/states.html">Series de Tiempo</a></li>
                                         <li><a href="/es/estados-mujeres.html">Homicidios de Mujeres</a></li>
 <li><a href="/es/estados-feminicidio.html">Feminicidios</a></li>
                                     </ul>
                                 </li>
-
-                                <li class="current_page_item"><a href="#">Municipios</a>
+                                <li><a href="#">Municipios</a>
                                     <ul>
                                         <li><a href="/es/municipios-map.html">Mapa</a></li>
                                         <li><a href="/es/municipios.html">Series de Tiempo</a></li>
-<li><a href="/es/lisa-map.html">Mapa de clusters</a></li>
+                                        <li><a href="/es/lisa-map.html">Mapa de clusters</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="/es/anomalies.html">Anomalías</a></li>
                                 <li><a href="/es/infographics.html">Infográficas</a></li>
                                 <li><a href="/es/datos.html">Datos</a></li>
-                                <li style="white-space: nowrap;"><a href="/en/municipios.html"><img width="24" height="16" src="/images/us.png" style="">En</a></li>
+                                <li style="white-space: nowrap;"><a href="/en/states-feminicide.html"><img width="24" height="16" src="/images/us.png" style="">En</a></li>
                             </ul>
                         </nav>
 
@@ -133,43 +130,36 @@ License: pixelarity.com/license
 
                     <!-- Wide Content -->
                     <article id="content">
+
                         <div class="row"">
-                            <div  class="7u 12u(movile)">
+                            <div  class="6u 12u(movile)">
                                 <header style="text-align:right">
-                                    <h2>Crimen en los municipios más violentos</h2>
+                                    <h2>Feminicidios por Estado</h2>
                                 </header>
                             </div>
-                            <div class="5u 12u(movile)">
-                                <div class="legend"><span class="mg-line2-legend-color">— INEGI ajustados estadísticamente</span></div>
-                                <div class="legend"><span class="mg-line1-legend-color">— SESNSP averiguaciones&nbsp; </span></div>
+                            <div class="6u 12u(movile)">
+                                <div class="legend"><span class="mg-line1-legend-color">— SESNSP víctimas&nbsp; </span></div>
                             </div>
                         </div>
-                        <div class="select-style"  style="margin: 0 auto;margin-bottom:3em;">
-                            <select id="crimeSelect">
-                                <option value="hd">Homicidio Intencional</option>
-                                <option value="sec">Secuestro</option>
-                                <option value="ext">Extorsión</option>
-                                <option value="rvcv">Robo de Coches con Violencia</option>
-                                <option value="rvsv">Robo de Coches sin Violencia</option>
-                            </select>
-                            <!-- <select id="crimeSelect">
-                            <option value="hd">Homicidio Doloso</option>
-                            <option value="sec">Secuestro</option>
-                            <option value="ext">Extorsión</option>
-                            <option value="rvcv">Robo de vehículo con violencia</option>
-                            <option value="rvsv">Robo de vehículo sin violencia</option>
-                            </select> -->
+                        <!-- <div class="select-style"  style="
+                             margin: 0 auto;margin-bottom:3em;">
+                             <select id="crimeSelect" >
+                             <option value="hd">Homicidio Intencional</option>
+                             <option value="sec">Secuestro</option>
+                             <option value="ext">Extorsión</option>
+                             <option value="rvcv">Robo de Vehículo con Violencia</option>
+                             <option value="rvsv">Robo de Vehículo sin Violencia</option>
+                             </select>
+                        </div> -->
+                        <div class="row" >
+                            <div class="12u 12u(movile) national-chart" id="total-chart">
+                            </div>
                         </div>
                         <div class="row" id="small-multiples"></div>
-                        <br><br><hr><p>Todos los números se refieren a averiguaciones previas que pueden contener más de una víctima porque a nivel municipio es la única información disponible. Todas las tasas están anualizadas y son calculadas usando meses de 30 días. Los robos de coches incluyen sólamente robo de coche de 4 ruedas. Los homicidios incluyen los feminicidios. Los secuestros incluyen todas sus modalidades<br><br> Las gráficas incluyen a los 35 municipios de más de 100,000 habitantes con más crímenes durante los últimos 12 meses en union con los municipios que tuvieron la tasa más alta durante el último mes. Las gráficas están ordenadas de mayor a menor tasa delincuencial durante el último mes disponible.
-<br/>
-                    <p style="text-align:left;">Los datos de homicidio
-del INEGI tienden a ser más precisos. Además de incluir muertes por
-interveciones legales y actos de guerra incluyen los resultados de
-clasificar las muertes de intención desconocida en base a un modelo
-                        estadístico simar al que descrito en este <a href="https://blog.diegovalle.net/2012/07/machine-learning-for-better-homicide.html" >post</a>.
- La desventaja es que tienden a tardar más de un año en ser actualizados.</p>
-<br/>
+                        <br><br><hr><p>Las gráficas están ordenadas de mayor a menor tasa delincuencial durante el último mes disponible. Para feminicidios los números se refieren al número de víctimas</p> <br/>
+
+<br/>  </article>
+
                 </div>
 
                 <!-- Footer Wrapper -->
@@ -223,14 +213,15 @@ clasificar las muertes de intención desconocida en base a un modelo
         <script src='/assets/js/topojson.min.js'></script>
         <script src='/assets/js/metricsgraphics.js'></script>
         <script src='/assets/js/lodash.min.js'></script>
-
         <script>
-
          var annualized_rate = 'tasa anualizada',
              rate_text = ', tasa: ',
-             count_text = ', número: ';
+             count_text = ', número: '
+             national_text = 'Nacional',
+             sm_file = '/assets/json/states_feminicide_sm.json',
+             total_file = '/assets/json/states_feminicide_total.json';
         </script>
-        <script src="/js/muns.js?3"></script>
+        <script src="/js/states_female.js"></script>
         <!-- Google Analytics -->
         <script>
          window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

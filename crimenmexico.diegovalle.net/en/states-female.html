@@ -4,7 +4,7 @@ Focal Point by Pixelarity
 pixelarity.com @pixelarity
 License: pixelarity.com/license
 -->
-<html lang="es">
+<html lang="en">
     <head>
 
         <link rel="preload" href="/assets/js/jquery.min.js" as="script">
@@ -23,15 +23,13 @@ License: pixelarity.com/license
         <link rel="preload" href="/assets/css/main.css"  as="script">
         <link rel="preload" href="/assets/css/metricsgraphics.min.css"  as="script">
         <link rel="preload" href="/assets/css/crimenmexico.css"  as="script">
-        <link rel="preload" href="/js/muns.js" as="script">
 
-
-        <title>Crimen por Municipio - Delincuencia en México</title>
+        <title>Female Homicides by State - Mexico Crime Report</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="alternate" hreflang="en" href="https://elcri.men/en/municipios.html" />
+        <link rel="alternate" hreflang="es" href="https://elcri.men/es/estados-mujeres.html" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta name="description" content="Series de tiempo de los municipios más violentos de México con datos del INEGI y del SESNSP actualizados cada mes" />
+        <meta name="description" content="Female homicides in Mexico by state" />
         <link rel="stylesheet" href="/assets/css/metricsgraphics.min.css" />
         <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="/assets/css/main.css" />
@@ -39,7 +37,7 @@ License: pixelarity.com/license
         <link rel="stylesheet" href="/assets/css/crimenmexico.css" />
         <style>
          svg  > path.mg-line1-color {
-             stroke: #542788;
+             stroke: #00BFC4;
              stroke-width: 1.5;
          }
          svg  > path.mg-line2-color {
@@ -51,14 +49,14 @@ License: pixelarity.com/license
              fill: #F8766D;
          }
          .mg-line1-legend-color {
-             color: #542788;
-             fill: #542788;
+             color: #00BFC4;
+             fill: #00BFC4;
          }
          .mg-area2-color {
              fill: #F8766D;
          }
          .mg-area1-color {
-             fill: #542788;
+             fill: #00BFC4;
          }
 
         </style>
@@ -82,45 +80,44 @@ License: pixelarity.com/license
                         <!-- Nav -->
                         <nav id="nav">
                             <ul>
-                                <li><a href="/">Inicio</a></li>
+                                <li><a href="/en/index.html">Home</a></li>
                                 <!-- <li>
-                                <a href="#">Dropdown</a>
-                                <ul>
-                                <li><a href="#">Lorem ipsum dolor</a></li>
-                                <li><a href="#">Magna phasellus</a></li>
-                                <li><a href="#">Etiam dolore nisl</a></li>
-                                <li>
-                                <a href="#">Phasellus consequat</a>
-                                <ul>
-                                <li><a href="#">Lorem ipsum dolor</a></li>
-                                <li><a href="#">Phasellus consequat</a></li>
-                                <li><a href="#">Magna phasellus</a></li>
-                                <li><a href="#">Etiam dolore nisl</a></li>
-                                <li><a href="#">Veroeros feugiat</a></li>
-                                </ul>
-                                </li>
-                                <li><a href="#">Veroeros feugiat</a></li>
-                                </ul>
-                                </li> -->
-                                <li><a href="#">Estados</a>
+                                     <a href="#">Dropdown</a>
+                                     <ul>
+                                     <li><a href="#">Lorem ipsum dolor</a></li>
+                                     <li><a href="#">Magna phasellus</a></li>
+                                     <li><a href="#">Etiam dolore nisl</a></li>
+                                     <li>
+                                     <a href="#">Phasellus consequat</a>
+                                     <ul>
+                                     <li><a href="#">Lorem ipsum dolor</a></li>
+                                     <li><a href="#">Phasellus consequat</a></li>
+                                     <li><a href="#">Magna phasellus</a></li>
+                                     <li><a href="#">Etiam dolore nisl</a></li>
+                                     <li><a href="#">Veroeros feugiat</a></li>
+                                     </ul>
+                                     </li>
+                                     <li><a href="#">Veroeros feugiat</a></li>
+                                     </ul>
+                                     </li> -->
+                                <li class="current_page_item"><a href="#">States</a>
                                     <ul>
-                                        <li><a href="/es/states.html">Series de Tiempo</a></li>
-                                        <li><a href="/es/estados-mujeres.html">Homicidios de Mujeres</a></li>
-<li><a href="/es/estados-feminicidio.html">Feminicidios</a></li>
+                                        <li><a href="/en/states.html">Time Series</a></li>
+                                        <li><a href="/en/states-female.html">Female Homicides</a></li>
+                                        <li><a href="/en/states-feminicide.html">Feminicides</a></li>
                                     </ul>
                                 </li>
-
-                                <li class="current_page_item"><a href="#">Municipios</a>
+                                <li><a href="#">Municipios</a>
                                     <ul>
-                                        <li><a href="/es/municipios-map.html">Mapa</a></li>
-                                        <li><a href="/es/municipios.html">Series de Tiempo</a></li>
-<li><a href="/es/lisa-map.html">Mapa de clusters</a></li>
+                                        <li><a href="/en/municipios-map.html">Map</a></li>
+                                        <li><a href="/en/municipios.html">Time Series</a></li>
+                                        <li><a href="/en/lisa-map.html">Cluster Map</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="/es/anomalies.html">Anomalías</a></li>
-                                <li><a href="/es/infographics.html">Infográficas</a></li>
-                                <li><a href="/es/datos.html">Datos</a></li>
-                                <li style="white-space: nowrap;"><a href="/en/municipios.html"><img width="24" height="16" src="/images/us.png" style="">En</a></li>
+                                <li><a href="/en/anomalies.html">Anomalies</a></li>
+                                <li><a href="/en/infographics.html">Infographics</a></li>
+                                <li><a href="/en/datos.html">Data</a></li>
+                                <li style="white-space: nowrap;"><a href="/es/estados-mujeres.html"><img width="24" height="16" src="/images/mx.png" style="">Es</a></li>
                             </ul>
                         </nav>
 
@@ -134,42 +131,36 @@ License: pixelarity.com/license
                     <!-- Wide Content -->
                     <article id="content">
                         <div class="row"">
-                            <div  class="7u 12u(movile)">
+                            <div  class="6u 12u(movile)">
                                 <header style="text-align:right">
-                                    <h2>Crimen en los municipios más violentos</h2>
+                                    <h2>Female Homicides by State</h2>
                                 </header>
                             </div>
-                            <div class="5u 12u(movile)">
-                                <div class="legend"><span class="mg-line2-legend-color">— INEGI ajustados estadísticamente</span></div>
-                                <div class="legend"><span class="mg-line1-legend-color">— SESNSP averiguaciones&nbsp; </span></div>
+                            <div class="6u 12u(movile)">
+                                <div class="legend"><span class="mg-line2-legend-color">— INEGI statistically adjusted&nbsp; </span></div>
+                                <div class="legend"><span class="mg-line1-legend-color">— SNSP female victims&nbsp; </span></div>
                             </div>
                         </div>
-                        <div class="select-style"  style="margin: 0 auto;margin-bottom:3em;">
-                            <select id="crimeSelect">
-                                <option value="hd">Homicidio Intencional</option>
-                                <option value="sec">Secuestro</option>
-                                <option value="ext">Extorsión</option>
-                                <option value="rvcv">Robo de Coches con Violencia</option>
-                                <option value="rvsv">Robo de Coches sin Violencia</option>
-                            </select>
-                            <!-- <select id="crimeSelect">
-                            <option value="hd">Homicidio Doloso</option>
-                            <option value="sec">Secuestro</option>
-                            <option value="ext">Extorsión</option>
-                            <option value="rvcv">Robo de vehículo con violencia</option>
-                            <option value="rvsv">Robo de vehículo sin violencia</option>
-                            </select> -->
+                        <div class="row" >
+                            <div class="12u 12u(movile) national-chart" id="total-chart">
+                            </div>
                         </div>
+                        <!-- <div class="select-style" style="
+                             margin: 0 auto;margin-bottom:3em;">
+                             <select id="crimeSelect">
+                             <option value="hd">Intentional Homicide</option>
+                             <option value="sec">Kidnapping</option>
+                             <option value="ext">Extortion</option>
+                             <option value="rvcv">Car Robbery with Violence</option>
+                             <option value="rvsv">Car Robbery without Violence</option>
+                             </select>
+                             </div> -->
                         <div class="row" id="small-multiples"></div>
-                        <br><br><hr><p>Todos los números se refieren a averiguaciones previas que pueden contener más de una víctima porque a nivel municipio es la única información disponible. Todas las tasas están anualizadas y son calculadas usando meses de 30 días. Los robos de coches incluyen sólamente robo de coche de 4 ruedas. Los homicidios incluyen los feminicidios. Los secuestros incluyen todas sus modalidades<br><br> Las gráficas incluyen a los 35 municipios de más de 100,000 habitantes con más crímenes durante los últimos 12 meses en union con los municipios que tuvieron la tasa más alta durante el último mes. Las gráficas están ordenadas de mayor a menor tasa delincuencial durante el último mes disponible.
-<br/>
-                    <p style="text-align:left;">Los datos de homicidio
-del INEGI tienden a ser más precisos. Además de incluir muertes por
-interveciones legales y actos de guerra incluyen los resultados de
-clasificar las muertes de intención desconocida en base a un modelo
-                        estadístico simar al que descrito en este <a href="https://blog.diegovalle.net/2012/07/machine-learning-for-better-homicide.html" >post</a>.
- La desventaja es que tienden a tardar más de un año en ser actualizados.</p>
-<br/>
+                        <br><br><hr><p>The charts are ordered from highest to lowest homicide rate during the last available date. For intentional homicides the counts refer to number of victims. Homicides include feminicides.</p><br/>
+                        <p style="text-align:left;">INEGI homicide data tends to be more precise. Forensic coroners and the INEGI simply don't have the same incentives to lower the number of homicides that happen in Mexico as the police. In addition to adding deaths from Legal intervention, operations of war, military operations, and terrorism to the INEGI homicide count I used a statistical model to predict the intent of deaths of unknown intent similar to what I used in this <a href="https://blog.diegovalle.net/2012/07/machine-learning-for-better-homicide.html" >post</a>. The disadvantage of using the INEGI data is it is usally more than a year out of date.</p><br/>
+
+                        <p style="text-align:left;">Intuitively, you can think of the statistical model as if someone were to ask you to guess the injury intent in the death of a 70 year old Mérida woman whose cause of death was transport related. You would probably answer it was an accident. On the other hand, if you had to guess the type of death of a young adult male whose cause of death was a firearm, and the injury took place on a public street in Ciudad Juárez, you would probably guess it was a homicide.</p><br/>   </article>
+
                 </div>
 
                 <!-- Footer Wrapper -->
@@ -178,10 +169,10 @@ clasificar las muertes de intención desconocida en base a un modelo
                     <!-- Footer -->
                     <section id="footer">
                         <header>
-                            <h2>Acerca de:</h2>
+                            <h2>About</h2>
                         </header>
-                        <p>Autor: <a href="http://www.diegovalle.net">Diego Valle</a></p>
-                        <p>Por favor visiten <a href="https://hoyodecrimen.com">hoyodecrimen.com</a> para información delincuencial del DF</p>
+                        <p>Author: <a href="http://www.diegovalle.net">Diego Valle-Jones</a></p>
+                        <p>Please visit <a href="https://hoyodecrimen.com">hoyodecrimen.com</a> for Mexico City crime information</p>
                         <ul class="contact">
                             <li><a href="https://twitter.com/diegovalle" class="icon fa-twitter"><span>Twitter</span></a></li>
                             <li><a href="https://facebook.com/diegovalle" class="icon fa-facebook"><span>Facebook</span></a></li>
@@ -193,8 +184,8 @@ clasificar las muertes de intención desconocida en base a un modelo
 
                     <!-- Copyright -->
                     <div id="copyright">
-                        &copy; Diego Valle-Jones. Todos los derechos reservados.<br>
-                        <a href="/en/index.html">English Version</a>
+                        &copy; Diego Valle-Jones. All rights reserved.<br>
+                        <a href="/es/index.html">Versión en Español</a>
                     </div>
 
                 </div>
@@ -202,11 +193,12 @@ clasificar las muertes de intención desconocida en base a un modelo
             </div>
         </div>
         <!--<div class="a2a_kit a2a_kit_size_32 a2a_floating_style a2a_vertical_style" style="left:0px; top:150px;">
-            <a class="a2a_button_facebook"></a>
-            <a class="a2a_button_twitter"></a>
-            <a class="a2a_button_reddit"></a>
-            <a class="a2a_dd" href="http://www.addtoany.com/share_save"></a>
-        </div>-->
+             <a class="a2a_button_facebook"></a>
+             <a class="a2a_button_twitter"></a>
+             <a class="a2a_button_reddit"></a>
+             <a class="a2a_dd" href="http://www.addtoany.com/share_save"></a>
+             </div>-->
+
         <!--<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>-->
 
         <!-- Scripts -->
@@ -223,14 +215,16 @@ clasificar las muertes de intención desconocida en base a un modelo
         <script src='/assets/js/topojson.min.js'></script>
         <script src='/assets/js/metricsgraphics.js'></script>
         <script src='/assets/js/lodash.min.js'></script>
-
         <script>
 
-         var annualized_rate = 'tasa anualizada',
-             rate_text = ', tasa: ',
-             count_text = ', número: ';
+         var annualized_rate = 'annualized rate',
+             rate_text = ', rate: ',
+             count_text = ', count: ',
+             national_text = 'National',
+             sm_file = '/assets/json/states_females_sm.json',
+             total_file = '/assets/json/states_females_total.json';
         </script>
-        <script src="/js/muns.js?3"></script>
+        <script src="/js/states_female.js"></script>
         <!-- Google Analytics -->
         <script>
          window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

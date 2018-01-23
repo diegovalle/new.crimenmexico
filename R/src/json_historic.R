@@ -2,7 +2,7 @@
 national_hom <- vic %>% 
   filter(tipo == "Homicidio Doloso") %>%
   group_by(date, modalidad, tipo, subtipo) %>% 
-  summarise(count = sum(count, na.rm = TRUE), population = sum(population)) %>%
+  summarise(count = sum(count), population = sum(population)) %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / population) * 10^5  ) %>%
   mutate(state_code = "national")
 

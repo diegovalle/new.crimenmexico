@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <!--
-Focal Point by Pixelarity
-pixelarity.com @pixelarity
-License: pixelarity.com/license
--->
+     Focal Point by Pixelarity
+     pixelarity.com @pixelarity
+     License: pixelarity.com/license
+   -->
 <html lang="es">
     <head>
 
@@ -104,30 +104,36 @@ License: pixelarity.com/license
                             <ul>
                                 <li><a href="/">Inicio</a></li>
                                 <!-- <li>
-                                <a href="#">Dropdown</a>
-                                <ul>
-                                <li><a href="#">Lorem ipsum dolor</a></li>
-                                <li><a href="#">Magna phasellus</a></li>
-                                <li><a href="#">Etiam dolore nisl</a></li>
-                                <li>
-                                <a href="#">Phasellus consequat</a>
-                                <ul>
-                                <li><a href="#">Lorem ipsum dolor</a></li>
-                                <li><a href="#">Phasellus consequat</a></li>
-                                <li><a href="#">Magna phasellus</a></li>
-                                <li><a href="#">Etiam dolore nisl</a></li>
-                                <li><a href="#">Veroeros feugiat</a></li>
-                                </ul>
+                                     <a href="#">Dropdown</a>
+                                     <ul>
+                                     <li><a href="#">Lorem ipsum dolor</a></li>
+                                     <li><a href="#">Magna phasellus</a></li>
+                                     <li><a href="#">Etiam dolore nisl</a></li>
+                                     <li>
+                                     <a href="#">Phasellus consequat</a>
+                                     <ul>
+                                     <li><a href="#">Lorem ipsum dolor</a></li>
+                                     <li><a href="#">Phasellus consequat</a></li>
+                                     <li><a href="#">Magna phasellus</a></li>
+                                     <li><a href="#">Etiam dolore nisl</a></li>
+                                     <li><a href="#">Veroeros feugiat</a></li>
+                                     </ul>
+                                     </li>
+                                     <li><a href="#">Veroeros feugiat</a></li>
+                                     </ul>
+                                     </li> -->
+                                <li><a href="#">Estados</a>
+                                    <ul>
+                                        <li><a href="/es/states.html">Series de Tiempo</a></li>
+                                        <li><a href="/es/estados-mujeres.html">Homicidios de Mujeres</a></li>
+                                        <li><a href="/es/estados-feminicidio.html">Feminicidios</a></li>
+                                    </ul>
                                 </li>
-                                <li><a href="#">Veroeros feugiat</a></li>
-                                </ul>
-                                </li> -->
-                                <li><a href="/es/states.html">Estados</a></li>
                                 <li><a href="#">Municipios</a>
                                     <ul>
                                         <li><a href="/es/municipios-map.html">Mapa</a></li>
                                         <li><a href="/es/municipios.html">Series de Tiempo</a></li>
-<li><a href="/es/lisa-map.html">Mapa de clusters</a></li>
+                                        <li><a href="/es/lisa-map.html">Mapa de clusters</a></li>
                                     </ul>
                                 </li>
                                 <li class="current_page_item"><a href="/es/anomalies.html">Anomalías</a></li>
@@ -265,6 +271,24 @@ License: pixelarity.com/license
                         </div>
                     </div>
 
+                    <div class="row 200%">
+                        <!-- Content -->
+                        <div id="content" class="8u 12u(mobile)">
+                            <a name="reos"></a>
+
+                            <article>
+                                <h2 id ="reos" class="chart-title"></h2>
+                                <div class="row" id="small-multiples-reos"></div>
+                            </article>
+                        </div>
+                        <!-- Sidebar -->
+                        <div id="sidebar" class="4u 12u(mobile)">
+                            <section>
+                                <div class="12u 12u(mobile)" id="reos-map"></div>
+                            </section>
+                        </div>
+                    </div>
+
 
                 </div>
                 <div id="banner-wrapper" class="wrapper">
@@ -275,9 +299,12 @@ License: pixelarity.com/license
                         de ser una de las principales estrategias del gobierno
                         para combatir el crimen. Estas gráficas ayudan
                         a monitorear los picos criminales en cada uno de los más de
-                        2,400 municipios para que el gobierno los pueda atender
-                        (LOL). Las anomalías sólo son detectas para los datos nuevos desde el último update (usualmente el último mes), pero se puede consultar información histórica
-                        gracias a las <a href="/es/infographics.html">infografías</a>.<br><br>
+                        2,400 municipios para que el gobierno los
+                        pueda atender (LOL). Las anomalías sólo son
+                        detectas para los datos nuevos desde el último
+                        update (usualmente el último mes), pero se
+                        puede consultar información histórica gracias
+                        a las <a href="/es/infographics.html">infografías</a>. Los homicidios incluyen los feminicidios.<br><br>
                     </p><p style="text-align:left;">Tanto las
                         anomalías positivas como negativas son
                         detectadas. Algunos municipios reportan
@@ -288,7 +315,10 @@ License: pixelarity.com/license
                         menos costosos que los falsos negativos no
                         hice ningún ajuste. Estos municipios son los
                         que presentaron una anomalía, no los más
-                        violentos.
+                        violentos. Sólo se toman en cuenta municipios
+                        con más de 5 homicidios, 10 robos de vehículo
+                        con violencia, 10 robos de vehículos sin
+                        violencia y 10 lesiones dolosas.
 
                     </p>
                     </section></div>
@@ -325,11 +355,11 @@ License: pixelarity.com/license
             </div>
         </div>
         <!--<div class="a2a_kit a2a_kit_size_32 a2a_floating_style a2a_vertical_style" style="left:0px; top:150px;">
-            <a class="a2a_button_facebook"></a>
-            <a class="a2a_button_twitter"></a>
-            <a class="a2a_button_reddit"></a>
-            <a class="a2a_dd" href="http://www.addtoany.com/share_save"></a>
-        </div>-->
+             <a class="a2a_button_facebook"></a>
+             <a class="a2a_button_twitter"></a>
+             <a class="a2a_button_reddit"></a>
+             <a class="a2a_dd" href="http://www.addtoany.com/share_save"></a>
+             </div>-->
 
         <!--<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>-->
 
@@ -353,19 +383,20 @@ License: pixelarity.com/license
          var homicidio_doloso = 'Homicidio Intencional - ',
              secuestro = 'Secuestro - ',
              extorsion = 'Extorsión - ',
-             rvcv = 'Robo de Vehículo C.V. - ',
-             rvsv = 'Robo de Vehículo S.V. - ',
+             rvcv = 'Robo de Coches C.V. - ',
+             rvsv = 'Robo de Coches S.V. - ',
              national_text = 'Nacional',
              annualized_rate = 'tasa anualizada',
              rate_text = ', tasa: ',
              count_text = ', número: ',
              rate = "Tasa:", count = "Número:", pop = "Población:";
          var int_homicide='Homicidio Intencional',
-             crwv = 'ROBO DE VEHÍCULO CON VIOLENCIA',
-             crwov = 'ROBO DE VEHÍCULO SIN VIOLENCIA',
+             crwv = 'ROBO DE COCHES CON VIOLENCIA',
+             crwov = 'ROBO DE COCHES SIN VIOLENCIA',
              int_lesions = 'LESIONES INTENCIONALES',
              kidnappings = 'Secuestros',
-             extortions = 'Extorsiones';
+             extortions = 'Extorsiones',
+             reos = 'Evasión de Reos';
         </script>
         <script src="/js/anomalies.js">
         </script>
