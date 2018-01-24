@@ -48,7 +48,7 @@ for(i in last_six_dates) {
 muns2 <- muns2 %>%
   mutate(tipo = subtipo) %>%
   mutate(tipo = str_replace(tipo, "HOMICIDIO DOLOSO", "Intentional Homicide")) %>%
-  mutate(tipo = str_replace(tipo, "OTROS HOMICIDIOS DOLOSOS", "Intentional Homicide")) %>%
+  mutate(tipo = str_replace(tipo, "FEMINICIDIO", "Intentional Homicide")) %>%
   group_by(tipo, state, state_code, municipio, mun_code) %>%
   summarise(count = sum(count, na.rm = TRUE), population = population[1], len = length(unique(date))) %>%
   mutate(rate = ((count ) * (12/len)) / population * 10^5) %>%
