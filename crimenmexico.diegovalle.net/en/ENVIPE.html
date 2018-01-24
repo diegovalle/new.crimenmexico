@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <!--
-     Focal Point by Pixelarity
-     pixelarity.com @pixelarity
-     License: pixelarity.com/license
-   -->
-<html lang="en">
+Focal Point by Pixelarity
+pixelarity.com @pixelarity
+License: pixelarity.com/license
+-->
+<html lang="es">
     <head>
 
         <link rel="preload" href="/assets/js/jquery.min.js" as="script">
@@ -24,12 +24,12 @@
         <link rel="preload" href="/assets/css/metricsgraphics.min.css"  as="script">
         <link rel="preload" href="/assets/css/crimenmexico.css"  as="script">
 
-        <title>Crime by State - Mexico Crime Report</title>
+        <title>ENVIPE vs SESNSP - Mexico Crime Report</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="alternate" hreflang="es" href="https://elcri.men/es/states.html" />
+        <link rel="alternate" hreflang="en" href="https://elcri.men/es/ENVIPE.html" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta name="description" content="Mexican crime by state" />
+        <meta name="description" content="Crime under-reporting in Mexico" />
         <link rel="stylesheet" href="/assets/css/metricsgraphics.min.css" />
         <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="/assets/css/main.css" />
@@ -37,28 +37,111 @@
         <link rel="stylesheet" href="/assets/css/crimenmexico.css" />
         <style>
          svg  > path.mg-line1-color {
-             stroke: #00BFC4;
-             stroke-width: 1.5;
+             stroke: #c51b7d;
+             stroke-width: 3;
          }
          svg  > path.mg-line2-color {
-             stroke: #F8766D;
-             stroke-width: 1.5;
+             stroke: #00BFC4;
+             stroke-width: 3;
          }
          .mg-line2-legend-color {
-             color: #F8766D;
-             fill: #F8766D;
+             color: #c51b7d;
+             fill: #c51b7d;
          }
          .mg-line1-legend-color {
              color: #00BFC4;
              fill: #00BFC4;
          }
          .mg-area2-color {
-             fill: #F8766D;
-         }
-         .mg-area1-color {
              fill: #00BFC4;
          }
+         .mg-area1-color {
+             fill: #c51b7d;
+         }
 
+         .popover-content {
+             padding: 9px 14px;
+         }
+         .popover.top {
+             margin-top: -10px;
+         }
+         .mg-popover {
+             font-size: .95rem;
+         }
+         .popover.top>.arrow {
+             bottom: -11px;
+             left: 50%;
+             margin-left: -11px;
+             border-top-color: #999;
+             border-top-color: rgba(0,0,0,.25);
+             border-bottom-width: 0;
+         }
+         .mg-chart-title .fa {
+             color: #ccc;
+             font-size: .75rem;
+             padding-left: 4px;
+             vertical-align: top;
+         }
+         .popover>.arrow {
+             border-width: 11px;
+         }
+         .popover>.arrow, .popover>.arrow:after {
+             position: absolute;
+             display: block;
+             width: 0;
+             height: 0;
+             border-color: transparent;
+             border-style: solid;
+         }
+         .popover.top>.arrow:after {
+             bottom: 1px;
+             margin-left: -10px;
+             content: " ";
+             border-top-color: #fff;
+             border-bottom-width: 0;
+         }
+         .popover>.arrow:after {
+             content: "";
+             border-width: 10px;
+         }
+         .popover>.arrow, .popover>.arrow:after {
+             position: absolute;
+             display: block;
+             width: 0;
+             height: 0;
+             border-color: transparent;
+             border-style: solid;
+         }
+         :before, :after {
+             -webkit-box-sizing: border-box;
+             -moz-box-sizing: border-box;
+             box-sizing: border-box;
+         }
+         .popover-content {
+             padding: 9px 14px;
+             font-family:'Open Sans', sans-serif, Arial;
+             font-size:11.4px;
+             color: #111;
+         }
+         .popover {
+             position: absolute;
+             top: 0;
+             left: 0;
+             z-index: 1060;
+             display: none;
+             max-width: 276px;
+             padding: 1px;
+             text-align: left;
+             white-space: normal;
+             background-color: #fff;
+             -webkit-background-clip: padding-box;
+             background-clip: padding-box;
+             border: 1px solid #ccc;
+             border: 1px solid rgba(0,0,0,.2);
+             border-radius: 6px;
+             -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+             box-shadow: 0 5px 10px rgba(0,0,0,.2);
+         }
         </style>
     </head>
     <body class="no-sidebar">
@@ -100,7 +183,7 @@
                                      <li><a href="#">Veroeros feugiat</a></li>
                                      </ul>
                                      </li> -->
-                                <li  class="current_page_item"><a href="#">States</a>
+                                <li class="current_page_item"><a href="#">States</a>
                                     <ul>
                                         <li><a href="/en/states.html">Time Series</a></li>
                                         <li><a href="/en/states-female.html">Female Homicides</a></li>
@@ -118,7 +201,7 @@
                                 <li><a href="/en/anomalies.html">Anomalies</a></li>
                                 <li><a href="/en/infographics.html">Infographics</a></li>
                                 <li><a href="/en/datos.html">Data</a></li>
-                                <li style="white-space: nowrap;"><a href="/es/states.html"><img width="24" height="16" src="/images/mx.png" style="">Es</a></li>
+                                <li style="white-space: nowrap;"><a href="/es/ENVIPE.html"><img width="24" height="16" src="/images/mx.png" style="">Es</a></li>
                             </ul>
                         </nav>
 
@@ -131,32 +214,42 @@
 
                     <!-- Wide Content -->
                     <article id="content">
+
                         <div class="row"">
-                            <div  class="6u 12u(movile)">
+                            <div  class="6u 12u(mobile)">
                                 <header style="text-align:right">
-                                    <h2>Crime by State</h2>
+                                    <h2>Underreporting crime</h2>
                                 </header>
                             </div>
-                            <div class="6u 12u(movile)">
-                                <div class="legend"><span class="mg-line2-legend-color">— INEGI statistically adjusted&nbsp; </span></div>
-                                <div class="legend"><span class="mg-line1-legend-color">— SNSP victims&nbsp; </span></div>
+                            <div class="6u 12u(mobile)">
+                                <div class="legend"><span class="mg-line2-legend-color">— ENVIPE</span></div>
+                                <div class="legend"><span class="mg-line1-legend-color">— SESNSP victims/cars&nbsp; </span></div>
                             </div>
                         </div>
-                        <div class="select-style" style="
-                                                         margin: 0 auto;margin-bottom:3em;">
-                            <select id="crimeSelect">
-                                <option value="hd">Intentional Homicide</option>
-                                <option value="sec">Kidnapping</option>
-                                <option value="ext">Extortion</option>
-                                <option value="rvcv">Car Robbery with Violence</option>
-                                <option value="rvsv">Car Robbery without Violence</option>
-                            </select>
+                        <!-- <div class="select-style"  style="
+                             margin: 0 auto;margin-bottom:3em;">
+                             <select id="crimeSelect" >
+                             <option value="hd">Homicidio Intencional</option>
+                             <option value="sec">Secuestro</option>
+                             <option value="ext">Extorsión</option>
+                             <option value="rvcv">Robo de Vehículo con Violencia</option>
+                             <option value="rvsv">Robo de Vehículo sin Violencia</option>
+                             </select>
+                             </div> -->
+                        <div class="row" >
+                            <div class="6u 12u(mobile)" id="robocoche-chart">
+                            </div>
+                            <div class="6u 12u(mobile)" id="lesiones-chart">
+                            </div>
+                            <div class="6u 12u(mobile)" id="extorsion-chart">
+                            </div>
+                            <div class="6u 12u(mobile)" id="secuestro-chart">
+                            </div>
                         </div>
                         <div class="row" id="small-multiples"></div>
-                        <br><br><hr><p>The charts are ordered from highest to lowest homicide rate during the last available date. For intentional homicides, kidnappings, and extortions the counts refer to number of victims, for car robberies the counts refer to police reports (<i>averiguaciones previas</i> which may contain more than one victim).Car robberies include the crime of <i>robo de coche de 4 ruedas</i> only. Homicides include feminicides.</p><br/>
-                        <p style="text-align:left;">INEGI homicide data tends to be more precise. Forensic coroners and the INEGI simply don't have the same incentives to lower the number of homicides that happen in Mexico as the police. In addition to adding deaths from Legal intervention, operations of war, military operations, and terrorism to the INEGI homicide count I used a statistical model to predict the intent of deaths of unknown intent similar to what I used in this <a href="https://blog.diegovalle.net/2012/07/machine-learning-for-better-homicide.html" >post</a>. The disadvantage of using the INEGI data is it is usally more than a year out of date.</p><br/>
-
-                        <p style="text-align:left;">Intuitively, you can think of the statistical model as if someone were to ask you to guess the injury intent in the death of a 70 year old Mérida woman whose cause of death was transport related. You would probably answer it was an accident. On the other hand, if you had to guess the type of death of a young adult male whose cause of death was a firearm, and the injury took place on a public street in Ciudad Juárez, you would probably guess it was a homicide.</p><br/>   </article>
+                        <br><br><hr><br><p>The <a href="http://www.beta.inegi.org.mx/proyectos/enchogares/regulares/envipe/2016/">Encuesta Nacional de Victimización y Percepción sobre Seguridad Pública (ENVIPE)</a> is national victimization survey that allows us to compare crimes reported to the justice system with all crimes committed in the country. Blue lines are crimes reported to the justice system and magenta the estimates of total crimes in Mexico via survey.  The 'unrecorded' crime rate (the percentage or
+                            number of offences which is not notified the police) was 93.6% at the national level in 2016 and 93.7% in 2015.</p>
+                        <br/>  </article>
 
                 </div>
 
@@ -195,7 +288,6 @@
              <a class="a2a_button_reddit"></a>
              <a class="a2a_dd" href="http://www.addtoany.com/share_save"></a>
              </div>-->
-
         <!--<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>-->
 
         <!-- Scripts -->
@@ -214,11 +306,73 @@
         <script src='/assets/js/lodash.min.js'></script>
         <script>
 
-         var annualized_rate = 'annualized rate',
-             rate_text = ', rate: ',
-             count_text = ', count: ';
         </script>
-        <script src="/js/states.js"></script>
+        <script>
+         var comma = d3.format(",");
+
+         var drawENVIPEChart=function(title, description, div, xlabel, ylabel, data, year, crimes){
+             MG.data_graphic({
+                 title: title,
+                 description: description,
+                 data: data,
+                 height: 250,
+                 full_width: true,
+                 left: 100,
+                 buffer: 5,
+                 target: div,
+                 show_confidence_band: ['inf', 'sup'],
+                 xax_count: 1,
+                 yax_count: 3,
+                 xax_format: function(x) {return x},
+                 area: false,
+                 x_accessor: 'date',
+                 y_accessor: 'value',
+                 x_label: xlabel,
+                 y_label: ylabel,
+                 mouseover: function(d, i) {
+                     d3.select(div + ' svg .mg-active-datapoint')
+                       .text((d.line_id == 1 ? 'ENVIPE - ' : 'SESNSP - ') +
+                             year + d.date +  crimes + comma(d.value) +
+                                                       (typeof d.inf !== 'undefined' ? (' Inf: ' + comma(d.inf) +
+                                                                                        ' Sup: ' + comma(d.sup)) : ''));
+                 }
+             })
+         }
+         var lesiones_data = [[{'date':2015,'value': 1072610, sup: 1169170, inf: 976050},
+                               {'date':2016,'value':  968451, sup: 1073862, inf: 863040}],
+                              [{'date':2015,'value':  150711},
+                               {'date':2016,'value':  148660}]];
+         var secuestro_data = [[{'date':2015,'value':  62636, sup: 77530, inf: 47742},
+                                {'date':2016,'value':  66842, sup: 81522, inf: 52162}],
+                               [{'date':2015,'value':  1310},
+                                {'date':2016,'value':  1381}]];
+         var extorsion_data = [[{'date':2015, 'value':  7100878, sup: 7377798, inf: 6823958},
+                                {'date':2016, 'value':  7503477, sup: 7787836, inf: 7219118}],
+                               [{'date':2015, 'value':  5277},
+                                {'date':2016, 'value':  5395}]]
+         var robocoche_data = [[{'date':2015,'value':  452001, sup: 486110, inf:  417893},
+                                {'date':2016,'value':  493727, sup: 527885, inf: 459570}],
+                               [{'date':2015,'value':  145735},
+                                {'date':2016,'value':  147839}]];
+         var year = 'Year: '
+         var crimes = ' Crimes: '
+         drawENVIPEChart("Lesions",
+                         "Lesiones dolosas (SESNSP) and lesiones por una agresión física (ENVIPE)",
+                         "#lesiones-chart", "year", "crimes",
+                         lesiones_data, year, crimes)
+         drawENVIPEChart("Kidnappings",
+                         "Secuestros, todas sus modalidades (SESNP) and secuestro o secuestro exprés (ENVIPE)",
+                         "#secuestro-chart", "year", "crimes",
+                         secuestro_data, year, crimes)
+         drawENVIPEChart("Car robbery",
+                         "Robo de coche con 4 ruedas (SESNSP) and robo de vehículo (automóvil, camioneta o camión) (ENVIPE)",
+                         "#robocoche-chart", "year", "crimes",
+                         robocoche_data, year, crimes)
+         drawENVIPEChart("Extortion",
+                         "Extortion",
+                         "#extorsion-chart", "year", "crimes",
+                         extorsion_data, year, crimes)
+        </script>
         <!-- Google Analytics -->
         <script>
          window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
