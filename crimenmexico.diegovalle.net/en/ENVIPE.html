@@ -142,6 +142,65 @@ License: pixelarity.com/license
              -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
              box-shadow: 0 5px 10px rgba(0,0,0,.2);
          }
+         th,td {
+             padding: 0.5em 0.5em;
+         }
+         /*
+            Max width before this PARTICULAR table gets nasty
+            This query will take effect for any screen smaller than 760px
+            and also iPads specifically.
+          */
+         @media
+         only screen and (max-width: 760px),
+         (min-device-width: 768px) and (max-device-width: 1024px)  {
+
+             /* Force table to not be like tables anymore */
+             table, thead, tbody, th, td, tr {
+                 display: block;
+             }
+
+             /* Hide table headers (but not display: none;, for accessibility) */
+             thead tr {
+                 position: absolute;
+                 top: -9999px;
+                 left: -9999px;
+             }
+
+             tr { border: 1px solid #ccc; }
+
+             td {
+                 /* Behave  like a "row" */
+                 border: none;
+                 border-bottom: 1px solid #eee;
+                 position: relative;
+                 padding-left: 50%;
+             }
+
+             td:before {
+                 /* Now like a table header */
+                 position: absolute;
+                 /* Top/left values mimic padding */
+                 top: 6px;
+                 left: 6px;
+                 width: 45%;
+                 padding-right: 10px;
+                 white-space: nowrap;
+             }
+
+             /*
+                Label the data
+              */
+             td:nth-of-type(1):before { content: "Año"; }
+             td:nth-of-type(2):before { content: "Población"; }
+             td:nth-of-type(3):before { content: "Víctimas de Homicidios INEGI"; }
+             td:nth-of-type(4):before { content: "Víctimas de Homicidios Dolosos + Feminicidios (NM)"; }
+             td:nth-of-type(5):before { content: "Vícitmas de Homicidios Dolosos (NM)"; }
+             td:nth-of-type(6):before { content: "Víctimas de Feminicidio (NM)"; }
+             td:nth-of-type(7):before { content: "Averiguaciones por Homicidio Doloso (NM)"; }
+             td:nth-of-type(8):before { content: "Averiguaciones por Feminicidio (NM)"; }
+             td:nth-of-type(9):before { content: "Víctimas de Homicidio Dolosos (VM)"; }
+             td:nth-of-type(10):before { content: "Averiguaciones po Homicidio Doloso (VM)"; }
+         }
         </style>
     </head>
     <body class="no-sidebar">
@@ -246,10 +305,376 @@ License: pixelarity.com/license
                             <div class="6u 12u(mobile)" id="secuestro-chart">
                             </div>
                         </div>
-                        <div class="row" id="small-multiples"></div>
-                        <br><br><hr><br><p>The <a href="http://www.beta.inegi.org.mx/proyectos/enchogares/regulares/envipe/2016/">Encuesta Nacional de Victimización y Percepción sobre Seguridad Pública (ENVIPE)</a> is national victimization survey that allows us to compare crimes reported to the justice system with all crimes committed in the country. Blue lines are crimes reported to the justice system and magenta the estimates of total crimes in Mexico via survey.  The 'unrecorded' crime rate (the percentage or
+                        <div class="row" id="small-multiples"></div><br><br>
+                        <br><p>The <a href="http://www.beta.inegi.org.mx/proyectos/enchogares/regulares/envipe/2016/">Encuesta Nacional de Victimización y Percepción sobre Seguridad Pública (ENVIPE)</a> is national victimization survey that allows us to compare crimes reported to the justice system with all crimes committed in the country. Blue lines are crimes reported to the justice system and magenta the estimates of total crimes in Mexico via survey.  The 'unrecorded' crime rate (the percentage or
                             number of offences which is not notified the police) was 93.6% at the national level in 2016 and 93.7% in 2015.</p>
-                        <br/>  </article>
+                        <br/>
+                        <p>There are two official sources of homicide information in Mexico: the vital statics published by the <a href="http://www.inegi.org.mx/sistemas/olap/proyectos/bd/continuas/mortalidad/defuncioneshom.asp?s=est">INEGI</a>, based on death certificates; and those from the <a href="http://secretariadoejecutivo.gob.mx/index.php">SESNSP</a> (justice system), based on police investigations. The statiscs from the SESNSP are available in two ways: as the number of police investigations and as the number of victims contained in those investigations. Additionally, in January 2018 a <a href="https://www.gob.mx/sesnsp/articulos/nueva-metodologia-para-el-registro-y-clasificacion-de-los-delitos-y-las-victimas-para-fines-estadisticos?idiom=es">new methodology</a> for classifying crimes was made public, and feminicides (the intentional killing of females because they are females) were removed from homicide counts and moved to their own category. Because of all this there are many ways of reporting the number of homicides in Mexico, for the most recent data the best one is to sum the number of victims of homicide with the number of victims of feminicide using the new methodology.</p>
+
+                        <a name="homicide_table"></a>
+
+                            <div style="overflow-x:auto;">
+                                <table class="tableizer-table" style="border-collapse: collapse;font-size:80%;border: 0 solid #000;">
+                                    <tbody>
+                                        <tr>
+                                            <th style="border: 0 solid #000;text-align: center;">&nbsp;<strong>Year</strong></th>
+                                            <th style="border: 0 solid #000;text-align: center;"><strong>Population</strong></th>
+                                            <th style="padding: 0;border: 0 solid #000;text-align: center;"><div style="margin:0 3px 0 3px;border-bottom: 3px solid #767780"><em><strong>&nbsp;INEGI</strong></em></div></th>
+                                            <th style="padding: 0;text-align: center;border: 0 solid #000;" colspan="5"><div style="margin:0 3px 0 3px;border-bottom: 3px solid #767780"><em><strong>SESNSP - New Methodology</strong></em></div></th>
+                                            <th style="padding:0;text-align: center;border: 0 solid #000;" colspan="2"><div style="margin:0 3px 0 3px;border-bottom: 3px solid #767780"><em><strong>SESNSP - Old methodology</strong></em></div></th>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 0 solid #000;text-align: center;">&nbsp;</td>
+                                            <td style="border: 0 solid #000;text-align: center;">&nbsp;</td>
+                                            <td style="border: 0 solid #000;background-color: #f9f5ff; text-align: center;border-bottom: 2px solid #333;"><strong>Homicide Victims INEGI</strong></td>
+                                            <td style="border: 0 solid #000;background-color: #f5f6ff; text-align: center;border-bottom: 2px solid #333;"><strong>Homicide Victims + Feminicides</strong></td>
+                                            <td style="border: 0 solid #000;background-color: #f5f6ff; text-align: center;border-bottom: 2px solid #333;"><strong>Homicide Victims</strong></td>
+                                            <td style="border: 0 solid #000;background-color: #f5f6ff; text-align: center;border-bottom: 2px solid #333;"><strong>Feminicide Victims</strong></td>
+                                        <td style="border: 0 solid #000;background-color: #f5f6ff; text-align: center;border-bottom: 2px solid #333;"><strong>Police Investigations of Homicides</strong></td>
+                                        <td style="border: 0 solid #000;background-color: #f5f6ff; text-align: center;border-bottom: 2px solid #333;"><strong>Police Investigations of Feminicides</strong></td>
+                                        <td style="border: 0 solid #000;background-color: #f5fbff; text-align: center;border-bottom: 2px solid #333;"><strong>Homicide Victims</strong></td>
+                                        <td style="border: 0 solid #000;background-color: #f5fbff; text-align: center;border-bottom: 2px solid #333;"><strong>Police Investigations of Homicides</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">1990</td>
+                                        <td style="text-align: center;">87,064,847</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">14,493</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">1991</td>
+                                        <td style="text-align: center;">88,630,941</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">15,128</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">1992</td>
+                                        <td style="text-align: center;">90,132,585</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">16,594</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">1993</td>
+                                        <td style="text-align: center;">91,600,655</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">16,040</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">1994</td>
+                                        <td style="text-align: center;">93,055,300</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">15,839</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">1995</td>
+                                        <td style="text-align: center;">94,490,336</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">15,612</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">1996</td>
+                                        <td style="text-align: center;">95,876,664</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">14,505</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">1997</td>
+                                        <td style="text-align: center;">97,204,604</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">13,552</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">16,866</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">1998</td>
+                                        <td style="text-align: center;">98,485,424</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">13,656</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">14,216</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">1999</td>
+                                        <td style="text-align: center;">99,706,067</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">12,249</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">14,619</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2000</td>
+                                        <td style="text-align: center;">100,895,811</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">10,737</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">13,849</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2001</td>
+                                        <td style="text-align: center;">102,122,295</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">10,285</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">13,855</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2002</td>
+                                        <td style="text-align: center;">103,417,944</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">10,088</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">13,148</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2003</td>
+                                        <td style="text-align: center;">104,719,891</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">10,087</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">12,676</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2004</td>
+                                        <td style="text-align: center;">105,951,569</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">9,329</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">11,658</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2005</td>
+                                        <td style="text-align: center;">107,151,011</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">9,921</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">11,246</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2006</td>
+                                        <td style="text-align: center;">108,408,827</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">10,452</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">11,806</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2007</td>
+                                        <td style="text-align: center;">109,787,388</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">8,867</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">10,253</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2008</td>
+                                        <td style="text-align: center;">111,299,015</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">14,006</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">13,155</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2009</td>
+                                        <td style="text-align: center;">112,852,594</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">19,803</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">16,118</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2010</td>
+                                        <td style="text-align: center;">114,255,555</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">25,757</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">20,143</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2011</td>
+                                        <td style="text-align: center;">115,682,868</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">27,213</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">22,409</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2012</td>
+                                        <td style="text-align: center;">117,053,750</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">25,967</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">21,459</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2013</td>
+                                        <td style="text-align: center;">118,395,054</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">23,063</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">18,106</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2014</td>
+                                        <td style="text-align: center;">119,713,204</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">20,010</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">NA</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">17,336</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">15,520</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2015</td>
+                                        <td style="text-align: center;">121,005,815</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">20,762</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">18,309</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">17,905</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">404</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">16,141</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">389</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">18,707</td>
+                                        <td style="background-color: #f5fbff; text-align: right;">16,909</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left;">2016</td>
+                                        <td style="text-align: center;">122,273,473</td>
+                                        <td style="background-color: #f9f5ff; text-align: right;">24,559</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">23,190</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">22,571</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">619</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">20,171</td>
+                                        <td style="background-color: #f5f6ff; text-align: right;">580</td>
+                                    <td style="background-color: #f5fbff; text-align: right;">22,962</td>
+                                    <td style="background-color: #f5fbff; text-align: right;">20,547</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;">2017</td>
+                                    <td style="text-align: center;">123,518,270</td>
+                                    <td style="background-color: #f9f5ff; text-align: right;">NA</td>
+                                    <td style="background-color: #f5f6ff; text-align: right;">29,430</td>
+                                    <td style="background-color: #f5f6ff; text-align: right;">28,734</td>
+                                    <td style="background-color: #f5f6ff; text-align: right;">696</td>
+                                    <td style="background-color: #f5f6ff; text-align: right;">24,906</td>
+                                    <td style="background-color: #f5f6ff; text-align: right;">671</td>
+                                    <td style="background-color: #f5fbff; text-align: right;">29,168</td>
+                                    <td style="background-color: #f5fbff; text-align: right;">25,339</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                        <br><br><hr>  </article>
 
                 </div>
 
