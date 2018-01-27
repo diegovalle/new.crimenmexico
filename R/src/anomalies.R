@@ -327,7 +327,7 @@ for(i in 1:length(ll)){
     j = j + 1
   }
 }
-write(toJSON(ll2), "json/anomalies2.json")
+# write(toJSON(ll2), "json/anomalies2.json")
 
 max_date = muns$date %>% max(., na.rm = TRUE) %>% as.yearmon  %>% as.character 
 

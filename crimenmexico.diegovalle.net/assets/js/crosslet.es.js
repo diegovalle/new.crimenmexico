@@ -1385,20 +1385,19 @@ info.onAdd = function (map) {
       function mouseover(d){
           tooltip
               .style("visibility", "visible")
-      }
-
-
-      function mousemove(d){
-          tooltip
-              .style("visibility", "visible")
-              .style("top", d3.event.pageY + "px")
-              .style("left", d3.event.pageX + "px")
               .html(d.properties.name + "<br/>" +
                     "Población: <big><b>" +d.properties.population + "</b></big><br\>" +
                     "Número: <big><b>" +d.properties.count + "</b></big><br\>" +
                     "Tasa: <big><b>" + d.properties.rate + "</b></big><br\>" +
-                    "Períodos reportados: <big><b>" + d.properties.len + "</b></big>");  /* \n does not work when
-                                                                          creating a line break*/
+                    "Períodos reportados: <big><b>" + d.properties.len + "</b></big>")
+              .style("top", d3.event.pageY + "px")
+              .style("left", d3.event.pageX + "px");  /* \n does not work when
+                                                                                          creating a line break*/
+      }
+
+
+      function mousemove(d){
+
       }
 
       function mouseout(){
@@ -1419,27 +1418,27 @@ info.onAdd = function (map) {
         return _this.control[0];
       }
     });
-    this.map.addControl(new this.info());
+      this.map.addControl(new this.info());
     this.panel = new crosslet.PanelView(this.control, this.config, this);
     this.renderMap = this._renderMap;
     return this.ds.loadGeo(this.geoURL, this.config.map.geo.id_field, function(ds) {
-      _this.bounds = _this.ds.bounds;
-// Changed to create a point map with pointRadius
-      _this.path = d3.geo.path().projection(_this.project).pointRadius(function (d) {return Math.sqrt(d.properties.count*3)+3});
-      _this.svg = d3.select(_this.map.getPanes().overlayPane).append("svg");
-      _this.g = _this.svg.append("g");
-      _this.g.attr("class", "crosslet_geometry");
-      //_this.feature = _this.g.selectAll("path").data(ds.geometries).enter().append("path")
-//.attr("id", function(d) {
-      //  return "path_" + d.properties[_this.config.map.geo.id_field];
-      //}).on("mouseover", function(d) {
-      //  return _this.hover(d);
-      //}).on("mousemove", _this.mouseMove);
+        _this.bounds = _this.ds.bounds;
+        // Changed to create a point map with pointRadius
+        _this.path = d3.geo.path().projection(_this.project).pointRadius(function (d) {return Math.sqrt(d.properties.count*1.5)+.5;});
+        _this.svg = d3.select(_this.map.getPanes().overlayPane).append("svg");
+        _this.g = _this.svg.append("g");
+        _this.g.attr("class", "crosslet_geometry");
+        //_this.feature = _this.g.selectAll("path").data(ds.geometries).enter().append("path")
+        //.attr("id", function(d) {
+        //  return "path_" + d.properties[_this.config.map.geo.id_field];
+        //}).on("mouseover", function(d) {
+        //  return _this.hover(d);
+        //}).on("mousemove", _this.mouseMove);
 _this.feature = _this.g.selectAll("path").data(ds.geometries).enter().append("path")
 .attr("id", function(d) {
         return "path_" + d.properties[_this.config.map.geo.id_field];
-      }).on("mouseover", function(d) { return mouseover(d) })
-                        .on("mousemove", function(d) { return mousemove(d) })
+}).on("mouseover", function(d) { return mouseover(d); })
+            .on("mousemove", function(d) { return mousemove(d); })
                         .on("mouseout", mouseout);
 
 

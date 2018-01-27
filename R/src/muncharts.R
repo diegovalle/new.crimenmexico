@@ -51,12 +51,12 @@ muns <- full_join(muns, fullmuns, by = c("date", "tipo", "state_code", "mun_code
 rm(fullmuns)
 
 muns.inegi <- injury.intent %>%
-  filter(year_reg >= 2011 & intent.imputed == "Homicide" &
+  filter(year_occur >= 2015 & intent.imputed == "Homicide" &
            (state_occur_death >= 1 & state_occur_death <=32) &
            mun_occur_death < 900) %>%
-  group_by(year_reg, month_reg, state_occur_death, mun_occur_death) %>%
+  group_by(year_occur, month_occur, state_occur_death, mun_occur_death) %>%
   summarise(count = n()) %>%
-  mutate(date = as.character(as.Date(str_c(year_reg, "-", month_reg, "-01")))) %>%
+  mutate(date = as.character(as.Date(str_c(year_occur, "-", month_occur, "-01")))) %>%
   right_join(subset(muns, tipo == "Intentional Homicide")
              [,c('date', 'tipo', 'name', 'state_code', 'mun_code', 'population')], 
              by = c("date" = "date", 
@@ -66,7 +66,7 @@ muns.inegi <- injury.intent %>%
   ungroup() %>% 
   rename(state_code = state_occur_death,
          mun_code = mun_occur_death) %>%
-  dplyr::select(-year_reg, -month_reg)
+  dplyr::select(-year_occur, -month_occur)
 
 muns.inegi$rate[(is.na(muns.inegi$count) & muns.inegi$date < max(muns.inegi$date[!(is.na(muns.inegi$count))]))] <- 0
 muns.inegi$count[(is.na(muns.inegi$count) & muns.inegi$date < max(muns.inegi$date[!(is.na(muns.inegi$count))]))] <- 0

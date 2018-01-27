@@ -165,11 +165,11 @@ class CrimeStates:
         self.check_column(df, u'BIEN JURIDICO', self._BIEN_JURIDICO)
 
     def clean_file(self, fname):
-        df = pd.read_csv(fname, 
+        df = pd.read_csv(fname,
                          encoding="windows-1252", thousands=",", dtype=object)
         df.columns = map(unicode.upper, df.columns)
         df.columns = df.columns.str.replace(u'ANO', u'AÑO')
-        
+
         if 'TOTAL' in [x.upper() for x in df.columns]:
             del df['TOTAL']
         df = df.dropna(axis=0, how='all')
@@ -226,6 +226,12 @@ class CrimeStates:
             cdmx[:]['state_code'] = 20
             cdmx[:]['count'] = np.nan
             df = df.append(cdmx)
+        # Oaxaca did no submit reliable data for the months of January, March, April, June, September, October and December 2015 and October 2016
+        for state_code in range(1,32):
+            for date in df.date.unique():
+                if(df[(df.state_code == state_code) & (df.date.str.startswith(date))]['count'].sum() == 0):
+                    df.ix[(df.state_code == state_code) & (df.date.str.startswith(date)),'count'] = np.nan
+                    print('setting counts as NA for state_code: {} with date {} because they are all zeros'.format(state_code, date))
         self.data = df
 
 
@@ -344,6 +350,16 @@ class CrimeStatesVictimas(CrimeStates):
             cdmx[:]['state_code'] = 20
             cdmx[:]['count'] = np.nan
             df = df.append(cdmx)
+        # Oaxaca did no submit reliable data for the months of
+        # January, March, April, June, September, October and December
+        # 2015 and October 2016
+        for state_code in range(1,32):
+            for date in df.date.unique():
+                if(df[(df.state_code == state_code) & (df.date.str.startswith(date))]['count'].sum() == 0):
+                    df.ix[(df.state_code == state_code) & (df.date.str.startswith(date)),'count'] = np.nan
+                    print('setting counts as NA for state_code: {} with date {} because they are all zeros'.format(state_code, date))
+
+
         self.data = df
 
 
@@ -370,7 +386,7 @@ class CrimeMunicipios(CrimeStates):
         df.columns = map(unicode.upper, df.columns)
         df.columns = df.columns.str.replace(u'ANO', u'AÑO')
         df.columns = df.columns.str.replace(u'CVE. MUNICIPIO', u'CVE_MUNICIPIO')
-        
+
 
         if 'TOTAL' in [x.upper() for x in df.columns]:
             del df['TOTAL']
@@ -414,15 +430,22 @@ class CrimeMunicipios(CrimeStates):
         # The SNSP uses different municipio names in the same db
         #self.municipios = pd.concat([df['state_code'], df['mun_code'], df['municipio']], axis=1).drop_duplicates()
 
-
-        del df['inegi']
-        
         df['date'] = df["year"].map(int).map(str) + '-' + df['variable']
         del df['variable']  # delete month
         del df['year']
 
-        df.columns = self._cleanColumnNames
+        # Oaxaca did no submit reliable data for the months of
+        # January, March, April, June, September, October and December
+        # 2015 and October 2016
+        for inegi_code in df[df.inegi.str.startswith('20')].inegi.unique():
+            for date in df[df.inegi.str.startswith('20')].date.unique():
+                if(df[(df.inegi == inegi_code) & (df.date.str.startswith(date))]['count'].sum() == 0):
+                    df.ix[(df.inegi == inegi_code) & (df.date.str.startswith(date)),'count'] = np.nan
+                    print('setting counts as NA for inegi_code: {} with date {} because they are all zeros'.format(inegi_code, date))
 
+        del df['inegi']
+
+        df.columns = self._cleanColumnNames
         df = df[self._columnOrder]
 
         df.is_copy = False
@@ -450,5 +473,5 @@ class CrimeMunicipios(CrimeStates):
             oax[:]['date'] = oax[:]['date'].str.replace('2016', '2015')
             oax[:]['count'] = np.nan
             df = df.append(oax)
-            
+
         self.data = df

@@ -5,17 +5,21 @@ national <- vic %>%
   mutate(rate = round(rate, 1))
 national$tipo <- reorder(national$tipo, -national$rate, mean, na.rm = TRUE)
 
+injury.intent$year_occur <- ifelse(is.na(injury.intent$year_occur ), injury.intent$year_reg, 
+                                   injury.intent$year_occur )
+injury.intent$month_occur <- ifelse(is.na(injury.intent$month_occur ), injury.intent$month_reg, 
+                                    injury.intent$month_occur )
 hd.inegi <- injury.intent %>%
-  filter(year_reg >= 2014 & intent.imputed == "Homicide") %>%
-  group_by(year_reg, month_reg) %>%
+  filter(year_occur >= 2015 & intent.imputed == "Homicide") %>%
+  group_by(year_occur, month_occur) %>%
   summarise(count = n()) %>%
-  mutate(date = as.Date(str_c(year_reg, "-", month_reg, "-01"))) %>%
+  mutate(date = as.Date(str_c(year_occur, "-", month_occur, "-01"))) %>%
   right_join(filter(national[,c("tipo", "date", "pop")],
                    tipo == 'Homicidio Doloso'), by = "date") %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / pop) * 10^5)  %>%
   mutate(rate = round(rate, 1))%>%
   ungroup() %>%
-  dplyr::select(-year_reg, -month_reg)
+  dplyr::select(-year_occur, -month_occur)
 
 ll.national <- list()
 ll.national$hd <- list(filter(national[,c("tipo", "date", "rate", "count", "pop")], 
@@ -38,11 +42,11 @@ write(toJSON(states_last), "json/states_last.json")
 
 
 states.inegi <- injury.intent %>%
-  filter(year_reg >= 2014 & intent.imputed == "Homicide" &
+  filter(year_occur >= 2015 & intent.imputed == "Homicide" &
            (state_occur_death >= 1 & state_occur_death <=32)) %>%
-  group_by(year_reg, month_reg, state_occur_death) %>%
+  group_by(year_occur, month_occur, state_occur_death) %>%
   summarise(count = n()) %>%
-  mutate(date = as.Date(str_c(year_reg, "-", month_reg, "-01"))) %>%
+  mutate(date = as.Date(str_c(year_occur, "-", month_occur, "-01"))) %>%
   right_join(subset(vic, 
                    tipo == 'Homicidio Doloso')
             [,c("tipo", "date", "population", "state_code")], 
@@ -51,7 +55,7 @@ states.inegi <- injury.intent %>%
   mutate(rate = round(rate, 1)) %>%
   ungroup() %>% 
   rename(state_code = state_occur_death) %>%
-  dplyr::select(-year_reg, -month_reg)
+  dplyr::select(-year_occur, -month_occur)
 
 states <- list()
 states$hd <- list(
@@ -70,11 +74,11 @@ vic %<>%
   mutate(name = state)
 
 states.inegi.name <- injury.intent %>%
-  filter(year_reg >= 2014 & intent.imputed == "Homicide" &
+  filter(year_occur >= 2015 & intent.imputed == "Homicide" &
            (state_occur_death >= 1 & state_occur_death <=32)) %>%
-  group_by(year_reg, month_reg, state_occur_death) %>%
+  group_by(year_occur, month_occur, state_occur_death) %>%
   summarise(count = n()) %>%
-  mutate(date = as.Date(str_c(year_reg, "-", month_reg, "-01"))) %>%
+  mutate(date = as.Date(str_c(year_occur, "-", month_occur, "-01"))) %>%
   right_join(subset(vic, 
                     tipo == 'Homicidio Doloso')
              [,c("tipo", "date", "population", "state_code", "name")], 
@@ -83,7 +87,7 @@ states.inegi.name <- injury.intent %>%
   mutate(rate = round(rate, 1)) %>%
   ungroup() %>% 
   rename(state_code = state_occur_death) %>%
-  dplyr::select(-year_reg, -month_reg)
+  dplyr::select(-year_occur, -month_occur)
 
 
 states_sm <- list()

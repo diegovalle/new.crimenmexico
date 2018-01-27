@@ -53,11 +53,15 @@ muns2 <- muns2 %>%
   summarise(count = sum(count, na.rm = TRUE), population = population[1], len = length(unique(date))) %>%
   mutate(rate = ((count ) * (12/len)) / population * 10^5) %>%
   mutate(code = str_c(str_pad(state_code, 2, pad = '0'), str_pad(mun_code, 3, pad = '0'))) %>%
-  mutate(name = str_c(municipio, ", ", state))
+  mutate(name = str_c(municipio, ", ", state)) %>%
+  mutate(rate = round(rate, 1))
 muns2$code <- as.numeric(muns2$code)
 
+
+
 #mun_map <- right_join(filter(muns, tipo == "Intentional Homicide"), mun_map)
-muns2 <- left_join(muns2, centroids, by = c("state_code", "mun_code"))
+muns2 <- left_join(muns2, centroids, by = c("state_code", "mun_code")) %>%
+  mutate(long = round(long, 3), lat = round(lat, 3))
 muns2$rate2 <- ifelse(muns2$rate <= 120, muns2$rate, 120)
 write.csv(filter(muns2, tipo == "Intentional Homicide")
           [,c("rate", "rate2", "name", "count", "population", "code", "long", "lat", "len")], 

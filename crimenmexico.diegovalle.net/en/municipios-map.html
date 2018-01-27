@@ -21,7 +21,6 @@ License: pixelarity.com/license
         <link rel="preload" href='/assets/js/lodash.min.js' as="script">
         <link rel="preload" href="/assets/js/d3-tip/index.js" as="script">
         <link rel="preload" href="/assets/css/main.css"  as="script">
-        <link rel="preload" href="/assets/css/metricsgraphics.min.css"  as="script">
         <link rel="preload" href="/assets/css/leaflet.css"  as="script">
         <link rel="preload" href="/assets/js/leaflet.min.js""  as="script">
         <link rel="preload" href="/assets/js/L.Control.Locate.js"  as="script">
@@ -45,6 +44,8 @@ License: pixelarity.com/license
         <!--[if lte IE 8]>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.5/leaflet.ie.css" />
         <![endif]-->
+
+        <link href='/assets/css/leaflet.fullscreen.css' rel='stylesheet' />
         <script src="/assets/js/leaflet.min.js"></script>
         <style>
          input {
@@ -202,7 +203,7 @@ License: pixelarity.com/license
                     <!-- Copyright -->
                     <div id="copyright">
                         &copy; Diego Valle-Jones. All rights reserved.<br>
-                        <a href="/es/index.html">Versión en Español</a>
+                        <a href="/index.html">Versión en Español</a>
                     </div>
 
                 </div>
@@ -244,6 +245,7 @@ License: pixelarity.com/license
         <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.ie.css' rel='stylesheet' />
         <![endif]-->
         <script src="/assets/js/crosslet.js"></script>
+        <script src='/assets/js/Leaflet.fullscreen.min.js'></script>
         <script type="text/javascript">
          var percentf=function() { return function(d){ return Math.round(d*100)/100;}}
          var inputf=function() { return function(d){ return Math.round(d*100)/100;}}
@@ -304,6 +306,23 @@ License: pixelarity.com/license
 
 
          a=new crosslet.MapView($("#hom-map"),config);
+         // create the control
+         var command = L.control({position: 'topleft'});
+
+         command.onAdd = function (map) {
+             var div = L.DomUtil.create('div', 'leaflet-control-zoom');
+
+             div.innerHTML = '<a id="fullscreen" class="leaflet-control-zoom-in leaflet-bar-part leaflet-bar-part-top" href="#" title="Zoom in" style="background: #fff url(/assets/css/fullscreen.png) no-repeat 0 0;background-size: 26px 52px;width: 26px;height: 26px;box-shadow: 0 1px 5px rgba(0,0,0,0.65);border-radius: 4px;"></a>';
+             return div;
+         };
+         // add the event handler
+         function handleCommand() {
+             a.map.toggleFullscreen()
+         }
+
+
+         command.addTo(a.map);
+         document.getElementById("fullscreen").addEventListener("click", handleCommand, false);
         </script>
         <!-- Google Analytics -->
         <script>
