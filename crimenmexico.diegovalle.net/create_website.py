@@ -101,6 +101,20 @@ def clean(lang, t):
     f.write(newdata)
     f.close()
 
+    # replace the top 30 text
+    f = open(lang + 'municipios-mas-violentos.html','r')
+    filedata = f.read()
+    f.close()
+
+    newdata = re.sub('Most violent municipios from [a-zA-Z0-9 ]*', r'Most violent municipios from ' + datetime.strftime(monthdelta(datetime.strptime(dates[0], "%B %Y"), -5), "%B %Y") + ' to ' + dates[0], filedata)
+    newdata = re.sub('Municipios más violentos de [a-zA-Z0-9 úÚ]*',
+                     r'Municipios más violentos de ' + datetime.strftime(monthdelta(datetime.strptime(dates[0], "%B %Y"), -5), "%B %Y") + ' a ' + dates[0], newdata)
+    #import pdb;pdb.set_trace()
+
+    f = open(lang + 'municipios-mas-violentos.html', 'w')
+    f.write(newdata)
+    f.close()
+
 def monthdelta(date, delta):
     m, y = (date.month+delta) % 12, date.year + ((date.month)+delta-1) // 12
     if not m: m = 12
@@ -112,5 +126,5 @@ clean('en/', "C")
 clean('es/', 'es_ES.UTF-8')
 print("optimizing PNGs...")
 os.system(r"find . -wholename '*thumbnails/*.png' -exec sh -c 'optipng -quiet {}' \;")
-print("compress with zopfli")
-os.system(r"""find . -type f -not \( -name '*.gz' -or -name '*[~#]' -or -name '*.png' -or -name '*.jpg' -or -name '*.py' \) -exec sh -c 'zopfli "{}"' \;""")
+#print("compress with zopfli")
+#os.system(r"""find . -type f -not \( -name '*.gz' -or -name '*[~#]' -or -name '*.png' -or -name '*.jpg' -or -name '*.py' \) -exec sh -c 'zopfli "{}"' \;""")

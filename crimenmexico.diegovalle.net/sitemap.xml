@@ -75,6 +75,43 @@
             href="https://elcri.men/es/lisa-map.html"
             />
     </url>
+    <url>
+        <loc>https://elcri.men/en/states-female.html</loc>
+        <changefreq>monthly</changefreq>
+        <xhtml:link
+            rel="alternate"
+            hreflang="es"
+            href="https://elcri.men/es/estados-mujeres.html"
+            />
+    </url>
+    <url>
+        <loc>https://elcri.men/en/states-feminicide.html</loc>
+        <changefreq>monthly</changefreq>
+        <xhtml:link
+            rel="alternate"
+            hreflang="es"
+            href="https://elcri.men/es/estados-feminicidio.html"
+            />
+    </url>
+    <url>
+        <loc>https://elcri.men/en/ENVIPE.html</loc>
+        <changefreq>monthly</changefreq>
+        <xhtml:link
+            rel="alternate"
+            hreflang="es"
+            href="https://elcri.men/es/ENVIPE.html"
+            />
+    </url>
+    <url>
+        <loc>https://elcri.men/en/municipios-mas-violentos.html</loc>
+        <changefreq>monthly</changefreq>
+        <xhtml:link
+            rel="alternate"
+            hreflang="es"
+            href="https://elcri.men/es/municipios-mas-violentos.html"
+            />
+    </url>
+
 
     <url>
         <loc>https://elcri.men/</loc>
@@ -136,7 +173,7 @@
         <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
-            hreflang="es"
+            hreflang="en"
             href="https://elcri.men/en/infographics.html"
             />
     </url>
@@ -145,8 +182,44 @@
         <changefreq>monthly</changefreq>
         <xhtml:link
             rel="alternate"
-            hreflang="es"
+            hreflang="en"
             href="https://elcri.men/en/lisa-map.html"
+            />
+    </url>
+    <url>
+        <loc>https://elcri.men/es/estados-mujeres.html</loc>
+        <changefreq>monthly</changefreq>
+        <xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://elcri.men/en/states-female.html"
+            />
+    </url>
+    <url>
+        <loc>https://elcri.men/es/estados-feminicidio.html</loc>
+        <changefreq>monthly</changefreq>
+        <xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://elcri.men/en/states-feminicide.html"
+            />
+    </url>
+    <url>
+        <loc>https://elcri.men/es/ENVIPE.html</loc>
+        <changefreq>monthly</changefreq>
+        <xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://elcri.men/en/ENVIPE.html"
+            />
+    </url>
+    <url>
+        <loc>https://elcri.men/es/municipios-mas-violentos.html</loc>
+        <changefreq>monthly</changefreq>
+        <xhtml:link
+            rel="alternate"
+            hreflang="en"
+            href="https://elcri.men/en/municipios-mas-violentos.html"
             />
     </url>
 

@@ -434,15 +434,6 @@ class CrimeMunicipios(CrimeStates):
         del df['variable']  # delete month
         del df['year']
 
-        # Oaxaca did no submit reliable data for the months of
-        # January, March, April, June, September, October and December
-        # 2015 and October 2016
-        for inegi_code in df[df.inegi.str.startswith('20')].inegi.unique():
-            for date in df[df.inegi.str.startswith('20')].date.unique():
-                if(df[(df.inegi == inegi_code) & (df.date.str.startswith(date))]['count'].sum() == 0):
-                    df.ix[(df.inegi == inegi_code) & (df.date.str.startswith(date)),'count'] = np.nan
-                    print('setting counts as NA for inegi_code: {} with date {} because they are all zeros'.format(inegi_code, date))
-
         del df['inegi']
 
         df.columns = self._cleanColumnNames
@@ -467,11 +458,35 @@ class CrimeMunicipios(CrimeStates):
         if len(bad_dates):
             df = df[~df['date'].isin(bad_dates)]
 
-        # Oaxaca didn't report any crimes in 2015, fill them with NA
-        if len(df[(df.state_code == 20) & (df.date.str.startswith('2015'))]) == 0:
-            oax = df[(df.state_code == 20) & (df.date.str.startswith('2016'))]
-            oax[:]['date'] = oax[:]['date'].str.replace('2016', '2015')
-            oax[:]['count'] = np.nan
-            df = df.append(oax)
+        # Oaxaca did no submit reliable data for the months of
+        # January, March, April, June, September, October and December
+        # 2015 and October 2016
+        if(df[(df.state_code == 20) & (df.date == '2015-01'))]['count'].sum() == 0):
+            df.ix[(df.state_code == 20) & (df.date == '2015-01')),'count'] = np.nan
+            print('setting counts as NA for state_code: 20 with date 2015-01 because they are all zeros')
+        if(df[(df.state_code == 20) & (df.date == '2015-03'))]['count'].sum() == 0):
+            df.ix[(df.state_code == 20) & (df.date == '2015-03')),'count'] = np.nan
+            print('setting counts as NA for state_code: 20 with date 2015-03 because they are all zeros')
+        if(df[(df.state_code == 20) & (df.date == '2015-04'))]['count'].sum() == 0):
+            df.ix[(df.state_code == 20) & (df.date == '2015-04')),'count'] = np.nan
+            print('setting counts as NA for state_code: 20 with date 2015-04 because they are all zeros')
+        if(df[(df.state_code == 20) & (df.date == '2015-06'))]['count'].sum() == 0):
+            df.ix[(df.state_code == 20) & (df.date == '2015-06')),'count'] = np.nan
+            print('setting counts as NA for state_code: 20 with date 2015-06 because they are all zeros')
+        if(df[(df.state_code == 20) & (df.date == '2015-07'))]['count'].sum() == 0):
+            df.ix[(df.state_code == 20) & (df.date == '2015-07')),'count'] = np.nan
+            print('setting counts as NA for state_code: 20 with date 2015-07 because they are all zeros')
+        if(df[(df.state_code == 20) & (df.date == '2015-09'))]['count'].sum() == 0):
+            df.ix[(df.state_code == 20) & (df.date == '2015-09')),'count'] = np.nan
+            print('setting counts as NA for state_code: 20 with date 2015-09 because they are all zeros')
+        if(df[(df.state_code == 20) & (df.date == '2015-10'))]['count'].sum() == 0):
+            df.ix[(df.state_code == 20) & (df.date == '2015-10')),'count'] = np.nan
+            print('setting counts as NA for state_code: 20 with date 2015-10 because they are all zeros')
+        if(df[(df.state_code == 20) & (df.date == '2015-12'))]['count'].sum() == 0):
+            df.ix[(df.state_code == 20) & (df.date == '2015-12')),'count'] = np.nan
+            print('setting counts as NA for state_code: 20 with date 2015-12 because they are all zeros')        
+        if(df[(df.state_code == 20) & (df.date == '2016-10'))]['count'].sum() == 0):
+            df.ix[(df.state_code == 20) & (df.date == '2016-10')),'count'] = np.nan
+            print('setting counts as NA for state_code: 20 with date 2016-10 because they are all zeros')
 
         self.data = df

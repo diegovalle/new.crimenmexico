@@ -123,7 +123,7 @@
                                     <ul>
                                         <li><a href="/en/municipios-map.html">Map</a></li>
                                         <li><a href="/en/municipios.html">Time Series</a></li>
-                                        <li><a href="/en/mexico-crime-by-city.html">Top 30</a></li>
+                                        <li><a href="/en/municipios-mas-violentos.html">Top 30</a></li>
                                         <li><a href="/en/lisa-map.html">Cluster Map</a></li>
                                     </ul></li>
                                 <li><a href="/en/anomalies.html">Anomalies</a></li>
@@ -142,7 +142,7 @@
 
                     <!-- Wide Content -->
                     <article id="content">
-                        <h2>Most violent municipios during the last 6 months</h2><br>
+                        <h2>Most violent municipios from July 2017 to December 2017</h2><br>
                         <div class="row">
                             <div class="2u 12u(mobile)"></div>
                             <div class="8u 12u(mobile)"><div id="chart"></div></div>
@@ -216,6 +216,7 @@
          var div = d3.select("body").append("div")
                      .attr("class", "tooltip")
                      .style("opacity", 0);
+         // based on https://bl.ocks.org/mbostock/7555321
          function wrap(text, width) {
              text.each(function() {
                  var text = d3.select(this),
@@ -272,6 +273,7 @@
                  }
              });
          }
+         // based on http://d3-generator.com/
          function renderChart(data) {
 
              //var data = d3.csv.parse(d3.select('#csv').text());

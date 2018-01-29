@@ -28,7 +28,7 @@ License: pixelarity.com/license
         <title>Municipios más violentos - Cifras de Delincuencia en México</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="alternate" hreflang="en" href="https://elcri.men/en/mexico-crime-by-city.html" />
+        <link rel="alternate" hreflang="en" href="https://elcri.men/en/municipios-mas-violentos.html" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="description" content="Los municipios más violentos de México durante los últimos 6 meses" />
         <link rel="stylesheet" href="/assets/css/metricsgraphics.min.css" />
@@ -134,7 +134,7 @@ License: pixelarity.com/license
                                 <li><a href="/es/anomalies.html">Anomalías</a></li>
                                 <li><a href="/es/infographics.html">Infográficas</a></li>
                                 <li><a href="/es/datos.html">Datos</a></li>
-                                <li style="white-space: nowrap;"><a href="/en/mexico-crime-by-city.html"><img width="24" height="16" src="/images/us.png" style="">En</a></li>
+                                <li style="white-space: nowrap;"><a href="/en/municipios-mas-violentos.html"><img width="24" height="16" src="/images/us.png" style="">En</a></li>
                             </ul>
                         </nav>
 
@@ -147,7 +147,7 @@ License: pixelarity.com/license
 
                     <!-- Wide Content -->
                     <article id="content">
-                        <h2>30 municipios más violentos durante los últimos 6 meses</h2><br>
+                        <h2>Municipios más violentos de julio 2017 a diciembre 2017</h2><br>
                         <div class="row">
                             <div class="2u 12u(mobile)"></div>
                             <div class="8u 12u(mobile)"><div id="chart"></div></div>
@@ -220,6 +220,7 @@ License: pixelarity.com/license
          var div = d3.select("body").append("div")
                      .attr("class", "tooltip")
                      .style("opacity", 0);
+         // based on https://bl.ocks.org/mbostock/7555321
          function wrap(text, width) {
              text.each(function() {
                  var text = d3.select(this),
@@ -276,6 +277,7 @@ License: pixelarity.com/license
                  }
              });
          }
+         // based on http://d3-generator.com/
          function renderChart(data) {
 
              //var data = d3.csv.parse(d3.select('#csv').text());
