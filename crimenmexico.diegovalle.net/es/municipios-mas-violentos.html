@@ -1,0 +1,419 @@
+<!DOCTYPE HTML>
+<!--
+Focal Point by Pixelarity
+pixelarity.com @pixelarity
+License: pixelarity.com/license
+-->
+<html lang="es">
+    <head>
+
+        <link rel="preload" href="/assets/js/jquery.min.js" as="script">
+        <link rel="preload" href="/assets/js/jquery.dropotron.min.js" as="script">
+        <link rel="preload" href="/assets/js/jquery.selectorr.min.js" as="script">
+        <link rel="preload" href="/assets/js/jquery.poptrox.min.js" as="script">
+        <link rel="preload" href="/assets/js/skel.min.js" as="script">
+        <link rel="preload" href="/assets/js/skel-viewport.min.js" as="script">
+        <link rel="preload" href="/assets/js/util.js" as="script">
+        <link rel="preload" href="/assets/js/main.js" as="script">
+        <link rel="preload" href='/assets/js/d3.min.js' as="script">
+        <link rel="preload" href='/assets/js/topojson.min.js' as="script">
+        <link rel="preload" href='/assets/js/metricsgraphics.js' as="script">
+        <link rel="preload" href='/assets/js/lodash.min.js' as="script">
+        <link rel="preload" href="/assets/js/d3-tip/index.js" as="script">
+        <link rel="preload" href="/assets/css/main.css"  as="script">
+        <link rel="preload" href="/assets/css/crimenmexico.css"  as="script">
+        <link rel="preload" href="/js/muns.js" as="script">
+
+
+        <title>Municipios más violentos - Cifras de Delincuencia en México</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="alternate" hreflang="en" href="https://elcri.men/en/mexico-crime-by-city.html" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="Los municipios más violentos de México durante los últimos 6 meses" />
+        <link rel="stylesheet" href="/assets/css/metricsgraphics.min.css" />
+        <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+        <link rel="stylesheet" href="/assets/css/main.css" />
+        <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+        <link rel="stylesheet" href="/assets/css/crimenmexico.css" />
+        <style>
+         svg  > path.mg-line1-color {
+             stroke: #542788;
+             stroke-width: 1.5;
+         }
+         svg  > path.mg-line2-color {
+             stroke: #F8766D;
+             stroke-width: 1.5;
+         }
+         .mg-line2-legend-color {
+             color: #F8766D;
+             fill: #F8766D;
+         }
+         .mg-line1-legend-color {
+             color: #542788;
+             fill: #542788;
+         }
+         .mg-area2-color {
+             fill: #F8766D;
+         }
+         .mg-area1-color {
+             fill: #542788;
+         }
+         .axis {
+             font: 10px sans-serif;
+         }
+         div.tooltip {
+             position: absolute;
+             text-align: left;
+             padding: 2px;
+             font: 12px sans-serif;
+             color: #fff;
+             background: black;
+             border: 1px solid darkgray;
+             border-radius: 2px;
+             pointer-events: none;
+         }
+        </style>
+    </head>
+    <body class="no-sidebar">
+        <div id="page-wrapper">
+            <div class="container">
+
+                <!-- Header Wrapper -->
+                <div id="header-wrapper" class="wrapper">
+
+                    <!-- Header -->
+                    <div id="header">
+
+                        <!-- Logo -->
+                        <a href="/index.html" id="logo">
+                            <span class="pennant"><span class="icon fa-bar-chart"></span></span>
+                            <h1>ElCri.men</h1>
+                        </a>
+
+                        <!-- Nav -->
+                        <nav id="nav">
+                            <ul>
+                                <li><a href="/">Inicio</a></li>
+                                <!-- <li>
+                                     <a href="#">Dropdown</a>
+                                     <ul>
+                                     <li><a href="#">Lorem ipsum dolor</a></li>
+                                     <li><a href="#">Magna phasellus</a></li>
+                                     <li><a href="#">Etiam dolore nisl</a></li>
+                                     <li>
+                                     <a href="#">Phasellus consequat</a>
+                                     <ul>
+                                     <li><a href="#">Lorem ipsum dolor</a></li>
+                                     <li><a href="#">Phasellus consequat</a></li>
+                                     <li><a href="#">Magna phasellus</a></li>
+                                     <li><a href="#">Etiam dolore nisl</a></li>
+                                     <li><a href="#">Veroeros feugiat</a></li>
+                                     </ul>
+                                     </li>
+                                     <li><a href="#">Veroeros feugiat</a></li>
+                                     </ul>
+                                     </li> -->
+                                <li><a href="#">Estados</a>
+                                    <ul>
+                                        <li><a href="/es/states.html">Series de Tiempo</a></li>
+                                        <li><a href="/es/estados-mujeres.html">Homicidios de Mujeres</a></li>
+                                        <li><a href="/es/estados-feminicidio.html">Feminicidios</a></li>
+                                        <li><a href="/es/ENVIPE.html">Subregistro de Delitos</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="current_page_item"><a href="#">Municipios</a>
+                                    <ul>
+                                        <li><a href="/es/municipios-map.html">Mapa</a></li>
+                                        <li><a href="/es/municipios.html">Series de Tiempo</a></li>
+                                        <li><a href="/es/municipios-mas-violentos.html">Top 30</a></li>
+                                        <li><a href="/es/lisa-map.html">Mapa de clusters</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/es/anomalies.html">Anomalías</a></li>
+                                <li><a href="/es/infographics.html">Infográficas</a></li>
+                                <li><a href="/es/datos.html">Datos</a></li>
+                                <li style="white-space: nowrap;"><a href="/en/mexico-crime-by-city.html"><img width="24" height="16" src="/images/us.png" style="">En</a></li>
+                            </ul>
+                        </nav>
+
+                    </div>
+
+                </div>
+
+                <!-- Wide Content Wrapper -->
+                <div class="wrapper">
+
+                    <!-- Wide Content -->
+                    <article id="content">
+                        <h2>30 municipios más violentos durante los últimos 6 meses</h2><br>
+                        <div class="row">
+                            <div class="2u 12u(mobile)"></div>
+                            <div class="8u 12u(mobile)"><div id="chart"></div></div>
+                        </div>
+                        <br><br><hr><p>Todos los números se refieren a averiguaciones previas que pueden contener más de una víctima porque a nivel municipio es la única información disponible. Todas las tasas están anualizadas y incluyen sólo municipios con más de 100,000 personas. Los homicidios incluyen los feminicidios. </p>
+                </div>
+
+                <!-- Footer Wrapper -->
+                <div id="footer-wrapper" class="wrapper">
+
+                    <!-- Footer -->
+                    <section id="footer">
+                        <header>
+                            <h2>Acerca de:</h2>
+                        </header>
+                        <p>Autor: <a href="http://www.diegovalle.net">Diego Valle</a></p>
+                        <p>Por favor visiten <a href="https://hoyodecrimen.com">hoyodecrimen.com</a> para información delincuencial de CDMX</p>
+                        <ul class="contact">
+                            <li><a href="https://twitter.com/diegovalle" class="icon fa-twitter"><span>Twitter</span></a></li>
+                            <li><a href="https://facebook.com/diegovalle" class="icon fa-facebook"><span>Facebook</span></a></li>
+                            <li><a href="https://github.com/diegovalle" class="icon fa-github"><span>Instagram</span></a></li>
+                            <li><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#100;&#105;&#101;&#103;&#111;&#64;&#100;&#105;&#101;&#103;&#111;&#118;&#97;&#108;&#108;&#101;&#46;&#110;&#101;&#116;"  class="icon fa-envelope"><span>&#100;&#105;&#101;&#103;&#111;&#64;&#100;&#105;&#101;&#103;&#111;&#118;&#97;&#108;&#108;&#101;&#46;&#110;&#101;&#116;</span></a>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- Copyright -->
+                    <div id="copyright">
+                        &copy; Diego Valle-Jones. Todos los derechos reservados.<br>
+                        <a href="/en/index.html">English Version</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!--<div class="a2a_kit a2a_kit_size_32 a2a_floating_style a2a_vertical_style" style="left:0px; top:150px;">
+             <a class="a2a_button_facebook"></a>
+             <a class="a2a_button_twitter"></a>
+             <a class="a2a_button_reddit"></a>
+             <a class="a2a_dd" href="http://www.addtoany.com/share_save"></a>
+             </div>-->
+        <!--<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>-->
+
+        <!-- Scripts -->
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/jquery.dropotron.min.js"></script>
+        <script src="/assets/js/jquery.selectorr.min.js"></script>
+        <script src="/assets/js/jquery.poptrox.min.js"></script>
+        <script src="/assets/js/skel.min.js"></script>
+        <script src="/assets/js/skel-viewport.min.js"></script>
+        <script src="/assets/js/util.js"></script>
+        <!--[if lte IE 8]><script src="/assets/js/ie/respond.min.js"></script><![endif]-->
+        <script src="/assets/js/main.js"></script>
+        <script src='/assets/js/d3.min.js'></script>
+        <script src='/assets/js/topojson.min.js'></script>
+
+        <script>
+
+         var annualized_rate = 'tasa anualizada',
+             rate_text = ', tasa: ',
+             count_text = ', número: ';
+        </script>
+        <script>
+
+         var comma = d3.format(",");
+         var chart;
+         var barsContainer, gridContainer;
+         // Define the div for the tooltip
+         var div = d3.select("body").append("div")
+                     .attr("class", "tooltip")
+                     .style("opacity", 0);
+         function wrap(text, width) {
+             text.each(function() {
+                 var text = d3.select(this),
+                     words = text.text().split(/\s+/).reverse(),
+                     words2 =  text.text().split(/\s+/).reverse(),
+                     word,
+                     line = [],
+                     lineNumber = 0,
+                     lineHeight = 1.1, // ems
+                     y = text.attr("y"),
+                     dy = parseFloat(text.attr("dy")),
+                     tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em"),
+                     totalLines = 1;
+                 var line2 = [];
+                 while (word = words2.pop()) {
+                     line2.push(word);
+                     tspan.text(line2.join(" "));
+                     if (tspan.node().getComputedTextLength() > width) {
+                         //line.pop();
+                         //tspan = tspan.text(line.join(" "));
+                         line2 = [word];
+                         ++totalLines;
+                     }
+                 }
+                 line=[];
+                 var offset;
+                 switch(totalLines) {
+                     case 1:
+                         offset = 1.8;
+                         break;
+                     case 2:
+                         offset = 1.3;
+                         break;
+                     case 3:
+                         offset = .6;
+                         break;
+                     case 5:
+                         offset = -.5;
+                         break;
+                     default:
+                         offset = .3;
+                         break;
+                 }
+                 tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + offset+ "em")
+                 while (word = words.pop()) {
+                     line.push(word);
+                     tspan.text(line.join(" "));
+                     if (tspan.node().getComputedTextLength() > width) {
+                         line.pop();
+                         tspan.text(line.join(" "));
+                         line = [word];
+                         tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + offset+ "em").text(word);
+                     }
+                 }
+             });
+         }
+         function renderChart(data) {
+
+             //var data = d3.csv.parse(d3.select('#csv').text());
+             var valueLabelWidth = 50; // space reserved for value labels (right)
+             var barHeight = 50; // height of one bar
+             var barLabelWidth = 100; // space reserved for bar labels
+             var barLabelPadding = 5; // padding between bar and bar labels (left)
+             var gridLabelHeight = 18; // space reserved for gridline labels
+             var gridChartOffset = 3; // space between start of grid and first bar
+             var maxBarWidth = parseInt(d3.select('#chart').style('width')) - barLabelWidth - valueLabelWidth; // width of the bar with the max value
+
+             // accessor functions
+             var barLabel = function(d) { return d['name']; };
+             var barValue = function(d) { return parseFloat(d['rate']); };
+
+             // sorting
+             var sortedData = data.sort(function(a, b) {
+                 return d3.descending(barValue(a), barValue(b));
+             });
+
+             // scales
+             var yScale = d3.scale.ordinal().domain(d3.range(0, sortedData.length)).rangeBands([0, sortedData.length * barHeight]);
+             var y = function(d, i) { return yScale(i); };
+             var yText = function(d, i) { return y(d, i) + yScale.rangeBand() / 2; };
+             var x = d3.scale.linear().domain([0, d3.max(sortedData, barValue)]).range([0, maxBarWidth]);
+             // svg container element
+             chart = d3.select('#chart').append("svg")
+                       .attr('width', maxBarWidth + barLabelWidth + valueLabelWidth)
+                       .attr('height', gridLabelHeight + gridChartOffset + sortedData.length * barHeight);
+             // grid line labels
+             gridContainer = chart.append('g')
+                                  .attr('transform', 'translate(' + barLabelWidth + ',' + gridLabelHeight + ')');
+             gridContainer.selectAll("text").data(x.ticks(5)).enter().append("text")
+                          .attr("x", x)
+                          .attr("dy", -3)
+                          .attr("text-anchor", "middle")
+                          .text(String);
+             // vertical grid lines
+             gridContainer.selectAll("line").data(x.ticks(5)).enter().append("line")
+                          .attr("x1", x)
+                          .attr("x2", x)
+                          .attr("y1", 0)
+                          .attr("y2", yScale.rangeExtent()[1] + gridChartOffset)
+                          .style("stroke", "#ccc");
+             // bar labels
+             var labelsContainer = chart.append('g')
+                                        .attr('transform', 'translate(' + (barLabelWidth - barLabelPadding) + ',' + (gridLabelHeight + gridChartOffset) + ')');
+             labelsContainer.selectAll('text').data(sortedData).enter().append('text')
+                            .attr('y', yText)
+                            .attr('stroke', 'none')
+                            .attr("class", "x axis")
+                            .attr('fill', 'black')
+                            .attr("dy", "-1.25em") // vertical-align: middle
+                            .attr('text-anchor', 'end')
+                            .text(barLabel);
+             // bars
+             barsContainer = chart.append('g')
+                                  .attr('transform', 'translate(' + barLabelWidth + ',' + (gridLabelHeight + gridChartOffset) + ')');
+             barsContainer.selectAll("rect").data(sortedData).enter().append("rect")
+                          .attr('y', y)
+                          .attr('height', yScale.rangeBand())
+                          .attr('width', function(d) { return x(barValue(d)); })
+                          .attr('stroke', 'white').on("mouseover", function(d) {
+                              div.transition()
+                                 .duration(200)
+                                 .style("opacity", 1);
+                              div.html("Población: " + comma(d.population) + "<br>Número: " + d.count + "<br>Tasa Anualizada: " + d.rate + "<br> Nombre: " + d.name)
+                                 .style("left", (d3.event.pageX) + "px")
+                                 .style("top", (d3.event.pageY - 28) + "px");
+                          })
+                          .on("mouseout", function(d) {
+                              div.transition()
+                                 .duration(500)
+                                 .style("opacity", 0);
+                          })
+                          .attr('fill', '#fc4e2a');
+             // bar value labels
+             barsContainer.selectAll("text").data(sortedData).enter().append("text")
+                          .attr("x", function(d) { return x(barValue(d)); })
+                          .attr("y", yText)
+                          .attr("dx", 3) // padding-left
+                          .attr("dy", ".35em") // vertical-align: middle
+                          .attr("text-anchor", "start") // text-align: right
+                          .attr("fill", "black")
+                          .attr("stroke", "none")
+                          .text(function(d) { return d3.round(barValue(d), 2); });
+             // start line.
+             barsContainer.append("line")
+                          .attr("y1", -gridChartOffset)
+                          .attr("y2", yScale.rangeExtent()[1] + gridChartOffset)
+                          .style("stroke", "#000");
+             labelsContainer.selectAll("text").call(wrap,80);
+
+         }
+
+
+         function resize() {
+             // adjust things when the window size changes
+             var width = parseInt(d3.select('#chart').style('width'));
+             var barLabelWidth = 100,
+                 valueLabelWidth = 50;
+             var gridChartOffset = 3; // space between start of grid and first bar
+             var barHeight = 50; // height of one bar
+             var barValue = function(d) { return parseFloat(d['rate']); };
+             var maxBarWidth = parseInt(d3.select('#chart').style('width')) - barLabelWidth - valueLabelWidth;
+             var x = d3.scale.linear().domain([0, d3.max(bardata, barValue)]).range([0, maxBarWidth]);
+
+             // resize the map container
+             chart.style('width', width + 'px');
+             barsContainer.selectAll("text").data(bardata).attr("x", function(d) { return x(barValue(d)); })
+             barsContainer.selectAll("rect").data(bardata).attr('width', function(d) { return x(barValue(d)); })
+             gridContainer.selectAll("line").data(x.ticks(5))
+                          .attr("x1", x)
+                          .attr("x2", x)
+                          .style("stroke", "#ccc");
+             gridContainer.selectAll("text").data(x.ticks(5))
+                          .attr("x", x)
+                          .text(String)
+
+             // resize the map
+             //chart.select('path').attr('d', path);
+         }
+         var bardata;
+         d3.json('/assets/json/top-municipios.json', function(data) {
+             bardata = data;
+             renderChart(data);
+             document.addEventListener("DOMContentLoaded", resize);
+             d3.select(window).on('resize', resize);
+         });
+        </script>
+
+        <!-- Google Analytics -->
+        <script>
+         window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+         ga('create', 'UA-100264-7', 'auto');
+         ga('send', 'pageview');
+        </script>
+        <script async src='https://www.google-analytics.com/analytics.js'></script>
+        <!-- End Google Analytics -->
+    </body>
+</html>
