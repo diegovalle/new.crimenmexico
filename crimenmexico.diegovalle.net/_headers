@@ -340,6 +340,7 @@
     Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/css/leaflet.fullscreen.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
     Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
     Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
@@ -353,6 +354,7 @@
     Link: </assets/css/crimenmexico.css>; rel=preload; as=style
     Link: </assets/json/municipios-centroids.json>; rel=preload; as=script
     Link: </assets/js/crosslet.es.js>; rel=preload; as=script
+    Link: </assets/js/Leaflet.fullscreen.min.js>; rel=preload; as=script
     Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload; as=font
     Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
     Link: </assets/css/images/bg01.png>; rel=preload; as=image
@@ -367,6 +369,7 @@
     Referrer-Policy: same-origin
     Link: </assets/css/css/font.css>; rel=preload; as=style
     Link: </assets/css/font-awesome.min.css>; rel=preload; as=style
+    Link: </assets/css/leaflet.fullscreen.css>; rel=preload; as=style
     Link: </assets/js/jquery.min.js>; rel=preload; as=script
     Link: </assets/js/jquery.dropotron.min.js>; rel=preload; as=script
     Link: </assets/js/jquery.selectorr.min.js>; rel=preload; as=script
@@ -380,6 +383,7 @@
     Link: </assets/css/crimenmexico.css>; rel=preload; as=style
     Link: </assets/json/municipios-centroids.json>; rel=preload; as=script
     Link: </assets/js/crosslet.es.js>; rel=preload; as=script
+    Link: </assets/js/Leaflet.fullscreen.min.js>; rel=preload; as=script
     Link: </assets/fonts/fontawesome-webfont.woff2?v=4.3.0>; rel=preload; as=font
     Link: </assets/css/images/bg01-brown.png>; rel=preload; as=image
     Link: </assets/css/images/bg01.png>; rel=preload; as=image

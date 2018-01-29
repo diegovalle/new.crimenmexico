@@ -1378,7 +1378,8 @@ info.onAdd = function (map) {
 //]);
 
 //replace the tooltip that comes with crosslet to one that uses div
-// so I can use <br> inside the tooltip
+      // so I can use <br> inside the tooltip
+      var comma = d3.format(",");
       tooltip = d3.select("body")
           .append("div")
           .attr("class", "tooltip");
@@ -1386,10 +1387,10 @@ info.onAdd = function (map) {
           tooltip
               .style("visibility", "visible")
               .html(d.properties.name + "<br/>" +
-                    "Población: <big><b>" +d.properties.population + "</b></big><br\>" +
-                    "Número: <big><b>" +d.properties.count + "</b></big><br\>" +
-                    "Tasa: <big><b>" + d.properties.rate + "</b></big><br\>" +
-                    "Períodos reportados: <big><b>" + d.properties.len + "</b></big>")
+                    "Population: <big><b>" + comma(d.properties.population) + "</b></big><br\>" +
+                    "Count: <big><b>" +d.properties.count + "</b></big><br\>" +
+                    "Annualized rate: <big><b>" + d.properties.rate + "</b></big><br\>" +
+                    "Months reported: <big><b>" + d.properties.len + "</b></big>")
               .style("top", d3.event.pageY + "px")
               .style("left", d3.event.pageX + "px");  /* \n does not work when
                                                                                           creating a line break*/

@@ -32,7 +32,7 @@ NATURAL JOIN population_municipios
 WHERE  ( ( subtipo_text = 'HOMICIDIO DOLOSO' 
 OR 
 subtipo_text = 'FEMINICIDIO' ) 
-AND ( date >= (SELECT substr(date((SELECT max(date) FROM municipios_fuero_comun) || '-01' ,'start of month', '-11 months'), 1, 7) ) )
+AND ( date >= (SELECT substr(date((SELECT max(date) FROM municipios_fuero_comun) || '-01' ,'start of month', '-5 months'), 1, 7) ) )
 AND population > 100000 ) 
 GROUP  BY state_code, 
 mun_code 
@@ -108,7 +108,7 @@ NATURAL JOIN subtipo_municipios
 NATURAL JOIN municipio_names 
 NATURAL JOIN population_municipios 
 WHERE  ( ( subtipo_text = 'SECUESTRO'  ) 
-AND ( date >= (SELECT substr(date((SELECT max(date) FROM municipios_fuero_comun) || '-01' ,'start of month', '-11 months'), 1, 7)
+AND ( date >= (SELECT substr(date((SELECT max(date) FROM municipios_fuero_comun) || '-01' ,'start of month', '-5 months'), 1, 7)
 ) ) 
 AND population > 100000 ) 
 GROUP  BY state_code, 
@@ -182,7 +182,7 @@ NATURAL JOIN subtipo_municipios
 NATURAL JOIN municipio_names 
 NATURAL JOIN population_municipios 
 WHERE  ( ( subtipo_text = 'EXTORSIÓN'  ) 
-AND ( date >= (SELECT substr(date((SELECT max(date) FROM municipios_fuero_comun) || '-01' ,'start of month', '-11 months'), 1, 7)
+AND ( date >= (SELECT substr(date((SELECT max(date) FROM municipios_fuero_comun) || '-01' ,'start of month', '-5 months'), 1, 7)
 ) ) 
 AND population > 100000 ) 
 GROUP  BY state_code, 
@@ -293,7 +293,7 @@ NATURAL JOIN subtipo_municipios
 NATURAL JOIN municipio_names 
 NATURAL JOIN population_municipios 
 WHERE  ( ( modalidad_text = 'ROBO DE COCHE DE 4 RUEDAS SIN VIOLENCIA' ) 
-AND ( date >= (SELECT substr(date((SELECT max(date) FROM municipios_fuero_comun) || '-01' ,'start of month', '-11 months'), 1, 7)
+AND ( date >= (SELECT substr(date((SELECT max(date) FROM municipios_fuero_comun) || '-01' ,'start of month', '-5 months'), 1, 7)
 ) ) 
 AND population > 100000 ) 
 GROUP  BY state_code, 
@@ -366,7 +366,7 @@ NATURAL JOIN subtipo_municipios
 NATURAL JOIN municipio_names 
 NATURAL JOIN population_municipios 
 WHERE  ( ( modalidad_text = 'ROBO DE COCHE DE 4 RUEDAS CON VIOLENCIA'  ) 
-AND ( date >= (SELECT substr(date((SELECT max(date) FROM municipios_fuero_comun) || '-01' ,'start of month', '-11 months'), 1, 7)
+AND ( date >= (SELECT substr(date((SELECT max(date) FROM municipios_fuero_comun) || '-01' ,'start of month', '-5 months'), 1, 7)
 ) ) 
 AND population > 100000 ) 
 GROUP  BY state_code, 

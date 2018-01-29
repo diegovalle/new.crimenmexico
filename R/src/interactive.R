@@ -68,6 +68,13 @@ write.csv(filter(muns2, tipo == "Intentional Homicide")
           "interactive-map/municipios-centroids.csv",
           row.names = FALSE)
 
+# Top 30 municipios by rate
+top30 <- filter(muns2, population > 100000) %>%
+  left_join(abbrev, by = "state_code") %>%
+  mutate(name = str_c(municipio, ", ", state_abbrv)) %>%
+  arrange(-rate) %>%
+  head(30)
+write(toJSON(top30[,c("count", "rate", "population", "name")]), "json/top-municipios.json")
 
 #tmpdir <- tempdir()
 # have to use RJSONIO or else the topojson isn't valid
