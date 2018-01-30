@@ -1,8 +1,0 @@
-<OGRVRTDataSource>
-    <OGRVRTLayer name="municipios-centroids">
-        <SrcDataSource>municipios-centroids.csv</SrcDataSource>
-        <GeometryType>wkbPoint</GeometryType>
-        <LayerSRS>WGS84</LayerSRS>
-        <GeometryField encoding="PointFromColumns" x="long" y="lat"/>
-    </OGRVRTLayer>
-</OGRVRTDataSource>

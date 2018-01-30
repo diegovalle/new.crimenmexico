@@ -69,7 +69,7 @@ write.csv(filter(muns2, tipo == "Intentional Homicide")
           row.names = FALSE)
 
 # Top 30 municipios by rate
-top30 <- filter(muns2, population > 100000) %>%
+top30 <- filter(muns2, (count >= 30) | population > 100000) %>%
   left_join(abbrev, by = "state_code") %>%
   mutate(name = str_c(municipio, ", ", state_abbrv)) %>%
   arrange(-rate) %>%

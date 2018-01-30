@@ -32,6 +32,7 @@ cd downloader && python scrape.py && cd ..
 echo "Starting statistical analysis"
 cd R && Rscript run_all.R && cd ..
 echo "Finished R script"
+
 # Convert the infographics R created to png and optimize for the web
 for filename in R/graphs/*.svg; do
     if [ ! -f "R/graphs/$(basename "$filename" .svg).png" ]
@@ -43,7 +44,6 @@ for filename in R/graphs/*.svg; do
 done
 
 
-
 # Move the json files with the chart data to the website directory
 cp R/json/*.json crimenmexico.diegovalle.net/assets/json/
 
@@ -53,8 +53,8 @@ if [ -f R/interactive-map/municipios-centroids.json ]
 then
     rm R/interactive-map/municipios-centroids.json
 fi
-cd R/interactive-map/ && ogr2ogr -f "GeoJSON" municipios-centroids.json municipios-centroids.vrt && cd ../..
-cp R/interactive-map/municipios* crimenmexico.diegovalle.net/assets/json
+cd R/interactive-map/ && ./convert.sh && cd ../..
+cp R/interactive-map/municipios*.{csv,json} crimenmexico.diegovalle.net/assets/json
 
 # Move images to the website directory
 echo "Creating website...."
