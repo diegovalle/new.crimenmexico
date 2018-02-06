@@ -17,15 +17,12 @@ License: pixelarity.com/license
         <link rel="preload" href="/assets/js/main.js" as="script">
         <link rel="preload" href='/assets/js/d3.min.js' as="script">
         <link rel="preload" href='/assets/js/topojson.min.js' as="script">
-        <link rel="preload" href='/assets/js/metricsgraphics.js' as="script">
         <link rel="preload" href='/assets/js/lodash.min.js' as="script">
         <link rel="preload" href="/assets/js/d3-tip/index.js" as="script">
         <link rel="preload" href="/assets/css/main.css"  as="script">
-        <link rel="preload" href="/assets/css/metricsgraphics.min.css"  as="script">
         <link rel="preload" href="/assets/css/leaflet.css"  as="script">
         <link rel="preload" href="/assets/js/leaflet.min.js""  as="script">
         <link rel="preload" href="/assets/js/L.Control.Locate.js"  as="script">
-        <link rel="preload" href="/assets/js/crosslet.es.js"  as="script">
         <link rel="preload" href="/assets/json/municipios.topojson"  as="script">
         <link rel="preload" href="/assets/json/lisa.json"  as="script">
 
@@ -47,6 +44,9 @@ License: pixelarity.com/license
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.5/leaflet.ie.css" />
         <![endif]-->
         <script src="/assets/js/leaflet.min.js"></script>
+
+        <link href='/assets/css/leaflet.fullscreen.css' rel='stylesheet' />
+        <link href="/assets/css/leaflet.label.css" rel="stylesheet">
         <style>
          input {
              height: 2em;
@@ -109,6 +109,25 @@ License: pixelarity.com/license
              color:white;
              padding:.5em .75em;
              font-size:.85em;
+         }
+         .my-label {
+             background: rgba(255, 255, 255, 0.71);
+             border-width: 1px;
+             border-radius: 2px;
+             line-height: 1;
+             padding: 2px 2px;
+         }
+         .leaflet-label:before {
+             border-right: 6px solid black;
+             border-right-color: inherit;
+             left: -7px;
+         }
+         .leaflet-label:before, .leaflet-label:after {
+             border-top: 6px solid transparent;
+             border-bottom: 6px solid transparent;
+             content: none;
+             position: absolute;
+             top: 2px;
          }
         </style>
     </head>
@@ -203,7 +222,7 @@ License: pixelarity.com/license
                         </div>
 
                     </section>
-                    <p>El color de los municipios representa el cluster al que pertencen ( <span style="color:#ca0020">&#9632;</span> Rojo = Alto-Alto,  <span style="color:#f4a582">&#9632;</span> Rojo Claro = Alto-Bajo, <span style="color:#0571b0">&#9632;</span> Azul = Bajo-Bajo, <span style="color:#92c5de">&#9632;</span> Azul Claro = Bajo-Alto). Los clusters se obtuvieron al aplicar el método <a href="https://en.wikipedia.org/wiki/Indicators_of_spatial_association">LISA</a></p>
+                    <p>El color de los municipios representa la tasa de homicidios modelada con un GAM y suavizado con un Markov Randon Field</p>
                 </div>
 
                 <!-- Footer Wrapper -->
@@ -266,8 +285,11 @@ License: pixelarity.com/license
         <script src="/assets/js/backbone-min.js"></script>
         <script src='/assets/js/L.Control.Locate.js'></script>
         <link href='/assets/css/L.Control.Locate.css' rel='stylesheet' />
+
+        <script src='/assets/js/Leaflet.fullscreen.min.js'></script>
+        <script src="/assets/js/leaflet.label.js"></script>
         <!--[if lt IE 9]>
-        <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.ie.css' rel='stylesheet' />
+            <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.ie.css' rel='stylesheet' />
         <![endif]-->
         <script>
          L.TopoJSON = L.GeoJSON.extend({
@@ -282,7 +304,10 @@ License: pixelarity.com/license
                          geojson.features.forEach(function(e) {
                              index = _.findIndex(values['mun.map.id'], function(d) {return d === e.properties.id})
                              e.properties['color'] = values['color'][index];
-                             e.properties['name'] = values['mun.map.municipio'][index] + ', ' + values['mun.map.state'][index];
+                             if (typeof values['mun.map.municipio'][index] !== "undefined")
+                                 e.properties['name'] = values['mun.map.municipio'][index] + ', ' + values['mun.map.state'][index] + ': ' + values['smooth.rate'][index];
+                             else
+                                 e.properties['name'] = "NA"
                          })
                          L.GeoJSON.prototype.addData.call(this, geojson);
                      }
@@ -315,9 +340,9 @@ License: pixelarity.com/license
 
                  layer.setStyle({
                      fillColor : layer.feature.properties.color,
-                     fillOpacity: .5,
-                     color:'#555',
-                     weight:1,
+                     fillOpacity: .7,
+                     color:'#222',
+                     weight:.7,
                      opacity:0.8
                  });
 
@@ -348,6 +373,47 @@ License: pixelarity.com/license
                  });
              }
          });
+
+
+         var createMarker = function(name, coords, map, direction){
+             var marker = new L.marker(coords, { opacity: 0.01 });
+             marker.bindLabel(name, {noHide: true, className: "my-label", offset: [0, 0], direction: direction });
+             marker.addTo(map).showLabel();
+         }
+         createMarker("Cancún", [21.161, -86.825], map, "right")
+         createMarker("Acapulco", [16.862, -99.887], map, "left")
+         createMarker("Los Cabos", [23.062, -109.695], map, "right")
+         createMarker("Manzanillo", [19.053, -104.316], map, "left")
+         createMarker("Tijuana", [32.532, -117.019], map, "left")
+         createMarker("Guadalupe y Calvo", [26.095, -106.964], map, "right")
+         createMarker("Victoria", [23.731, -99.151], map, "right")
+         createMarker("Miguel Alemán", [26.401, -99.026], map, "right")
+         createMarker("Coatzacoalcos", [18.138, -94.453], map, "right")
+         createMarker("Poza Rica", [20.534, -97.444], map, "right")
+         createMarker("Tepic", [21.507, -104.894], map, "left")
+         createMarker("Zacatecas", [22.776, -102.572], map, "right")
+         createMarker("Apatzingán", [19.087, -102.355], map, "right")
+         createMarker("Guaymas", [27.923, -110.889], map, "left")
+         createMarker("Culiacán", [24.809, -107.394], map, "left")
+
+
+         // create the control
+         var command = L.control({position: 'topleft'});
+
+         command.onAdd = function (map) {
+             var div = L.DomUtil.create('div', 'leaflet-control-zoom');
+
+             div.innerHTML = '<a id="fullscreen" class="leaflet-control-zoom-in leaflet-bar-part leaflet-bar-part-top" href="#" title="Zoom in" style="background: #fff url(/assets/css/fullscreen.png) no-repeat 0 0;background-size: 26px 52px;width: 26px;height: 26px;box-shadow: 0 1px 5px rgba(0,0,0,0.65);border-radius: 4px;"></a>';
+             return div;
+         };
+         // add the event handler
+         function handleCommand() {
+             map.toggleFullscreen()
+         }
+
+
+         command.addTo(map);
+         document.getElementById("fullscreen").addEventListener("click", handleCommand, false);
         </script>
         <!-- Google Analytics -->
         <script>
