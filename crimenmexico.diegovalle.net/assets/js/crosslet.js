@@ -1391,9 +1391,9 @@ info.onAdd = function (map) {
                     "Count: <big><b>" +d.properties.count + "</b></big><br\>" +
                     "Annualized rate: <big><b>" + d.properties.rate + "</b></big><br\>" +
                     "Months reported: <big><b>" + d.properties.len + "</b></big>")
-              .style("top", d3.event.pageY + "px")
-              .style("left", d3.event.pageX + "px");  /* \n does not work when
-                                                                                          creating a line break*/
+              .style("top", function() {return a.map.isFullscreen() ? d3.event.pageY + "px" : d3.event.clientY + "px" })
+              .style("left", function() {return a.map.isFullscreen() ? d3.event.pageX + "px" : d3.event.clientX + "px" });  /* \n does not work when
+                                                                                                                             creating a line break*/
       }
 
 

@@ -1380,7 +1380,7 @@ info.onAdd = function (map) {
 //replace the tooltip that comes with crosslet to one that uses div
       // so I can use <br> inside the tooltip
       var comma = d3.format(",");
-      tooltip = d3.select("body")
+      tooltip = d3.select("#hom-map")
           .append("div")
           .attr("class", "tooltip");
       function mouseover(d){
@@ -1391,8 +1391,8 @@ info.onAdd = function (map) {
                     "Número: <big><b>" +d.properties.count + "</b></big><br\>" +
                     "Tasa anualizada: <big><b>" + d.properties.rate + "</b></big><br\>" +
                     "Meses reportados: <big><b>" + d.properties.len + "</b></big>")
-              .style("top", d3.event.pageY + "px")
-              .style("left", d3.event.pageX + "px");  /* \n does not work when
+              .style("top", function() {return a.map.isFullscreen() ? d3.event.pageY + "px" : d3.event.clientY + "px" })
+              .style("left", function() {return a.map.isFullscreen() ? d3.event.pageX + "px" : d3.event.clientX + "px" });  /* \n does not work when
                                                                                           creating a line break*/
       }
 
