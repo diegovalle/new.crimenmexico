@@ -223,7 +223,7 @@ License: pixelarity.com/license
                         </div>
 
                     </section>
-                    <p>Modelled homicide rates in Mexico with a GAM smoothed with a Markov Random Field</p>
+                    <p>Because some municipios have a low population and homicides tend to be rare occurrences the variance in homicide rates per 100,000 tends to be high. To remove some of the variance, and help discover patterns in the data, the homicide rate in each municipio was calculated based on a GAM with a Gaussian Markov random field smoother, with each state included as a treatment variable. Homicides include feminicides.</p>
                 </div>
 
                 <!-- Footer Wrapper -->
@@ -292,6 +292,7 @@ License: pixelarity.com/license
         <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.ie.css' rel='stylesheet' />
         <![endif]-->
         <script>
+         var comma = d3.format(",");
          L.TopoJSON = L.GeoJSON.extend({
              addData: function(jsonData) {
                  if (jsonData.type === "Topology") {
@@ -305,7 +306,8 @@ License: pixelarity.com/license
                              index = _.findIndex(values['mun.map.id'], function(d) {return d === e.properties.id})
                              e.properties['color'] = values['color'][index];
                              if (typeof values['mun.map.municipio'][index] !== "undefined")
-                                 e.properties['name'] = values['mun.map.municipio'][index] + ', ' + values['mun.map.state'][index] + ': ' + values['smooth.rate'][index];
+                                 e.properties['name'] = values['mun.map.municipio'][index] + ', ' + values['mun.map.state'][index] + ' - Modelled rate: ' + values['smooth.rate'][index] +
+                                                        ' | Population: ' + comma(values['population'][index]);
                              else
                                  e.properties['name'] = "NA"
                          })
@@ -340,10 +342,10 @@ License: pixelarity.com/license
 
                  layer.setStyle({
                      fillColor : layer.feature.properties.color,
-                     fillOpacity: .5,
+                     fillOpacity: .8,
                      color:'#555',
-                     weight:1,
-                     opacity:0.8
+                     weight:.5,
+                     opacity:1
                  });
 
                  layer.on({

@@ -45,7 +45,10 @@ pacman::p_load("dplyr",
                "mxmortalitydb",
                "future",
                "geojsonio",
-               "spdep")
+               "spdep",
+               "mgcv",
+               "viridis",
+               "ggrepel")
 
 #font_import("fonts", prompt = FALSE) 
 loadfonts()

@@ -222,7 +222,7 @@ License: pixelarity.com/license
                         </div>
 
                     </section>
-                    <p>El color de los municipios representa la tasa de homicidios modelada con un GAM y suavizado con un Markov Randon Field</p>
+                    <p>El color de los municipios representa la tasa de homicidios modelada con un GAM y suavizado con un Markov Randon Field para remover la varianza que occurre por que algunos municipios tienen poca población. Los homicidios incluyen los feminicidios.</p>
                 </div>
 
                 <!-- Footer Wrapper -->
@@ -292,6 +292,7 @@ License: pixelarity.com/license
             <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.ie.css' rel='stylesheet' />
         <![endif]-->
         <script>
+         var comma = d3.format(",");
          L.TopoJSON = L.GeoJSON.extend({
              addData: function(jsonData) {
                  if (jsonData.type === "Topology") {
@@ -305,115 +306,116 @@ License: pixelarity.com/license
                              index = _.findIndex(values['mun.map.id'], function(d) {return d === e.properties.id})
                              e.properties['color'] = values['color'][index];
                              if (typeof values['mun.map.municipio'][index] !== "undefined")
-                                 e.properties['name'] = values['mun.map.municipio'][index] + ', ' + values['mun.map.state'][index] + ': ' + values['smooth.rate'][index];
+                                 e.properties['name'] = values['mun.map.municipio'][index] + ', ' + values['mun.map.state'][index] + ' - Tasa modelada: ' + values['smooth.rate'][index] +
+                                                        ' | Población: ' + comma(values['population'][index]);
                              else
                                  e.properties['name'] = "NA"
                          })
-                         L.GeoJSON.prototype.addData.call(this, geojson);
+                             L.GeoJSON.prototype.addData.call(this, geojson);
                      }
                  }
-                 else {
-                     L.GeoJSON.prototype.addData.call(this, jsonData);
+                             else {
+                                 L.GeoJSON.prototype.addData.call(this, jsonData);
+                             }
+             }
+         });
+             // Copyright (c) 2013 Ryan Clark
+             // create a map object and set the view to the coordinates 44,-31 with a zoom of 10
+             var map = L.map('hom-map', topoLayer = new L.TopoJSON())
+                        .setView([23.5,  -102.1], 5);
+             L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+	         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+	         subdomains: 'abcd',
+	         maxZoom: 19
+             }).addTo(map);
+             d3.json("/assets/json/lisa.json", function(d) {
+                 nulls = d[0];
+                 values = d[1];
+                 $.getJSON('/assets/json/municipios.topojson').done(addTopoData);
+                 function addTopoData(topoData){
+                     topoLayer.addData(topoData);
+                     topoLayer.addTo(map);
+                     topoLayer.eachLayer(handleLayer);
                  }
+                 function handleLayer(layer){
+                     var fillColor = '#ca0020';
+
+                     layer.setStyle({
+                         fillColor : layer.feature.properties.color,
+                         fillOpacity: .8,
+                         color:'#222',
+                         weight:.5,
+                         opacity:1
+                     });
+
+                     layer.on({
+                         mouseover: enterLayer,
+                         mouseout: leaveLayer
+                     });
+                 }
+                 var $tooltip = $('.county-name');
+                 function enterLayer(){
+                     var countyName = this.feature.properties.name;
+                     $tooltip.text(countyName).show();
+
+                     this.bringToFront();
+                     this.setStyle({
+                         weight:2,
+                         opacity: 1
+                     });
+                 }
+
+                 function leaveLayer(){
+                     $tooltip.html("&nbsp;")
+
+                     this.bringToBack();
+                     this.setStyle({
+                         weight:1,
+                         opacity:.5
+                     });
+                 }
+             });
+
+
+             var createMarker = function(name, coords, map, direction){
+                 var marker = new L.marker(coords, { opacity: 0.01 });
+                 marker.bindLabel(name, {noHide: true, className: "my-label", offset: [0, 0], direction: direction });
+                 marker.addTo(map).showLabel();
              }
-         });
-         // Copyright (c) 2013 Ryan Clark
-         // create a map object and set the view to the coordinates 44,-31 with a zoom of 10
-         var map = L.map('hom-map', topoLayer = new L.TopoJSON())
-                    .setView([23.5,  -102.1], 5);
-         L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
-	     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-	     subdomains: 'abcd',
-	     maxZoom: 19
-         }).addTo(map);
-         d3.json("/assets/json/lisa.json", function(d) {
-             nulls = d[0];
-             values = d[1];
-             $.getJSON('/assets/json/municipios.topojson').done(addTopoData);
-             function addTopoData(topoData){
-                 topoLayer.addData(topoData);
-                 topoLayer.addTo(map);
-                 topoLayer.eachLayer(handleLayer);
-             }
-             function handleLayer(layer){
-                 var fillColor = '#ca0020';
+             createMarker("Cancún", [21.161, -86.825], map, "right")
+             createMarker("Acapulco", [16.862, -99.887], map, "left")
+             createMarker("Los Cabos", [23.062, -109.695], map, "right")
+             createMarker("Manzanillo", [19.053, -104.316], map, "left")
+             createMarker("Tijuana", [32.532, -117.019], map, "left")
+             createMarker("Guadalupe y Calvo", [26.095, -106.964], map, "right")
+             createMarker("Victoria", [23.731, -99.151], map, "right")
+             createMarker("Miguel Alemán", [26.401, -99.026], map, "right")
+             createMarker("Coatzacoalcos", [18.138, -94.453], map, "right")
+             createMarker("Poza Rica", [20.534, -97.444], map, "right")
+             createMarker("Tepic", [21.507, -104.894], map, "left")
+             createMarker("Zacatecas", [22.776, -102.572], map, "right")
+             createMarker("Apatzingán", [19.087, -102.355], map, "right")
+             createMarker("Ciudad Obregón", [27.496, -109.933], map, "left")
+             createMarker("Culiacán", [24.809, -107.394], map, "left")
 
-                 layer.setStyle({
-                     fillColor : layer.feature.properties.color,
-                     fillOpacity: .7,
-                     color:'#222',
-                     weight:.7,
-                     opacity:0.8
-                 });
 
-                 layer.on({
-                     mouseover: enterLayer,
-                     mouseout: leaveLayer
-                 });
-             }
-             var $tooltip = $('.county-name');
-             function enterLayer(){
-                 var countyName = this.feature.properties.name;
-                 $tooltip.text(countyName).show();
+             // create the control
+             var command = L.control({position: 'topleft'});
 
-                 this.bringToFront();
-                 this.setStyle({
-                     weight:2,
-                     opacity: 1
-                 });
+             command.onAdd = function (map) {
+                 var div = L.DomUtil.create('div', 'leaflet-control-zoom');
+
+                 div.innerHTML = '<a id="fullscreen" class="leaflet-control-zoom-in leaflet-bar-part leaflet-bar-part-top" href="#" title="Zoom in" style="background: #fff url(/assets/css/fullscreen.png) no-repeat 0 0;background-size: 26px 52px;width: 26px;height: 26px;box-shadow: 0 1px 5px rgba(0,0,0,0.65);border-radius: 4px;"></a>';
+                 return div;
+             };
+             // add the event handler
+             function handleCommand() {
+                 map.toggleFullscreen()
              }
 
-             function leaveLayer(){
-                 $tooltip.html("&nbsp;")
 
-                 this.bringToBack();
-                 this.setStyle({
-                     weight:1,
-                     opacity:.5
-                 });
-             }
-         });
-
-
-         var createMarker = function(name, coords, map, direction){
-             var marker = new L.marker(coords, { opacity: 0.01 });
-             marker.bindLabel(name, {noHide: true, className: "my-label", offset: [0, 0], direction: direction });
-             marker.addTo(map).showLabel();
-         }
-         createMarker("Cancún", [21.161, -86.825], map, "right")
-         createMarker("Acapulco", [16.862, -99.887], map, "left")
-         createMarker("Los Cabos", [23.062, -109.695], map, "right")
-         createMarker("Manzanillo", [19.053, -104.316], map, "left")
-         createMarker("Tijuana", [32.532, -117.019], map, "left")
-         createMarker("Guadalupe y Calvo", [26.095, -106.964], map, "right")
-         createMarker("Victoria", [23.731, -99.151], map, "right")
-         createMarker("Miguel Alemán", [26.401, -99.026], map, "right")
-         createMarker("Coatzacoalcos", [18.138, -94.453], map, "right")
-         createMarker("Poza Rica", [20.534, -97.444], map, "right")
-         createMarker("Tepic", [21.507, -104.894], map, "left")
-         createMarker("Zacatecas", [22.776, -102.572], map, "right")
-         createMarker("Apatzingán", [19.087, -102.355], map, "right")
-         createMarker("Guaymas", [27.923, -110.889], map, "left")
-         createMarker("Culiacán", [24.809, -107.394], map, "left")
-
-
-         // create the control
-         var command = L.control({position: 'topleft'});
-
-         command.onAdd = function (map) {
-             var div = L.DomUtil.create('div', 'leaflet-control-zoom');
-
-             div.innerHTML = '<a id="fullscreen" class="leaflet-control-zoom-in leaflet-bar-part leaflet-bar-part-top" href="#" title="Zoom in" style="background: #fff url(/assets/css/fullscreen.png) no-repeat 0 0;background-size: 26px 52px;width: 26px;height: 26px;box-shadow: 0 1px 5px rgba(0,0,0,0.65);border-radius: 4px;"></a>';
-             return div;
-         };
-         // add the event handler
-         function handleCommand() {
-             map.toggleFullscreen()
-         }
-
-
-         command.addTo(map);
-         document.getElementById("fullscreen").addEventListener("click", handleCommand, false);
+             command.addTo(map);
+             document.getElementById("fullscreen").addEventListener("click", handleCommand, false);
         </script>
         <!-- Google Analytics -->
         <script>
