@@ -3,6 +3,7 @@
 *.svg
 *.pdf
 R/graphs/*.png
+crimenmexico.diegovalle.net/images/smooth-latest.png
 *.pyc
 *.md5
 *.xlsb

@@ -33,6 +33,30 @@ License: pixelarity.com/license
         <title>Hotspot Map - Mexico Crime Report</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+        <!-- Schema.org markup for Google+ -->
+        <meta itemprop="name" content="Mexico Crime Hotspots">
+        <meta itemprop="description" content="Map of homicide clusters in Mexico">
+        <meta itemprop="image" content="https://elcri.men/images/smooth.png">
+
+        <!-- Twitter Card data -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@diegovalle">
+        <meta name="twitter:title" content="Mexico Crime Hotspots">
+        <meta name="twitter:description" content="Mexican crime hotspots">
+        <meta name="twitter:creator" content="@diegovalle">
+        <!-- Twitter summary card with large image must be at least 280x150px -->
+        <meta name="twitter:image:src" content="https://elcri.men/images/smooth.png">
+
+        <!-- Open Graph data -->
+        <meta property="og:title" content="Mexico Crime Hotspots" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://elcri.men/en/lisa-map.html" />
+        <meta property="og:image" content="https://elcri.men/images/smooth.png" />
+        <meta property="og:description" content="Map of homicide clusters in Mexico" />
+        <meta property="og:site_name" content="crimenmexico" />
+
         <link rel="alternate" hreflang="es" href="https://elcri.men/es/lisa-map.html" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="description" content="Cluster map of Mexican crime at the county level" />
@@ -223,7 +247,7 @@ License: pixelarity.com/license
                         </div>
 
                     </section>
-                    <p>Because some municipios have a low population and homicides tend to be rare occurrences the variance in homicide rates per 100,000 tends to be high. To remove some of the variance, and help discover patterns in the data, the homicide rate in each municipio was calculated based on a GAM with a Gaussian Markov random field smoother, with each state included as a treatment variable. Homicides include feminicides.</p>
+                    <p>Because some municipios have a low population and homicides tend to be rare occurrences the variance in homicide rates per 100,000 tends to be high. To remove some of the variance, and help discover patterns in the data, the homicide rate in each municipio was calculated based on a GAM with a Gaussian Markov random field smoother, with each state included as a treatment variable. Homicides include feminicides. Some municipios didn't submit data.</p>
                 </div>
 
                 <!-- Footer Wrapper -->
@@ -306,7 +330,7 @@ License: pixelarity.com/license
                              index = _.findIndex(values['mun.map.id'], function(d) {return d === e.properties.id})
                              e.properties['color'] = values['color'][index];
                              if (typeof values['mun.map.municipio'][index] !== "undefined")
-                                 e.properties['name'] = values['mun.map.municipio'][index] + ', ' + values['mun.map.state'][index] + ' - Modelled rate: ' + values['smooth.rate'][index] +
+                                 e.properties['name'] = values['mun.map.municipio'][index] + ', ' + values['mun.map.state'][index] + ' - Modeled rate: ' + values['smooth.rate'][index] +
                                                         ' | Population: ' + comma(values['population'][index]);
                              else
                                  e.properties['name'] = "NA"
@@ -388,7 +412,7 @@ License: pixelarity.com/license
          createMarker("Tijuana", [32.532, -117.019], map, "left")
          createMarker("Guadalupe y Calvo", [26.095, -106.964], map, "right")
          createMarker("Victoria", [23.731, -99.151], map, "right")
-         createMarker("Miguel Alemán", [26.401, -99.026], map, "right")
+         createMarker("Reynosa", [26.092, -98.278], map, "right")
          createMarker("Coatzacoalcos", [18.138, -94.453], map, "right")
          createMarker("Poza Rica", [20.534, -97.444], map, "right")
          createMarker("Tepic", [21.507, -104.894], map, "left")
