@@ -69,15 +69,27 @@ write.csv(filter(muns2, tipo == "Intentional Homicide")
           row.names = FALSE)
 
 # Top 30 municipios by rate
-top30 <- filter(muns2, (count >= 30) | population > 100000) %>%
+lpoisson = function(rate, n) {
+  alo = (1- .99) / 2
+  ahi = (.99 + 1) / 2  
+  rate * qgamma(alo, n) / n	
+  #rate * qgamma(ahi, 1 + n) / n
+}
+max_count_100k <- (filter(muns2, population > 100000) %>%
+                     mutate(lower = lpoisson(rate, count/2)) %>%
+                     arrange(-lower) %>%
+                     head(30) %>%
+                     arrange(lower) %>%
+                     head(1))$count
+top50 <- muns2 %>%
+  mutate(lower = lpoisson(rate, count/2)) %>%
+  filter(count >= max_count_100k  | population > 100000) %>%
   left_join(abbrev, by = "state_code") %>%
   mutate(name = str_c(municipio, ", ", state_abbrv)) %>%
-  arrange(-rate) %>%
-  head(30)
-write(toJSON(top30[,c("count", "rate", "population", "name")]), "json/top-municipios.json")
-
-
-
+  arrange(-lower) %>%
+  head(50) %>%
+  arrange(-rate)
+write(toJSON(top50[,c("count", "rate", "population", "name")]), "json/top-municipios.json")
 
 
 
