@@ -45,6 +45,10 @@ License: pixelarity.com/license
              stroke: #00BFC4;
              stroke-width: 3;
          }
+         svg  > path.mg-line3-color {
+             stroke: #d95f02;
+             stroke-width: 3;
+         }
          .mg-line2-legend-color {
              color: #c51b7d;
              fill: #c51b7d;
@@ -52,6 +56,10 @@ License: pixelarity.com/license
          .mg-line1-legend-color {
              color: #00BFC4;
              fill: #00BFC4;
+         }
+         .mg-line3-legend-color {
+             color: #d95f02;
+             fill: #d95f02;
          }
          .mg-area2-color {
              fill: #00BFC4;
@@ -287,6 +295,7 @@ License: pixelarity.com/license
                             <div class="6u 12u(mobile)">
                                 <div class="legend"><span class="mg-line2-legend-color">— ENVIPE</span></div>
                                 <div class="legend"><span class="mg-line1-legend-color">— SESNSP víctimas/unidades&nbsp; </span></div>
+                                <div class="legend"><span class="mg-line3-legend-color">— AMIS unidades aseguradas&nbsp; </span></div>
                             </div>
                         </div>
                         <!-- <div class="select-style"  style="
@@ -314,7 +323,7 @@ License: pixelarity.com/license
                             <!-- Banner --><section id="banner">
                             <br><br><hr><br><p style="text-align:left;">La <a href="http://www.beta.inegi.org.mx/proyectos/enchogares/regulares/envipe/2016/">Encuesta Nacional de Victimización y Percepción sobre Seguridad Pública (ENVIPE)</a>
                                 nos permite comparar la cantidad de crímenes que se le reportan al sistema de justicia con una estimación del universo de crímenes cometidos en el país. Las líneas azules son los crímenes que se le reportan al sistema de justicia y las magenta la estimación del total de crímenes mediante una encuesta. La cifra negra, es decir el nivel de delitos no denunciados o que no derivaron en averiguación previa fue de
-                                93.6% a nivel nacional para todos los delitos durante 2016, y de 93.7 por ciento en el 2015. Como el ENVIPE es una encuesta sus estimaciones están sujetas a un margen de error que se muestra en las gráficas</p>
+                                93.6% a nivel nacional para todos los delitos durante 2016, y de 93.7 por ciento en el 2015. Como el ENVIPE es una encuesta sus estimaciones están sujetas a un margen de error que se muestra en las gráficas. Para el robo de coches también se pueden comparar las cifras con las que <a href="http://www.amisprensa.org/wp-content/uploads/2018/01/Conf-Prensa-Robo-cifras-Diciembre-2017-_v3.pdf">reporta AMIS</a></p>
                             <br/>
                             <br>
                             <p style="text-align:left;">Hay dos fuentes oficiales de información sobre homicidios en México: las estadísticas vitales que recopila el INEGI basadas en certificados de defunción y las del Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (SESNSP), basadas en averiguaciones previas o carpetas delictivas. Las estadísticas que recopila el SESNSP están disponibles de dos maneras, como número de averiguaciones o el número de víctimas contenidas en esas averiguaciones. Además, en Enero de 2018 se hizo pública la <a href="https://www.gob.mx/sesnsp/articulos/nueva-metodologia-para-el-registro-y-clasificacion-de-los-delitos-y-las-victimas-para-fines-estadisticos?idiom=es">nueva metodología</a> del SESNSP para clasificar los delitos, y el total de homicidios dejó de incluir al feminicidio (el homicidio de una mujer por el hecho de ser mujer), que pasó a ser una categoría distinta, por lo que hay muchas distintas maneras de reportar la cantidad de homicidios que ocurrieron en México. Usando los datos más actualizados de la nueva metodología, la mejor manera de reportar homicidios es sumando los homicidios dolosos con los feminicidios.</p>
@@ -764,7 +773,7 @@ License: pixelarity.com/license
                  y_label: ylabel,
                  mouseover: function(d, i) {
                      d3.select(div + ' svg .mg-active-datapoint')
-                       .text((d.line_id == 1 ? 'ENVIPE - ' : 'SESNSP - ') +
+                       .text((d.line_id == 1 ? 'ENVIPE - ' : d.line_id == 2 ? 'SESNSP - ' : 'AMIS - ') +
                              year + d.date +  crimes + comma(d.value) +
                                                         (typeof d.inf !== 'undefined' ? (' Inf: ' + comma(d.inf) +
                                                                                          ' Sup: ' + comma(d.sup)) : ''));
@@ -794,7 +803,10 @@ License: pixelarity.com/license
                                 {'date': null, 'value': null, sup: null, inf: null}],
                                [{'date':2015,'value':  145735},
                                 {'date':2016,'value':  147839},
-                                {'date':2017, 'value':167626}]];
+                                {'date':2017, 'value':167626}],
+                               [{'date':2015,'value':  61383},
+                                {'date':2016,'value':  70925},
+                                {'date':2017, 'value':90187}]];
          var year = 'Año: '
          var crimes = ' Crímenes: '
          drawENVIPEChart("Lesiones Intencionales",
@@ -806,7 +818,7 @@ License: pixelarity.com/license
                          "#secuestro-chart", "año", "crímenes",
                          secuestro_data, year, crimes)
          drawENVIPEChart("Robo de Coche",
-                         "SESNSP: Robo de coche con 4 ruedas con y sin violencia<br>ENVIPE: robo de vehículo (automóvil, camioneta o camión)",
+                         "SESNSP: Robo de coche con 4 ruedas con y sin violencia<br>ENVIPE: robo de vehículo (automóvil, camioneta o camión)<br>AMIS: robo de vehículos asegurados",
                          "#robocoche-chart", "año", "crímenes",
                          robocoche_data, year, crimes)
          drawENVIPEChart("Extorsión",
