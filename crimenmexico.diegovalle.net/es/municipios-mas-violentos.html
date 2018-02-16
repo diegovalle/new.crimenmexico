@@ -25,7 +25,7 @@ License: pixelarity.com/license
         <link rel="preload" href="/js/muns.js" as="script">
 
 
-        <title>Municipios más violentos - Cifras de Delincuencia en México</title>
+        <title>Municipios más violentos - Delincuencia en México</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="alternate" hreflang="en" href="https://elcri.men/en/municipios-mas-violentos.html" />
@@ -152,7 +152,10 @@ License: pixelarity.com/license
                             <div class="2u 12u(mobile)"></div>
                             <div class="8u 12u(mobile)"><div id="chart"></div></div>
                         </div>
-                        <br><br><hr><p>Todos los números se refieren a averiguaciones previas que pueden contener más de una víctima porque a nivel municipio es la única información disponible. Todas las tasas están anualizadas y incluyen sólo municipios cuya tasa de homicidios fue modelada como una variable poisson y su intervalo inferior del 99% (son sólo 6 meses de datos) se encuentra en los primeros 50. Los homicidios incluyen los feminicidios.</p>
+                        <div id="banner-wrapper" class="wrapper">
+                            <!-- Banner --><section id="banner">
+                            <br><br><hr><p style="text-align:left;">Todos los números se refieren a averiguaciones previas que pueden contener más de una víctima porque a nivel municipio es la única información disponible. Todas las tasas están anualizadas y los municipios fueron elegidos modelando el número de homicidios como una variable poisson y usando su intervalo de credibilidad inferior del 99% de la distribución apoteriori para elegir los 50 municipios más violentos, asumiendo como probabilidad a priori la tasa de homicidios del estado, esto debido a la necesidad de sopesar la incertidumbre de las altas tasas de homicidios de los municipios que tienen poblaciones pequeñas. Los homicidios incluyen los feminicidios.</p>
+                            </section></div>
                 </div>
 
                 <!-- Footer Wrapper -->
@@ -344,7 +347,7 @@ License: pixelarity.com/license
                               div.transition()
                                  .duration(200)
                                  .style("opacity", 1);
-                              div.html("Población: " + comma(d.population) + "<br>Número: " + d.count + "<br>Tasa Anualizada: " + d.rate + "<br> Nombre: " + d.name)
+                              div.html("Población: " + comma(d.population) + "<br>Número de homicidios: " + d.count + "<br>Tasa anualizada: " + d.rate + "<br> Nombre: " + d.name)
                                  .style("left", (d3.event.pageX) + "px")
                                  .style("top", (d3.event.pageY - 28) + "px");
                           })

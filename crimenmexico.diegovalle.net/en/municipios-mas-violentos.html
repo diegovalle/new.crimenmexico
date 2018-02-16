@@ -148,7 +148,10 @@
                             <div class="8u 12u(mobile)"><div id="chart"></div></div>
                         </div>
                         <br><br><hr>
-                        <br><br>All counts refer to police reports (averiguaciones previas which may contain more than one victim) since that is the only information available at the municipio level. Homicides include feminicides and only include municipios whose lower limit (99% interval) of the number of homicides modeled as a Poisson variable of the number of deaths was in the top 50.<br/>
+                        <div id="banner-wrapper" class="wrapper">
+                            <!-- Banner --><section id="banner">
+                            <br><br><p style="text-align:left;">All counts refer to police reports (<i>averiguaciones previas</i> which may contain more than one victim), since that is the only information available at the municipio level. Homicide rates were sorted based on the lower limit of the 99% credible interval of the number of homicides modeled as a Poisson variable assuming that the prior distribution is the number of homicides in the state, all this because of the need to balance the high homicide rates of some municipios with the uncertainty of small populations. Homicides include feminicides.</p><br/>
+                            </section></div>
                 </div>
 
                 <!-- Footer Wrapper -->
@@ -340,7 +343,7 @@
                               div.transition()
                                  .duration(200)
                                  .style("opacity", 1);
-                              div.html("Population: " + comma(d.population) + "<br>Count: " + d.count + "<br>Rate: " + d.rate + "<br> Name: " + d.name)
+                              div.html("Population: " + comma(d.population) + "<br>Homicide Count: " + d.count + "<br>Annualized Rate: " + d.rate + "<br> Name: " + d.name)
                                  .style("left", (d3.event.pageX) + "px")
                                  .style("top", (d3.event.pageY - 28) + "px");
                           })

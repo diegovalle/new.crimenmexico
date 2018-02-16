@@ -96,7 +96,7 @@ tryCatch({
           plot.background=element_blank()
     ) +
     ggtitle(str_c("Modeled Homicide Rates in Mexico ", 
-                  format(as.yearmon(last_six_dates[6]), "%b %Y"), " - ", 
+                  format(as.yearmon(last_six_dates[length(last_six_dates)]), "%b %Y"), " - ", 
                   format(as.yearmon(last_six_dates[1]), "%b %Y")),
             subtitle = str_c("Because some municipios have a low population and homicides tend to be rare occurrences\n",
                              "the variance in homicide rates per 100,000 tends to be high. To remove some of the variance,\n",
