@@ -1388,7 +1388,7 @@ info.onAdd = function (map) {
               .style("visibility", "visible")
               .html(d.properties.name + "<br/>" +
                     "Population: <big><b>" + comma(d.properties.population) + "</b></big><br\>" +
-                    "Count: <big><b>" +d.properties.count + "</b></big><br\>" +
+                    "Homicide count: <big><b>" +d.properties.count + "</b></big><br\>" +
                     "Annualized rate: <big><b>" + d.properties.rate + "</b></big><br\>" +
                     "Months reported: <big><b>" + d.properties.len + "</b></big>")
               .style("top", function() {return a.map.isFullscreen() ? d3.event.pageY + "px" : d3.event.pageY + "px" })
