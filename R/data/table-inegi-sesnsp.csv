@@ -1,0 +1,60 @@
+"Año","Población","INEGI","Nueva Metodología SESNSP",,,,,"Vieja Metodología SESNSP",
+,,"Homicidios INEGI","Víctimas Homicidios Dolosos (NM) + Feminicidios","Vícitmas Homicidios Dolosos (NM)","Víctimas Feminicidio","Averiguaciones Homicidio (NM)","Averiguaciones Feminicidio (NM)","Víctimas Homicidio Dolosos (VM)","Averiguaciones Homicidio Doloso"
+"1990","87064847","14493",,,,,,,
+"1991","88630941","15128",,,,,,,
+"1992","90132585","16594",,,,,,,
+"1993","91600655","16040",,,,,,,
+"1994","93055300","15839",,,,,,,
+"1995","94490336","15612",,,,,,,
+"1996","95876664","14505",,,,,,,
+"1997","97204604","13552",,,,,,,"16866"
+"1998","98485424","13656",,,,,,,"14216"
+"1999","99706067","12249",,,,,,,"14619"
+"2000","100895811","10737",,,,,,,"13849"
+"2001","102122295","10285",,,,,,,"13855"
+"2002","103417944","10088",,,,,,,"13148"
+"2003","104719891","10087",,,,,,,"12676"
+"2004","105951569","9329",,,,,,,"11658"
+"2005","107151011","9921",,,,,,,"11246"
+"2006","108408827","10452",,,,,,,"11806"
+"2007","109787388","8867",,,,,,,"10253"
+"2008","111299015","14006",,,,,,,"13155"
+"2009","112852594","19803",,,,,,,"16118"
+"2010","114255555","25757",,,,,,,"20143"
+"2011","115682868","27213",,,,,,,"22409"
+"2012","117053750","25967",,,,,,,"21459"
+"2013","118395054","23063",,,,,,,"18106"
+"2014","119713204","20010",,,,,,"17336","15520"
+"2015","121005815","20762","18309","17905",404,"16141",389,"18707","16909"
+"2016","122273473","24559","23190","22571",619,"20171",580,"22962","20547"
+2017,"123518270",,"29430","28734",696,"24906",671,"29168","25339"
+2018,"124737789",,,,,,,,
+2019,"125929439",,,,,,,,
+2020,"127091642",,,,,,,,
+"FUENTE: INEGI. Estad�sticas de mortalidad.",,,,,,,,,
+,,,,,,,,,
+"Select sum(count), substr(date, 1, 4)",,,,,,,,,
+"FROM estados_victimas",,,,,,,,,
+"NATURAL JOIN subtipo_states_victimas",,,,,,,,,
+"WHERE subtipo_text = 'HOMICIDIO DOLOSO'",,,,,,,,,
+"GROUP BY substr(date, 1, 4)",,,,,,,,,
+,,,,,,,,,
+"Select sum(count), substr(date, 1, 4)",,,,,,,,,
+"FROM estados_victimas",,,,,,,,,
+"NATURAL JOIN subtipo_states_victimas",,,,,,,,,
+"WHERE subtipo_text = 'FEMINICIDIO'",,,,,,,,,
+"GROUP BY substr(date, 1, 4)",,,,,,,,,
+,,,,,,,,,
+"Select sum(count), substr(date, 1, 4)",,,,,,,,,
+"FROM estados_victimas",,,,,,,,,
+"NATURAL JOIN subtipo_states_victimas",,,,,,,,,
+"WHERE subtipo_text = 'FEMINICIDIO' or subtipo_text = 'HOMICIDIO DOLOSO'",,,,,,,,,
+"GROUP BY substr(date, 1, 4)",,,,,,,,,
+,,,,,,,,,
+"# vieja metodología",,,,,,,,,
+,,,,,,,,,
+"Select sum(count), substr(date, 1, 4)",,,,,,,,,
+"FROM estados_fuero_comun",,,,,,,,,
+"NATURAL JOIN tipo_states",,,,,,,,,
+"WHERE tipo_text = 'DOLOSOS'",,,,,,,,,
+"GROUP BY substr(date, 1, 4)",,,,,,,,,
