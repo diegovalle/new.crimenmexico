@@ -59,7 +59,7 @@ License: pixelarity.com/license
 
         <link rel="alternate" hreflang="es" href="https://elcri.men/es/lisa-map.html" />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta name="description" content="Cluster map of Mexican crime at the county level" />
+        <meta name="description" content="Cluster map of Mexican crime at the county level. Municipios (counties) that are close to each other and have high homicide rates." />
         <link rel="stylesheet" href="/assets/css/metricsgraphics.min.css" />
         <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
         <link rel="stylesheet" href="/assets/css/main.css" />
@@ -215,7 +215,7 @@ License: pixelarity.com/license
                                 <li><a href="/en/anomalies.html">Anomalies</a></li>
                                 <li><a href="/en/infographics.html">Infographics</a></li>
                                 <li><a href="/en/datos.html">Data</a></li>
-                                <li style="white-space: nowrap;"><a href="/es/lisa-map.html"><img width="24" height="16" src="/images/mx.png" style="">Es</a></li>
+                                <li style="white-space: nowrap;"><a href="/es/lisa-map.html"><img width="24" height="16" src="/images/mx.png" alt="Bandera de México" style="">Es</a></li>
                             </ul>
                         </nav>
 
@@ -227,7 +227,7 @@ License: pixelarity.com/license
                 <div class="wrapper">
                     <section id="portfolio-preview">
                         <header>
-                            <h2>Map of homicide clusters in Mexico from July 2017 to December 2017</h2>
+                            <h2>Map of homicide clusters in Mexico from August 2017 to January 2018</h2>
                             <!-- <span class="byline">Charts to explain the drug war</span>-->
                         </header>
                         <div class="row">
@@ -324,7 +324,7 @@ License: pixelarity.com/license
                          geojson = topojson.feature(jsonData, jsonData.objects[key]);
                          geojson.features = _.filter(geojson.features,
                                                      function(d) {
-                                                         return !_.includes(nulls, d.properties.id )
+                                                         return ((!_.includes(nulls, d.properties.id )) & !d.properties.id.startsWith("20"))
                                                      })
                          geojson.features.forEach(function(e) {
                              index = _.findIndex(values['mun.map.id'], function(d) {return d === e.properties.id})
@@ -420,6 +420,7 @@ License: pixelarity.com/license
          createMarker("Apatzingán", [19.087, -102.355], map, "right")
          createMarker("Guaymas", [27.923, -110.889], map, "left")
          createMarker("Culiacán", [24.809, -107.394], map, "left")
+         createMarker("Salvatierra", [20.216, -100.881], map, "right")
 
          // create the control
          var command = L.control({position: 'topleft'});

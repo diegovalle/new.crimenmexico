@@ -32,7 +32,7 @@ License: pixelarity.com/license
 
         <!-- Schema.org markup for Google+ -->
         <meta itemprop="name" content="Hotspots de homicidio">
-        <meta itemprop="description" content="Mapa de clusters de homicidio en México a nivel municipio">
+        <meta itemprop="description" content="Mapa de clusters de homicidio en México a nivel municipio. Los municipios de México agrupados por tasa de homicidios para poder ver en que regiones se concentra la violencia.">
         <meta itemprop="image" content="https://elcri.men/images/smooth.png">
 
         <!-- Twitter Card data -->
@@ -213,7 +213,7 @@ License: pixelarity.com/license
                                 <li><a href="/es/anomalies.html">Anomalías</a></li>
                                 <li><a href="/es/infographics.html">Infográficas</a></li>
                                 <li><a href="/es/datos.html">Datos</a></li>
-                                <li style="white-space: nowrap;"><a href="/en/lisa-map.html"><img width="24" height="16" src="/images/us.png" style="">En</a></li>
+                                <li style="white-space: nowrap;"><a href="/en/lisa-map.html"><img width="24" height="16" src="/images/us.png" alt="US Flag" style="">En</a></li>
                             </ul>
                         </nav>
 
@@ -225,7 +225,7 @@ License: pixelarity.com/license
                 <div class="wrapper">
                     <section id="portfolio-preview">
                         <header>
-                            <h2>Clusters de homicidio de julio 2017 a diciembre 2017</h2>
+                            <h2>Clusters de homicidio de agosto 2017 a enero 2018</h2>
                             <!-- <span class="byline">Charts to explain the drug war</span>-->
                         </header>
                         <div class="row">
@@ -323,7 +323,7 @@ License: pixelarity.com/license
                          geojson = topojson.feature(jsonData, jsonData.objects[key]);
                          geojson.features = _.filter(geojson.features,
                                                      function(d) {
-                                                         return !_.includes(nulls, d.properties.id )
+                                                         return ((!_.includes(nulls, d.properties.id )) & !d.properties.id.startsWith("20"))
                                                      })
                          geojson.features.forEach(function(e) {
                              index = _.findIndex(values['mun.map.id'], function(d) {return d === e.properties.id})
@@ -420,6 +420,7 @@ License: pixelarity.com/license
          createMarker("Apatzingán", [19.087, -102.355], map, "right")
          createMarker("Ciudad Obregón", [27.496, -109.933], map, "left")
          createMarker("Culiacán", [24.809, -107.394], map, "left")
+         createMarker("Salvatierra", [20.216, -100.881], map, "right")
 
 
          // create the control

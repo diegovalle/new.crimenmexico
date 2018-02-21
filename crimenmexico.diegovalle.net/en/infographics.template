@@ -11,7 +11,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="alternate" hreflang="es" href="https://elcri.men/es/infographics.html" />
                 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-                                <meta name="description" content="Infographics of Mexican crime" />
+                                <meta name="description" content="Infographics of Mexican crime. Charts and maps of homicides, car robberies, extortions, and kidnappings at the national and state level. " />
 
                 <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
                 <link rel="stylesheet" href="/assets/css/main.css" />
@@ -77,7 +77,7 @@
                                                                                         <li class="current_page_item"><a href="/en/infographics.html">Infographics</a></li>
                                                                                         <li><a href="/en/datos.html">Data</a></li>
 
-                                <li style="white-space: nowrap;"><a href="/es/infographics.html"><img width="24" height="16" src="/images/mx.png" style="">Es</a></li>
+                                <li style="white-space: nowrap;"><a href="/es/infographics.html"><img width="24" height="16" src="/images/mx.png" alt="Bandera de México" style="">Es</a></li>
                                                                                         </ul>
                                                                         </nav>
 
