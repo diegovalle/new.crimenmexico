@@ -2,3 +2,5 @@ User-agent: *
 Disallow:
 Disallow: /data/
 Disallow: /csv/
+
+Sitemap: https://elcri.men/sitemap.xml
