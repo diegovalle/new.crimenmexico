@@ -12,6 +12,12 @@ tryCatch({
   null_municipios <- mun.map$id[!mun.map$id_numeric %in% unique(muns2$id_numeric)]
   mun.map <- mun.map[mun.map$id_numeric %in% unique(muns2$id_numeric),]
   
+  # TEMP HACK
+  # remove the state of Oaxaca because they haven't been reporting for the
+  # last six months
+  mun.map <- mun.map[!str_detect(mun.map$id, "^20"),]
+  
+  
   df <- droplevels(as(mun.map, 'data.frame'))
   df$id_numeric <- as.character(df$id_numeric)
   nb <- poly2nb(mun.map, row.names = df$id_numeric)
@@ -22,7 +28,7 @@ tryCatch({
   df$state <- factor(df$state)
   
   #ctrl <- gam.control(nthreads = 2)
-  m1 <- bam(count ~ s(id_numeric, bs = 'mrf', k = 300, xt = list(nb = nb)) + 
+  m1 <- bam(count ~ s(id_numeric, bs = 'mrf', k = 250, xt = list(nb = nb)) + 
               offset(log(population)) + state,
             data = df,
             method = 'REML', 
@@ -60,12 +66,14 @@ tryCatch({
                                    "COATZACOALCOS, VERACRUZ",
                                    "BENITO JUÁREZ, QUINTANA ROO",
                                    "CAJEME, SONORA",
-                                   "ZIHUATANEJO DE AZUETA, GUERRERO"))
+                                   "ZIHUATANEJO DE AZUETA, GUERRERO",
+                                   "SALVATIERRA, GUANAJUATO"))
   cities$group <- 1
   cities$municipio <- str_replace(cities$municipio, "BENITO JUÁREZ", "CANCÚN")
   cities$municipio <- str_replace(cities$municipio, "ZIHUATANEJO DE AZUETA", "ZIHUATANEJO")
   cities$municipio <- str_replace(cities$municipio, "CAJEME", "CIUDAD OBREGÓN")
   cities$municipio <- str_replace(cities$municipio, "ACAPULCO DE JUÁREZ", "ACAPULCO")
+  cities$municipio <- str_replace(cities$municipio, "POZA RICA DE HIDALGO", "POZA RICA")
   
   ggplot(mdata, aes(x = long, y = lat, group = group)) +
     geom_polygon(aes(fill = pred_rate2)) + #, alpha = log(population)
@@ -103,7 +111,7 @@ tryCatch({
                              "and help discover patterns in the data, the homicide rate in each municipio was calculated\n",
                              "based on a GAM with a Gaussian Markov random field smoother and a tweedie response,\n",
                              "with each state included as a treatment variable. Homicides include feminicides. Most\n",
-                             "municipios in Oaxaca did not submit data."))
+                             "municipios in Oaxaca did not submit data for one or more of the last six months."))
   ggsave("../crimenmexico.diegovalle.net/images/smooth-latest.png", dpi = 100, width = 16, height = 11)
   
   

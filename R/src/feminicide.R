@@ -1,3 +1,4 @@
+print("feminicide.R")
 db <- dbConnect(SQLite(), dbname="../db/crimenmexico.db")
 dbListTables(db) 
 #vic <- dbReadTable(db, "victimas") 
@@ -9,7 +10,7 @@ feminicide <- dbGetQuery(db, "
        'Homicidio Doloso'                  AS tipo, 
        Sum(population) / Count(population) AS population 
 FROM   estados_victimas v 
-       natural JOIN tipo_states_victimas 
+       natural JOIN tipo_states_victimas
        JOIN (SELECT Sum(population) AS population, 
                     state_code, 
                     date 

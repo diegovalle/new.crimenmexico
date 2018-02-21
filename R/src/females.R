@@ -1,3 +1,4 @@
+print("females.R")
 db <- dbConnect(SQLite(), dbname="../db/crimenmexico.db")
 dbListTables(db) 
 #vic <- dbReadTable(db, "victimas") 
