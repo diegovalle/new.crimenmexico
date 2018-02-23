@@ -50,7 +50,7 @@ states.females.inegi.name <- injury.intent %>%
                     tipo == 'Homicidio Doloso')
              [,c("tipo", "date", "population", "state_code", "name")], 
              by = c("date" = "date", "state_occur_death" = "state_code")) %>%
-  mutate(count = ifelse(is.na(count) & year(date) <= max(injury.intent$year_reg), 0, count)) %>%
+  mutate(count = ifelse(is.na(count) & year(date) <= max(year_reg), 0, count)) %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / population) * 10^5) %>%
   mutate(rate = round(rate, 1)) %>%
   ungroup() %>% 
