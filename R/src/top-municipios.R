@@ -31,6 +31,14 @@ top50 <- muns2 %>%
   arrange(-rate)
 write(toJSON(top50[,c("count", "rate", "population", "name")]), "json/top-municipios.json")
 
+# bottom50 <- muns2 %>%
+#   filter(population >= 10^5) %>%
+#   left_join(abbrev, by = "state_code") %>%
+#   mutate(name = str_c(municipio, ", ", state_abbrv)) %>%
+#   arrange(posterior_mean) %>%
+#   head(50) %>%
+#   arrange(rate)
+
 #tmpdir <- tempdir()
 # have to use RJSONIO or else the topojson isn't valid
 #write(RJSONIO::toJSON(mxmunicipio.topoJSON), file.path(tmpdir, "mun.topojson"))
