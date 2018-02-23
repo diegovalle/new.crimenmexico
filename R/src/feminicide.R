@@ -28,14 +28,14 @@ GROUP  BY v.date,
 dbDisconnect(db)
 
 
-feminicide %<>%
+feminicide <- feminicide %>%
   mutate(date = as.Date(as.yearmon(date))) %>%
   mutate(rate = ((count /  numberOfDays(date) * 30) * 12) / population * 10^5) %>%
   mutate(rate = round(rate, 1))
 
 
 
-feminicide %<>%
+feminicide <- feminicide %>%
   mutate(name = state)
 
 

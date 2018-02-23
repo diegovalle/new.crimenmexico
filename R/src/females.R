@@ -1,7 +1,5 @@
 print("females.R")
 db <- dbConnect(SQLite(), dbname="../db/crimenmexico.db")
-dbListTables(db) 
-#vic <- dbReadTable(db, "victimas") 
 fem <- dbGetQuery(db, "
  SELECT state, 
        v.state_code, 
@@ -30,14 +28,14 @@ GROUP  BY v.date,
 dbDisconnect(db)
 
 
-fem %<>%
+fem <- fem %>%
   mutate(date = as.Date(as.yearmon(date))) %>%
   mutate(rate = ((count /  numberOfDays(date) * 30) * 12) / population * 10^5) %>%
   mutate(rate = round(rate, 1))
 
 
 
-fem %<>%
+fem <- fem %>%
   mutate(name = state)
 
 
