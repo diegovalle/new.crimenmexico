@@ -133,9 +133,6 @@ tryCatch({
                                                          population = df$population))), 
         "json/lisa.json")
   
-}, 
-warning = function(war) {
-  print(paste("GAM WARNING:  ",war))
 }, error = function(err) {
   print(paste("GAM ERROR:  ",err))
 })
