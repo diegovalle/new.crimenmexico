@@ -234,6 +234,62 @@ casper.test.begin(
             });
         });
 
+        casper.thenOpen(partialURL + '/es/ENVIPE.html', function() {
+            this.wait(10000, function() {
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('div svg').length === 4;
+                }, '/es/ENVIPE.html');
+
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > path.mg-line2-color').length === 4;
+                }, '/es/ENVIPE.html');
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > path.mg-line1-color').length === 4;
+                }, '/es/ENVIPE.html');
+            });
+        });
+
+        casper.thenOpen(partialURL + '/en/ENVIPE.html', function() {
+            this.wait(10000, function() {
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('div svg').length === 4;
+                }, '/en/ENVIPE.html');
+
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > path.mg-line2-color').length === 4;
+                }, '/en/ENVIPE.html');
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > path.mg-line1-color').length === 4;
+                }, '/en/ENVIPE.html');
+            });
+        });
+
+        casper.thenOpen(partialURL + '/es/municipios-mas-violentos.html', function() {
+            this.wait(10000, function() {
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > g rect').length === 50;
+                }, '/es/municipios-mas-violentos.html');
+
+            });
+        });
+
+        casper.thenOpen(partialURL + '/en/municipios-mas-violentos.html', function() {
+            this.wait(10000, function() {
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > g rect').length === 50;
+                }, '/en/municipios-mas-violentos.html');
+
+            });
+        });
+
         casper.thenOpen(partialURL + '/en/anomalies.html', function() {
             this.wait(10000, function() {
                 test.assertEval(function() {
