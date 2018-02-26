@@ -114,6 +114,66 @@ casper.test.begin(
             });
         });
 
+        casper.thenOpen(partialURL + '/en/states-female.html', function() {
+            this.wait(10000, function() {
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('.line-chart').length === 32;
+                }, '/en/states-female.html state small multiples');
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > path.mg-line2-color').length === 33;
+                }, '/en/states-female.html 33 lines of INEGI homicides');
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > path.mg-line1-color').length === 33;
+                }, '/en/states-female.html 33 line of SESNSP crimes');
+            });
+        });
+
+        casper.thenOpen(partialURL + '/es/estados-mujeres.html', function() {
+            this.wait(10000, function() {
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('.line-chart').length === 32;
+                }, '/es/estados-mujeres.html state small multiples');
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > path.mg-line2-color').length === 33;
+                }, '/es/estados-mujeres.html 33 lines of INEGI homicides');
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > path.mg-line1-color').length === 33;
+                }, '/es/estdos-mujeres.html 33 line of SESNSP crimes');
+            });
+        });
+
+                casper.thenOpen(partialURL + '/en/states-feminicide.html', function() {
+            this.wait(10000, function() {
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('.line-chart').length === 32;
+                }, '/en/states-feminicides.html state small multiples');
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > path.mg-line1-color').length === 33;
+                }, '/en/states-feminicide.html 33 line of SESNSP crimes');
+            });
+        });
+
+        casper.thenOpen(partialURL + '/es/estados-feminicidio.html', function() {
+            this.wait(10000, function() {
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('.line-chart').length === 32;
+                }, '/es/estados-feminicidio.html state small multiples');
+                test.assertEval(function() {
+                    return __utils__
+                        .findAll('svg > path.mg-line1-color').length === 33;
+                }, '/es/estados-feminicidio.html 33 line of SESNSP crimes');
+            });
+        });
+
         casper.thenOpen(partialURL + '/en/municipios-map.html', function() {
             this.wait(10000, function() {
                 test.assertExists('img.leaflet-tile-loaded', '/en/municipios-map.html municipio map tiles exist');
