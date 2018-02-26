@@ -38,24 +38,24 @@ fem <- fem %>%
 fem <- fem %>%
   mutate(name = state)
 
-
+max_year_occur <- max(injury.intent$year_reg, na.rm = TRUE)
 states.females.inegi.name <- injury.intent %>%
-  filter(year_reg >= 2014 & intent.imputed == "Homicide" &
+  filter(year_occur >= 2015 & intent.imputed == "Homicide" &
            (state_occur_death >= 1 & state_occur_death <=32) &
            sex == "Female") %>%
-  group_by(year_reg, month_reg, state_occur_death) %>%
+  group_by(year_occur, month_occur, state_occur_death) %>%
   summarise(count = n()) %>%
-  mutate(date = as.Date(str_c(year_reg, "-", month_reg, "-01"))) %>%
+  mutate(date = as.Date(str_c(year_occur, "-", month_occur, "-01"))) %>%
   right_join(subset(fem, 
                     tipo == 'Homicidio Doloso')
              [,c("tipo", "date", "population", "state_code", "name")], 
              by = c("date" = "date", "state_occur_death" = "state_code")) %>%
-  mutate(count = ifelse(is.na(count) & year(date) <= max(year_reg), 0, count)) %>%
+  mutate(count = ifelse(is.na(count) & year(date) <= max_year_occur, 0, count)) %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / population) * 10^5) %>%
   mutate(rate = round(rate, 1)) %>%
   ungroup() %>% 
   rename(state_code = state_occur_death) %>%
-  dplyr::select(-year_reg, -month_reg)
+  dplyr::select(-year_occur, -month_occur)
 
 
 states_female_sm <- list()
