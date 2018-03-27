@@ -8,7 +8,7 @@ casper.test.begin(
     function suite(test) {
         casper.start(partialURL + '/en/', function() {
             this.wait(10000, function() {
-                test.assertTitle('Mexico Crime Report - Monthly Crime Info from Mexico',
+                test.assertTitle('Mexico Crime Report - Latest Mexican Crime Information',
                                  'homepage title is the one expected');
                 test.assertExists('svg g path', 'chart exists');
                 test.assertEval(function() {
