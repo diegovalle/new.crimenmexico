@@ -266,10 +266,13 @@ ll_ext %<-% {
   findAnomalies_c("EXTORSIÓN", muns_to_analyze, fileName="hext.RData")
 }
 
-ll_reos %<-% {
-  print('evasión de reos')
-  findAnomalies_c("EVASIÓN DE PRESOS", muns_to_analyze, fileName="hext.RData")
-}
+# There are very few crimes of evasion de reos
+# so it's ok to just subset those municipios with more than a count of 5
+ll_reos <- muns %>%
+  filter(crime == "EVASIÓN DE PRESOS") %>%
+  group_by(name) %>%
+  filter(last(count >= 5))
+
 ll$hom <- ll_hom
 ll$rvcv <- ll_rvcv
 ll$rvsv <- ll_rvsv
