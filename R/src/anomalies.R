@@ -119,7 +119,7 @@ findAnomalies <- function(crime_name, munvec, fileName, maxn = 5){
                         error = function(e) {print(e);NULL})
         
         if(!is.null(anoms))
-          if(any(ifelse(anoms >= h[[munname]], TRUE, FALSE))) {
+          if(any(ifelse(as.character(anoms) >= as.character(h[[munname]]), TRUE, FALSE))) {
               print(munname)
               anomalies <- rbind(anomalies, as.data.frame(df))
           }
