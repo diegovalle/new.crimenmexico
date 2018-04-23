@@ -69,7 +69,7 @@ AND population > 100000 )
 GROUP  BY state_code, 
 mun_code 
 ORDER  BY rate DESC 
-LIMIT  35)) t2 
+LIMIT  50)) t2 
 ON t1.state_code = t2.state_code 
 AND t1.mun_code = t2.mun_code 
 WHERE  ( subtipo_text = 'HOMICIDIO DOLOSO' 

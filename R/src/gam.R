@@ -61,7 +61,7 @@ tryCatch({
                                    "TEPIC, NAYARIT",
                                    "CULIACÁN, SINALOA",
                                    "GUADALUPE Y CALVO, CHIHUAHUA",
-                                   "REYNOSA, TAMAULIPAS",
+                                   "MIGUEL ALEMÁN, TAMAULIPAS",
                                    "POZA RICA DE HIDALGO, VERACRUZ",
                                    "COATZACOALCOS, VERACRUZ",
                                    "BENITO JUÁREZ, QUINTANA ROO",
