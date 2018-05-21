@@ -62,18 +62,17 @@ tryCatch({
                                    "CULIACÁN, SINALOA",
                                    "GUADALUPE Y CALVO, CHIHUAHUA",
                                    "MIGUEL ALEMÁN, TAMAULIPAS",
-                                   "POZA RICA DE HIDALGO, VERACRUZ",
                                    "COATZACOALCOS, VERACRUZ",
                                    "BENITO JUÁREZ, QUINTANA ROO",
-                                   "CAJEME, SONORA",
+                                   "GUAYMAS, SONORA",
                                    "ZIHUATANEJO DE AZUETA, GUERRERO",
                                    "SALVATIERRA, GUANAJUATO"))
   cities$group <- 1
   cities$municipio <- str_replace(cities$municipio, "BENITO JUÁREZ", "CANCÚN")
   cities$municipio <- str_replace(cities$municipio, "ZIHUATANEJO DE AZUETA", "ZIHUATANEJO")
-  cities$municipio <- str_replace(cities$municipio, "CAJEME", "CIUDAD OBREGÓN")
+  #cities$municipio <- str_replace(cities$municipio, "CAJEME", "CIUDAD OBREGÓN")
   cities$municipio <- str_replace(cities$municipio, "ACAPULCO DE JUÁREZ", "ACAPULCO")
-  cities$municipio <- str_replace(cities$municipio, "POZA RICA DE HIDALGO", "POZA RICA")
+  #cities$municipio <- str_replace(cities$municipio, "POZA RICA DE HIDALGO", "POZA RICA")
   
   ggplot(mdata, aes(x = long, y = lat, group = group)) +
     geom_polygon(aes(fill = pred_rate2)) + #, alpha = log(population)
