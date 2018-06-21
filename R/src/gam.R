@@ -33,7 +33,7 @@ tryCatch({
             data = df,
             method = 'REML', 
             #control = ctrl,
-            family = tw
+            family = poisson
   ) 
   summary(m1)
   df$pred = predict(m1, type = 'response')
@@ -62,7 +62,7 @@ tryCatch({
                                    "CULIACÁN, SINALOA",
                                    "GUADALUPE Y CALVO, CHIHUAHUA",
                                    "MIGUEL ALEMÁN, TAMAULIPAS",
-                                   "COATZACOALCOS, VERACRUZ",
+                                   #"COATZACOALCOS, VERACRUZ",
                                    "BENITO JUÁREZ, QUINTANA ROO",
                                    "GUAYMAS, SONORA",
                                    "ZIHUATANEJO DE AZUETA, GUERRERO",
@@ -108,7 +108,7 @@ tryCatch({
             subtitle = str_c("Because some municipios have a low population and homicides tend to be rare occurrences\n",
                              "the variance in homicide rates per 100,000 tends to be high. To remove some of the variance,\n",
                              "and help discover patterns in the data, the homicide rate in each municipio was calculated\n",
-                             "based on a GAM with a Gaussian Markov random field smoother and a tweedie response,\n",
+                             "based on a GAM with a Gaussian Markov random field smoother and a poisson response,\n",
                              "with each state included as a treatment variable. Homicides include feminicides. Most\n",
                              "municipios in Oaxaca did not submit data for one or more of the last six months."))
   ggsave("../crimenmexico.diegovalle.net/images/smooth-latest.png", dpi = 100, width = 16, height = 11)
