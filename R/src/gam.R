@@ -15,7 +15,7 @@ tryCatch({
   # TEMP HACK
   # remove the state of Oaxaca because they haven't been reporting for the
   # last six months
-  mun.map <- mun.map[!str_detect(mun.map$id, "^20"),]
+  #mun.map <- mun.map[!str_detect(mun.map$id, "^20"),]
   
   
   df <- droplevels(as(mun.map, 'data.frame'))
@@ -28,12 +28,12 @@ tryCatch({
   df$state <- factor(df$state)
   
   #ctrl <- gam.control(nthreads = 2)
-  m1 <- bam(count ~ s(id_numeric, bs = 'mrf', k = 250, xt = list(nb = nb)) + 
+  m1 <- gam(count ~ s(id_numeric, bs = 'mrf', k = 250, xt = list(nb = nb)) + 
               offset(log(population)) + state,
             data = df,
             method = 'REML', 
             #control = ctrl,
-            family = poisson
+            family = ziP
   ) 
   summary(m1)
   df$pred = predict(m1, type = 'response')
@@ -53,7 +53,7 @@ tryCatch({
   
   cities <- filter(df, name %in% c("TIJUANA, BAJA CALIFORNIA",
                                    "ACAPULCO DE JUÁREZ, GUERRERO",
-                                   "LOS CABOS, BAJA CALIFORNIA SUR",
+                                   #"LOS CABOS, BAJA CALIFORNIA SUR",
                                    "MANZANILLO, COLIMA",
                                    "VICTORIA, TAMAULIPAS",
                                    "ZACATECAS, ZACATECAS",
@@ -108,9 +108,8 @@ tryCatch({
             subtitle = str_c("Because some municipios have a low population and homicides tend to be rare occurrences\n",
                              "the variance in homicide rates per 100,000 tends to be high. To remove some of the variance,\n",
                              "and help discover patterns in the data, the homicide rate in each municipio was calculated\n",
-                             "based on a GAM with a Gaussian Markov random field smoother and a poisson response,\n",
-                             "with each state included as a treatment variable. Homicides include feminicides. Most\n",
-                             "municipios in Oaxaca did not submit data for one or more of the last six months."))
+                             "based on a GAM with a Gaussian Markov random field smoother and a zero-inflated Poisson\n",
+                             "response, with each state included as a treatment variable. Homicides include feminicides."))
   ggsave("../crimenmexico.diegovalle.net/images/smooth-latest.png", dpi = 100, width = 16, height = 11)
   
   
