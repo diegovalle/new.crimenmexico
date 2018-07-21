@@ -229,7 +229,7 @@ rvsv.map <- bottomMap(vic, "Robo de vehículo sin violencia",
                       max_date)
 
 note <- "Los secuestros, homicidios y extorsiones refieren el número de victimas, pero los robos de vehículo las averiguaciones previas. Los datos corresponden a la nueva metodología. Los robos de vehículo son los de cuarto ruedas. Los homicidios incluyen feminicidios
-Según la ENVIPE las extorsiones han permanesido estables, lo mismo que reporta el el SNSP. Los robos de vehículo coinciden con la 
+Según la ENVIPE las extorsiones han permanecido estables, lo mismo que reporta el el SNSP. Los robos de vehículo coinciden con la 
 tendencia estable de la ENVIPE (2015-2016), los homicidios también coinciden en tendencia con datos del INEGI/SSA"
 
 attribution <- paste(
