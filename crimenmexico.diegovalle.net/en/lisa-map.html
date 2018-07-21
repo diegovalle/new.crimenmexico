@@ -227,7 +227,7 @@
                 <div class="wrapper">
                     <section id="portfolio-preview">
                         <header>
-                            <h2>Map of homicide clusters in Mexico from November 2017 to April 2018</h2>
+                            <h2>Map of homicide clusters in Mexico from January 2018 to June 2018</h2>
                             <!-- <span class="byline">Charts to explain the drug war</span>-->
                         </header>
                         <div class="row">
@@ -322,10 +322,10 @@
                  if (jsonData.type === "Topology") {
                      for (key in jsonData.objects) {
                          geojson = topojson.feature(jsonData, jsonData.objects[key]);
-                         geojson.features = _.filter(geojson.features,
-                                                     function(d) {
-                                                         return !(d.properties.id.lastIndexOf("20", 0) === 0)
-                                                     })
+                         /* geojson.features = _.filter(geojson.features,
+                          *                             function(d) {
+                          *                                 return !(d.properties.id.lastIndexOf("20", 0) === 0)
+                          *                             })*/
                          geojson.features.forEach(function(e) {
                              index = _.findIndex(values['mun.map.id'], function(d) {return d === e.properties.id})
                              e.properties['color'] = values['color'][index];

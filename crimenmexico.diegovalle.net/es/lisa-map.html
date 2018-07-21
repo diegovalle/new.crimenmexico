@@ -225,7 +225,7 @@ License: pixelarity.com/license
                 <div class="wrapper">
                     <section id="portfolio-preview">
                         <header>
-                            <h2>Clusters de homicidio de noviembre 2017 a abril 2018</h2>
+                            <h2>Clusters de homicidio de enero 2018 a junio 2018</h2>
                             <!-- <span class="byline">Charts to explain the drug war</span>-->
                         </header>
                         <div class="row">
@@ -321,10 +321,10 @@ License: pixelarity.com/license
                  if (jsonData.type === "Topology") {
                      for (key in jsonData.objects) {
                          geojson = topojson.feature(jsonData, jsonData.objects[key]);
-                         geojson.features = _.filter(geojson.features,
-                                                     function(d) {
-                                                         return !(d.properties.id.lastIndexOf("20", 0) === 0)
-                                                     })
+                         /* geojson.features = _.filter(geojson.features,
+                          *                             function(d) {
+                          *                                 return !(d.properties.id.lastIndexOf("20", 0) === 0)
+                          *                             })*/
                          geojson.features.forEach(function(e) {
                              index = _.findIndex(values['mun.map.id'], function(d) {return d === e.properties.id})
                              e.properties['color'] = values['color'][index];
