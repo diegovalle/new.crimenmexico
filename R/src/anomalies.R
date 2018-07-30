@@ -1,141 +1,4 @@
 
-db <- dbConnect(SQLite(), dbname="../db/crimenmexico.db")
-muns <- dbGetQuery(db, "
-                   SELECT * 
-                   FROM  (SELECT m.state_code, 
-                   m.mun_code, 
-                   'HOMICIDIO DOLOSO' AS crime, 
-                   m.date, 
-                   Sum(count)         AS count 
-                   FROM   municipios_fuero_comun m 
-                   natural JOIN subtipo_municipios 
-                   WHERE  subtipo_text = 'HOMICIDIO DOLOSO' 
-                   OR subtipo_text = 'FEMINICIDIO' 
-                   GROUP  BY m.state_code, 
-                   m.mun_code, 
-                   m.date 
-                   UNION 
-                   SELECT m.state_code, 
-                   m.mun_code, 
-                   CASE subtipo_text 
-                   WHEN 'EXTORSIÓN' THEN 'EXTORSIÓN' 
-                   WHEN 'SECUESTRO' THEN 'SECUESTRO' 
-                   WHEN 'LESIONES DOLOSAS' THEN 'LESIONES DOLOSAS' 
-                   WHEN 'EVASIÓN DE PRESOS' THEN 'EVASIÓN DE PRESOS' 
-                   END        crime, 
-                   m.date, 
-                   Sum(count) AS count 
-                   FROM   municipios_fuero_comun m 
-                   natural JOIN subtipo_municipios 
-                   WHERE  subtipo_text = 'SECUESTRO' 
-                   OR subtipo_text = 'EXTORSIÓN' 
-                   OR subtipo_text = 'LESIONES DOLOSAS' 
-                   OR subtipo_text = 'EVASIÓN DE PRESOS' 
-                   GROUP  BY m.state_code, 
-                   m.mun_code, 
-                   subtipo_text , 
-                   m.date 
-                   UNION 
-                   SELECT state_code, 
-                   mun_code, 
-                   crime, 
-                   date, 
-                   Sum(count) AS count 
-                   FROM   (SELECT m.state_code, 
-                   m.mun_code, 
-                   CASE modalidad_text 
-                   WHEN 'ROBO DE COCHE DE 4 RUEDAS CON VIOLENCIA' THEN 
-                   'ROBO DE VEHÍCULO CON VIOLENCIA' 
-                   WHEN 'ROBO DE COCHE DE 4 RUEDAS SIN VIOLENCIA' THEN 
-                   'ROBO DE VEHÍCULO SIN VIOLENCIA' 
-                   END        crime, 
-                   m.date, 
-                   count 
-                   FROM   municipios_fuero_comun m 
-                   natural JOIN modalidad_municipios 
-                   WHERE  modalidad_text = 'ROBO DE COCHE DE 4 RUEDAS CON VIOLENCIA' 
-                   OR modalidad_text = 
-                   'ROBO DE COCHE DE 4 RUEDAS SIN VIOLENCIA'
-                   ) 
-                   GROUP  BY state_code, 
-                   mun_code, 
-                   date,
-                   crime) 
-                   natural JOIN population_municipios 
-                   natural JOIN state_names 
-                   natural JOIN municipio_names ")
-dbDisconnect(db)
-
-muns <- left_join(muns, abbrev, by = "state_code") %>% filter(date >= '2015-01')
-muns$name <- str_c(muns$municipio, ", ", muns$state_abbrv)
-muns$date <- as.Date(as.yearmon(muns$date))
-muns %<>% mutate(rate = round(((count /  numberOfDays(date) * 30) * 12) / population * 10^5, 1))
-
-findAnomalies <- function(crime_name, munvec, fileName, maxn = 5){
-  if(!file.exists(str_c("data/hashes/", fileName))) {
-    h <- hash(keys = munvec, values = "")
-    new <- TRUE
-  } else {
-    load(str_c("data/hashes/", fileName))
-    new <- FALSE
-  }
-  anomalies <- data.frame()
-  #pb <- txtProgressBar(min = 0, max = length(munvec), style = 3)
-  pb <- progress_estimated(length(munvec))
-  l <- 1
-  muns <- data.table(muns)
-  for(munname in munvec){
-    
-    df <- muns[muns$name == munname & 
-                 muns$crime == crime_name,]
-    
-    df <- df[order(df$date),]
-    df <- as.data.frame(df)
-    i = nrow(df)
-    if(all(is.na(df$rate))) {pb$tick();next}
-    if(all(df$rate == 0, na.rm = TRUE)) {pb$tick();next}
-    while(is.na(df$rate[i]) & i > 0) {
-      i = i -1
-    }
-    hom <- df
-    for(j in i:1) {
-      if(is.na(hom$rate[j])) {
-        hom$rate[j] <- median(hom$rate, na.rm = TRUE)
-      }
-    }
-    hom <- na.omit(as.data.frame(hom))
-    hom$date  <- as.POSIXlt(str_c(hom$date), tz = "CTZ")
-    max_date <- max(hom$date)
-    if(new)
-      h[munname] <- max_date
-    if((hom$count[nrow(hom)] >= maxn) ) {
-      #if(!(hom$name[1] == "GUADALUPE, ZAC" & category == "HOMICIDIOS")) {
-      #print(hom$name[1])
-      #hom$rate[is.na(hom$rate)] <- mean(hom$rate, na.rm = TRUE)
-      #breakout(hom$rate, min.size = 2, method = 'multi', beta=0.001, plot=TRUE)
-      anoms <- tryCatch(AnomalyDetectionTs(hom[ ,c("date", "rate")], 
-                                           max_anoms = 0.1,
-                                           direction = 'both')$anoms$timestamp,
-                        error = function(e) {print(e);NULL})
-      
-      if(!is.null(anoms))
-        if(any(ifelse(as.character(anoms) >= as.character(h[[munname]]), TRUE, FALSE))) {
-          print(munname)
-          anomalies <- rbind(anomalies, as.data.frame(df))
-        }
-      #}
-    }
-    # update progress bar
-    #print(setTxtProgressBar(pb, l))
-    pb$tick()$print()
-    l = l + 1
-    h[munname] <- max_date
-  }
-  save(h, file = str_c("data/hashes/", fileName))
-  return(anomalies)
-}
-
-
 sm_anom <- function(df, title, xtitle, ytitle) {
   df$name <- reorder(df$name, -df$rate, min)
   title <- switch(title,
@@ -210,77 +73,124 @@ dotMap <- function(centroids, mx, df, legend_title) {
 }
 
 
-#bigmuns <- subset(muns, population >= 50000)
-muns_to_analyze <-  unique(muns$name)
+find_anomalies <- function(muns, crime_type, cutoff) {
+  len <- length(seq(from=min(muns$date), to=max(muns$date), by='month')) 
+  ##browser()
+  df <- muns %>%
+    dplyr::select(municipio, crime, count, rate, date, id)%>%
+    filter(crime == crime_type) %>%
+    group_by(id, crime)   %>%
+    filter(last(count) >= cutoff) %>%
+    do(na.trim(., sides = "both", is.na = "any"))  %>%
+    filter(length(na.omit(rate)) > len*.8) %>%
+    ungroup()
+  if (nrow(muns) == 0)
+    return(data.frame())
+  
+  anom <- df %>%
+    group_by(id, crime) %>% 
+    mutate(rate = na.approx(rate)) %>%
+    time_decompose(rate, method = "twitter", trend = "12 months") %>%
+    anomalize(remainder, method = "gesd", alpha = 0.08)
+  filter(muns, id %in% filter(anom, 
+                              anomaly == "Yes" & 
+                                date == max(muns$date))$id & 
+           crime == crime_type) %>%
+    dplyr::select(-id)
+}
+
+db <- dbConnect(SQLite(), dbname="../db/crimenmexico.db")
+muns <- dbGetQuery(db, "
+                   SELECT * 
+FROM  (SELECT m.state_code, 
+                   m.mun_code, 
+                   'HOMICIDIO DOLOSO' AS crime, 
+                   m.date, 
+                   Sum(count)         AS count 
+                   FROM   municipios_fuero_comun m 
+                   natural JOIN subtipo_municipios 
+                   WHERE  subtipo_text = 'HOMICIDIO DOLOSO' 
+                   OR subtipo_text = 'FEMINICIDIO' 
+                   GROUP  BY m.state_code, 
+                   m.mun_code, 
+                   m.date 
+                   UNION 
+                   SELECT m.state_code, 
+                   m.mun_code, 
+                   CASE subtipo_text 
+                   WHEN 'EXTORSIÓN' THEN 'EXTORSIÓN' 
+                   WHEN 'SECUESTRO' THEN 'SECUESTRO' 
+                   WHEN 'LESIONES DOLOSAS' THEN 'LESIONES DOLOSAS' 
+                   WHEN 'EVASIÓN DE PRESOS' THEN 'EVASIÓN DE PRESOS' 
+                   END        crime, 
+                   m.date, 
+                   Sum(count) AS count 
+                   FROM   municipios_fuero_comun m 
+                   natural JOIN subtipo_municipios 
+                   WHERE  subtipo_text = 'SECUESTRO' 
+                   OR subtipo_text = 'EXTORSIÓN' 
+                   OR subtipo_text = 'LESIONES DOLOSAS' 
+                   OR subtipo_text = 'EVASIÓN DE PRESOS' 
+                   GROUP  BY m.state_code, 
+                   m.mun_code, 
+                   subtipo_text , 
+                   m.date 
+                   UNION 
+                   SELECT state_code, 
+                   mun_code, 
+                   crime, 
+                   date, 
+                   Sum(count) AS count 
+                   FROM   (SELECT m.state_code, 
+                   m.mun_code, 
+                   CASE modalidad_text 
+                   WHEN 'ROBO DE COCHE DE 4 RUEDAS CON VIOLENCIA' THEN 
+                   'ROBO DE VEHÍCULO CON VIOLENCIA' 
+                   WHEN 'ROBO DE COCHE DE 4 RUEDAS SIN VIOLENCIA' THEN 
+                   'ROBO DE VEHÍCULO SIN VIOLENCIA' 
+                   END        crime, 
+                   m.date, 
+                   count 
+                   FROM   municipios_fuero_comun m 
+                   natural JOIN modalidad_municipios 
+                   WHERE  modalidad_text = 'ROBO DE COCHE DE 4 RUEDAS CON VIOLENCIA' 
+                   OR modalidad_text = 
+                   'ROBO DE COCHE DE 4 RUEDAS SIN VIOLENCIA'
+                   ) 
+                   GROUP  BY state_code, 
+                   mun_code, 
+                   date,
+                   crime) 
+                   natural JOIN population_municipios 
+                   natural JOIN state_names 
+                   natural JOIN municipio_names ")
+dbDisconnect(db)
+
+muns <- left_join(muns, abbrev, by = "state_code") %>% filter(date >= '2015-01')
+muns$name <- str_c(muns$municipio, ", ", muns$state_abbrv)
+muns$date <- as.Date(as.yearmon(muns$date))
+muns %<>% mutate(rate = round(((count /  numberOfDays(date) * 30) * 12) / population * 10^5, 1))
+
+#library(tibbletime)
+library(anomalize)
+
+muns <- muns %>% mutate(id = str_mxmunicipio(state_code, mun_code))
 
 ll <- list()
-# h <- hash(keys=muns_to_analyze, values="")
-# load(file = "data/hashes/hhom.RData")
-
-# profvis({
-#   findAnomalies_c("HOMICIDIOS", "DOLOSOS", munvec = muns_to_analyze, fileName="hhom2.RData")
-# })
-findAnomalies_c <- compiler::cmpfun(findAnomalies)
-
-
-# print("homicides")
-# ll$hom <- findAnomalies_c("HOMICIDIOS", "DOLOSOS", munvec = muns_to_analyze, fileName="hhom.RData")
-# print("car robbery w/v")
-# ll$rvcv = findAnomalies_c("ROBO COMUN", "CON VIOLENCIA", "DE VEHICULOS",muns_to_analyze, fileName="hrvcv.RData")
-# print("car robbery wo/v")
-# ll$rvsv = findAnomalies_c("ROBO COMUN", "SIN VIOLENCIA", "DE VEHICULOS", muns_to_analyze, fileName="hrvsv.RData")
-# print("lesions")
-# ll$lesions <- findAnomalies_c("LESIONES", "DOLOSAS", munvec = muns_to_analyze, fileName="hlesions.RData")
-# print("kidnappings")
-# ll$kidnapping = findAnomalies_c("PRIV. DE LA LIBERTAD (SECUESTRO)", "SECUESTRO", "SECUESTRO",
-#                            muns_to_analyze, fileName="hkid.RData")
-# print("extortion")
-# ll$ext <- findAnomalies_c("DELITOS PATRIMONIALES", "EXTORSION", "EXTORSION", muns_to_analyze, fileName="hext.RData")
-
-print(availableCores())
-plan(tweak(multiprocess, workers = 1L))
-#plan(multiprocess)
-ll_hom %<-% {
-  print('homicides')
-  findAnomalies_c("HOMICIDIO DOLOSO", munvec = muns_to_analyze, fileName="hhom.RData")
-}
-ll_rvcv %<-% {
-  print('car robbery w/v')
-  findAnomalies_c("ROBO DE VEHÍCULO CON VIOLENCIA",muns_to_analyze, fileName="hrvcv.RData", 10)
-}
-ll_rvsv %<-% {
-  print('car robbery w/o v')
-  findAnomalies_c("ROBO DE VEHÍCULO SIN VIOLENCIA", muns_to_analyze, fileName="hrvsv.RData", 10)
-}
-ll_lesions %<-% {
-  print('lesions')
-  findAnomalies_c("LESIONES DOLOSAS", munvec = muns_to_analyze, fileName="hlesions.RData", 10)
-}
-ll_kidnapping %<-% {
-  print('kidnappings')
-  findAnomalies_c("SECUESTRO",
-                  muns_to_analyze, fileName="hkid.RData")
-}
-ll_ext %<-% {
-  print('extortion')
-  findAnomalies_c("EXTORSIÓN", muns_to_analyze, fileName="hext.RData")
-}
-
-# There are very few crimes of evasion de reos
-# so it's ok to just subset those municipios with more than a count of 5
-ll_reos <- muns %>%
+ll$hom <- find_anomalies(muns, "HOMICIDIO DOLOSO", 5)
+ll$rvcv <- find_anomalies(muns, "ROBO DE VEHÍCULO CON VIOLENCIA", 10)
+ll$rvsv <- find_anomalies(muns, "ROBO DE VEHÍCULO CON VIOLENCIA", 10)
+ll$lesions <- find_anomalies(muns, "LESIONES DOLOSAS", 10)
+ll$kidnapping <- find_anomalies(muns, "SECUESTRO", 5)
+ll$ext <- find_anomalies(muns, "EXTORSIÓN", 5)
+ll$reos <-  muns %>%
   filter(crime == "EVASIÓN DE PRESOS") %>%
   group_by(name) %>%
   filter(last(count >= 5))
 
-ll$hom <- ll_hom
-ll$rvcv <- ll_rvcv
-ll$rvsv <- ll_rvsv
-ll$lesions <- ll_lesions
-ll$kidnapping <- ll_kidnapping
-ll$ext <- ll_ext
-ll$reos <- ll_reos
-## 
+muns$id <- NULL
+
+
 write(toJSON(ll), "json/anomalies.json")
 save(ll, file = 'json/ll.RData')
 ll$reos <- NULL
@@ -355,7 +265,7 @@ grid.rect(gp = gpar(fill = "#E7A922", col = "#E7A922"),
           x = unit(0.5, "npc"), y = unit(0.951, "npc"), 
           width = unit(1, "npc"), height = unit(0.025, "npc"))
 grid.text("All municipios with a crime rate anomaly during the last available date (30 day months).
-          Author: Diego Valle-Jones                                                    http://crimenmexico.diegovalle.net/en                                                    Source: SNSP and CONAPO", vjust = 0, hjust = 0, x = unit(0.01, "npc"), 
+Author: Diego Valle-Jones                                                    http://crimenmexico.diegovalle.net/en                                                    Source: SNSP and CONAPO", vjust = 0, hjust = 0, x = unit(0.01, "npc"), 
           y = unit(0.94, "npc"), 
           gp = gpar(fontfamily = "Ubuntu", col = "#552683", cex = 1.08))
 # all the charts
@@ -398,7 +308,7 @@ grid.rect(gp = gpar(fill = "#E7A922", col = "#E7A922"),
           x = unit(0.5, "npc"), y = unit(0.951, "npc"), 
           width = unit(1, "npc"), height = unit(0.025, "npc"))
 grid.text("Todos los municipios con tasas de criminalidad fuera de lo normal durante la última fecha disponible para delitos seleccionados (meses de 30 días).
-          Autor: Diego Valle                                                               http://crimenmexico.diegovalle.net/es                                                               Fuente: SNSP y CONAPO", vjust = 0, hjust = 0, x = unit(0.01, "npc"), 
+Autor: Diego Valle                                                               http://crimenmexico.diegovalle.net/es                                                               Fuente: SNSP y CONAPO", vjust = 0, hjust = 0, x = unit(0.01, "npc"), 
           y = unit(0.94, "npc"), 
           gp = gpar(fontfamily = "Ubuntu", col = "#552683", cex = 1.08))
 # all the charts
