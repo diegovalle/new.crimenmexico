@@ -1,6 +1,6 @@
 
 if (!require(devtools)) {
-  install.packages("devtools", repos="https://mran.revolutionanalytics.com/snapshot/2018-02-10")
+  install.packages("devtools", repos="https://mran.revolutionanalytics.com/snapshot/2018-07-30")
 }
 
 if (!require("mxmaps")) {
@@ -46,7 +46,8 @@ pacman::p_load("AnomalyDetection",
                "tidyr",
                "useful",
                "viridis",
-               "zoo")
+               "zoo",
+               "anomalize")
 
 #font_import("fonts", prompt = FALSE) 
 loadfonts()

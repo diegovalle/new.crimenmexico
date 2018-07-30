@@ -75,7 +75,6 @@ dotMap <- function(centroids, mx, df, legend_title) {
 
 find_anomalies <- function(muns, crime_type, cutoff) {
   len <- length(seq(from=min(muns$date), to=max(muns$date), by='month')) 
-  ##browser()
   df <- muns %>%
     dplyr::select(municipio, crime, count, rate, date, id)%>%
     filter(crime == crime_type) %>%
@@ -84,7 +83,7 @@ find_anomalies <- function(muns, crime_type, cutoff) {
     do(na.trim(., sides = "both", is.na = "any"))  %>%
     filter(length(na.omit(rate)) > len*.8) %>%
     ungroup()
-  if (nrow(muns) == 0)
+  if (nrow(df) == 0)
     return(data.frame())
   
   anom <- df %>%
@@ -170,9 +169,6 @@ muns <- left_join(muns, abbrev, by = "state_code") %>% filter(date >= '2015-01')
 muns$name <- str_c(muns$municipio, ", ", muns$state_abbrv)
 muns$date <- as.Date(as.yearmon(muns$date))
 muns %<>% mutate(rate = round(((count /  numberOfDays(date) * 30) * 12) / population * 10^5, 1))
-
-#library(tibbletime)
-library(anomalize)
 
 muns <- muns %>% mutate(id = str_mxmunicipio(state_code, mun_code))
 
