@@ -2,7 +2,7 @@
 db <- dbConnect(SQLite(), dbname="../db/crimenmexico.db")
 muns <- dbGetQuery(db, "
                    SELECT * 
-FROM  (SELECT m.state_code, 
+                   FROM  (SELECT m.state_code, 
                    m.mun_code, 
                    'HOMICIDIO DOLOSO' AS crime, 
                    m.date, 
@@ -86,8 +86,8 @@ findAnomalies <- function(crime_name, munvec, fileName, maxn = 5){
   muns <- data.table(muns)
   for(munname in munvec){
     
-      df <- muns[muns$name == munname & 
-                   muns$crime == crime_name,]
+    df <- muns[muns$name == munname & 
+                 muns$crime == crime_name,]
     
     df <- df[order(df$date),]
     df <- as.data.frame(df)
@@ -117,12 +117,12 @@ findAnomalies <- function(crime_name, munvec, fileName, maxn = 5){
                                            max_anoms = 0.1,
                                            direction = 'both')$anoms$timestamp,
                         error = function(e) {print(e);NULL})
-        
-        if(!is.null(anoms))
-          if(any(ifelse(as.character(anoms) >= as.character(h[[munname]]), TRUE, FALSE))) {
-              print(munname)
-              anomalies <- rbind(anomalies, as.data.frame(df))
-          }
+      
+      if(!is.null(anoms))
+        if(any(ifelse(as.character(anoms) >= as.character(h[[munname]]), TRUE, FALSE))) {
+          print(munname)
+          anomalies <- rbind(anomalies, as.data.frame(df))
+        }
       #}
     }
     # update progress bar
@@ -139,12 +139,12 @@ findAnomalies <- function(crime_name, munvec, fileName, maxn = 5){
 sm_anom <- function(df, title, xtitle, ytitle) {
   df$name <- reorder(df$name, -df$rate, min)
   title <- switch(title,
-         hom = "HOMICIDIOS INTENCIONALES",
-         rvcv = "ROBO DE VEHICULO C/V",
-         rvsv = "ROBO DE VEHICULO S/V",
-         kidnapping = "SECUESTRO",
-         lesions = "LESIONES INTENCIONALES",
-         ext = "EXTORSIÓN")
+                  hom = "HOMICIDIOS INTENCIONALES",
+                  rvcv = "ROBO DE VEHICULO C/V",
+                  rvsv = "ROBO DE VEHICULO S/V",
+                  kidnapping = "SECUESTRO",
+                  lesions = "LESIONES INTENCIONALES",
+                  ext = "EXTORSIÓN")
   ggplot(df, aes(date, rate)) +
     geom_line() +
     facet_wrap(~name, ncol = 5) +
@@ -259,7 +259,7 @@ ll_lesions %<-% {
 ll_kidnapping %<-% {
   print('kidnappings')
   findAnomalies_c("SECUESTRO",
-                 muns_to_analyze, fileName="hkid.RData")
+                  muns_to_analyze, fileName="hkid.RData")
 }
 ll_ext %<-% {
   print('extortion')
@@ -355,7 +355,7 @@ grid.rect(gp = gpar(fill = "#E7A922", col = "#E7A922"),
           x = unit(0.5, "npc"), y = unit(0.951, "npc"), 
           width = unit(1, "npc"), height = unit(0.025, "npc"))
 grid.text("All municipios with a crime rate anomaly during the last available date (30 day months).
-Author: Diego Valle-Jones                                                    http://crimenmexico.diegovalle.net/en                                                    Source: SNSP and CONAPO", vjust = 0, hjust = 0, x = unit(0.01, "npc"), 
+          Author: Diego Valle-Jones                                                    http://crimenmexico.diegovalle.net/en                                                    Source: SNSP and CONAPO", vjust = 0, hjust = 0, x = unit(0.01, "npc"), 
           y = unit(0.94, "npc"), 
           gp = gpar(fontfamily = "Ubuntu", col = "#552683", cex = 1.08))
 # all the charts
@@ -398,7 +398,7 @@ grid.rect(gp = gpar(fill = "#E7A922", col = "#E7A922"),
           x = unit(0.5, "npc"), y = unit(0.951, "npc"), 
           width = unit(1, "npc"), height = unit(0.025, "npc"))
 grid.text("Todos los municipios con tasas de criminalidad fuera de lo normal durante la última fecha disponible para delitos seleccionados (meses de 30 días).
-Autor: Diego Valle                                                               http://crimenmexico.diegovalle.net/es                                                               Fuente: SNSP y CONAPO", vjust = 0, hjust = 0, x = unit(0.01, "npc"), 
+          Autor: Diego Valle                                                               http://crimenmexico.diegovalle.net/es                                                               Fuente: SNSP y CONAPO", vjust = 0, hjust = 0, x = unit(0.01, "npc"), 
           y = unit(0.94, "npc"), 
           gp = gpar(fontfamily = "Ubuntu", col = "#552683", cex = 1.08))
 # all the charts
