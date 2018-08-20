@@ -35,8 +35,8 @@ def filename_with_csv(file):
     return os.path.splitext(file)[0] + '.csv'
 
 def getXLSX_fuero_comun(conn):
-    baseurl = "http://secretariadoejecutivo.gob.mx/incidencia-delictiva/"
-    page = "incidencia-delictiva-fuero-comun-nm.php"
+    baseurl = "https://www.gob.mx/sesnsp/acciones-y-programas/"
+    page = "incidencia-delictiva-del-fuero-comun-nueva-metodologia"
 
     print("Processing State and Municipio Averiguaciones del Fuero Comun Files:")
     r = requests.get(baseurl + page)
@@ -50,7 +50,7 @@ def getXLSX_fuero_comun(conn):
         fname = ("estatal" if "Estatal" in link['href'] else "muncipal") + '.zip'
         with open('snsp-data/' + fname, "wb") as fp:
             curl = pycurl.Curl()
-            curl.setopt(pycurl.URL, baseurl + urllib.quote(link['href']))
+            curl.setopt(pycurl.URL, urllib.quote(link['href'], safe="%/:=&?~#+!$,;'@()*[]"))
             curl.setopt(pycurl.WRITEDATA, fp)
             curl.perform()
             curl.close()
@@ -76,8 +76,8 @@ def getXLSX_fuero_comun(conn):
     return True
 
 def getXLSX_victimas(conn):
-    baseurl = "http://secretariadoejecutivo.gob.mx/incidencia-delictiva/"
-    page = "incidencia-delictiva-victimas-unidades-robadas-nm.php"
+    baseurl = "https://www.gob.mx/sesnsp/acciones-y-programas/"
+    page = "victimas-nueva-metodologia"
 
     print("Processing Victimas Files:")
     r = requests.get(baseurl + page)
@@ -85,13 +85,13 @@ def getXLSX_victimas(conn):
     data = r.text
     soup = BeautifulSoup(data)
 
-    for i, link in enumerate(soup.findAll("a", href=re.compile('(Estatal|Unidades).*zip', re.IGNORECASE))):
-        print link['href']
+    for i, link in enumerate(soup.findAll("a", href=re.compile('(Estatal).*zip', re.IGNORECASE))):
+        print  link['href'].encode('utf-8')
         fname = ("estatal_victimas" if "Estatal" in link['href'] else "unidades_robadas") + '.zip'
 
         with open('snsp-data/' + fname, "wb") as fp:
             curl = pycurl.Curl()
-            curl.setopt(pycurl.URL, baseurl + urllib.quote(link['href'].encode('windows-1252')))
+            curl.setopt(pycurl.URL, urllib.quote(link['href'].encode('utf-8'), safe="%/:=&?~#+!$,;'@()*[]"))
             curl.setopt(pycurl.WRITEDATA, fp)
             curl.perform()
             curl.close()
