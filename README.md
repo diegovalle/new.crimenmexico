@@ -12,7 +12,7 @@ docker pull diegovalle/elcrimen-docker
 docker run -it diegovalle/elcrimen-docker
 ```
 
-and change to the /root/new.crimenmexico directory, ```git pull``` to get the latest version and run build.sh. The website will
+and change to the /root/new.crimenmexico directory, ```git pull``` to get the latest version and run make. The website will
 be available in the _crimenmexico.diegovalle.net_ subdir. If you don't have 
 the private key to deploy after building, the software will report some errors.
 
