@@ -141,15 +141,15 @@ rvsv.map <- bottomMap(vic, "Car Robbery without Violence",
                       low = "#fff7fb", high = "#023858", mid = "#74a9cf", "CAR ROBBERY W/O V.",
                       max_date)
 
-note <- "Kidnappings, homicides, and extortions refer to victims; car robberies to police reports. Car robberies include ROBO DE COCHE DE 4 RUEDAS under 
-the new methodology. Homicides include HOMICIDIOS DOLOSOS and FEMINICIDIO.
-According to the National Crime Victimization Survey (ENVIPE) extortions have remained roughly stabe, the same as according to the SNSP. Car Robberies 
-do match the stable ENVIPE trend (2015-2016), and homicides follow the trend reported by the INEGI"
+note <- "Kidnappings, homicides, and extortions refer to victims; car robberies to police reports. Car robberies include ROBO DE COCHE DE 4 RUEDAS 
+recorded with the new methodology. Homicides include HOMICIDIOS DOLOSOS and FEMINICIDIO.
+According to the National Crime Victimization Survey (ENVIPE) extortions have remained roughly stabe, the same as according to the SNSP. 
+Car Robberies do match the stable ENVIPE trend (2015-2016), and homicides follow the trend reported by the INEGI"
 
 attribution <- paste(
   "Website: https://elcri.men/en/",
   "Author: Diego Valle-Jones @diegovalle",
-  "Data Source: Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (secretariadoejecutivo.gob.mx) and CONAPO",
+  "Data Source: Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (https://www.gob.mx/sesnsp) and CONAPO",
   sep = "\n")
 
 
@@ -228,19 +228,20 @@ rvsv.map <- bottomMap(vic, "Robo de vehículo sin violencia",
                       low = "#fff7fb", high = "#023858", mid = "#74a9cf", "ROBO DE VEHÍCULO S/V",
                       max_date)
 
-note <- "Los secuestros, homicidios y extorsiones refieren el número de victimas, pero los robos de vehículo las averiguaciones previas. Los datos corresponden a la nueva metodología. Los robos de vehículo son los de cuarto ruedas. Los homicidios incluyen feminicidios
+note <- "Los secuestros, homicidios y extorsiones refieren el número de victimas, pero los robos de vehículo las averiguaciones previas. Los datos 
+corresponden a la nueva metodología. Los robos de vehículo son los de cuarto ruedas. Los homicidios incluyen feminicidios
 Según la ENVIPE las extorsiones han permanecido estables, lo mismo que reporta el el SNSP. Los robos de vehículo coinciden con la 
 tendencia estable de la ENVIPE (2015-2016), los homicidios también coinciden en tendencia con datos del INEGI/SSA"
 
 attribution <- paste(
   "Web: https://elcri.men/",
   "Autor: Diego Valle @diegovalle",
-  "Fuente: Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (secretariadoejecutivo.gob.mx) y CONAPO",
+  "Fuente: Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (https://www.gob.mx/sesnsp) y CONAPO",
   sep = "\n")
 
 
 toSvg(str_c("graphs/infographic_es_", tolower(str_replace(max_date, " ", "_")), ".svg"), 
-      "CRIMEN en MÉXICO", max_date, note, attribution)
+      "CRIMEN en MEXICO", max_date, note, attribution)
 
 Sys.setlocale("LC_TIME", lct)
 

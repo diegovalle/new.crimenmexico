@@ -11,38 +11,24 @@ ESTADOS_FILE=nm-fuero-comun-estados.csv.gz
 MUNICIPIOS_FILE=nm-fuero-comun-municipios.csv.gz
 VICTIMAS_FILE=nm-estatal-victimas.csv.gz
 
-#Download INEGI homicide data for the national chart in index.html
-cd R/data && ./inegi.sh && cd ../..
-
-# Download the snsp data and create a sqlite db with the data
-. ~/.virtualenvs/crimenmexico/bin/activate
-rm -rf downloader/page-checksums/*.md5
-rm -rf downloader/pdf/*.pdf && rm -rf pdf/*.md5
-rm -rf downloader/victimas-csv/*.csv
-find downloader/snsp-data -type f -not -name '.gitignore' -exec rm -rf "{}" \;
-if [ -f db/crimenmexico.db ]
-then
-    rm db/crimenmexico.db
-fi
-sqlite3 db/crimenmexico.db < downloader/meta/sql.sql
-echo "Downloading data"
-cd downloader && python scrape.py && cd ..
-
-# Statistics with R
-echo "Starting statistical analysis"
-cd R && Rscript run_all.R && cd ..
-echo "Finished R script"
 
 # Convert the infographics R created to png and optimize for the web
 for filename in R/graphs/*.svg; do
     if [ ! -f "R/graphs/$(basename "$filename" .svg).png" ]
     then
         echo "Converting $filename"
-        convert "$filename" R/graphs/"$(basename "$filename" .svg)".png
+        convert -density 580 "$filename" -resize 1080x R/graphs/"$(basename "$filename" .svg)".png
         optipng -quiet R/graphs/"$(basename "$filename" .svg)".png
     fi
 done
 
+# Move images to the website directory
+echo "Creating website...."
+cp -n -v R/graphs/infographic_???_????.png crimenmexico.diegovalle.net/en/images/infographics/fulls/
+cp -n -v R/graphs/municipios_???_????.png crimenmexico.diegovalle.net/en/images/infographics/fulls/
+cp -n -v R/graphs/infographic_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
+cp -n -v R/graphs/municipios_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
+cd crimenmexico.diegovalle.net && python create_website.py && cd ..
 
 # Move the json files with the chart data to the website directory
 cp R/json/*.json crimenmexico.diegovalle.net/assets/json/
@@ -55,14 +41,6 @@ then
 fi
 cd R/interactive-map/ && ./convert.sh && cd ../..
 cp R/interactive-map/municipios*.{csv,json} crimenmexico.diegovalle.net/assets/json
-
-# Move images to the website directory
-echo "Creating website...."
-cp -n -v R/graphs/infographic_???_????.png crimenmexico.diegovalle.net/en/images/infographics/fulls/
-cp -n -v R/graphs/municipios_???_????.png crimenmexico.diegovalle.net/en/images/infographics/fulls/
-cp -n -v R/graphs/infographic_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
-cp -n -v R/graphs/municipios_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
-cd crimenmexico.diegovalle.net && python create_website.py && cd ..
 
 echo "Exporting databases to csv.gz"
 # Export the sqlite database to csv and compress
@@ -168,16 +146,3 @@ simplehttpserver crimenmexico.diegovalle.net/ > /dev/null  2>&1 &
 sleep 40
 cd crimenmexico.diegovalle.net/tests && casperjs  --fail-fast --ssl-protocol=tlsv1 test web_test.js && cd ../..
 kill "$!"
-
-# copy  to the staging website
-# ln -s #{latest_release} #{current_path}.date && mv -f #{current_path}.date #{current_path}
-
-rsync --exclude='.git/' -az --compress-level=9 --stats -e 'ssh -i /root/.ssh/crimenmexico' --delete /root/new.crimenmexico  crimenmexico@"$IPADDRESS":/home/crimenmexico
-
-DATE=$(date +%Y-%m-%d-%H-%Z)
-LATEST_RELEASE=/var/www/bcrimenmexico.diegovalle.net/$DATE
-CURRENT_PATH=/var/www/elcri.men/public
-CURRENT_PATH_TMP=/var/www/bcrimenmexico.diegovalle.net/$DATE.tmp
-ssh -i /root/.ssh/crimenmexico crimenmexico@"$IPADDRESS" "mkdir -p $LATEST_RELEASE && cp -r /home/crimenmexico/new.crimenmexico/crimenmexico.diegovalle.net/* $LATEST_RELEASE && ln -s $LATEST_RELEASE $CURRENT_PATH_TMP && mv -T $CURRENT_PATH_TMP $CURRENT_PATH"
-
-cd ~/new.crimenmexico/crimenmexico.diegovalle.net && netlify -t "$NETLIFYAPIKEY" deploy && cd ..

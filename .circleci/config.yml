@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Build the website https://elcri.men
           command: |
-            sudo -H -E bash -c "cp ansible/* /etc/ansible && cd /etc/ansible && echo $ANSIBLE_PASSWORD > password.txt && ansible-playbook -c local ssh.yml --vault-password-file=/etc/ansible/password.txt --extra-vars 'secrets=true' && cd /root/new.crimenmexico && git pull && ./build.sh"
+            sudo -H -E bash -c "cp ansible/* /etc/ansible && cd /etc/ansible && echo $ANSIBLE_PASSWORD > password.txt && ansible-playbook -c local ssh.yml --vault-password-file=/etc/ansible/password.txt --extra-vars 'secrets=true' && cd /root/new.crimenmexico && git pull && make"
           no_output_timeout: 2400
 
       - store_artifacts:

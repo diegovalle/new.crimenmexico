@@ -293,8 +293,8 @@ grid.text("CRIMEN ✕ MUNICIPIO", y = unit(.997, "npc"), x = unit(0.5, "npc"), v
           gp = gpar(fontfamily = "Fugaz One", col = "#001D00", cex = 5, alpha = 0.3))
 # Black square with the date on it
 grid.rect(gp = gpar(fill = "black", col = "black"), 
-          x = unit(0.94, "npc"), y = unit(0.988, "npc"), 
-          width = unit(.085, "npc"), height = unit(0.04, "npc"))
+          x = unit(0.94, "npc"), y = unit(0.985, "npc"), 
+          width = unit(.085, "npc"), height = unit(0.025, "npc"))
 # Text with the date
 grid.text(max_date, vjust = 0, hjust = 0, x = unit(0.907, "npc"), 
           y = unit(0.98, "npc"), gp = gpar(fontfamily = "Open Sans Extrabold", 

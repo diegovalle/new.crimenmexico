@@ -5,7 +5,7 @@ if (!require(devtools)) {
 
 if (!require("mxmaps")) {
   devtools::install_github('diegovalle/mxmaps')
-  require('mxmpas')
+  require('mxmaps')
 }
 if (!require("AnomalyDetection")) {
   devtools::install_github('twitter/AnomalyDetection')
@@ -17,6 +17,7 @@ if (!require("mxmortalitydb")) {
 }
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load("AnomalyDetection",
+               "anomalize",
                "compiler",
                "data.table",
                "dplyr",
@@ -38,6 +39,7 @@ pacman::p_load("AnomalyDetection",
                "RColorBrewer",
                "rgdal",
                "rgeos",
+               "rpart",
                "RSQLite",
                "Rttf2pt1",
                "scales",

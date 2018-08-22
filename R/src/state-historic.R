@@ -6,13 +6,13 @@ national_hom <- vic %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / population) * 10^5  ) %>%
   mutate(state_code = "national")
 
-pop_states_national <-  read.csv('../downloader/data/pop_states.csv') %>%
+pop_states_national <-  read.csv('../clean/data/pop_states.csv') %>%
   group_by(date) %>%
   summarise(pop = sum(population)) %>%
   mutate(date = str_sub(date, 1, 7)) %>%
   mutate(state_code = "national")
 
-pop_states <-  read.csv('../downloader/data/pop_states.csv') %>%
+pop_states <-  read.csv('../clean/data/pop_states.csv') %>%
   rename(pop = population) %>%
   mutate(date = str_sub(date, 1, 7))
 pop_states <- rbind(pop_states, pop_states_national)

@@ -124,7 +124,7 @@ def monthdelta(date, delta):
 
 clean('en/', "C")
 clean('es/', 'es_ES.UTF-8')
-print("optimizing PNGs...")
+print("optimizing thumbnail PNGs...")
 os.system(r"find . -wholename '*thumbnails/*.png' -exec sh -c 'optipng -quiet {}' \;")
 #print("compress with zopfli")
 #os.system(r"""find . -type f -not \( -name '*.gz' -or -name '*[~#]' -or -name '*.png' -or -name '*.jpg' -or -name '*.py' \) -exec sh -c 'zopfli "{}"' \;""")
