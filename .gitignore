@@ -23,5 +23,6 @@ ansible/playbook.retry
 .idea/*
 password.txt
 tweets.txt
+R/data/INEGI_exporta.csv
 
 !crimenmexico.diegovalle.net/assets/json/municipios-centroids.csv
