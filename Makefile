@@ -26,7 +26,7 @@ define xlsb_to_csv
                         $(1).xlsb
 endef
 
-all: download_snsp download_inegi convert_to_csv clean_data analysis website
+all: download_snsp download_inegi convert_to_csv clean_data analysis website deploy
 
 
 download_snsp: $(SNSP_DIR)/municipios.zip $(SNSP_DIR)/estados.zip \
