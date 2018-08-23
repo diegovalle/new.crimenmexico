@@ -18,7 +18,11 @@ for filename in R/graphs/*.svg; do
     then
         echo "Converting $filename"
         if [[ -z "${CIRCLECI}" ]]; then
-            inkscape -z -e R/graphs/"$(basename "$filename" .svg)".png -w 1080 -h 1800 "$filename"
+            if ! [ -x "$(command -v inkscape)" ]; then
+                convert -density 150 "$filename" -resize 1080 R/graphs/"$(basename "$filename" .svg)".png
+            else
+                inkscape -z -e R/graphs/"$(basename "$filename" .svg)".png -w 1080 -h 1800 "$filename"
+            fi
         else
             convert "$filename" R/graphs/"$(basename "$filename" .svg)".png
         fi
