@@ -8,7 +8,8 @@ VICTIMAS_PAGE=https://www.gob.mx/sesnsp/acciones-y-programas/victimas-nueva-meto
 SNSP_DIR=clean/snsp-data
 
 define download_file
-# Download the links with the matching keywords
+# Visit the website with the open data downloads and extract the
+# links with the latest data
 	curl -s  $(1) | grep -Po '(?<=href=")[^"]*$(2)[^"]*(?=")' | \
 	         sed 's| |%20|g' | xargs curl -s > $(3)
 endef
