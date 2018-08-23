@@ -47,7 +47,7 @@ $(SNSP_DIR)/estados_victimas.zip:
 download_inegi: R/data/INEGI_exporta.csv
 
 R/data/INEGI_exporta.csv:
-	@echo "\n\n****************Downloading INEGI data******************\n"
+	@echo "\n\n****************Downloading INEGI homicide data***********\n"
 	cd R/data && ./inegi.sh
 
 
