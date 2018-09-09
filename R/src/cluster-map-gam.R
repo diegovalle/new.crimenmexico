@@ -66,7 +66,8 @@ tryCatch({
                                    "BENITO JUÁREZ, QUINTANA ROO",
                                    "GUAYMAS, SONORA",
                                    "ZIHUATANEJO DE AZUETA, GUERRERO",
-                                   "SALVATIERRA, GUANAJUATO"))
+                                   "SALVATIERRA, GUANAJUATO",
+                                   "JUÁREZ, CHIHUAHUA"))
   cities$group <- 1
   cities$municipio <- str_replace(cities$municipio, "BENITO JUÁREZ", "CANCÚN")
   cities$municipio <- str_replace(cities$municipio, "ZIHUATANEJO DE AZUETA", "ZIHUATANEJO")
