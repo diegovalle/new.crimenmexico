@@ -27,22 +27,21 @@ define xlsb_to_csv
                         $(1).xlsb
 endef
 
-all: download_snsp download_inegi convert_to_csv clean_data analysis website deploy
+all: download_csv download_inegi clean_data analysis website deploy
 
 
-download_snsp: $(SNSP_DIR)/municipios.zip $(SNSP_DIR)/estados.zip \
-	$(SNSP_DIR)/estados_victimas.zip
+download_csv: $(SNSP_DIR)/estados.csv $(SNSP_DIR)/municipios.csv \
+$(SNSP_DIR)/estados_victimas.csv
 
+$(SNSP_DIR)/estados.csv:
+	@echo "\n\n****************Download SNSP csv files****************\n"
+	curl -Lo $@ https://datosabiertos.segob.gob.mx/DatosAbiertos/SESNSP/IDEFC_NM
 
-$(SNSP_DIR)/municipios.zip:
-	@echo "\n****************Downloading SNSP data*******************\n"
-	$(call download_file,$(FUERO_COMUN_PAGE),Municipal,$@)
+$(SNSP_DIR)/municipios.csv:
+	curl -Lo $@ https://datosabiertos.segob.gob.mx/DatosAbiertos/SESNSP/IDM_NM
 
-$(SNSP_DIR)/estados.zip:
-	$(call download_file,$(FUERO_COMUN_PAGE),Estatal,$@)
-
-$(SNSP_DIR)/estados_victimas.zip:
-	$(call download_file,$(VICTIMAS_PAGE),Estatal,$@)
+$(SNSP_DIR)/estados_victimas.csv:
+	curl -Lo $@ https://datosabiertos.segob.gob.mx/DatosAbiertos/SESNSP/IDVFC_NM
 
 
 download_inegi: R/data/INEGI_exporta.csv
@@ -51,19 +50,6 @@ R/data/INEGI_exporta.csv:
 	@echo "\n\n****************Downloading INEGI homicide data***********\n"
 	cd R/data && ./inegi.sh
 
-
-convert_to_csv: download_snsp $(SNSP_DIR)/estados.csv $(SNSP_DIR)/municipios.csv \
-	$(SNSP_DIR)/estados_victimas.csv
-
-$(SNSP_DIR)/estados.csv: $(SNSP_DIR)/estados.zip
-	@echo "\n\n****************Converting to .csv******************\n"
-	$(call xlsb_to_csv,estados)
-
-$(SNSP_DIR)/municipios.csv: $(SNSP_DIR)/municipios.zip
-	$(call xlsb_to_csv,municipios)
-
-$(SNSP_DIR)/estados_victimas.csv: $(SNSP_DIR)/estados_victimas.zip
-	$(call xlsb_to_csv,estados_victimas)
 
 
 clean_data: db/crimenmexico.db
