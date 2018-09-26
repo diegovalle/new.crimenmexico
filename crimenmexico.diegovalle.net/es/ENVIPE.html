@@ -749,7 +749,7 @@ License: pixelarity.com/license
 
         </script>
         <script>
-         var comma = d3.format(",");
+         var comma = d3.format(",.0f");
 
          var drawENVIPEChart=function(title, description, div, xlabel, ylabel, data, year, crimes){
              MG.data_graphic({
@@ -774,32 +774,32 @@ License: pixelarity.com/license
                      d3.select(div + ' svg .mg-active-datapoint')
                        .text((d.line_id == 1 ? 'ENVIPE - ' : d.line_id == 2 ? 'SESNSP - ' : 'AMIS - ') +
                              year + d.date +  crimes + comma(d.value) +
-                                                        (typeof d.inf !== 'undefined' ? (' Inf: ' + comma(d.inf) +
-                                                                                         ' Sup: ' + comma(d.sup)) : ''));
+                                                                 (typeof d.inf !== 'undefined' ? (' Inf: ' + comma(d.inf) +
+                                                                                                  ' Sup: ' + comma(d.sup)) : ''));
                  }
              })
          }
          var lesiones_data = [[{'date':2015,'value': 1072610, sup: 1169170, inf: 976050},
                                {'date':2016,'value':  968451, sup: 1073862, inf: 863040},
-                               {'date': null, 'value': null, sup: null, inf: null}],
+                               {'date': 2017, 'value': 1004432, sup: 1004432 + 53448, inf: 1004432 - 53448}],
                               [{'date':2015,'value':  150711},
                                {'date':2016,'value':  148660},
                                {'date': 2017, 'value': 164069}]];
          var secuestro_data = [[{'date':2015,'value':  62636, sup: 77530, inf: 47742},
                                 {'date':2016,'value':  66842, sup: 81522, inf: 52162},
-                                {'date': null, 'value': null, sup: null, inf: null}],
+                                {'date': 2017, 'value': 80319, sup: 80319*1.21, inf: 80319*.79}],
                                [{'date':2015,'value':  1310},
                                 {'date':2016,'value':  1381},
                                 {'date':2017, 'value': 1389}]];
          var extorsion_data = [[{'date':2015, 'value':  7100878, sup: 7377798, inf: 6823958},
                                 {'date':2016, 'value':  7503477, sup: 7787836, inf: 7219118},
-                                {'date': null, 'value': null, sup: null, inf: null}],
+                                {'date': 2017, 'value': 6590728, sup: 6590728 + 182555, inf: 6590728 - 182555}],
                                [{'date':2015, 'value':  5277},
                                 {'date':2016, 'value':  5395},
                                 {'date':2017, 'value': 5780}]]
          var robocoche_data = [[{'date':2015,'value':  452001, sup: 486110, inf:  417893},
                                 {'date':2016,'value':  493727, sup: 527885, inf: 459570},
-                                {'date': null, 'value': null, sup: null, inf: null}],
+                                {'date': 2017, 'value': 626088, sup: 626088+23985, inf: 626088-23985}],
                                [{'date':2015,'value':  145735},
                                 {'date':2016,'value':  147839},
                                 {'date':2017, 'value':167626}],
