@@ -64,7 +64,8 @@ tryCatch({
                                    "MIGUEL ALEMÁN, TAMAULIPAS",
                                    #"COATZACOALCOS, VERACRUZ",
                                    "BENITO JUÁREZ, QUINTANA ROO",
-                                   "GUAYMAS, SONORA",
+                                   #"GUAYMAS, SONORA",
+                                   "CAJEME, SONORA",
                                    "ZIHUATANEJO DE AZUETA, GUERRERO",
                                    "SALAMANCA, GUANAJUATO",
                                    "TECAMACHALCO, PUEBLA",
@@ -72,7 +73,7 @@ tryCatch({
   cities$group <- 1
   cities$municipio <- str_replace(cities$municipio, "BENITO JUÁREZ", "CANCÚN")
   cities$municipio <- str_replace(cities$municipio, "ZIHUATANEJO DE AZUETA", "ZIHUATANEJO")
-  #cities$municipio <- str_replace(cities$municipio, "CAJEME", "CIUDAD OBREGÓN")
+  cities$municipio <- str_replace(cities$municipio, "CAJEME", "CIUDAD OBREGÓN")
   cities$municipio <- str_replace(cities$municipio, "ACAPULCO DE JUÁREZ", "ACAPULCO")
   #cities$municipio <- str_replace(cities$municipio, "POZA RICA DE HIDALGO", "POZA RICA")
   
