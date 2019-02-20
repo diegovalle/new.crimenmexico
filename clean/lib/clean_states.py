@@ -392,6 +392,8 @@ class CrimeMunicipios(CrimeStates):
 
         if 'TOTAL' in [x.upper() for x in df.columns]:
             del df['TOTAL']
+        if 'TOTAL ESTADO' in [x.upper() for x in df.columns]:
+            del df['TOTAL ESTADO']
         df = df.dropna(axis=0, how='all')
 
         self.municipios = pd.read_csv(os.path.join(self._DATADIR, "municipio_names.csv"),
