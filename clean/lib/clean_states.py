@@ -290,6 +290,8 @@ class CrimeStatesVictimas(CrimeStates):
 
         if 'TOTAL' in [x.upper() for x in df.columns]:
             del df['TOTAL']
+        if 'TOTAL ESTADO' in [x.upper() for x in df.columns]:
+            del df['TOTAL ESTADO']
         df = df.dropna(axis=0, how='all')
 
         self.state_codes = pd.read_csv(os.path.join(self._DATADIR, "state_codes.csv"),
@@ -397,7 +399,7 @@ class CrimeMunicipios(CrimeStates):
         population = pd.read_csv(os.path.join(self._DATADIR, "pop_muns.csv"))
         population['date'] = population.date.str.slice(0, 7)
         self.population = population
-
+        import pdb;pdb.set_trace()
         self.check_file(df)
 
         self.modalidad = self.get_uniq_df(df, 'MODALIDAD', 'modalidad')
