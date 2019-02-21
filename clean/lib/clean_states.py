@@ -377,7 +377,7 @@ class CrimeMunicipios(CrimeStates):
                     'tipo', 'subtipo', 'modalidad',
                     '01', '02', '03', '04', '05', '06',
                     '07', '08', '09', '10', '11', '12']
-    _cleanColumnNames = ['bien_juridico', 'modalidad', 'tipo', 'subtipo', 'count', 'state_code', 'mun_code', 'date']
+    _cleanColumnNames = ['bien_juridico', 'modalidad', 'tipo', 'subtipo', 'count', 'date', 'state_code', 'mun_code']
     _columnOrder = ['date', 'state_code', 'mun_code', 'bien_juridico',
                      'tipo', 'subtipo', 'modalidad',  'count']
     municipios = pd.DataFrame()
@@ -402,7 +402,7 @@ class CrimeMunicipios(CrimeStates):
         population['date'] = population.date.str.slice(0, 7)
         self.population = population
         del population
-        
+
         self.check_file(df)
 
         self.modalidad = self.get_uniq_df(df, 'MODALIDAD', 'modalidad')
@@ -421,11 +421,24 @@ class CrimeMunicipios(CrimeStates):
         del df['municipio']
         del df['state']
         del df['state_code']
+        df["year"] = df["year"].astype('category')
 
         df = pd.melt(df, id_vars=['year', 'inegi', 'bien_juridico', 'modalidad', 'tipo', 'subtipo'])
+
+        df['date'] = df["year"].map(int).map(str) + '-' + df['variable']
+        del df['variable']  # delete month
+        del df['year']
+        # uses less memory as a category
+        df['date'] = df['date'].astype('category')
+
         df['inegi'] = pd.to_numeric(df['inegi'])
         df['state_code'] = df['inegi'].apply(lambda x: math.floor(x / 1000)).astype(int)
+        df['state_code'] = pd.to_numeric(df['state_code'])
         df['mun_code'] = df['inegi'].apply(lambda x: x % 1000)
+        del df['inegi']
+
+        df['value'] = df['value'].map(str).replace(',', '')
+        df['value'] = pd.to_numeric(df['value'], errors='coerce')
 
         # Check that no weird mun codes have been added
         assert(df.query('mun_code > 570 & mun_code < 998').empty)
@@ -435,21 +448,10 @@ class CrimeMunicipios(CrimeStates):
         # The SNSP uses different municipio names in the same db
         #self.municipios = pd.concat([df['state_code'], df['mun_code'], df['municipio']], axis=1).drop_duplicates()
 
-        df['date'] = df["year"].map(int).map(str) + '-' + df['variable']
-        del df['variable']  # delete month
-        del df['year']
-
-        del df['inegi']
-
         df.columns = self._cleanColumnNames
         df = df[self._columnOrder]
 
         df.is_copy = False
-        df['count'] = df['count'].map(str).replace(',', '')
-        df['count'] = pd.to_numeric(df['count'], errors='coerce')
-        df['state_code'] = pd.to_numeric(df['state_code'])
-        # mport pdb
-        # pdb.set_trace()
         # The SNSP reports months in the future as NA so get rid of them
         bad_dates = []
         for date in reversed(sorted(df.date.unique())):
@@ -489,9 +491,10 @@ class CrimeMunicipios(CrimeStates):
             print('setting counts as NA for state_code: 20 with date 2015-10 because they are all zeros')
         if(df[((df.state_code == 20) & (df.date == '2015-12'))]['count'].sum() == 0):
             df.ix[((df.state_code == 20) & (df.date == '2015-12')),'count'] = np.nan
-            print('setting counts as NA for state_code: 20 with date 2015-12 because they are all zeros')        
+            print('setting counts as NA for state_code: 20 with date 2015-12 because they are all zeros')
         if(df[((df.state_code == 20) & (df.date == '2016-10'))]['count'].sum() == 0):
             df.ix[((df.state_code == 20) & (df.date == '2016-10')),'count'] = np.nan
             print('setting counts as NA for state_code: 20 with date 2016-10 because they are all zeros')
 
+        #import pdb;pdb.set_trace()
         self.data = df

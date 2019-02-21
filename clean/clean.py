@@ -26,7 +26,7 @@ def write_file(fileName, md):
 
 def write_state_victimas_db(conn, CSV_ESTADOS):
     crime_states = CrimeStatesVictimas(os.path.join('snsp-data', CSV_ESTADOS))
-
+    # has to be append to preserve the foreign keys
     pd_sql.to_sql(crime_states.tipo, 'tipo_states_victimas', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_states.subtipo, 'subtipo_states_victimas', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_states.modalidad, 'modalidad_states_victimas', conn, if_exists='append', index=False)
@@ -39,7 +39,7 @@ def write_state_victimas_db(conn, CSV_ESTADOS):
 
 def write_state_db(conn, CSV_ESTADOS):
     crime_states = CrimeStates(os.path.join('snsp-data', CSV_ESTADOS))
-
+    # has to be append to preserve the foreign keys
     pd_sql.to_sql(crime_states.tipo, 'tipo_states', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_states.subtipo, 'subtipo_states', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_states.modalidad, 'modalidad_states', conn, if_exists='append', index=False)
@@ -53,6 +53,7 @@ def write_mun_db(conn, CSV_MUNICIPIOS):
     print("Cleaning municipio data")
     crime_municipios = CrimeMunicipios(os.path.join('snsp-data', CSV_MUNICIPIOS))
     print("Writing metada to db")
+    # has to be append to preserve the foreign keys
     pd_sql.to_sql(crime_municipios.tipo, 'tipo_municipios', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_municipios.subtipo, 'subtipo_municipios', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_municipios.modalidad, 'modalidad_municipios', conn, if_exists='append', index=False)
@@ -62,7 +63,7 @@ def write_mun_db(conn, CSV_MUNICIPIOS):
     print("Writing municipio data to db")
     # Temporary fix because the SNSP duplicated (with different values) the data for 2055 TRINIDAD ZAACHILA
     #crime_municipios.data = crime_municipios.data[(crime_municipios.data['state_code'] != 22) & (crime_municipios.data['mun_code'] != 555)]
-    pd_sql.to_sql(crime_municipios.data, 'municipios_fuero_comun', conn, if_exists='append', index=False, chunksize=20000)
+    pd_sql.to_sql(crime_municipios.data, 'municipios_fuero_comun', conn, if_exists='append', index=False, chunksize=1000000)
     print("End writing municipio data to db")
 
 #Clean the state and municipio fuero comun CSV files
