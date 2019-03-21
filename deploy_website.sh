@@ -11,4 +11,4 @@ CURRENT_PATH=/var/www/elcri.men/public
 CURRENT_PATH_TMP=/var/www/bcrimenmexico.diegovalle.net/$DATE.tmp
 ssh -i /root/.ssh/crimenmexico crimenmexico@"$IPADDRESS" "mkdir -p $LATEST_RELEASE && cp -r /home/crimenmexico/new.crimenmexico/crimenmexico.diegovalle.net/* $LATEST_RELEASE && ln -s $LATEST_RELEASE $CURRENT_PATH_TMP && mv -T $CURRENT_PATH_TMP $CURRENT_PATH"
 
-cd ~/new.crimenmexico/crimenmexico.diegovalle.net && netlify -t "$NETLIFYAPIKEY" deploy && cd ..
+cd ~/new.crimenmexico/crimenmexico.diegovalle.net && netlify deploy --auth="$NETLIFYAPIKEY" --site=b399b452-d320-4949-8c4d-f32ea339db82 --dir=. --prod && cd ..
