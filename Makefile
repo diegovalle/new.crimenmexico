@@ -35,13 +35,13 @@ $(SNSP_DIR)/estados_victimas.csv
 
 $(SNSP_DIR)/estados.csv:
 	@echo "\n\n****************Download SNSP csv files****************\n"
-	curl --retry 10 -Lo $@ https://datosabiertos.segob.gob.mx/DatosAbiertos/SESNSP/IDEFC_NM
+	wget --tries=25 -O $@ https://datosabiertos.segob.gob.mx/DatosAbiertos/SESNSP/IDEFC_NM
 
 $(SNSP_DIR)/municipios.csv:
-	curl --retry 10 -Lo $@ https://datosabiertos.segob.gob.mx/DatosAbiertos/SESNSP/IDM_NM
+	wget --tries=25 -O $@ https://datosabiertos.segob.gob.mx/DatosAbiertos/SESNSP/IDM_NM
 
 $(SNSP_DIR)/estados_victimas.csv:
-	curl --retry 10 -Lo $@ https://datosabiertos.segob.gob.mx/DatosAbiertos/SESNSP/IDVFC_NM
+	wget --tries=25 -O $@ https://datosabiertos.segob.gob.mx/DatosAbiertos/SESNSP/IDVFC_NM
 
 
 download_inegi: R/data/INEGI_exporta.csv
