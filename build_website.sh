@@ -17,7 +17,7 @@ for filename in R/graphs/*.svg; do
     if [ ! -f "R/graphs/$(basename "$filename" .svg).png" ]
     then
         echo "Converting $filename"
-        inkscape -z -e R/graphs/"$(basename "$filename" .svg)".png -w 1080 -h 1800 "$filename
+        inkscape -z -e R/graphs/"$(basename "$filename" .svg)".png -w 1080 -h 1800 "$filename"
         optipng -quiet R/graphs/"$(basename "$filename" .svg)".png
     fi
 done
