@@ -30,18 +30,9 @@ endef
 all: download_csv download_inegi clean_data analysis website deploy
 
 
-download_csv: $(SNSP_DIR)/estados.csv $(SNSP_DIR)/municipios.csv \
-$(SNSP_DIR)/estados_victimas.csv
-
-$(SNSP_DIR)/estados.csv:
+download_csv:
 	@echo "\n\n****************Download SNSP csv files****************\n"
-	wget --secure-protocol=TLSv1 --read-timeout=6 --tries=50 -O $@ https://datosabiertos.segob.gob.mx/DatosAbiertos/SESNSP/IDEFC_NM
-
-$(SNSP_DIR)/municipios.csv:
-	wget --secure-protocol=TLSv1 --read-timeout=6 --tries=50 -O $@ https://datosabiertos.segob.gob.mx/DatosAbiertos/SESNSP/IDM_NM
-
-$(SNSP_DIR)/estados_victimas.csv:
-	wget --secure-protocol=TLSv1 --read-timeout=6 --tries=50 -O $@ https://datosabiertos.segob.gob.mx/DatosAbiertos/SESNSP/IDVFC_NM
+	./download.sh
 
 
 download_inegi: R/data/INEGI_exporta.csv
@@ -54,8 +45,7 @@ R/data/INEGI_exporta.csv:
 
 clean_data: db/crimenmexico.db
 
-db/crimenmexico.db: $(SNSP_DIR)/estados.csv $(SNSP_DIR)/municipios.csv \
-$(SNSP_DIR)/estados_victimas.csv
+db/crimenmexico.db: download_csv
 	@echo "\n\n****************Clean Data******************\n"
 	$(RM) db/crimenmexico.db
 	sqlite3 db/crimenmexico.db < clean/meta/sql.sql
