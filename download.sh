@@ -7,8 +7,8 @@ COOKIE_TMP=$(mktemp)
 
 SNSP_DIR=clean/snsp-data
 
-ESTADOS_FC_ZIP=$SNSP_DIR/municipios_fc_original.zip
-MUN_FC_ZIP=$SNSP_DIR/estados_fc_original.zip
+ESTADOS_FC_ZIP=$SNSP_DIR/estados_fc_original.zip
+MUN_FC_ZIP=$SNSP_DIR/municpios_fc_original.zip
 ESTADOS_VIC_ZIP=$SNSP_DIR/estados_vic_original.zip
 
 drive_direct_download() {
