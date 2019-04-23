@@ -184,15 +184,21 @@ smNational <- function(vic, rate, title, date, max_date, min_date) {
   }
   national$color <- "#005ab3"
   national$color[national$tipo %in% c("Intentional Homicide")] <-  "#b30000"
+  national$month <- month(national$date)
+  national <- national %>%
+    group_by(tipo) %>%
+    do(data.frame(.,pred = predict(gam(rate ~ s(as.numeric(date)) + 
+                                         s(month, bs = "cc", k = 12), 
+                                       data = .))))
   
   ggplot(national, aes(date, rate, group = tipo)) +
-    geom_point(color = "#222222", size =1.5) +
-    geom_smooth(method = "gam", formula = y ~s(x, k = 5), 
-                se = FALSE, aes(color = color), size = 1.2, alpha = .8) +
+    geom_point(color = "#222222", size = 1.5) +
+    geom_line(aes(date, pred, color = "#b30000", group = tipo), 
+              size = 1.2, alpha = .8) +
     facet_wrap(~tipo, scale = "free") + 
     expand_limits(y = 0) + 
     scale_color_manual(values = c("#b30000", "#b30000")) +
-    guides(colour=FALSE) +
+    guides(colour = FALSE) +
     ggtitle(str_c(title, ", ",min_date, "–", max_date)) +
     infographic_theme2() +
     ylab(rate) +
