@@ -65,6 +65,8 @@ tryCatch({
                                    #"COATZACOALCOS, VERACRUZ",
                                    "BENITO JUÁREZ, QUINTANA ROO",
                                    #"GUAYMAS, SONORA",
+                                   "JOJUTLA, MORELOS",
+                                   "ZAMORA, MICHOACÁN",
                                    "CAJEME, SONORA",
                                    "GUADALAJARA, JALISCO",
                                    "ZIHUATANEJO DE AZUETA, GUERRERO",
