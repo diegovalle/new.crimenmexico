@@ -26,7 +26,10 @@ estatal_download() {
 }
 
 municipal_fc_download() {
-    ggID='1FoFXpt4OeEXP8qeDzPKU-qky1f5iL8Gh'  
+    #ggID='1FoFXpt4OeEXP8qeDzPKU-qky1f5iL8Gh'  
+    ggID=$(curl -s  "$1" | \
+                         grep -Po "(?<=href=\")[^\"][^\"]*(?=\">Municipal \d{4} - \d{4}<\/a>&nbsp;)" | \
+                         sed 's| |%20|g' | sed 's|https://drive.google.com/open?id=||g')
     ggURL='https://drive.google.com/uc?export=download'  
     getcode="$(awk '/_warning_/ {print $NF}' $COOKIE_TMP)"  
     curl -Lb "$COOKIE_TMP" "${ggURL}&confirm=${getcode}&id=${ggID}" -o "$MUN_FC_ZIP"
