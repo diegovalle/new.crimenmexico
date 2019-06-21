@@ -19,19 +19,17 @@ drive_direct_download() {
 estatal_download() {
     regex="(?<=href=\")[^\"][^\"]*(?=\">$2 \d{4} - \d{4}<\/a><\/p>)"
     INTERMEDIATE_LINK=$(curl -s -L  "$1" | \
-                                grep -Po "$regex" | \
+                                grep -Po "$regex" | tail -n1 | \
                                 sed 's| |%20|g')
-
+    
     drive_direct_download "$INTERMEDIATE_LINK"
 }
 
 municipal_fc_download() {
-    INTERMEDIATE_LINK=$(curl -s  "$1" | \
-                         grep -Po "(?<=href=\")[^\"][^\"]*(?=\">Municipal \d{4} - \d{4}<\/a>&nbsp;)" | \
-                         sed 's| |%20|g')
-    REDIRECT=$(drive_direct_download "$INTERMEDIATE_LINK")
-    FILE=$(curl  -c "$COOKIE_TMP" -s -L "$REDIRECT" | grep -Po "(?<=href=\")[^\"][^\"]*(?=\">Download anyway<\/a>)")
-    echo https://drive.google.com"$FILE" | sed 's|\&amp;|\&|g'
+    ggID='1FoFXpt4OeEXP8qeDzPKU-qky1f5iL8Gh'  
+    ggURL='https://drive.google.com/uc?export=download'  
+    getcode="$(awk '/_warning_/ {print $NF}' /tmp/gcokie)"  
+    curl -Lb /tmp/gcokie "${ggURL}&confirm=${getcode}&id=${ggID}" -o "$MUN_FC_ZIP"
 }
 
 convert_to_csv() {
@@ -51,9 +49,11 @@ convert_to_csv() {
     fi
 }
 
+
 URL="https://www.gob.mx/sesnsp/acciones-y-programas/incidencia-delictiva-del-fuero-comun-nueva-metodologia?state=published"
 curl -L -s -o "$ESTADOS_FC_ZIP" "$(estatal_download "$URL" "Estatal")"
-curl -s -Lb "$COOKIE_TMP" -o "$MUN_FC_ZIP" "$(municipal_fc_download "$URL")"
+#curl -s -Lb "$COOKIE_TMP" -o "$MUN_FC_ZIP" "$(municipal_fc_download "$URL")"
+municipal_fc_download "$URL"
 URL_VIC="https://www.gob.mx/sesnsp/acciones-y-programas/victimas-nueva-metodologia?state=published"
 curl -s -L -o "$ESTADOS_VIC_ZIP" "$(estatal_download "$URL_VIC" "V&iacute;ctimas")"
 

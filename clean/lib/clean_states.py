@@ -383,8 +383,8 @@ class CrimeMunicipios(CrimeStates):
     municipios = pd.DataFrame()
 
     def clean_file(self, fname):
-        df = pd.read_csv(fname,  sep=";",# 'snsp-data/IncidenciaDelictiva_FueroComun_Estatal_1997-2015.csv'
-                         encoding="utf-8", dtype=object)
+        df = pd.read_csv(fname,  sep=",",# 'snsp-data/IncidenciaDelictiva_FueroComun_Estatal_1997-2015.csv'
+                         encoding="windows-1252", dtype=object)
         df.columns = map(unicode.upper, df.columns)
         df.columns = df.columns.str.replace(u'ANO', u'AÑO')
         df.columns = df.columns.str.replace(u'CVE. MUNICIPIO', u'CVE_MUNICIPIO')
