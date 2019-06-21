@@ -28,8 +28,8 @@ estatal_download() {
 municipal_fc_download() {
     ggID='1FoFXpt4OeEXP8qeDzPKU-qky1f5iL8Gh'  
     ggURL='https://drive.google.com/uc?export=download'  
-    getcode="$(awk '/_warning_/ {print $NF}' /tmp/gcokie)"  
-    curl -Lb /tmp/gcokie "${ggURL}&confirm=${getcode}&id=${ggID}" -o "$MUN_FC_ZIP"
+    getcode="$(awk '/_warning_/ {print $NF}' $COOKIE_TMP)"  
+    curl -Lb "$COOKIE_TMP" "${ggURL}&confirm=${getcode}&id=${ggID}" -o "$MUN_FC_ZIP"
 }
 
 convert_to_csv() {
