@@ -297,3 +297,7 @@ td, th {
   -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
   box-shadow: 0 5px 10px rgba(0,0,0,.2);
 }
+
+.cryptedemail2:after {
+  content: attr(data-ename) "@" attr(data-domain) "." attr(data-tld); 
+}
