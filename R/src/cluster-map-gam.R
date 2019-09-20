@@ -55,7 +55,7 @@ tryCatch({
                                    "ACAPULCO DE JUÁREZ, GUERRERO",
                                    #"LOS CABOS, BAJA CALIFORNIA SUR",
                                    "MANZANILLO, COLIMA",
-                                   "VICTORIA, TAMAULIPAS",
+                                   #"VICTORIA, TAMAULIPAS",
                                    "ZACATECAS, ZACATECAS",
                                    "APATZINGÁN, MICHOACÁN",
                                    #"TEPIC, NAYARIT",
@@ -72,12 +72,15 @@ tryCatch({
                                    "ZIHUATANEJO DE AZUETA, GUERRERO",
                                    "SALAMANCA, GUANAJUATO",
                                    "TECAMACHALCO, PUEBLA",
-                                   "JUÁREZ, CHIHUAHUA"))
+                                   "JUÁREZ, CHIHUAHUA",
+                                   "BENEMÉRITO DE LAS AMÉRICAS, CHIAPAS",
+                                   "SUCHIATE, CHIAPAS"))
   cities$group <- 1
   cities$municipio <- str_replace(cities$municipio, "BENITO JUÁREZ", "CANCÚN")
   cities$municipio <- str_replace(cities$municipio, "ZIHUATANEJO DE AZUETA", "ZIHUATANEJO")
   cities$municipio <- str_replace(cities$municipio, "CAJEME", "CIUDAD OBREGÓN")
   cities$municipio <- str_replace(cities$municipio, "ACAPULCO DE JUÁREZ", "ACAPULCO")
+  cities$municipio <- str_replace(cities$municipio, "SUCHIATE", "CIUDAD HIDALGO")
   #cities$municipio <- str_replace(cities$municipio, "POZA RICA DE HIDALGO", "POZA RICA")
   
   ggplot(mdata, aes(x = long, y = lat, group = group)) +
