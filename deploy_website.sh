@@ -3,9 +3,9 @@
 set -e # stop the script on errors
 set -o pipefail # piping a failed process into a successful one is an error
 
-rsync --exclude='.git/' --exclude='nm*.csv.gz' -az --compress-level=9 --stats -e 'ssh -i /root/.ssh/crimenmexico' --delete /root/new.crimenmexico  crimenmexico@"$IPADDRESS":/home/crimenmexico
+rsync --exclude='.git/' --exclude='nm*.csv.gz' -az --compress-level=9 --stats -e 'ssh  -o StrictHostKeyChecking=no -i /root/.ssh/crimenmexico' --delete /root/new.crimenmexico  crimenmexico@"$IPADDRESS":/home/crimenmexico
 # copy the csv.gz files to data.diegovalle.net
-rsync --omit-dir-times -rz --compress-level=9 --stats -e 'ssh -i /root/.ssh/crimenmexico' /root/new.crimenmexico/crimenmexico.diegovalle.net/data/  crimenmexico@"$IPADDRESS":/var/www/data.diegovalle.net/elcrimen
+rsync --omit-dir-times -rz --compress-level=9 --stats -e 'ssh  -o StrictHostKeyChecking=no -i /root/.ssh/crimenmexico' /root/new.crimenmexico/crimenmexico.diegovalle.net/data/  crimenmexico@"$IPADDRESS":/var/www/data.diegovalle.net/elcrimen
 
 
 DATE=$(date +%Y-%m-%d-%H-%Z)
