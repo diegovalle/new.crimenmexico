@@ -22,7 +22,7 @@ pycparser==2.18
 pycurl==7.43.0
 pyOpenSSL==18.0.0
 pyparsing==2.2.0
-python-dateutil==2.5.3
+python-dateutil==2.8.1
 pytz==2016.4
 requests==2.20.0
 six==1.10.0
