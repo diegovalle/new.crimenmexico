@@ -1,10 +1,13 @@
+SITENAME="https://elcrimentest.netlify.com/"
+SITENAME_NO_SLASH="https://elcrimentest.netlify.com"
+
 module.exports = {
   siteMetadata: {
     title: 'Delincuencia en México - El Crimen',
     author: 'Diego Valle-Jones',
     description: 'Descubre estadísticas de la delincuencia en tu estado y municipio con este mapa interactivo y reporte mensual de homicidios, secuestros, robos y más en México',
-    baseUrl: 'https://elcrimentest.netlify.com/',
-    siteUrl: 'https://elcrimentest.netlify.com/',
+    baseUrl: `${SITENAME}`,
+    siteUrl: `${SITENAME}`,
     twitterHandle: '@diegovalle',
     preliminaryINEGI: false,
   },
@@ -12,7 +15,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-react-helmet-canonical-urls`,
       options: {
-        siteUrl: `https://elcrimentest.netlify.com`,
+        siteUrl: `${SITENAME_NO_SLASH}`,
       },
     },
     {
@@ -172,12 +175,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-favicon`,
-    // {
-    //   resolve: `gatsby-plugin-google-adsense`,
-    //   options: {
-    //     publisherId: `ca-pub-2949275046149330`
-    //   },
-    // },
     /* 'gatsby-plugin-offline',*/
     {
       resolve: `gatsby-plugin-purgecss`,

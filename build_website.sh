@@ -4,7 +4,7 @@ set -e # stop the script on errors
 set -o pipefail # piping a failed process into a successful one is an error
 
 SCRIPTPATH=$( cd "$(dirname "$0")" ; pwd -P )
-EXPORT=crimenmexico.diegovalle.net/data
+EXPORT=data
 SQLITE3=sqlite3
 
 ESTADOS_FILE=nm-fuero-comun-estados.csv.gz
@@ -24,21 +24,16 @@ done
 
 # Move images to the website directory
 echo "Creating website...."
-cp -n -v R/graphs/infographic_???_????.png crimenmexico.diegovalle.net/en/images/infographics/fulls/
-cp -n -v R/graphs/municipios_???_????.png crimenmexico.diegovalle.net/en/images/infographics/fulls/
-cp -n -v R/graphs/infographic_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
-cp -n -v R/graphs/municipios_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
+cp -n -v R/graphs/infographic_???_????.png elcri.men/static/en/images/infographics/fulls/
+cp -n -v R/graphs/municipios_???_????.png elcri.men/static/en/images/infographics/fulls/
+cp -n -v R/graphs/infographic_es_???_????.png elcri.men/static/es/images/infographics/fulls/
+cp -n -v R/graphs/municipios_es_???_????.png elcri.men/static/es/images/infographics/fulls/
 
-mkdir -p elcri.men/static/es/images/infographics/fulls/
-mkdir -p elcri.men/static/en/images/infographics/fulls/
-
-cp crimenmexico.diegovalle.net/es/images/infographics/fulls/*.png elcri.men/static/es/images/infographics/fulls/
-cp crimenmexico.diegovalle.net/en/images/infographics/fulls/*.png  elcri.men/static/en/images/infographics/fulls/
 
 # Move the json files with the chart data to the website directory
 cp R/json/*.json elcri.men/static/elcrimen-json/
 
-# Move the json with the last data and infographic names to src/data
+# Move the json with the last date and infographic names to src/data
 cp R/json/{date.json,infographics_filenames.json} elcri.men/src/data
 
 # Create a geojson with the lat and lng of Mexican municipios
@@ -50,7 +45,13 @@ fi
 cd R/interactive-map/ && ./convert.sh && cd ../..
 cp R/interactive-map/municipios*.json elcri.men/static/elcrimen-json/
 
-cd elcri.men && npm install && gatsby build && cd ..
+if ! [ -x "$(command -v yarn)" ]; then
+  npm install -g yarn gatsby-cli
+fi
+if ! [ -x "$(command -v gatsby)" ]; then
+  npm install -g  gatsby-cli
+fi
+cd elcri.men && yarn install && gatsby build && cd ..
 
 echo "Exporting databases to csv.gz"
 # Export the sqlite database to csv and compress

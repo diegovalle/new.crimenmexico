@@ -67,27 +67,15 @@ states.inegi <- injury.intent %>%
   group_by(year_occur, month_occur, state_occur_death) %>%
   summarise(count = n()) %>%
   mutate(date = as.Date(str_c(year_occur, "-", month_occur, "-01"))) %>%
-  right_join(subset(vic, 
+  right_join(subset(vic,
                    tipo == 'Homicidio Doloso')
-            [,c("tipo", "date", "population", "state_code")], 
+            [,c("tipo", "date", "population", "state_code")],
             by = c("date" = "date", "state_occur_death" = "state_code")) %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / population) * 10^5) %>%
   mutate(rate = round(rate, 1)) %>%
-  ungroup() %>% 
+  ungroup() %>%
   rename(state_code = state_occur_death) %>%
   dplyr::select(-year_occur, -month_occur)
-
-states <- list()
-states$hd <- list(
-  subset(vic, tipo == 'Homicidio Doloso')[,c("date", "rate", "count", "population", "state_code")],
-  states.inegi
-)
-states$ext <- subset(vic, tipo == 'Extorsión')[,c("date", "rate", "count", "population", "state_code")]
-states$sec <- subset(vic, tipo == 'Secuestro')[,c("date", "rate", "count", "population", "state_code")]
-states$rvcv <- subset(vic, tipo == 'Robo de vehículo con violencia')[,c("date", "rate", "count", "population", "state_code")]
-states$rvsv <- subset(vic, tipo == 'Robo de vehículo sin violencia')[,c("date", "rate", "count", "population", "state_code")]
-exportJson <- toJSON(states, na = "null")
-write(exportJson, "json/states.json")
 
 
 states <- list()
