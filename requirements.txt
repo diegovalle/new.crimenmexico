@@ -5,7 +5,7 @@ certifi==2018.8.13
 cffi==1.11.5
 cryptography==2.3.1
 csvkit==0.9.0
-dbf==0.94.3
+dbf==0.98.3
 enum34==1.1.6
 et-xmlfile==1.0.1
 hashlib==20081119
