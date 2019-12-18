@@ -18,7 +18,7 @@ openpyxl==2.4.7
 packaging==16.8
 pandas==0.18.1
 pyasn1==0.4.4
-pycparser==2.18
+pycparser==2.19
 pycurl==7.43.0
 pyOpenSSL==18.0.0
 pyparsing==2.2.0
