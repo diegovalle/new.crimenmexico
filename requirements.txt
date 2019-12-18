@@ -19,7 +19,7 @@ packaging==16.8
 pandas==0.18.1
 pyasn1==0.4.4
 pycparser==2.18
-pycurl==7.43.0
+pycurl==7.43.0.3
 pyOpenSSL==18.0.0
 pyparsing==2.2.0
 python-dateutil==2.5.3
