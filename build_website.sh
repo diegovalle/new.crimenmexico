@@ -28,10 +28,18 @@ cp -n -v R/graphs/infographic_???_????.png crimenmexico.diegovalle.net/en/images
 cp -n -v R/graphs/municipios_???_????.png crimenmexico.diegovalle.net/en/images/infographics/fulls/
 cp -n -v R/graphs/infographic_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
 cp -n -v R/graphs/municipios_es_???_????.png crimenmexico.diegovalle.net/es/images/infographics/fulls/
-cd crimenmexico.diegovalle.net && python create_website.py && cd ..
+
+mkdir -p elcri.men/static/es/images/infographics/fulls/
+mkdir -p elcri.men/static/en/images/infographics/fulls/
+
+cp crimenmexico.diegovalle.net/es/images/infographics/fulls/*.png elcri.men/static/es/images/infographics/fulls/
+cp crimenmexico.diegovalle.net/en/images/infographics/fulls/*.png  elcri.men/static/en/images/infographics/fulls/
 
 # Move the json files with the chart data to the website directory
-cp R/json/*.json crimenmexico.diegovalle.net/assets/json/
+cp R/json/*.json elcri.men/static/elcrimen-json/
+
+# Move the json with the last data and infographic names to src/data
+cp R/json/{date.json,infographics_filenames.json} elcri.men/src/data
 
 # Create a geojson with the lat and lng of Mexican municipios
 echo "Converting the municipio centroids to GeoJSON"
@@ -40,7 +48,9 @@ then
     rm R/interactive-map/municipios-centroids.json
 fi
 cd R/interactive-map/ && ./convert.sh && cd ../..
-cp R/interactive-map/municipios*.{csv,json} crimenmexico.diegovalle.net/assets/json
+cp R/interactive-map/municipios*.json elcri.men/static/elcrimen-json/
+
+cd elcri.men && npm install && gatsby build && cd ..
 
 echo "Exporting databases to csv.gz"
 # Export the sqlite database to csv and compress
@@ -140,9 +150,3 @@ if [ "$SCRIPTPATH"/db/crimenmexico.db -nt "$SCRIPTPATH"/$EXPORT/$VICTIMAS_FILE ]
                       age_group_text;" \
         | gzip -9 > "$SCRIPTPATH"/$EXPORT/$VICTIMAS_FILE
 fi
-
-# Test crimenmexico.diegovalle.net
-simplehttpserver crimenmexico.diegovalle.net/ > /dev/null  2>&1 &
-sleep 40
-cd crimenmexico.diegovalle.net/tests && casperjs  --fail-fast --ssl-protocol=tlsv1 test web_test.js && cd ../..
-kill "$!"

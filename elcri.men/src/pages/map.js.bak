@@ -1,0 +1,346 @@
+import React from 'react';
+import Helmet from 'react-helmet';
+
+import Layout from '../components/layout';
+import Footer from '../components/Footer';
+
+//import OrdinalFrame from 'semiotic/lib/OrdinalFrame';
+import MapFilter from '../components/MapFilter';
+import MapGL, {
+  Source,
+  Layer,
+  FullscreenControl,
+  NavigationControl,
+  Marker,
+} from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import '../components/ClusterMap.css';
+
+import {findIndex, countBy, filter, maxBy} from 'lodash-es';
+import {format as num_format} from 'd3-format';
+
+import {feature} from 'topojson-client';
+
+import dark_matter from '../../static/elcrimen-json/dark_matter';
+
+const dataLayer = {
+  id: 'data',
+  //popup: layer => `<div>${layer.properties.name}</div>`,
+  type: 'circle',
+  paint: {
+    'circle-radius': [
+      'interpolate',
+      ['linear'],
+      ['zoom'],
+      3,
+      ['sqrt', ['*', 0.5, ['number', ['get', 'count'], 0]]],
+      5,
+      ['sqrt', ['*', 1.5, ['number', ['get', 'count'], 0]]],
+      8,
+      ['+', ['sqrt', ['*', 7, ['number', ['get', 'count'], 0]]], 2],
+      11,
+      ['+', ['sqrt', ['*', 12, ['number', ['get', 'count'], 0]]], 3],
+    ],
+    'circle-stroke-color': '#111',
+    'circle-stroke-width': {
+      property: 'rate',
+      type: 'interval',
+      stops: [[0, 1], [493, 1], [10000000, 0]],
+    },
+    'circle-opacity': {
+      property: 'rate',
+      type: 'interval',
+      stops: [[0, 0.8], [493, 0.8], [10000000, 0]],
+    },
+    'circle-color': {
+      property: 'rate',
+      type: 'interval',
+      stops: [
+        [0, '#fff7ec'],
+        [12.5, '#fee8c8'],
+        [25, '#fdd49e'],
+        [37.5, '#fdbb84'],
+        [50, '#fc8d59'],
+        [62.5, '#ef6548'],
+        [75, '#d7301f'],
+        [87.55, '#b30000'],
+        [100, '#7f0000'],
+      ],
+    },
+  },
+};
+
+class ClusterMap extends React.Component {
+  constructor () {
+    super ();
+
+    this.state = {
+      lightboxIsOpen: false,
+      currentImage: 0,
+      data: null,
+      // domain: {x: [0, 30], y: [0, 100]},
+      geojson: null,
+      hoveredFeature: null,
+      histogram: null,
+      paint: dataLayer.paint,
+      dataLayer: dataLayer,
+      dark_matter: dark_matter,
+      map: null,
+      values: null,
+      lower: null,
+      upper: null,
+      viewport: {
+        width: '100%',
+        height: '600px',
+        latitude: 23.5,
+        longitude: -102.1,
+        zoom: 4,
+        maxZoom: 10,
+        minZoom: 3,
+      },
+    };
+    this._onViewportChange = this._onViewportChange.bind (this);
+    this._onHover = this._onHover.bind (this);
+  }
+
+  _onHover = event => {
+    const {features, srcEvent: {offsetX, offsetY}} = event;
+    const hoveredFeature =
+      features && features.find (f => f.layer.id === 'data');
+
+    this.setState ({hoveredFeature, x: offsetX, y: offsetY});
+  };
+
+  _renderTooltip () {
+    const {hoveredFeature, x, y} = this.state;
+
+    return (
+      hoveredFeature &&
+      (hoveredFeature.properties.rate <= this.state.upper &&
+        hoveredFeature.properties.rate >= this.state.lower) &&
+      <div
+        className="tooltip"
+        style={{left: x, top: y, backgroundColor: '#666'}}
+      >
+        <div>
+          {hoveredFeature.properties.name}
+          ,
+          {' '}
+          {hoveredFeature.properties.state}
+        </div>
+        <div>Rate: {hoveredFeature.properties.rate}</div>
+        <div>Count: {hoveredFeature.properties.count}</div>
+        <div>
+          Population: {num_format (',') (hoveredFeature.properties.population)}
+        </div>
+      </div>
+    );
+  }
+
+  componentDidMount () {
+    fetch ('/elcrimen-json/municipios-centroids.json')
+      .then (response => response.json ())
+      .then (responseJSON => {
+        responseJSON.features = responseJSON.features.map (d => {
+          d.properties.rate = parseFloat (d.properties.rate);
+          d.properties.count = parseInt (d.properties.count);
+          return d;
+        });
+        let hist = countBy (responseJSON.features, function (x) {
+          return Math.floor (x.properties.rate);
+        });
+        let histogram = [];
+        Object.keys (hist).forEach (function (key) {
+          histogram.push ({name: key, count: hist[key]});
+        });
+        let values = responseJSON.features.map (x => {
+          return {value: x.properties.rate};
+        });
+        this.setState ({
+          data: responseJSON,
+          histogram: histogram,
+          values: values,
+          lower: 0,
+          upper: maxBy (values, function (o) {
+            return o.value;
+          }).value,
+        });
+      })
+      .catch (error => {
+        console.error (error);
+      });
+  }
+
+
+  _onViewportChange (viewport) {
+    // -121.2843, 9.664643, -85.49087, 32.72067
+    let top = 32.72067,
+      bottom = 9.664643 + 5,
+      left = -121.2843 + 5,
+      right = -85.49087 + 5;
+    if (viewport.longitude < left) {
+      viewport.longitude = left;
+    } else if (viewport.longitude > right) {
+      viewport.longitude = right;
+    } else if (viewport.latitude < bottom) {
+      viewport.latitude = bottom;
+    } else if (viewport.latitude > top) {
+      viewport.latitude = top;
+    }
+
+    this.setState ({
+      viewport,
+    });
+  }
+
+  updateValues (state) {
+    this.setState ({values: values});
+  }
+
+  render () {
+    //const VectorGrid = withLeaflet (VectorGridDefault);
+    const siteTitle = 'Delincuencia en México - El Crimen';
+    const siteDescription =
+      'Descubre estadísticas de la delincuencia en tu estado y municipio con este mapa interactivo y reporte mensual de homicidios, secuestros, robos y más en México';
+    const options = {
+      //data: geojson,
+      type: 'slicer',
+      idField: 'id',
+      tooltip: 'n',
+      popup: layer => `<div>${layer.properties.NAME}</div>`,
+      style: {
+        weight: 0.1,
+        opacity: 0.8,
+        color: '#ccc',
+        fillColor: '#390870',
+        fillOpacity: 0.6,
+        fill: true,
+        stroke: true,
+      },
+      hoverStyle: {
+        fillColor: '#390870',
+        fillOpacity: 1,
+      },
+      activeStyle: {
+        fillColor: '#390870',
+        fillOpacity: 1,
+      },
+      zIndex: 401,
+    };
+    if (typeof window !== 'undefined') {
+      return (
+        <Layout locale={props.pageContext.locale} path={props.location.pathname}>
+          <Helmet
+            bodyAttributes={{
+              class: 'homepage',
+            }}
+          >
+            <title> {siteTitle} </title>
+            <meta name="description" content={siteDescription} />
+          </Helmet>
+          <hr />
+          <section class="hero">
+            <div class="hero-body">
+              <div class="container">
+                <div className="columns is-centered">
+                  <div className="column  is-full ">
+                    <h1 class="title">
+                      MAPA DE HOMICIDIOS DE MAYO 2019 A OCTUBRE 2019
+                    </h1>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div
+            class="container is-fluid"
+            style={{paddingLeft: '0', paddingRight: '0'}}
+          >
+            <div id="map" style={{overflow: 'hidden'}}>
+
+              {/* <Map center={[23.5, -102.1]} zoom={5}>
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+              />
+               <GeoJSON
+                data={mexmuns}
+                style={() => ({
+                  color: '#111',
+                  fillColor: 'green',
+                  weight: 0.2,
+                  opacity: 0.8,
+                  fill: true,
+                  stroke: true,
+                })}
+              /> 
+              <FullscreenControl position="topright" />
+              <VectorGrid {...options} />  
+            </Map> */}
+              <MapGL
+                style={{width: '100%', height: '600px'}}
+                {...this.state.viewport}
+                onViewportChange={this._onViewportChange}
+                onHover={this._onHover}
+                //mapStyle={"https://tile.thunderforest.com/thunderforest.transport-v1.json?apikey=b0ba23bd00dd483fa3e5e6c6c2afe6d2"}
+                //mapStyle="https://api.maptiler.com/maps/topo/style.json?key=1BrlyjfV5ry5lknBp5S6"
+                //mapStyle="mapbox://styles/mapbox/streets-v11"
+                //mapStyle="https://tileserver-902ec.firebaseapp.com/municipio-tiles/dark_matter.json"
+                mapStyle={this.state.dark_matter}
+                //mapStyle="https://tileserver-mx.netlify.com/municipio-tiles/style.json"
+                //mapStyle="https://tileserver-902ec.firebaseapp.com/municipio-tiles/style_bw.json"
+                //mapboxApiAccessToken={process.env.GATSBY_MAPBOX_TOKEN}
+                mapOptions={{
+                  customAttribution: '© MapTiler <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>',
+                }}
+                ref={ref => {
+                  if (ref && ref.getMap ()) {
+                    this._map = ref.getMap ();
+                    //this.setState({map: this._map})
+                  }
+                }}
+              >
+                <Source type="geojson" data={this.state.data} id="data">
+                  <Layer {...this.state.dataLayer} paint={this.state.paint} />
+                </Source>
+
+                <div className="mapboxgl-ctrl-top-left">
+                  <FullscreenControl
+                    container={document.querySelector ('map-section')}
+                  />
+                </div>
+
+                <div className="mapboxgl-ctrl-top-right">
+                  <NavigationControl showCompass={false} />
+                </div>
+                {this._renderTooltip ()}
+                {/* {cities.map ((d, i) => {
+                return (
+                <Marker latitude={d.coords[0]} longitude={d.coords[1]}>
+                  <div className="my-label">{d.name}</div>
+                </Marker>
+                )
+              })} */}
+
+              </MapGL>
+              <MapFilter values={this.state.values}
+              updateValues={this.updateValues}
+              dataLayer={dataLayer}
+              map={this._map}
+              histogram={this.state.histogram} />
+
+            </div>
+          </div>
+
+          <Footer />
+        </Layout>
+      );
+    }
+    return null;
+  }
+}
+
+export default ClusterMap;

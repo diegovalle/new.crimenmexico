@@ -1,4 +1,3 @@
-
 mx <- readOGR("maps", "estatal")
 bb <- bbox(as(extent(mx) , "SpatialPolygons"))
 mx <- fortify(mx, region="CVEGEO")
@@ -152,7 +151,7 @@ attribution <- paste(
   "Data Source: Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (https://www.gob.mx/sesnsp) and CONAPO",
   sep = "\n")
 
-
+info_name_en <- str_c("infographic_", tolower(str_replace(max_date, " ", "_")))
 toSvg(str_c("graphs/infographic_", tolower(str_replace(max_date, " ", "_")), ".svg"), 
       "CRIME in MEXICO", max_date, note, attribution)
 
@@ -239,7 +238,8 @@ attribution <- paste(
   "Fuente: Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública (https://www.gob.mx/sesnsp) y CONAPO",
   sep = "\n")
 
-
+info_name_es <- str_c("infographic_es_", 
+                            tolower(str_replace(max_date, " ", "_")))
 toSvg(str_c("graphs/infographic_es_", tolower(str_replace(max_date, " ", "_")), ".svg"), 
       "CRIMEN en MEXICO", max_date, note, attribution)
 

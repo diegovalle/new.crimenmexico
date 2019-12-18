@@ -29,7 +29,7 @@ tryCatch({
   
   #ctrl <- gam.control(nthreads = 2)
   m1 <- gam(count ~ s(id_numeric, bs = 'mrf', k = 250, xt = list(nb = nb)) + 
-              offset(log(population)) + state,
+              offset(log(population)) + s(state, bs = "re"),
             data = df,
             method = 'REML', 
             #control = ctrl,
@@ -119,7 +119,7 @@ tryCatch({
                              "and help discover patterns in the data, the homicide rate in each municipio was calculated\n",
                              "based on a GAM with a Gaussian Markov random field smoother and a zero-inflated Poisson\n",
                              "response, with each state included as a treatment variable. Homicides include feminicides."))
-  ggsave("../crimenmexico.diegovalle.net/images/smooth-latest.png", dpi = 100, width = 16, height = 11)
+  ggsave("../elcri.men/static/smooth-latest.png", dpi = 100, width = 16, height = 11)
   
   
   

@@ -2,6 +2,14 @@ last_six_dates = str_sub(sort(unique(muns$date)), 0, 7)
 last_six_dates = last_six_dates[length((last_six_dates)): (length(last_six_dates) - 5)]
 last_six_dates_txt = paste(rep("'", 5),last_six_dates, rep("'", 5), collapse = ",", sep="")
 
+#JSON for the webpage titles
+exportJson <- toJSON(list("last_month" = paste0(last_six_dates[1], "-01"),
+                          "last_month6" = 
+                            paste0(last_six_dates[length(last_six_dates)], 
+                                   "-01")), 
+                     na = "null")
+write(exportJson, "json/date.json")
+
 centroids <- read.csv("data/mun_centroids.csv")
 
 

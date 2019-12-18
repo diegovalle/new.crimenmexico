@@ -1,0 +1,14 @@
+# Project dependencies
+.cache
+node_modules
+yarn-error.log
+package-lock.json
+yarn.lock
+.env.development
+
+# Build directory
+/public
+.DS_Store
+
+# Local Netlify folder
+.netlify

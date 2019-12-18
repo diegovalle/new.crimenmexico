@@ -1,0 +1,59 @@
+path.mg-confidence-band {
+    fill: #101010;
+    opacity: 0.4;
+    stroke: none;
+}
+/*path.mg-line1 {
+    fill: none;
+    opacity: 1;
+    stroke-width: 2.1px;
+}
+path.mg-line2 {
+    fill: none;
+    opacity: 1;
+    stroke-width: .5px;
+}*/
+
+
+.mg-chart-title {
+    cursor: default;
+    font-size: .95rem;
+    font-family: 'Roboto Condensed';
+    font-weight: 700;
+}
+
+.mg-header {
+    /* transform: translateX(-6em); */
+    /* text-anchor: start; */
+
+}
+.mg-x-axis .label, .mg-y-axis .label, .mg-axis .label {
+    font-size: 0.6rem;
+    /*text-transform: uppercase;*/
+    font-weight: 400;
+    font-family: 'Roboto Condensed';
+}
+
+.mg-x-axis text, .mg-y-axis text, .mg-histogram .axis text {
+    fill: black;
+    font-size: 0.7rem;
+    opacity: 0.6;
+    font-weight: 400;
+    font-family: 'Roboto Condensed';
+}
+
+.mg-y-axis .label {
+    text-transform: none;
+    font-size: 0.75rem;    
+    transform: rotate(-90deg) translateY(8px) translateX(7px);
+}
+
+.line-chart-brown {
+  background-image: url(../images/bg01-brown.png);
+  border-radius: 5px;
+}
+
+.line-chart-blue {
+    background-image: url(../images/bg01-blue.png);
+    border-radius: 5px;
+  }

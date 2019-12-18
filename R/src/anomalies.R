@@ -175,7 +175,7 @@ muns <- muns %>% mutate(id = str_mxmunicipio(state_code, mun_code))
 ll <- list()
 ll$hom <- find_anomalies(muns, "HOMICIDIO DOLOSO", 5)
 ll$rvcv <- find_anomalies(muns, "ROBO DE VEHÍCULO CON VIOLENCIA", 10)
-ll$rvsv <- find_anomalies(muns, "ROBO DE VEHÍCULO CON VIOLENCIA", 10)
+ll$rvsv <- find_anomalies(muns, "ROBO DE VEHÍCULO SIN VIOLENCIA", 10)
 ll$lesions <- find_anomalies(muns, "LESIONES DOLOSAS", 10)
 ll$kidnapping <- find_anomalies(muns, "SECUESTRO", 5)
 ll$ext <- find_anomalies(muns, "EXTORSIÓN", 5)
@@ -240,6 +240,7 @@ for(i in 1:length(ll)){
 
 max_date = muns$date %>% max(., na.rm = TRUE) %>% as.yearmon  %>% as.character 
 
+fname_mun_en <- str_c("municipios_", tolower(str_replace(max_date, " ", "_")))
 svg(str_c("graphs/municipios_", tolower(str_replace(max_date, " ", "_")), ".svg"), 
     width = 12, height = 20)
 grid.newpage() 
@@ -283,6 +284,7 @@ Sys.setlocale("LC_TIME", "es_ES.UTF-8")
 
 max_date = muns$date %>% max(., na.rm = TRUE) %>% as.yearmon  %>% as.character 
 
+fname_mun_es <- str_c("municipios_es_", tolower(str_replace(max_date, " ", "_")))
 svg(str_c("graphs/municipios_es_", tolower(str_replace(max_date, " ", "_")), ".svg"),
     width = 12, height = 20)
 grid.newpage() 
@@ -323,5 +325,7 @@ Sys.setlocale("LC_TIME", lct)
 #                         optipng graphs/municipios_es_XXX.png;", "XXX",
 #                         tolower(str_replace(max_date, " ", "_"))))
 
-
+write(toJSON(list("ien" = info_name_en, "ies" = info_name_es,
+                  "men" = fname_mun_en, "mes" = fname_mun_es)), 
+      "json/infographics_filenames.json")
 

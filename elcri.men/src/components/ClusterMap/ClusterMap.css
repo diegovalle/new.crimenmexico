@@ -1,0 +1,30 @@
+.tooltip {
+    position: absolute;
+    margin: 8px;
+    padding: 4px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    max-width: 200px;
+    font-size: 12px;
+    z-index: 9;
+    pointer-events: none;
+    border-radius: 5px;
+}
+
+.my-label {
+    background: rgba(255, 255, 255, .7);
+    border-color: rgba(0, 0, 0, 1);
+    color: #111;
+    border-width: 1px;
+    border-radius: 2px;
+    border-style: solid;
+    line-height: 1;
+    padding: 0px 2px;
+    display: block;
+    font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    user-select: none;
+    pointer-events: none;
+    white-space: nowrap;
+    position: absolute;
+}

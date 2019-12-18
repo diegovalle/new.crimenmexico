@@ -1,0 +1,558 @@
+// Importing variables
+@import './variables.scss';
+
+// Importing Bulma from node_modules
+//@import '../../../node_modules/bulma/bulma.sass';
+
+@import '../../../node_modules/bulma/sass/utilities/_all.sass';
+@import '../../../node_modules/bulma/sass/base/_all.sass';
+@import '../../../node_modules/bulma/sass/grid/columns.sass';
+@import '../../../node_modules/bulma/sass/elements/button.sass';
+@import '../../../node_modules/bulma/sass/elements/container.sass';
+@import '../../../node_modules/bulma/sass/elements/content.sass';
+@import '../../../node_modules/bulma/sass/elements/title.sass';
+@import '../../../node_modules/bulma/sass/elements/table.sass';
+@import '../../../node_modules/bulma/sass/elements/image.sass';
+@import '../../../node_modules/bulma/sass/components/navbar.sass';
+@import '../../../node_modules/bulma/sass/components/level.sass';
+@import '../../../node_modules/bulma/sass/components/card.sass';
+@import '../../../node_modules/bulma/sass/components/media.sass';
+@import '../../../node_modules/bulma/sass/layout/hero.sass';
+@import '../../../node_modules/bulma/sass/layout/section.sass';
+@import '../../../node_modules/bulma/sass/utilities/mixins.sass';
+
+
+@import '../../../node_modules/bulma-tooltip/src/sass/index.sass';
+
+.image.is-3by1-mobile-16by9 {  
+  // 3by1
+  padding-top: 33.3333%; 
+
+  @include mobile { 
+    // equivalent of is-16by9   
+    padding-top: 56.25%;
+  }
+}
+
+.image.is-big-national {  
+  // 3by1
+  padding-top: 28.3333%; 
+
+  @include mobile { 
+    // equivalent of is-16by9   
+    padding-top: 56.25%;
+  }
+}
+
+.image.is-historical {  
+  padding-top: 40.25%; 
+
+  @include mobile {  
+    padding-top: 62%;
+  }
+}
+
+.gradientBg {
+  display: flex;
+  background: linear-gradient(to right, $primary-color, $secondary-color);
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  padding: 1.5rem 1.5rem;
+  line-height: 1.5rem;
+  a {
+    color: black;
+  }
+  a:hover {
+    color: $secondary-color;
+  }
+}
+
+@import url('../css/google-fonts.css');
+
+button {
+  background-color: transparent;
+  -webkit-border-radius: 5;
+  -moz-border-radius: 5;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #000000;
+  font-size: 16px;
+  padding: 10px 20px 10px 20px;
+  border: solid #8c451f 2px;
+  text-decoration: none;
+}
+
+button:hover {
+  text-decoration: none;
+}
+.mg-chart-title {
+  cursor: default;
+  font-size: 0.75rem;
+  padding-top: 5px;
+  text-align: center;
+}
+.OrRd .q0-9 {
+  fill: rgb(255, 247, 236);
+}
+.OrRd .q1-9 {
+  fill: rgb(254, 232, 200);
+}
+.OrRd .q2-9 {
+  fill: rgb(253, 212, 158);
+}
+.OrRd .q3-9 {
+  fill: rgb(253, 187, 132);
+}
+.OrRd .q4-9 {
+  fill: rgb(252, 141, 89);
+}
+.OrRd .q5-9 {
+  fill: rgb(239, 101, 72);
+}
+.OrRd .q6-9 {
+  fill: rgb(215, 48, 31);
+}
+.OrRd .q7-9 {
+  fill: rgb(179, 0, 0);
+}
+.OrRd .q8-9 {
+  fill: rgb(127, 0, 0);
+}
+
+.national-chart svg {
+  background-image: url(/assets/css/images/bg01-blue.png);
+  border-radius: 7px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+.line-chart.metricsGraphicsCon{
+  background-image: url(/assets/css/images/bg01-brown.png);
+  border-radius: 10px;
+}
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  //width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: '\25BC';
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+#legend {
+  padding: 1.5em 0 0 1.5em;
+}
+
+li.key {
+  border-top-width: 15px;
+  border-top-style: solid;
+  font-size: 0.75em;
+  width: 10%;
+  padding-left: 0;
+  padding-right: 0;
+}
+.list-inline {
+  padding-top: 1em;
+  padding-left: 0;
+  list-style: none;
+}
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.list-inline > li {
+  display: inline-block;
+  // padding-right: 2px;
+  padding-left: 1px;
+  font-family: "Roboto Condensed"
+}
+.select-style {
+  border: 1px solid #ccc;
+  width: 320px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #fafafa
+    url('data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==')
+    no-repeat 90% 50%;
+}
+
+.select-style select {
+  padding: 5px 8px;
+  border: none;
+  width: 100%;
+  box-shadow: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  font-size: 1em;
+  font-family: 'Source Sans Pro';
+  font-weight: 700;
+  color: #555;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+}
+
+.select-style select:focus {
+  outline: none;
+}
+#nat_hd .mg-chart-title {
+  color: white;
+  background-color: black;
+}
+.mg-x-axis .label,
+.mg-y-axis .label,
+.mg-axis .label {
+  text-transform: lowercase;
+}
+
+#nat_hd .mg-chart-title {
+  color: white;
+  background-color: black;
+}
+.chart-title {
+  color: white;
+  background-color: #7b6824;
+}
+.features {
+  fill: #c7b470;
+  /* color: black; */
+  stroke: black;
+  stroke-width: 0.5px;
+}
+.bubble,
+.swatch {
+  fill-opacity: 0.6;
+  stroke: #fff;
+  stroke-width: 0.2px;
+  fill: #dc0e0e;
+}
+#small-multiples-hom svg,
+#small-multiples-rvcv svg,
+#small-multiples-rvsv svg,
+#small-multiples-lesions svg,
+#small-multiples-ext svg,
+#small-multiples-kidnapping svg {
+  background-image: url(/assets/css/images/bg01-brown.png);
+  border-radius: 10px;
+}
+.mg-x-axis .label,
+.mg-y-axis .label,
+.mg-axis .label {
+  text-transform: lowercase;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8) /*url('images/ajax-loader.gif')*/ 50% 50%
+    no-repeat;
+}
+
+/* When the body has the loading class, we turn
+	 the scrollbar off with overflow:hidden */
+body.loading {
+  overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+	 modal element will be visible */
+body.loading .modal {
+  display: block;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+  border: 1px solid #cbcbcb;
+  font-family: 'Source Sans Pro';
+  font-size: 18px;
+}
+thead {
+  background-color: #e0e0e0;
+  color: #000;
+  text-align: left;
+  vertical-align: bottom;
+}
+td:first-child,
+th:first-child {
+  border-left-width: 0;
+}
+td,
+th {
+  border-left: 1px solid #cbcbcb;
+  border-width: 0 0 0 1px;
+  font-size: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0.5em 1em;
+}
+.popover-content {
+  padding: 9px 14px;
+}
+.popover.top {
+  margin-top: -10px;
+}
+.mg-popover {
+  font-size: 0.95rem;
+}
+.popover.top > .arrow {
+  bottom: -11px;
+  left: 50%;
+  margin-left: -11px;
+  border-top-color: #999;
+  border-top-color: rgba(0, 0, 0, 0.25);
+  border-bottom-width: 0;
+}
+
+.popover > .arrow {
+  border-width: 11px;
+}
+.popover > .arrow,
+.popover > .arrow:after {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+.popover.top > .arrow:after {
+  bottom: 1px;
+  margin-left: -10px;
+  content: ' ';
+  border-top-color: #fff;
+  border-bottom-width: 0;
+}
+.popover > .arrow:after {
+  content: '';
+  border-width: 10px;
+}
+.popover > .arrow,
+.popover > .arrow:after {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+:before,
+:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.popover-content {
+  padding: 9px 14px;
+  font-family: 'Open Sans', sans-serif, Arial;
+  font-size: 11.4px;
+  color: #111;
+}
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1060;
+  display: none;
+  max-width: 276px;
+  padding: 1px;
+  text-align: left;
+  white-space: normal;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-container {
+  height: 600px;
+  width: 100%;
+}
+
+// .navbar-start {
+//   margin-left: auto;
+//   margin-right: unset !important;
+// }
+
+a.navbar-item {
+  border-radius: 0 0 5px 5px;
+}
+
+.is-active a.navbar-item {
+  border-radius: 0;
+}
+
+
+.navbar.is-transparent a.navbar-item:hover {
+  background-color: #E5E5E5 !important;
+}
+
+.navbar.is-transparent a.active:hover {
+  background-color: #4a4a4a !important;
+}
+
+.navbar-item, .navbar-link {
+    padding: 0.5rem 1.5rem;
+}
+
+.navbar-link:hover {
+  background-color: #f2f2f2 !important;
+}
+
+.navbar-link.active:hover {
+  background-color: #4a4a4a !important;
+}
+
+$inegi-color: rgb(179, 88, 6);
+$inegi-adjusted-color: #E81208;
+$snsp-color: #008085;
+$amis-color: #C05502;
+$envipe-color: #c51b7d;
+$regression-color: green;
+
+span.inegi {
+  color: $inegi-color;
+}
+
+span.inegi-adjusted {
+  color: $inegi-adjusted-color;
+}
+
+span.snsp {
+  color: $snsp-color;
+}
+
+span.regression {
+  color: $regression-color;
+}
+
+span.envipe {
+  color: $envipe-color;
+}
+
+span.amis {
+  color: $amis-color;
+}
+
+svg > path.mg-line1, svg > path.mg-line2, svg > path.mg-line3 {
+  stroke-width: 1.5;
+}
+
+#estados .mg-line1-color, #municipios .mg-line1-color {
+  stroke: $snsp-color;
+}
+
+#estados .mg-line2-color, #municipios .mg-line2-color {
+  stroke: $inegi-adjusted-color;
+}
+
+.is-active div.navbar-dropdown .navbar-item {
+  padding-left: 3rem;
+}
+
+
+.control-panel {
+  position: absolute;
+  bottom: 10%;
+  left: -1%;
+  max-width: 320px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  padding: 12px 24px;
+  margin: 20px;
+  font-size: 13px;
+  line-height: 2;
+  color: #6b6b76;
+  outline: none;
+}
+
+@include mobile {
+  .tabs ul {
+    flex-direction: column;
+
+    li {
+      width: 100%;
+    }
+  }
+}
+
+div.is-rounded img {
+  border-radius: 290486px;
+}
+
+div#national90 svg > path.mg-line3-color {
+  stroke-dasharray: 4,1;
+  stroke: #b35806;
+  stroke-width: 1.6px;
+}
+
+
+div#tendencias svg > path.mg-line1-color {
+  stroke: $snsp-color;
+}
+
+div#tendencias svg > path.mg-line2-color {
+  stroke: $regression-color;
+  stroke-width: 3px;
+  opacity: 0.6; 
+}
+
+div#tendencias svg > path.mg-line3-color {
+  stroke: black;
+  stroke-width: 2px,
+}
+
+.metricsGraphicsCon {
+  height: 100%;
+}
+
+abbr, acronym
+{
+  border-bottom: .05em dotted;
+  cursor: help;
+}
+abbr[title] {
+  text-decoration: none;
+}
+
+button.button a, button.button a{
+  border-color: transparent;
+  color: #fff;
+}

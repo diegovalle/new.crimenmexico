@@ -1,0 +1,9 @@
+/*
+    Strict-Transport-Security: max-age=31536000
+    X-Frame-Options: SAMEORIGIN
+    X-Xss-Protection: 1; mode=block
+    X-Content-Type-Options: nosniff
+    Referrer-Policy: same-origin
+    
+/static/json/*
+    Cache-Control: no-cache
