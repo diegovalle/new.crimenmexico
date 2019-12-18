@@ -13,7 +13,7 @@ idna==2.7
 ipaddress==1.0.22
 jdcal==1.3
 ndg-httpsclient==0.5.1
-numpy==1.11.0
+numpy==1.17.4
 openpyxl==2.4.7
 packaging==16.8
 pandas==0.18.1
