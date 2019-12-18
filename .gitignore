@@ -1,8 +1,8 @@
 *.db
 *.csv
-*.svg
 *.pdf
 R/graphs/*.png
+R/graphs/*.svg
 crimenmexico.diegovalle.net/images/smooth-latest.png
 *.pyc
 *.md5
@@ -13,7 +13,6 @@ crimenmexico.diegovalle.net/images/smooth-latest.png
 R/json/*.json
 R/json/*.RData
 .Rproj.user
-*.svg
 *.csv.gz
 *.gz
 *.zip
