@@ -58,7 +58,7 @@ const SEO = ( props ) => {
       <meta name="twitter:creator" content={data.site.twitterHandle} />
       <meta name="twitter:title" content={props.socialTitle || title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
+      <meta name="twitter:image" content={defaults.siteUrl.replace(/\/$/, "") + image} />
       <html lang={props.lang} />
     </Helmet>
   );
