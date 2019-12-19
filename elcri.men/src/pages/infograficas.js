@@ -122,6 +122,7 @@ const Infographics = ({data, location, pageContext}) => {
                   className="column is-offset-1 is-4"
                 >
                   <a
+                    className="absolutlynocallsname"
                     href={
                       '/es/images/infographics/fulls/' +
                         edge.node.childImageSharp.fluid.originalName

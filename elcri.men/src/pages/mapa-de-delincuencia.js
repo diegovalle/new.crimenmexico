@@ -377,7 +377,7 @@ class DotMapGL extends React.Component {
     };
     if (typeof window !== 'undefined') {
       return (
-        <div>
+        <div id="mapaDelincuencia">
 
           <MapGL
             {...this.state.viewport}
@@ -407,7 +407,7 @@ class DotMapGL extends React.Component {
               <Layer {...this.state.dataLayer} paint={this.state.paint} />
             </Source>
 
-            <div className="mapboxgl-ctrl-top-left">
+            <div className="mapboxgl-ctrl-top-left" id="fullscreenButton">
               <FullscreenControl container={document.querySelector ('map')} />
             </div>
 

@@ -192,7 +192,7 @@ function MxHexTileMap (props) {
                     </ul>
                   </div>
                   <div style={{position: 'relative'}}>
-                    <div style={{height: '100%', width: '100%'}}>
+                    <div id="hexmap" style={{height: '100%', width: '100%'}}>
                       <svg
                         width={parent.width}
                         height={(parent.width ? parent.width : 50) - 50}
