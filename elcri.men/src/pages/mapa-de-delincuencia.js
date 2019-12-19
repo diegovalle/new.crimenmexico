@@ -268,7 +268,6 @@ class DotMapGL extends React.Component {
       [10000000, 0],
     ];
     //opacity.paint['circle-opacity'].type = "error"
-    console.log (opacity['circle-opacity']);
     this._map.setPaintProperty (
       'data',
       'circle-opacity',
@@ -304,7 +303,6 @@ class DotMapGL extends React.Component {
   }
 
   changeExtent (e) {
-    console.log (e.values);
     let opacity = this.state.dataLayer.paint;
     opacity['circle-opacity'].stops = [
       [0, 0],
@@ -325,7 +323,6 @@ class DotMapGL extends React.Component {
       ? opacity['circle-stroke-width'].stops.slice (1)
       : opacity['circle-stroke-width'].stops;
     //opacity.paint['circle-opacity'].type = "error"
-    console.log (opacity['circle-opacity'].stops);
     this._map.setPaintProperty (
       'data',
       'circle-opacity',
@@ -535,7 +532,7 @@ function HomicideMapPage (props) {
       </HeroTitle>
 
       {/* <div id="map" style={{overflow: 'hidden'}} /> */}
-      <div style={{height: '900px'}}>
+      <div style={{height: '900px', overflow: 'hidden'}}>
         <DotMapGL />
       </div>
 

@@ -130,6 +130,7 @@ const Infographics = ({data, location, pageContext}) => {
                     <figure class="image is-3x5">
                       <Img
                         loading="lazy"
+                        backgroundColor="#c7b470"
                         key={edge.node.childImageSharp.originalName}
                         fluid={edge.node.childImageSharp.fluid}
                         title={intl.formatMessage (

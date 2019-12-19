@@ -48,15 +48,15 @@ function TendenciaNacional (props) {
   };
 
   const trbody = data => {
-    let df = date_format ('%B %Y');
+    let df = date_format (`%b\u00A0%Y`);
     let a = Object.keys (data).map (function (key, index) {
       let date = new Date (data[key].date);
       return (
         <tr>
-          <td>
+          <td >
             {df (data[key].date) +
-              ' - ' +
-              date_format ('%B ') (data[key].date) +
+              `\u00A0-\u00A0` +
+              date_format (`%b\u00A0`) (data[key].date) +
               (parseInt (date_format ('%Y') (data[key].date)) - 1)}
           </td>
           <td>{data[key].diff}</td>

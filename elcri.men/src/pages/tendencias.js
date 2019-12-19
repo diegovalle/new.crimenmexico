@@ -9,7 +9,6 @@ import LegendLine from '../components/LegendLine';
 import TendenciaNacional from '../components/TendeciaNacional';
 import {useIntl, FormattedHTMLMessage} from 'react-intl';
 
-import data from '../assets/json/states_trends.json';
 import social_image from '../assets/images/social/social-trends.png';
 import social_image_en from '../assets/images/social/social-trends_en.png';
 

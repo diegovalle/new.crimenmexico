@@ -47,8 +47,8 @@ query query($fname_infographic: String, $fname_mun: String) {
 
 const HomeIndex = props => {
   const intl = useIntl ();
-  const last_date = useLastMonth ();
   const bestImages = useBestImages ();
+  const last_date = useLastMonth ();
   const regex_es = /^infographic_es|^municipios_es/;
   const regex_en = /^infographic_(?!es)|^municipios_(?!es)/;
   return (

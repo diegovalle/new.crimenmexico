@@ -29,7 +29,6 @@ cp -n -v R/graphs/municipios_???_????.png elcri.men/static/en/images/infographic
 cp -n -v R/graphs/infographic_es_???_????.png elcri.men/static/es/images/infographics/fulls/
 cp -n -v R/graphs/municipios_es_???_????.png elcri.men/static/es/images/infographics/fulls/
 
-
 # Move the json files with the chart data to the website directory
 cp R/json/*.json elcri.men/static/elcrimen-json/
 
@@ -51,6 +50,7 @@ fi
 if ! [ -x "$(command -v gatsby)" ]; then
   npm install -g gatsby-cli
 fi
+export GATSBY_TELEMETRY_DISABLED=1
 cd elcri.men && yarn install && gatsby build && cd ..
 
 echo "Exporting databases to csv.gz"

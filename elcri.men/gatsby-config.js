@@ -1,5 +1,5 @@
-SITENAME="https://elcrimentest.netlify.com/"
-SITENAME_NO_SLASH="https://elcrimentest.netlify.com"
+SITENAME="https://elcri.men/"
+SITENAME_NO_SLASH="https://elcri.men"
 
 module.exports = {
   siteMetadata: {

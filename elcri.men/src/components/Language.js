@@ -8,8 +8,6 @@ const Language = props => {
   const intl = useIntl ();
   return (
     <React.Fragment>
-      {console.log (props.path)}
-      {console.log(props.locale)}
       <a
         style={{color: '#0a0a0a'}}
         href={

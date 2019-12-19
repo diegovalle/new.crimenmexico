@@ -302,7 +302,7 @@ function ClusterMapPage (props) {
         <FormattedDate value={new Date (last_date.iso_mid)} year="numeric" />
       </HeroTitle>
 
-      <div style={{height: '900px'}}>
+      <div style={{height: '900px', overflow: 'hidden'}}>
         <ClusterMap />
       </div>
       <hr />

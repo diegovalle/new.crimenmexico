@@ -8,7 +8,7 @@ const useInfographics = () => {
         node {
           childImageSharp {
             fluid(maxWidth: 432) {
-              ...GatsbyImageSharpFluid
+              ...GatsbyImageSharpFluid_noBase64
               originalName
             }
           }
