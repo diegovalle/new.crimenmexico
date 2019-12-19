@@ -29,7 +29,7 @@ const useLastMonth = () => {
 
 `
   );
-  return data.allDataJson.edges[1].node;
+  return data.allDataJson.edges[0].node;
 };
 
 // const sub6Months = (date) => {
