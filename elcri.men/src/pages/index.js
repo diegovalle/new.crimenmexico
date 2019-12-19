@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Helmet from 'react-helmet';
 
 import Layout from '../components/layout';
@@ -51,6 +51,13 @@ const HomeIndex = props => {
   const last_date = useLastMonth ();
   const regex_es = /^infographic_es|^municipios_es/;
   const regex_en = /^infographic_(?!es)|^municipios_(?!es)/;
+
+  useEffect (() => {
+    if (props.location.hash.includes('#historical')) {
+      document.getElementById ('historical').scrollIntoView ();
+    }
+  });
+
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
 
@@ -166,8 +173,9 @@ const HomeIndex = props => {
         </div>
 
         <div class="container  is-widescreen">
+          <a name="#historical" id="historical" />
           <LazyLoad height={440} once offset={200}>
-            <HistoricalChart />
+            <HistoricalChart hash={props.location.hash} />
           </LazyLoad>
         </div>
       </section>

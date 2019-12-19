@@ -11,7 +11,43 @@ import {FormattedHTMLMessage, FormattedDate} from 'react-intl';
 import {useIntl, injectIntl, FormattedMessage} from 'react-intl';
 import {format} from 'd3-format';
 
-import {dateLoc} from '../../src/i18n'
+import {dateLoc} from '../../src/i18n';
+
+var stateCodes = {
+  national: 'national',
+  aguascalientes: '1',
+  'baja california': '2',
+  'baja california sur': '3',
+  campeche: '4',
+  coahuila: '5',
+  colima: '6',
+  chiapas: '7',
+  chihuahua: '8',
+  'ciudad de méxico': '9',
+  durango: '10',
+  guanajuato: '11',
+  guerrero: '12',
+  hidalgo: '13',
+  jalisco: '14',
+  méxico: '15',
+  michoacán: '16',
+  morelos: '17',
+  nayarit: '18',
+  'nuevo león': '19',
+  oaxaca: '20',
+  puebla: '21',
+  querétaro: '22',
+  'quintana roo': '23',
+  'san luis potosí': '24',
+  sinaloa: '25',
+  sonora: '26',
+  tabasco: '27',
+  tamaulipas: '28',
+  tlaxcala: '29',
+  veracruz: '30',
+  yucatán: '31',
+  zacatecas: '32',
+};
 
 function HistoricalChart (props) {
   const preliminary = useStaticQuery (graphql`
@@ -25,7 +61,19 @@ function HistoricalChart (props) {
   `);
 
   const [data, setData] = useState (null);
-  const [state, setState] = useState ('national');
+  const [state, setState] = useState (
+    stateCodes[
+      decodeURIComponent (
+        props.hash.replace (/#historical#/, '').toLowerCase ()
+      )
+    ] === undefined
+      ? 'national'
+      : stateCodes[
+          decodeURIComponent (
+            props.hash.replace (/#historical#/, '').toLowerCase ()
+          )
+        ]
+  );
   const round1 = format ('.1f');
   const comma = format (',');
 
@@ -86,6 +134,7 @@ function HistoricalChart (props) {
             id="state_select"
             onChange={handleSelect}
             aria-label="Select State"
+            value={state}
           >
             <option value="national">
               {intl.formatMessage ({id: 'All of Mexico'})}
@@ -183,12 +232,18 @@ function HistoricalChart (props) {
                       let date = new Date (d.d);
                       let df = date_format ('%b %Y');
                       return (
-                        df (d.d) + ', ' +
-                        intl.formatMessage ({id: 'population'}) + ': ' +
-                        comma (d.p) + ' ' +
-                        intl.formatMessage ({id: 'count'}) + ': ' +
-                        comma (d.c) + ' ' +
-                        intl.formatMessage ({id: 'rate'}) + ': ' +
+                        df (d.d) +
+                        ', ' +
+                        intl.formatMessage ({id: 'population'}) +
+                        ': ' +
+                        comma (d.p) +
+                        ' ' +
+                        intl.formatMessage ({id: 'count'}) +
+                        ': ' +
+                        comma (d.c) +
+                        ' ' +
+                        intl.formatMessage ({id: 'rate'}) +
+                        ': ' +
                         round1 (d.r)
                       );
                     }}
