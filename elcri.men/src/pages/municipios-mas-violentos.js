@@ -80,7 +80,7 @@ function MostViolent (props) {
         <hr />
         <TextColumn>
           <p>
-            <FormattedMessage id="top50_text" />
+            <FormattedHTMLMessage id="top50_text" />
           </p>
         </TextColumn>
       </div>

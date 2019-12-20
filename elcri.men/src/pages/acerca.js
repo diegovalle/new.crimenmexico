@@ -279,6 +279,27 @@ function HomeIndex (props) {
                         </div>
                       </div>
                     </div>
+                     <div class="card block">
+                      <div class="card-content">
+                        <div class="media">
+                          <div class="media-left">
+                            <span class="icon is-medium mdi mdi-24px">
+                              <IoIosArrowDroprightCircle/>
+                            </span>
+                          </div>
+                          <div class="media-content">
+                            <h3 class="title is-4">
+                              {intl.formatMessage ({
+                                id: "How often is the INEGI homicide data updated?",
+                              })}
+                            </h3>
+                            <p>
+                              <FormattedHTMLMessage id="inegi_ans" />
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <div class="card block">
                       <div class="card-content">
                         <div class="media">
