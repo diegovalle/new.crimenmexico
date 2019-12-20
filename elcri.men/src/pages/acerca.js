@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import {useIntl, FormattedHTMLMessage} from 'react-intl';
 import {FaFileDownload} from 'react-icons/fa';
-import { IoIosArrowDroprightCircle } from "react-icons/io";
+import {IoIosArrowDroprightCircle} from 'react-icons/io';
 import social_image from '../assets/images/social/social-acerca.png';
 import social_image_en from '../assets/images/social/social-acerca_en.png';
 
@@ -161,255 +161,257 @@ function HomeIndex (props) {
                   </table>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <section
-                data-section-id="3"
-                data-component-id="15a7_9_03_awz"
-                data-category="faqs"
-                class="section"
-              >
-                <div class="container">
-                  <h2 class="title has-text-centered" data-config-id="header">
-                    {intl.formatMessage ({id: 'Frequently Asked Questions'})}
-                  </h2>
-                  <div class="block" data-config-id="faq">
-                    <div class="card block">
-                      <div class="card-content">
-                        <div class="media">
-                          <div class="media-left">
-                            <span class="icon is-medium mdi mdi-24px">
-                              <IoIosArrowDroprightCircle/>
-                            </span>
-                          </div>
-                          <div class="media-content">
-                            <h3 class="title is-4">
-                              {intl.formatMessage ({
-                                id: 'Where does the data used in this website come from?',
-                              })}
-                            </h3>
-                            <p>
+      <section
+        data-section-id="3"
+        data-component-id="15a7_9_03_awz"
+        data-category="faqs"
+        class="section"
+      >
+        <div className="columns is-centered">
+          <div className="column is-6-fullhd is-8-widescreen is-10-desktop is-12-tablet">
+            <div class="container">
+              <h2 class="title has-text-centered" data-config-id="header">
+                {intl.formatMessage ({id: 'Frequently Asked Questions'})}
+              </h2>
+              <div class="block" data-config-id="faq">
+                <div class="card block">
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-left">
+                        <span class="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div class="media-content">
+                        <h3 class="title is-4">
+                          {intl.formatMessage ({
+                            id: 'Where does the data used in this website come from?',
+                          })}
+                        </h3>
+                        <p>
 
-                              <FormattedHTMLMessage id="data_ans" />
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card block">
-                      <div class="card-content">
-                        <div class="media">
-                          <div class="media-left">
-                            <span class="icon is-medium mdi mdi-24px">
-                              <IoIosArrowDroprightCircle/>
-                            </span>
-                          </div>
-                          <div class="media-content">
-                            <h3 class="title is-4">
-                              {intl.formatMessage ({
-                                id: 'Is the source code available?',
-                              })}
-                            </h3>
-                            <p>
-                              <FormattedHTMLMessage id="github_ans" />
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card block">
-                      <div class="card-content">
-                        <div class="media">
-                          <div class="media-left">
-                            <span class="icon is-medium mdi mdi-24px">
-                              <IoIosArrowDroprightCircle/>
-                            </span>
-                          </div>
-                          <div class="media-content">
-                            <h3 class="title is-4">
-                              {intl.formatMessage ({
-                                id: 'I really liked the hexagonal map on the frontpage, how can I make one?',
-                              })}
-                            </h3>
-                            <p>
-                              <FormattedHTMLMessage id="mxmaps_ans" />
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card block">
-                      <div class="card-content">
-                        <div class="media">
-                          <div class="media-left">
-                            <span class="icon is-medium mdi mdi-24px">
-                              <IoIosArrowDroprightCircle/>
-                            </span>
-                          </div>
-                          <div class="media-content">
-                            <h3 class="title is-4">
-                              {intl.formatMessage ({
-                                id: 'Is there an R package for working with INEGI homicide data?',
-                              })}
-                            </h3>
-                            <p>
-                              <FormattedHTMLMessage id="mxmortalitydb_ans" />
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card block">
-                      <div class="card-content">
-                        <div class="media">
-                          <div class="media-left">
-                            <span class="icon is-medium mdi mdi-24px">
-                              <IoIosArrowDroprightCircle/>
-                            </span>
-                          </div>
-                          <div class="media-content">
-                            <h3 class="title is-4">
-                              {intl.formatMessage ({
-                                id: 'How often is the website updated?',
-                              })}
-                            </h3>
-                            <p>
-                              <FormattedHTMLMessage id="month_ans" />
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                     <div class="card block">
-                      <div class="card-content">
-                        <div class="media">
-                          <div class="media-left">
-                            <span class="icon is-medium mdi mdi-24px">
-                              <IoIosArrowDroprightCircle/>
-                            </span>
-                          </div>
-                          <div class="media-content">
-                            <h3 class="title is-4">
-                              {intl.formatMessage ({
-                                id: "How often is the INEGI homicide data updated?",
-                              })}
-                            </h3>
-                            <p>
-                              <FormattedHTMLMessage id="inegi_ans" />
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card block">
-                      <div class="card-content">
-                        <div class="media">
-                          <div class="media-left">
-                            <span class="icon is-medium mdi mdi-24px">
-                              <IoIosArrowDroprightCircle/>
-                            </span>
-                          </div>
-                          <div class="media-content">
-                            <h3 class="title is-4">
-                              {intl.formatMessage ({
-                                id: 'Where do the state and municipio codes and names come from?',
-                              })}
-                            </h3>
-                            <p>
-                              <FormattedHTMLMessage id="munnames_ans" />
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card block">
-                      <div class="card-content">
-                        <div class="media">
-                          <div class="media-left">
-                            <span class="icon is-medium mdi mdi-24px">
-                              <IoIosArrowDroprightCircle/>
-                            </span>
-                          </div>
-                          <div class="media-content">
-                            <h3 class="title is-4">
-                              {intl.formatMessage ({
-                                id: 'I tried calculating rates with the population data and I got a different value than what appears on your webpage',
-                              })}
-                            </h3>
-                            <p>
-                              <FormattedHTMLMessage id="rates_ans" />
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card block">
-                      <div class="card-content">
-                        <div class="media">
-                          <div class="media-left">
-                            <span class="icon is-medium mdi mdi-24px">
-                              <IoIosArrowDroprightCircle/>
-                            </span>
-                          </div>
-                          <div class="media-content">
-                            <h3 class="title is-4">
-                              {intl.formatMessage ({
-                                id: 'Is this website affiliated with the Mexican government?',
-                              })}
-                            </h3>
-                            <p>
-                              <FormattedHTMLMessage id="indp_ans" />
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card block">
-                      <div class="card-content">
-                        <div class="media">
-                          <div class="media-left">
-                            <span class="icon is-medium mdi mdi-24px">
-                              <IoIosArrowDroprightCircle/>
-                            </span>
-                          </div>
-                          <div class="media-content">
-                            <h3 class="title is-4">
-                              {intl.formatMessage ({
-                                id: 'How can I send you bitcoin?',
-                              })}
-                            </h3>
-                            <p>
-                              <FormattedHTMLMessage id="bitcoin_ans" />
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card block">
-                      <div class="card-content">
-                        <div class="media">
-                          <div class="media-left">
-                            <span class="icon is-medium mdi mdi-24px">
-                              <IoIosArrowDroprightCircle/>
-                            </span>
-                          </div>
-                          <div class="media-content">
-                            <h3 class="title is-4">
-                              {intl.formatMessage ({
-                                id: 'How can I contact you?',
-                              })}
-                            </h3>
-                            <p>
-                              <FormattedHTMLMessage id="contact_ans" />
-                            </p>
-                          </div>
-                        </div>
+                          <FormattedHTMLMessage id="data_ans" />
+                        </p>
                       </div>
                     </div>
                   </div>
-
                 </div>
-              </section>
-
+                <div class="card block">
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-left">
+                        <span class="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div class="media-content">
+                        <h3 class="title is-4">
+                          {intl.formatMessage ({
+                            id: 'Is the source code available?',
+                          })}
+                        </h3>
+                        <p>
+                          <FormattedHTMLMessage id="github_ans" />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card block">
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-left">
+                        <span class="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div class="media-content">
+                        <h3 class="title is-4">
+                          {intl.formatMessage ({
+                            id: 'I really liked the hexagonal map on the frontpage, how can I make one?',
+                          })}
+                        </h3>
+                        <p>
+                          <FormattedHTMLMessage id="mxmaps_ans" />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card block">
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-left">
+                        <span class="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div class="media-content">
+                        <h3 class="title is-4">
+                          {intl.formatMessage ({
+                            id: 'Is there an R package for working with INEGI homicide data?',
+                          })}
+                        </h3>
+                        <p>
+                          <FormattedHTMLMessage id="mxmortalitydb_ans" />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card block">
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-left">
+                        <span class="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div class="media-content">
+                        <h3 class="title is-4">
+                          {intl.formatMessage ({
+                            id: 'How often is the website updated?',
+                          })}
+                        </h3>
+                        <p>
+                          <FormattedHTMLMessage id="month_ans" />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card block">
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-left">
+                        <span class="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div class="media-content">
+                        <h3 class="title is-4">
+                          {intl.formatMessage ({
+                            id: 'How often is the INEGI homicide data updated?',
+                          })}
+                        </h3>
+                        <p>
+                          <FormattedHTMLMessage id="inegi_ans" />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card block">
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-left">
+                        <span class="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div class="media-content">
+                        <h3 class="title is-4">
+                          {intl.formatMessage ({
+                            id: 'Where do the state and municipio codes and names come from?',
+                          })}
+                        </h3>
+                        <p>
+                          <FormattedHTMLMessage id="munnames_ans" />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card block">
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-left">
+                        <span class="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div class="media-content">
+                        <h3 class="title is-4">
+                          {intl.formatMessage ({
+                            id: 'I tried calculating rates with the population data and I got a different value than what appears on your webpage',
+                          })}
+                        </h3>
+                        <p>
+                          <FormattedHTMLMessage id="rates_ans" />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card block">
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-left">
+                        <span class="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div class="media-content">
+                        <h3 class="title is-4">
+                          {intl.formatMessage ({
+                            id: 'Is this website affiliated with the Mexican government?',
+                          })}
+                        </h3>
+                        <p>
+                          <FormattedHTMLMessage id="indp_ans" />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card block">
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-left">
+                        <span class="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div class="media-content">
+                        <h3 class="title is-4">
+                          {intl.formatMessage ({
+                            id: 'How can I send you bitcoin?',
+                          })}
+                        </h3>
+                        <p>
+                          <FormattedHTMLMessage id="bitcoin_ans" />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card block">
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="media-left">
+                        <span class="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div class="media-content">
+                        <h3 class="title is-4">
+                          {intl.formatMessage ({
+                            id: 'How can I contact you?',
+                          })}
+                        </h3>
+                        <p>
+                          <FormattedHTMLMessage id="contact_ans" />
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
