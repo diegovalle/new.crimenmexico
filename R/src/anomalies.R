@@ -173,48 +173,48 @@ muns %<>% mutate(rate = round(((count /  numberOfDays(date) * 30) * 12) / popula
 muns <- muns %>% mutate(id = str_mxmunicipio(state_code, mun_code))
 
 ll <- list()
-ll$hom <- find_anomalies(muns, "HOMICIDIO DOLOSO", 5)[, c("state_code",
-                                                          "mun_code",
-                                                          "date", 
-                                                          "count", 
-                                                          "population",
-                                                          "name", 
-                                                          "rate")]
-ll$rvcv <- find_anomalies(muns, "ROBO DE VEHÍCULO CON VIOLENCIA", 10)[, c("state_code",
-                                                                          "mun_code",
-                                                                          "date", 
-                                                                          "count", 
-                                                                          "population",
-                                                                          "name", 
-                                                                          "rate")]
-ll$rvsv <- find_anomalies(muns, "ROBO DE VEHÍCULO SIN VIOLENCIA", 10)[, c("state_code",
-                                                                          "mun_code",
-                                                                          "date", 
-                                                                          "count", 
-                                                                          "population",
-                                                                          "name", 
-                                                                          "rate")]
-ll$lesions <- find_anomalies(muns, "LESIONES DOLOSAS", 10)[, c("state_code",
-                                                               "mun_code",
-                                                               "date", 
-                                                               "count", 
-                                                               "population",
-                                                               "name", 
-                                                               "rate")]
-ll$kidnapping <- find_anomalies(muns, "SECUESTRO", 5)[, c("state_code",
-                                                          "mun_code",
-                                                          "date", 
-                                                          "count", 
-                                                          "population",
-                                                          "name", 
-                                                          "rate")]
-ll$ext <- find_anomalies(muns, "EXTORSIÓN", 5)[, c("state_code",
-                                                   "mun_code",
-                                                   "date", 
-                                                   "count", 
-                                                   "population",
-                                                   "name", 
-                                                   "rate")]
+ll$hom <- find_anomalies(muns[, c("state_code",
+                                  "mun_code",
+                                  "date", 
+                                  "count", 
+                                  "population",
+                                  "name", 
+                                  "rate")], "HOMICIDIO DOLOSO", 5)
+ll$rvcv <- find_anomalies(muns[, c("state_code",
+                                   "mun_code",
+                                   "date", 
+                                   "count", 
+                                   "population",
+                                   "name", 
+                                   "rate")], "ROBO DE VEHÍCULO CON VIOLENCIA", 10)
+ll$rvsv <- find_anomalies(muns[, c("state_code",
+                                   "mun_code",
+                                   "date", 
+                                   "count", 
+                                   "population",
+                                   "name", 
+                                   "rate")], "ROBO DE VEHÍCULO SIN VIOLENCIA", 10)
+ll$lesions <- find_anomalies(muns[, c("state_code",
+                                      "mun_code",
+                                      "date", 
+                                      "count", 
+                                      "population",
+                                      "name", 
+                                      "rate")], "LESIONES DOLOSAS", 10)
+ll$kidnapping <- find_anomalies(muns[, c("state_code",
+                                         "mun_code",
+                                         "date", 
+                                         "count", 
+                                         "population",
+                                         "name", 
+                                         "rate")], "SECUESTRO", 5)
+ll$ext <- find_anomalies(muns[, c("state_code",
+                                  "mun_code",
+                                  "date", 
+                                  "count", 
+                                  "population",
+                                  "name", 
+                                  "rate")], "EXTORSIÓN", 5)
 ll$reos <-  muns %>%
   filter(crime == "EVASIÓN DE PRESOS") %>%
   dplyr::select(c("state_code",
