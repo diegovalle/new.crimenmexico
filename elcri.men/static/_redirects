@@ -41,3 +41,6 @@
 /es/estados-feminicidio.html           https://elcri.men/feminicidio/                          301  
 /es/ENVIPE.html                        https://elcri.men/envipe/                               301  
 /es/municipios-mas-violentos.html      https://elcri.men/municipios-mas-violentos/             301  
+
+# Custom 404 English page
+/en/*                                  /en/404.html                                            404
