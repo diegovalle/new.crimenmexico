@@ -74,12 +74,12 @@ muns.inegi$count[(is.na(muns.inegi$count) & muns.inegi$date < max(muns.inegi$dat
 
 
 municipios <- list()
-municipios$hd <- list(filter(muns, tipo == "Intentional Homicide")[,c('date', 'tipo', 'name', 'count', 'rate')],
+municipios$hd <- list(filter(muns, tipo == "Intentional Homicide")[,c('date', 'name', 'count', 'rate')],
                       muns.inegi)
-municipios$ext <- filter(muns, tipo == "Extortion")[,c('date', 'tipo', 'name', 'count', 'rate')]
-municipios$sec <- filter(muns, tipo == "Kidnapping")[,c('date', 'tipo', 'name', 'count', 'rate')]
-municipios$rvcv <- filter(muns, tipo == "Car Robbery with Violence")[,c('date', 'tipo', 'name', 'count', 'rate')]
-municipios$rvsv <- filter(muns, tipo == "Car Robbery without Violence")[,c('date', 'tipo', 'name', 'count', 'rate')]
+municipios$ext <- filter(muns, tipo == "Extortion")[,c('date', 'name', 'count', 'rate')]
+municipios$sec <- filter(muns, tipo == "Kidnapping")[,c('date', 'name', 'count', 'rate')]
+municipios$rvcv <- filter(muns, tipo == "Car Robbery with Violence")[,c('date', 'name', 'count', 'rate')]
+municipios$rvsv <- filter(muns, tipo == "Car Robbery without Violence")[,c('date', 'name', 'count', 'rate')]
 #municipios$viol <- filter(muns, tipo == "VIOLACION")[,c('date', 'tipo', 'name', 'count', 'rate')]
 write(toJSON(municipios, na = "null"), "json/municipios.json")
 

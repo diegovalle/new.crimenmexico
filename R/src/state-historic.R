@@ -46,9 +46,17 @@ inegi90 <- read.csv('data/INEGI_exporta.csv', skip = 3,
   filter(date <= last_inegi_date)
 
 
-states_snsp <- subset(vic, tipo == 'Homicidio Doloso')[,c("tipo", "date", "rate", "count", "population", "state_code")]
-states_snsp <- rbind(states_snsp, filter(national_hom[,c("tipo", "date", "rate", "count", "population", "state_code")], 
-                          tipo == 'Homicidio Doloso'))
+states_snsp <- subset(vic, tipo == 'Homicidio Doloso')[,c("date", 
+                                                          "rate", 
+                                                          "count", 
+                                                          "population", 
+                                                          "state_code")]
+states_snsp <- rbind(states_snsp, filter(national_hom, 
+                                         tipo == 'Homicidio Doloso')[,c("date", 
+                                                                        "rate", 
+                                                                        "count", 
+                                                                        "population", 
+                                                                        "state_code")])
 states_snsp$tipo <- NULL
 names(states_snsp) <- c("d", "r", "c", "p", "s")
 names(inegi90) <- c("s", "c", "d", "p", "r")
