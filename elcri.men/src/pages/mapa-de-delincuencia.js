@@ -187,7 +187,7 @@ class DotMapGL extends React.Component {
           {' '}
           {hoveredFeature.properties.rate}
           <br />
-          <FormattedMessage id="count" />: {hoveredFeature.properties.count}
+          <FormattedMessage id="map_count" />: {hoveredFeature.properties.count}
           <br />
           <FormattedMessage id="population" />
           :

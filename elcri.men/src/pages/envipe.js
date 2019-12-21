@@ -189,7 +189,7 @@ function Envipe (props) {
                       // description="This graphic shows a time-series of downloads."
                       full_width={true}
                       data={lesiones_data}
-                      y_label="crimes"
+                      y_label={intl.formatMessage ({id: 'crimes'})}
                       show_confidence_band={['inf', 'sup']}
                       area={false}
                       interpolate={linear}

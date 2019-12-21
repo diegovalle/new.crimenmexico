@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import Layout from '../components/layout';
 import TrendChart from '../components/TrendChart';
 import SEO from '../components/SEO';
+import TextColumn from '../components/TextColumn';
 import HeroTitlewithLegend from '../components/HeroTitlewithLegend';
 import LegendLine from '../components/LegendLine';
 import TendenciaNacional from '../components/TendeciaNacional';
@@ -42,16 +43,22 @@ export default function TendenciasPage (props) {
           }
         >
           {intl.formatMessage ({
-                id: 'Homicide Trends',
-              })}
+            id: 'Homicide Trends',
+          })}
         </HeroTitlewithLegend>
         <h2 className="subtitle has-text-weight-semibold is-4 has-text-centered">
-         {intl.formatMessage ({
-                id: 'Month over month difference (this month - same month previous year)',
-              })}
+          {intl.formatMessage ({
+            id: 'Month over month difference (this month - same month previous year)',
+          })}
         </h2>
         <section>
           <TendenciaNacional />
+        </section>
+        <hr />
+        <section>
+          <TextColumn>
+            {intl.formatMessage ({id: 'trends_text'})}
+          </TextColumn>
         </section>
 
       </div>
