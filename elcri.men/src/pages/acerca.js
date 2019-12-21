@@ -174,7 +174,7 @@ function HomeIndex (props) {
       >
         <div className="columns is-centered">
           <div className="column is-6-fullhd is-8-widescreen is-10-desktop is-12-tablet">
-            <div class="container">
+            <div class="content is-medium">
               <h2 class="title has-text-centered" data-config-id="header">
                 {intl.formatMessage ({id: 'Frequently Asked Questions'})}
               </h2>
