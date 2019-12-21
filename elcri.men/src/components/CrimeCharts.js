@@ -21,6 +21,41 @@ const round1 = format ('.1f');
 const comma = format (',');
 
 function CrimeChart (props) {
+  const stateNames = {
+    '0': 'National',
+    '1': 'AGS',
+    '2': 'BC',
+    '3': 'BCS',
+    '4': 'CAMP',
+    '5': 'COAH',
+    '6': 'COL',
+    '7': 'CHPS',
+    '8': 'CHIH',
+    '9': 'CDMX',
+    '10': 'DGO',
+    '11': 'GTO',
+    '12': 'GRO',
+    '13': 'HGO',
+    '14': 'JAL',
+    '15': 'MEX',
+    '16': 'MICH',
+    '17': 'MOR',
+    '18': 'NAY',
+    '19': 'NL',
+    '20': 'OAX',
+    '21': 'PUE',
+    '22': 'QTO',
+    '23': 'QROO',
+    '24': 'SLP',
+    '25': 'SIN',
+    '26': 'SON',
+    '27': 'TAB',
+    '28': 'TAM',
+    '29': 'TLAX',
+    '30': 'VER',
+    '31': 'YUC',
+    '32': 'ZAC',
+  };
   const [data, setData] = useState (null);
 
   useEffect (() => {
@@ -108,12 +143,18 @@ function CrimeChart (props) {
     }
 
     dataf = formatData (dataf);
+    title =
+      title +
+      ' - ' +
+      (stateNames[props.selected_state] === 'National'
+        ? intl.formatMessage ({id: 'nacional'})
+        : stateNames[props.selected_state]);
     return (
       <MetricsGraphics
         title={title}
         //description="This graphic shows a time-series of downloads."
         data={dataf}
-        y_label="tasa anualizada"
+        y_label={intl.formatMessage ({id: 'tasa anualizada'})}
         //height={200}
         small_text={true}
         small_height_threshold={301}
