@@ -44,6 +44,9 @@ national_diff$count[which(national_diff$date == "2016-10-01")] <-
 national_diff$count[grep("2015", national_diff$date)] <- 
   national_diff$count[grep("2015", national_diff$date)] +  
   c(56,67,57,49,86,73,93,69,74,63,89,73)
+
+national_diff$rate <- ((national_diff$count / numberOfDays(national_diff$date) ) * 30) / 
+  national_diff$pop * 10^5 * 12
 national_diff <- national_diff[, c("date", "rate", "count", "pop")]
 national_diff$diff <- c(rep(NA, 12), diff(national_diff$rate, 12))
 national_diff$diff_count <- c(rep(NA, 12), diff(national_diff$count, 12))
