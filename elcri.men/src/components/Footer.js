@@ -12,7 +12,7 @@ import {useIntl, FormattedHTMLMessage} from 'react-intl';
 function Footer (props) {
   const intl = useIntl ();
   return (
-    <IconContext.Provider value={{color: '#333', size: '3rem'}}>
+    <IconContext.Provider value={{color: '#333', size: '3em'}}>
       <footer
         className="footer has-background-white-ter"
         style={{marginTop: '5rem'}}
@@ -88,7 +88,6 @@ function Footer (props) {
                   className="level-item"
                   aria-label="Mail"
                   email="ZGllZ29AZGllZ292YWxsZS5uZXQK"
-                  //href="&#109;ailt&#111;&#58;die%&#54;7o&#64;di&#37;&#54;5%6&#55;o%76%61l%6Ce&#46;net"
                 >
                   <span className="icon icon is-large"><FaEnvelope /></span>
                   <span className="is-hidden">Mail</span>
