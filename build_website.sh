@@ -48,7 +48,7 @@ if ! [ -x "$(command -v yarn)" ]; then
   npm install -g yarn
 fi
 if ! [ -x "$(command -v gatsby)" ]; then
-  npm install -g gatsby-cli
+    npm install -g gatsby-cli@2.8.21
 fi
 export GATSBY_TELEMETRY_DISABLED=1
 cd elcri.men && yarn install && gatsby build && cd ..
