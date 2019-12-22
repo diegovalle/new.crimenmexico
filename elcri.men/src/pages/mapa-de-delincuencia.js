@@ -128,6 +128,7 @@ class DotMapGL extends React.Component {
       lower: null,
       upper: null,
       sValues: null,
+      mounted: false,
       viewport: {
         width: '100%',
         height: '600px',
@@ -199,6 +200,7 @@ class DotMapGL extends React.Component {
   }
 
   componentDidMount () {
+    this.setState ({mounted: true});
     fetch ('/elcrimen-json/municipios-centroids.json')
       .then (response => response.json ())
       .then (responseJSON => {
@@ -297,9 +299,11 @@ class DotMapGL extends React.Component {
       viewport.latitude = top;
     }
 
-    this.setState ({
-      viewport,
-    });
+    if (this.state.mounted) {
+      this.setState ({
+        viewport,
+      });
+    }
   }
 
   changeExtent (e) {

@@ -87,6 +87,7 @@ class ClusterMap extends React.Component {
       geojson: null,
       mapStyle: null,
       hoveredFeature: null,
+      mounted: false,
       viewport: {
         width: '100%',
         height: '600px',
@@ -145,6 +146,7 @@ class ClusterMap extends React.Component {
   }
 
   componentDidMount () {
+    this.setState ({mounted: true});
     fetch ('/elcrimen-json/lisa.json')
       .then (response => response.json ())
       .then (responseJSON => {
@@ -208,9 +210,11 @@ class ClusterMap extends React.Component {
       viewport.latitude = top;
     }
 
-    this.setState ({
-      viewport,
-    });
+    if (this.state.mounted) {
+      this.setState ({
+        viewport,
+      });
+    }
   }
 
   render () {
