@@ -6,8 +6,6 @@ import MetricsGraphics from 'react-metrics-graphics'
 import 'metrics-graphics/dist/metricsgraphics.css'
 import SmallMultipleTrend from '../components/SmallMultipleTrend'
 
-import { selection, select as d3Select } from 'd3-selection'
-import 'd3-transition'
 import '../assets/css/trends.css'
 
 class TrendChart extends React.Component {

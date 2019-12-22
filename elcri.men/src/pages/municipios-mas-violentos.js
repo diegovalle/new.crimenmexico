@@ -62,12 +62,12 @@ function MostViolent (props) {
           <FormattedDate value={new Date (last_date.iso_mid)} year="numeric" />
         </HeroTitle>
 
-        <section class="section" id="top-section">
+        
 
-          <div class="container is-desktop">
+          <div class="container is-fullhd">
 
             <div className="columns is-centered">
-              <div className="column is-8">
+              <div className="column is-8-desktop is-full-mobile is-full-tablet">
                 <div style={{height: ' 100%'}}>
                   {data
                     ? <BarToolTip data={data} height={chartHeight} />
@@ -76,7 +76,6 @@ function MostViolent (props) {
               </div>
             </div>
           </div>
-        </section>
         <hr />
         <TextColumn>
           <p>

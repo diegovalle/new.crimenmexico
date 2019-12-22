@@ -9,10 +9,6 @@ import 'metrics-graphics/dist/metricsgraphics.css';
 import SmallMultiple from '../components/SmallMultiple';
 import {useIntl, FormattedMessage} from 'react-intl';
 
-import {selection, select as d3Select} from 'd3-selection';
-import 'd3-transition';
-//import '../assets/css/crimecharts.css'
-
 import {filter} from 'lodash-es';
 import {dateLoc} from '../../src/i18n';
 import {format} from 'd3-format';

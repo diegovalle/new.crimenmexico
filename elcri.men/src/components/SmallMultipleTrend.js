@@ -5,8 +5,6 @@ import {timeFormat as date_format} from'd3-time-format'
 import MetricsGraphics from 'react-metrics-graphics'
 import 'metrics-graphics/dist/metricsgraphics.css'
 
-import { selection, select as d3Select } from 'd3-selection';
-import 'd3-transition' 
 import '../assets/css/trends.css'
 
 class SmallMultipleTrend extends React.Component {
@@ -22,7 +20,7 @@ class SmallMultipleTrend extends React.Component {
             title={Object.keys(this.props.data)[0]}
             //description="This graphic shows a time-series of downloads."
             data={this.props.formatData(this.props.data)}
-            y_label="tasa anualizada"
+            y_label={intl.formatMessage ({id: 'tasa anualizada'})}
             height={170}
             show_confidence_band= {["l", "u"]}
             colors={[this.props.data.trend[0] === "positive" ? "#e41a1c" : this.props.data.trend[0] === "negative" ? "#377eb8" : "#e5d8bd", "#888888"]}

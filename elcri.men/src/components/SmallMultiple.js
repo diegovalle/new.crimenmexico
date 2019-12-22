@@ -7,8 +7,6 @@ import LazyLoad from 'react-lazyload';
 import MetricsGraphics from 'react-metrics-graphics';
 import 'metrics-graphics/dist/metricsgraphics.css';
 
-import {selection, select as d3Select} from 'd3-selection';
-import 'd3-transition';
 import '../assets/css/trends.css';
 import {useIntl} from 'react-intl';
 import {dateLoc} from '../../src/i18n'
@@ -36,7 +34,7 @@ function SmallMultiple (props) {
             title={props.title}
             // description="This graphic shows a time-series of downloads."
             data={props.formatData (props.data)}
-            y_label="tasa anualizada"
+            y_label={intl.formatMessage ({id: 'tasa anualizada'})}
             //height={height}
             show_confidence_band={['l', 'u']}
             // colors={[this.props.data.trend[0] === "positive" ? "#e41a1c" : this.props.data.trend[0] === "negative" ? "#377eb8" : "#e5d8bd", "#888888"]}

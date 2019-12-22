@@ -10,8 +10,6 @@ import 'metrics-graphics/dist/metricsgraphics.css';
 import SmallMultipleTrend from '../components/SmallMultipleTrend';
 import {cloneDeepWith} from 'lodash-es';
 
-import {selection, select as d3Select} from 'd3-selection';
-import 'd3-transition';
 import '../assets/css/trends.css';
 import {useIntl} from 'react-intl';
 import {dateLoc} from '../../src/i18n';
