@@ -14,11 +14,11 @@ import {FormattedMessage} from 'react-intl';
 import {format} from 'd3-format';
 import '../assets/css/top50.css';
 
-const margin = 25;
 // accessors
 const y0 = d => d.name;
 
 var comma = format (',');
+const margin = 25;
 
 function splitter (str, l) {
   var strs = [];
@@ -67,9 +67,9 @@ class Top50 extends React.Component {
           const innerWidth = width - margin;
           const innerHeight = height - margin;
           const barHeight = Math.max (10, innerHeight / this.props.data.length);
-          const gridScale = scaleLinear ({
+          const topScale = scaleLinear ({
             domain: [0, maxBy (this.props.data, 'rate')['rate']],
-            rangeRound: [0, width - margin],
+            rangeRound: [0, innerWidth - leftMargin],
             nice: true,
             clamp: true,
           });
@@ -83,9 +83,7 @@ class Top50 extends React.Component {
                       <Bar
                         key={i}
                         width={
-                          innerWidth *
-                            d.rate /
-                            maxBy (this.props.data, 'rate')['rate']
+                         topScale(d.rate)
                         }
                         height={yScale.bandwidth ()}
                         x={0}
@@ -153,7 +151,7 @@ class Top50 extends React.Component {
                       })}
                     />
                     <AxisTop
-                      scale={gridScale}
+                      scale={topScale}
                       numTicks={4}
                       hideZero
                       top={0}
@@ -166,7 +164,7 @@ class Top50 extends React.Component {
                   <GridColumns
                     top={margin}
                     left={leftMargin}
-                    scale={gridScale}
+                    scale={topScale}
                     // yScale={scaleLinear({domain:[0]})}
                     stroke="rgb(204, 204, 204)"
                     width={width}
@@ -191,7 +189,7 @@ class Top50 extends React.Component {
                         {' '}
                         {tooltipData.rate}
                         <br />
-                        <b><FormattedMessage id='count' />:</b>
+                        <b><FormattedMessage id='map_count' />:</b>
                         {' '}
                         {tooltipData.count}
                         <br />
