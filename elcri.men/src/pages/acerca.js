@@ -30,11 +30,11 @@ function HomeIndex (props) {
         }}
       />
 
-      <section class="hero">
-        <div class="hero-body">
-          <div class="container has-text-centered">
-            <h1 class="title">{intl.formatMessage ({id: 'Acerca de'})}</h1>
-            <h2 class="subtitle">{intl.formatMessage ({id: 'Datos'})}</h2>
+      <section className="hero">
+        <div className="hero-body">
+          <div className="container has-text-centered">
+            <h1 className="title">{intl.formatMessage ({id: 'Acerca de'})}</h1>
+            <h2 className="subtitle">{intl.formatMessage ({id: 'Datos'})}</h2>
           </div>
         </div>
       </section>
@@ -47,7 +47,7 @@ function HomeIndex (props) {
               <br />
               <div className="columns is-centered">
                 <div className="column is-8">
-                  <table class="table">
+                  <table className="table">
                     <thead>
                       <tr>
                         <th>{intl.formatMessage ({id: 'New methodology'})}:</th>
@@ -59,10 +59,9 @@ function HomeIndex (props) {
 
                           <a
                             href="https://data.diegovalle.net/elcrimen/nm-fuero-comun-municipios.csv.gz"
-                            onclick="_gaq.push(['_trackEvent', 'Downloads', 'CSV', 'nm-fuero-comun-municipios.csv.zip']);"
                             rel="nofollow"
                           >
-                            <span class="icon  has-text-success">
+                            <span className="icon  has-text-success">
                               <FaFileDownload />
                             </span>
                             nm-fuero-comun-municipios.csv.gz
@@ -73,10 +72,9 @@ function HomeIndex (props) {
                         <td>
                           <a
                             href="https://data.diegovalle.net/elcrimen/nm-fuero-comun-estados.csv.gz"
-                            onclick="_gaq.push(['_trackEvent', 'Downloads', 'CSV', 'nm-fuero-comun-estados.csv.zip']);"
                             rel="nofollow"
                           >
-                            <span class="icon  has-text-success">
+                            <span className="icon  has-text-success">
                               <FaFileDownload />
                             </span>
                             nm-fuero-comun-estados.csv.gz
@@ -88,10 +86,9 @@ function HomeIndex (props) {
                         <td>
                           <a
                             href="https://data.diegovalle.net/elcrimen/nm-estatal-victimas.csv.gz"
-                            onclick="_gaq.push(['_trackEvent', 'Downloads', 'CSV', 'nm-estatal-victimas.csv.gz']);"
                             rel="nofollow"
                           >
-                            <span class="icon  has-text-success">
+                            <span className="icon  has-text-success">
                               <FaFileDownload />
                             </span>
                             nm-estatal-victimas.csv.gz
@@ -101,7 +98,7 @@ function HomeIndex (props) {
                       </tr>
                     </tbody>
                   </table>
-                  <table class="table">
+                  <table className="table">
                     <thead>
                       <tr>
                         <th>
@@ -117,10 +114,9 @@ function HomeIndex (props) {
                         <td>
                           <a
                             href="https://data.diegovalle.net/elcrimen/fuero-comun-municipios.csv.gz"
-                            onclick="_gaq.push(['_trackEvent', 'Downloads', 'CSV', 'fuero-comun-municipios.csv.zip']);"
                             rel="nofollow"
                           >
-                            <span class="icon has-text-danger">
+                            <span className="icon has-text-danger">
                               <FaFileDownload />
                             </span>
                             fuero-comun-municipios.csv.gz
@@ -131,10 +127,9 @@ function HomeIndex (props) {
                         <td>
                           <a
                             href="https://data.diegovalle.net/elcrimen/fuero-comun-estados.csv.gz"
-                            onclick="_gaq.push(['_trackEvent', 'Downloads', 'CSV', 'fuero-comun-estados.csv.zip']);"
                             rel="nofollow"
                           >
-                            <span class="icon has-text-danger">
+                            <span className="icon has-text-danger">
                               <FaFileDownload />
                             </span>
                             fuero-comun-estados.csv.gz
@@ -146,10 +141,9 @@ function HomeIndex (props) {
                         <td>
                           <a
                             href="https://data.diegovalle.net/elcrimen/victimas.csv.gz"
-                            onclick="_gaq.push(['_trackEvent', 'Downloads', 'CSV', 'victimas.csv.zip']);"
                             rel="nofollow"
                           >
-                            <span class="icon has-text-danger">
+                            <span className="icon has-text-danger">
                               <FaFileDownload />
                             </span>
                             victimas.csv.gz
@@ -170,25 +164,25 @@ function HomeIndex (props) {
         data-section-id="3"
         data-component-id="15a7_9_03_awz"
         data-category="faqs"
-        class="section"
+        className="section"
       >
         <div className="columns is-centered">
           <div className="column is-6-fullhd is-8-widescreen is-10-desktop is-12-tablet">
-            <div class="content is-medium">
-              <h2 class="title has-text-centered" data-config-id="header">
+            <div className="content is-medium">
+              <h2 className="title has-text-centered" data-config-id="header">
                 {intl.formatMessage ({id: 'Frequently Asked Questions'})}
               </h2>
-              <div class="block" data-config-id="faq">
-                <div class="card block">
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <span class="icon is-medium mdi mdi-24px">
+              <div className="block" data-config-id="faq">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
                           <IoIosArrowDroprightCircle />
                         </span>
                       </div>
-                      <div class="media-content">
-                        <h3 class="title is-4">
+                      <div className="media-content">
+                        <h3 className="title is-4">
                           {intl.formatMessage ({
                             id: 'Where does the data used in this website come from?',
                           })}
@@ -201,16 +195,16 @@ function HomeIndex (props) {
                     </div>
                   </div>
                 </div>
-                <div class="card block">
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <span class="icon is-medium mdi mdi-24px">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
                           <IoIosArrowDroprightCircle />
                         </span>
                       </div>
-                      <div class="media-content">
-                        <h3 class="title is-4">
+                      <div className="media-content">
+                        <h3 className="title is-4">
                           {intl.formatMessage ({
                             id: 'Is the source code available?',
                           })}
@@ -222,16 +216,16 @@ function HomeIndex (props) {
                     </div>
                   </div>
                 </div>
-                <div class="card block">
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <span class="icon is-medium mdi mdi-24px">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
                           <IoIosArrowDroprightCircle />
                         </span>
                       </div>
-                      <div class="media-content">
-                        <h3 class="title is-4">
+                      <div className="media-content">
+                        <h3 className="title is-4">
                           {intl.formatMessage ({
                             id: 'I really liked the hexagonal map on the frontpage, how can I make one?',
                           })}
@@ -243,16 +237,16 @@ function HomeIndex (props) {
                     </div>
                   </div>
                 </div>
-                <div class="card block">
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <span class="icon is-medium mdi mdi-24px">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
                           <IoIosArrowDroprightCircle />
                         </span>
                       </div>
-                      <div class="media-content">
-                        <h3 class="title is-4">
+                      <div className="media-content">
+                        <h3 className="title is-4">
                           {intl.formatMessage ({
                             id: 'Is there an R package for working with INEGI homicide data?',
                           })}
@@ -264,16 +258,16 @@ function HomeIndex (props) {
                     </div>
                   </div>
                 </div>
-                <div class="card block">
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <span class="icon is-medium mdi mdi-24px">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
                           <IoIosArrowDroprightCircle />
                         </span>
                       </div>
-                      <div class="media-content">
-                        <h3 class="title is-4">
+                      <div className="media-content">
+                        <h3 className="title is-4">
                           {intl.formatMessage ({
                             id: 'How often is the website updated?',
                           })}
@@ -285,16 +279,16 @@ function HomeIndex (props) {
                     </div>
                   </div>
                 </div>
-                <div class="card block">
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <span class="icon is-medium mdi mdi-24px">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
                           <IoIosArrowDroprightCircle />
                         </span>
                       </div>
-                      <div class="media-content">
-                        <h3 class="title is-4">
+                      <div className="media-content">
+                        <h3 className="title is-4">
                           {intl.formatMessage ({
                             id: 'How often is the INEGI homicide data updated?',
                           })}
@@ -306,16 +300,16 @@ function HomeIndex (props) {
                     </div>
                   </div>
                 </div>
-                <div class="card block">
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <span class="icon is-medium mdi mdi-24px">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
                           <IoIosArrowDroprightCircle />
                         </span>
                       </div>
-                      <div class="media-content">
-                        <h3 class="title is-4">
+                      <div className="media-content">
+                        <h3 className="title is-4">
                           {intl.formatMessage ({
                             id: 'Where do the state and municipio codes and names come from?',
                           })}
@@ -327,16 +321,16 @@ function HomeIndex (props) {
                     </div>
                   </div>
                 </div>
-                <div class="card block">
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <span class="icon is-medium mdi mdi-24px">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
                           <IoIosArrowDroprightCircle />
                         </span>
                       </div>
-                      <div class="media-content">
-                        <h3 class="title is-4">
+                      <div className="media-content">
+                        <h3 className="title is-4">
                           {intl.formatMessage ({
                             id: 'I tried calculating rates with the population data and I got a different value than what appears on your webpage',
                           })}
@@ -348,16 +342,16 @@ function HomeIndex (props) {
                     </div>
                   </div>
                 </div>
-                <div class="card block">
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <span class="icon is-medium mdi mdi-24px">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
                           <IoIosArrowDroprightCircle />
                         </span>
                       </div>
-                      <div class="media-content">
-                        <h3 class="title is-4">
+                      <div className="media-content">
+                        <h3 className="title is-4">
                           {intl.formatMessage ({
                             id: 'Is this website affiliated with the Mexican government?',
                           })}
@@ -369,16 +363,16 @@ function HomeIndex (props) {
                     </div>
                   </div>
                 </div>
-                <div class="card block">
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <span class="icon is-medium mdi mdi-24px">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
                           <IoIosArrowDroprightCircle />
                         </span>
                       </div>
-                      <div class="media-content">
-                        <h3 class="title is-4">
+                      <div className="media-content">
+                        <h3 className="title is-4">
                           {intl.formatMessage ({
                             id: 'How can I send you bitcoin?',
                           })}
@@ -390,16 +384,16 @@ function HomeIndex (props) {
                     </div>
                   </div>
                 </div>
-                <div class="card block">
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="media-left">
-                        <span class="icon is-medium mdi mdi-24px">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
                           <IoIosArrowDroprightCircle />
                         </span>
                       </div>
-                      <div class="media-content">
-                        <h3 class="title is-4">
+                      <div className="media-content">
+                        <h3 className="title is-4">
                           {intl.formatMessage ({
                             id: 'How can I contact you?',
                           })}

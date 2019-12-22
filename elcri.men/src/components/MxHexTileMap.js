@@ -152,7 +152,7 @@ function MxHexTileMap (props) {
                       id="crimeSelect"
                       onChange={handleSelect}
                       aria-label="Select Crime"
-                      class="is-hovered"
+                      className="is-hovered"
                     >
                       <option value="hd">
                         {intl.formatMessage ({id: 'Homicidio Intencional'})}

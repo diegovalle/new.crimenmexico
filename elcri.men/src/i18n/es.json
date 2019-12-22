@@ -155,5 +155,6 @@
   "NOT FOUND": "Error 404 - Página No Encontrada",
   "You just hit a route that doesn't exist... the sadness.": "Lo sentimos, la página que solicitaste no se encuentra en el servidor",
   "map_count": "homicidios",
+  "num": "num",
   "trends_text": "Como Oaxaca no remitió información durante varios meses del 2015 y 2016 se substituyeron los datos de la vieja metodología"
 }

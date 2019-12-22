@@ -131,7 +131,7 @@ function HistoricalChart (props) {
       <div className="column is-half">
         <div className="select is-pulled-right">
           <select
-           class="is-hovered"
+           className="is-hovered"
             id="state_select"
             onChange={handleSelect}
             aria-label="Select State"
@@ -186,7 +186,7 @@ function HistoricalChart (props) {
       <div className="column is-full">
         <a name="historical" id="historical" />
         <div id="national90">
-          <figure class="image is-2by1 is-historical">
+          <figure className="image is-2by1 is-historical">
             <div className="has-ratio">
               {data
                 ? <MetricsGraphics

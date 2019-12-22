@@ -217,7 +217,7 @@ function CrimeChart (props) {
     <React.Fragment>
       <div className="columns">
         <div className="column is-full">
-          <figure class="image is-3by1 is-3by1-mobile-16by9">
+          <figure className="image is-3by1 is-3by1-mobile-16by9">
             <div
               id="nat_hd"
               className={
@@ -234,7 +234,7 @@ function CrimeChart (props) {
 
       <div className="columns">
         <div className="column is-half">
-          <figure class="image is-16by9">
+          <figure className="image is-16by9">
             <div
               id="nat_sec"
               className={
@@ -248,7 +248,7 @@ function CrimeChart (props) {
           </figure>
         </div>
         <div className="column is-half">
-          <figure class="image is-16by9">
+          <figure className="image is-16by9">
             <div
               id="nat_ext"
               className={
@@ -264,7 +264,7 @@ function CrimeChart (props) {
       </div>
       <div className="columns">
         <div className="column is-half">
-          <figure class="image is-16by9">
+          <figure className="image is-16by9">
             <div
               id="nat_rvcv"
               className={
@@ -278,7 +278,7 @@ function CrimeChart (props) {
           </figure>
         </div>
         <div className="column is-half">
-          <figure class="image is-16by9">
+          <figure className="image is-16by9">
             <div
               id="nat_rvsv"
               className={

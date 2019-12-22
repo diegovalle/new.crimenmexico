@@ -64,7 +64,7 @@ function MostViolent (props) {
 
         
 
-          <div class="container is-fullhd">
+          <div className="container is-fullhd">
 
             <div className="columns is-centered">
               <div className="column is-8-desktop is-full-mobile is-full-tablet">

@@ -33,18 +33,18 @@ const Infographics = ({data, location, pageContext}) => {
       />
       <div className="container">
 
-        <section class="hero">
-          <div class="hero-body">
-            <div class="container">
+        <section className="hero">
+          <div className="hero-body">
+            <div className="container">
               <div className="columns">
                 <div className="column is-half">
-                  <h1 class="title has-text-left">
+                  <h1 className="title has-text-left">
                     {intl.formatMessage ({id: 'Infographics'})}
                   </h1>
 
                 </div>
                 <div className="column is-half">
-                  <h2 class="subtitle has-text-right has-text-left-mobile">
+                  <h2 className="subtitle has-text-right has-text-left-mobile">
                     {intl.formatMessage ({
                       id: 'Charts to explain the drug war',
                     })}
@@ -104,10 +104,10 @@ const Infographics = ({data, location, pageContext}) => {
               ],
               ['desc']
             ).map ((edge, i) => (
-              <React.Fragment>
+              <React.Fragment key={i}>
                 {i % 2 === 0
-                  ? <div className="column is-full has-text-centered">
-                      <h3 class="title is-4">
+                  ? <div className="column is-full has-text-centered" key={i + 'div'}>
+                      <h3 className="title is-4" key={i}>
                         {edge.node.base
                           .replace ('_es', '')
                           .replace ('infographic_', '')
@@ -116,19 +116,20 @@ const Infographics = ({data, location, pageContext}) => {
                           .replace (/^\w/, c => c.toUpperCase ())}
                       </h3>
                     </div>
-                  : <div />}
+                  : <div key={i + 'null'} />}
                 <div
                   key={edge.node.childImageSharp.originalName + 'b'}
                   className="column is-offset-1 is-4"
                 >
                   <a
+                    key={i + 'a'}
                     className="absolutlynocallsname"
                     href={
                       '/es/images/infographics/fulls/' +
                         edge.node.childImageSharp.fluid.originalName
                     }
                   >
-                    <figure class="image is-3x5">
+                    <figure className="image is-3x5" key={i + 'figure'}>
                       <Img
                         loading="lazy"
                         backgroundColor="#c7b470"
@@ -162,9 +163,9 @@ const Infographics = ({data, location, pageContext}) => {
                       />
                     </figure>
                   </a>
-                  <hr />
+                  <hr key={i + 'hr'} />
                 </div>
-                <div className="column is-1" />
+                <div className="column is-1" key={i + 'colpad'} />
               </React.Fragment>
             ))}
           </div>

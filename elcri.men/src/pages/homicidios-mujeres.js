@@ -139,7 +139,7 @@ function HomicidiosMujeres (props) {
           <div className="columns is-multiline" id="national-chart">
 
             <div className="column is-full">
-              <figure class="image is-3by1 is-big-national">
+              <figure className="image is-3by1 is-big-national">
                 <div className=" has-ratio">
                   {total
                     ? <SmallMultiple
@@ -151,7 +151,6 @@ function HomicidiosMujeres (props) {
                           id: 'nacional',
                         })}
                         max_rate={maxRate (total)}
-                        col_class="col-12"
                         //height="350"
                         metrics={{
                           colors: ['#008085', '#E81208'],
@@ -183,9 +182,9 @@ function HomicidiosMujeres (props) {
           <div className="columns is-multiline" id="small-multiples">
             {ordered_states
               ? ordered_states.map ((state, i) => (
-                  <div className="column is-3">
-                    <figure class="image is-16by9">
-                      <div className=" has-ratio">
+                  <div className="column is-3" key={i}>
+                    <figure className="image is-16by9" key={i}>
+                      <div className=" has-ratio" key={i}>
                         <SmallMultiple
                           data={filterCrime (data[crime], state)}
                           key={i}

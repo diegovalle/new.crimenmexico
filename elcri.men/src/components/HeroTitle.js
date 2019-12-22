@@ -4,12 +4,12 @@ export default function HeroTitle (props) {
   return (
     <React.Fragment>
       {/* <hr className="is-hidden-mobile" /> */}
-      <section class="hero">
-        <div class="hero-body">
-          <div class="container">
+      <section className="hero">
+        <div className="hero-body">
+          <div className="container">
             <div className="columns is-centered is-mobile">
               <div className="column is-full">
-                <h1 class="title is-size-4-mobile has-text-centered-mobile ">
+                <h1 className="title is-size-4-mobile has-text-centered-mobile ">
                   {props.children}
                 </h1>
               </div>

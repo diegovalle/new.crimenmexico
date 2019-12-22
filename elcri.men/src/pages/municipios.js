@@ -148,7 +148,7 @@ function Municipios (props) {
                 id="crimeSelect"
                 onChange={handleSelect}
                 aria-label="Select Crime"
-                class="is-hovered"
+                className="is-hovered"
               >
                 <option value="hd">
                   {intl.formatMessage ({id: 'Homicidio Intencional'})}
@@ -176,10 +176,10 @@ function Municipios (props) {
           <div className="columns is-multiline" id="small-multiples">
             {ordered_states
               ? ordered_states.map ((state, i) => (
-                  <div className="column is-3">
+                  <div className="column is-3" key={i}>
 
-                    <figure class="image is-16by9">
-                      <div className=" has-ratio">
+                    <figure className="image is-16by9" key={i}>
+                      <div className=" has-ratio" key={i}>
                         <SmallMultiple
                           data={filterCrime (data[crime], state)}
                           key={i}

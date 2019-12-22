@@ -42,7 +42,7 @@ function Footer (props) {
                   aria-label="Twitter"
                   href="https://twitter.com/diegovalle"
                 >
-                  <span class="icon icon is-large"><FaTwitterSquare /></span>
+                  <span className="icon icon is-large"><FaTwitterSquare /></span>
                   <span className="is-hidden">Twitter</span>
                 </a>
 
@@ -52,7 +52,7 @@ function Footer (props) {
                   href="https://facebook.com/diegovalle"
                 >
                   {' '}
-                  <span class="icon icon is-large"><FaFacebookSquare /></span>
+                  <span className="icon icon is-large"><FaFacebookSquare /></span>
                   <span className="is-hidden">Facebook</span>
                 </a>
 
@@ -80,7 +80,7 @@ function Footer (props) {
                   aria-label="GitHub"
                   href="https://github.com/diegovalle"
                 >
-                  <span class="icon icon is-large"><FaGithubSquare /></span>
+                  <span className="icon icon is-large"><FaGithubSquare /></span>
                   <span className="is-hidden">GitHub</span>
                 </a>
 
@@ -90,7 +90,7 @@ function Footer (props) {
                   email="ZGllZ29AZGllZ292YWxsZS5uZXQK"
                   //href="&#109;ailt&#111;&#58;die%&#54;7o&#64;di&#37;&#54;5%6&#55;o%76%61l%6Ce&#46;net"
                 >
-                  <span class="icon icon is-large"><FaEnvelope /></span>
+                  <span className="icon icon is-large"><FaEnvelope /></span>
                   <span className="is-hidden">Mail</span>
                 </Obfuscate2>
 

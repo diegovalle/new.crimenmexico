@@ -50,15 +50,15 @@ function TendenciaNacional (props) {
     let a = Object.keys (data).map (function (key, index) {
       let date = new Date (data[key].date);
       return (
-        <tr>
-          <td >
+        <tr key={index}>
+          <td  key={index + '1'}>
             {df (data[key].date) +
               `\u00A0-\u00A0` +
               date_format (`%b\u00A0`) (data[key].date) +
               (parseInt (date_format ('%Y') (data[key].date)) - 1)}
           </td>
-          <td>{data[key].diff}</td>
-          <td>{data[key].diff_count}</td>
+          <td key={index + '2'}>{data[key].diff}</td>
+          <td key={index + '3'}>{data[key].diff_count}</td>
         </tr>
       );
     });
@@ -71,7 +71,7 @@ function TendenciaNacional (props) {
   return (
     <div className="columns">
       <div className="column is-full">
-        <figure class="image is-3by1 is-big-national">
+        <figure className="image is-3by1 is-big-national">
           <div className=" has-ratio" id="tendencias">
             {data
               ? <MetricsGraphics
@@ -133,9 +133,9 @@ function TendenciaNacional (props) {
           </div>
         </figure>
         <hr />
-        <div class="columns is-centered">
-          <div class="column is-6">
-            <div class="table-container">
+        <div className="columns is-centered">
+          <div className="column is-6">
+            <div className="table-container">
               <table className="table is-striped is-fullwidth">
                 <thead>
                   <tr>

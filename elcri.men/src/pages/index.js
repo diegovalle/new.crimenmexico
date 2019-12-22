@@ -76,13 +76,13 @@ const HomeIndex = props => {
         path={props.location.pathname}
         lang={props.pageContext.locale}
       />
-      <section class="hero">
-        <div class="hero-body">
-          <div class="container has-text-centered">
-            <h2 class="subtitle has-text-weight-semibold is-4">
+      <section className="hero">
+        <div className="hero-body">
+          <div className="container has-text-centered">
+            <h2 className="subtitle has-text-weight-semibold is-4">
               {intl.formatMessage ({id: 'crimen_mexico'})}
             </h2>
-            <h1 class="title has-text-weight-bold is-2  is-size-3-mobile">
+            <h1 className="title has-text-weight-bold is-2  is-size-3-mobile">
               {props.pageContext.locale === 'es'
                 ? intl.formatMessage ({id: 'Reporte de'})
                 : null}
@@ -103,7 +103,7 @@ const HomeIndex = props => {
         </div>
       </section>
 
-      <hr className="is-hidden-mobile" style={{margin: "1rem 0 2.5rem 0"}} />
+      <hr className="is-hidden-mobile" style={{margin: '1rem 0 2.5rem 0'}} />
 
       <section className="frontpage">
         <div className="container  is-fullhd">
@@ -133,7 +133,7 @@ const HomeIndex = props => {
         </div>
       </section>
 
-      <section id="hexmap_and_charts" style={{marginTop:".75rem"}}>
+      <section id="hexmap_and_charts" style={{marginTop: '.75rem'}}>
         <div className="container  is-fullhd">
           <FrontPageMap />
           <div className="columns">
@@ -161,13 +161,13 @@ const HomeIndex = props => {
       </section>
       <hr />
 
-      <section class="historicalChart">
+      <section className="historicalChart">
 
-        <div class="hero-body">
-          <div class="container">
+        <div className="hero-body">
+          <div className="container">
             <div className="columns">
               <div className="column is-full">
-                <h2 class="title has-text-centered has-text-weight-bold">
+                <h2 className="title has-text-centered has-text-weight-bold">
                   <FormattedMessage id="histchart_title" />
                 </h2>
               </div>
@@ -175,7 +175,7 @@ const HomeIndex = props => {
           </div>
         </div>
 
-        <div class="container  is-widescreen">
+        <div className="container  is-widescreen">
           <a name="#historical" id="historical" />
           <LazyLoad height={440} once offset={200}>
             <HistoricalChart hash={props.location.hash} />
@@ -185,25 +185,25 @@ const HomeIndex = props => {
 
       <hr />
 
-      <section class="infographics">
-        <div class="hero-body">
-          <div class="container">
+      <section className="infographics">
+        <div className="hero-body">
+          <div className="container">
             <div className="columns">
               <div className="column is-half">
-                <h2 class="title has-text-left">
+                <h2 className="title has-text-left">
                   <FormattedMessage id="Infographics" />
                 </h2>
 
               </div>
               <div className="column is-half">
-                <h3 class="subtitle has-text-right">
+                <h3 className="subtitle has-text-right">
                   <FormattedMessage id="Charts to explain the drug war" />
                 </h3>
               </div>
             </div>
           </div>
         </div>
-        <div class="container  is-widescreen">
+        <div className="container  is-widescreen">
           <div className="columns">
 
             {orderBy (
@@ -255,22 +255,26 @@ const HomeIndex = props => {
             )
               .slice (0, 2)
               .map (edge => (
-                <React.Fragment>
+                <React.Fragment key={edge.node.childImageSharp.fluid.originalName}>
 
                   <div
-                    key={edge.node.childImageSharp.originalName + 'b'}
+                    key={edge.node.childImageSharp.fluid.originalName + 'div'}
                     className="column is-offset-1 is-4"
                   >
                     <a
+                      key={edge.node.childImageSharp.fluid.originalName}
                       href={
                         (props.pageContext.locale === 'es' ? '/es' : '/en') +
                           '/images/infographics/fulls/' +
                           edge.node.childImageSharp.fluid.originalName
                       }
                     >
-                      <figure class="image is-3x5">
+                      <figure
+                        className="image is-3x5"
+                        key={edge.node.childImageSharp.fluid.originalName + 'fluid'}
+                      >
                         <Img
-                          key={edge.node.childImageSharp.originalName}
+                          key={edge.node.childImageSharp.fluid.originalName + 'img'}
                           fluid={edge.node.childImageSharp.fluid}
                           title={intl.formatMessage ({
                             id: 'Infographic of crime in Mexico',
@@ -285,15 +289,18 @@ const HomeIndex = props => {
                       </figure>
                     </a>
                   </div>
-                  <div className="column" />
+                  <div
+                    className="column"
+                    key={edge.node.childImageSharp.fluid.originalName}
+                  />
 
                 </React.Fragment>
               ))}
           </div>
         </div>
-        <section class="section">
-          <div class="has-text-centered">
-            <button class="button  is-link is-centered">
+        <section className="section">
+          <div className="has-text-centered">
+            <button className="button  is-link is-centered">
               <LLink to="/infograficas/" locale={props.pageContext.locale}>
                 <FormattedMessage id="starship" />
               </LLink>
@@ -304,18 +311,20 @@ const HomeIndex = props => {
 
       <hr />
 
-      <section class="more is-widescreen" style={{paddingTop: '2rem'}}>
-        <div class="container has-text-centered">
-          <h2 class="title">
+      <section className="more is-widescreen" style={{paddingTop: '2rem'}}>
+        <div className="container has-text-centered">
+          <h2 className="title">
             <FormattedMessage id="best_site" />
           </h2>
-          <div class="columns">
-            <div class="column">
-              <h5 class="title is-5"><FormattedMessage id="crime_map" /></h5>
+          <div className="columns">
+            <div className="column">
+              <h5 className="title is-5">
+                <FormattedMessage id="crime_map" />
+              </h5>
               <br />
-              <div class="level">
-                <div class="level-item">
-                  <figure class="image is-128x128">
+              <div className="level">
+                <div className="level-item">
+                  <figure className="image is-128x128">
                     <Img
                       className="is-rounded"
                       key={bestImages.mapa.childImageSharp.fixed}
@@ -330,7 +339,7 @@ const HomeIndex = props => {
                 <FormattedHTMLMessage id="map_description" />
               </p>
               <br />
-              <button class="button  is-link">
+              <button className="button  is-link">
                 <LLink
                   to="/mapa-de-delincuencia/"
                   locale={props.pageContext.locale}
@@ -339,11 +348,13 @@ const HomeIndex = props => {
                 </LLink>
               </button>
             </div>
-            <div class="column">
-              <h5 class="title is-5"><FormattedMessage id="anomalies" /></h5>
-              <div class="level">
-                <div class="level-item">
-                  <figure class="image is-128x128">
+            <div className="column">
+              <h5 className="title is-5">
+                <FormattedMessage id="anomalies" />
+              </h5>
+              <div className="level">
+                <div className="level-item">
+                  <figure className="image is-128x128">
                     <Img
                       className="is-rounded"
                       key={bestImages.anomalies.childImageSharp.fixed}
@@ -358,17 +369,18 @@ const HomeIndex = props => {
                 <FormattedHTMLMessage id="anomalies_description" />
               </p>
               <br />
-              <button class="button  is-link">
+              <button className="button  is-link">
                 <LLink to="/anomalias/" locale={props.pageContext.locale}>
                   <FormattedMessage id="anomalies" />
                 </LLink>
               </button>
             </div>
-            <div class="column">
-              <h5 class="title is-5"><FormattedMessage id="trends" /></h5><br />
-              <div class="level">
-                <div class="level-item">
-                  <figure class="image is-128x128">
+            <div className="column">
+              <h5 className="title is-5"><FormattedMessage id="trends" /></h5>
+              <br />
+              <div className="level">
+                <div className="level-item">
+                  <figure className="image is-128x128">
                     <Img
                       className="is-rounded"
                       key={bestImages.trend.childImageSharp.fixed}
@@ -383,11 +395,11 @@ const HomeIndex = props => {
                   </figure>
                 </div>
               </div>
-              <p class="block">
+              <p className="block">
                 <FormattedHTMLMessage id="trend_description" />
               </p>
               <br />
-              <button class="button  is-link">
+              <button className="button  is-link">
                 <LLink to="/tendencias/" locale={props.pageContext.locale}>
                   <FormattedMessage id="trends" />
                 </LLink>

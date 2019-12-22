@@ -4,15 +4,15 @@ export default function HeroTitlewithLegend (props) {
   return (
     <React.Fragment>
        {/* <hr className="is-hidden-mobile" /> */}
-        <section class="hero">
-          <div class="hero-body">
-            <div class="container">
+        <section className="hero">
+          <div className="hero-body">
+            <div className="container">
               <div className="columns">
                 <div className="column is-half">
-                  <h1 class="title has-text-right is-size-4-mobile has-text-centered-mobile ">
+                  <h1 className="title has-text-right is-size-4-mobile has-text-centered-mobile ">
                     {props.children}
                   </h1>
-                  <h2 class="subtitle has-text-right">
+                  <h2 className="subtitle has-text-right">
                     {' '}
                   </h2>
                 </div>

@@ -130,7 +130,7 @@ function Envipe (props) {
               <div
                 className="line-chart-brown"
               >
-                <figure class="image is-16by9">
+                <figure className="image is-16by9">
                   <div className=" has-ratio">
                     <MetricsGraphics
                       title={intl.formatMessage ({id: 'Car Robbery'})}
@@ -182,7 +182,7 @@ function Envipe (props) {
             </div>
             <div className="column is-half">
               <div className=" line-chart-brown">
-                <figure class="image is-16by9">
+                <figure className="image is-16by9">
                   <div className=" has-ratio">
                     <MetricsGraphics
                       title={intl.formatMessage ({id: 'Lesiones'})}
@@ -232,7 +232,7 @@ function Envipe (props) {
             </div>
             <div className="column is-half">
               <div className=" line-chart-brown">
-                <figure class="image is-16by9">
+                <figure className="image is-16by9">
                   <div className=" has-ratio">
                     <MetricsGraphics
                       title={intl.formatMessage ({id: 'Extorsión'})}
@@ -286,7 +286,7 @@ function Envipe (props) {
             </div>
             <div className="column is-half">
               <div className=" line-chart-brown">
-                <figure class="image is-16by9">
+                <figure className="image is-16by9">
                   <div className=" has-ratio">
                     <MetricsGraphics
                       title={intl.formatMessage ({id: 'Secuestro'})}

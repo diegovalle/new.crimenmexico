@@ -166,7 +166,7 @@ function Anomalies (props) {
   const tab = data => {
     return map (data, (muns, crime) => {
       if (muns.length) {
-        return <Tab>{formatCrime (crime)}</Tab>;
+        return <Tab key={crime}>{formatCrime (crime)}</Tab>;
       }
     });
   };
@@ -175,17 +175,17 @@ function Anomalies (props) {
     return map (data, (muns, crime) => {
       if (muns.length) {
         return (
-          <TabPanel>
+          <TabPanel key={crime}>
 
-            <div className="columns" style={{paddingTop: '1rem'}}>
+            <div className="columns" style={{paddingTop: '1rem'}} key={crime}>
 
-              <div className="column is-three-fourths">
-                <div className="columns is-multiline" id="small-multiples">
+              <div className="column is-three-fourths" key={crime}>
+                <div className="columns is-multiline" id="small-multiples" key={crime}>
                   {orderStates (data[crime]).map ((mun, i) => (
-                    <div className="column is-half">
+                    <div className="column is-half" key={i}>
 
-                      <figure class="image is-2by1">
-                        <div className=" has-ratio">
+                      <figure className="image is-2by1" key={i}>
+                        <div className=" has-ratio" key={i}>
                           <SmallMultiple
                             data={filterCrime (data[crime], mun)}
                             key={i}
@@ -222,7 +222,7 @@ function Anomalies (props) {
               <div className="column is-one-fourth">
                 <div>
 
-                  <figure class="image is-square">
+                  <figure className="image is-square">
                     <div className=" has-ratio">
                       <MxAnomalyMapTooltip crime={crime} />
                     </div>
