@@ -5,6 +5,7 @@ import {useIntl, injectIntl, FormattedMessage, FormattedHTMLMessage} from 'react
 import Img from 'gatsby-image';
 import useBestImages from '../components/BestImages';
 import LLink from '../components/LLink';
+import Helmet from 'react-helmet';
 
 const useError = () => {
   const data = useStaticQuery (graphql`
@@ -30,6 +31,13 @@ const NotFoundPage = props => {
   const bestImages = useBestImages ();
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
+    <Helmet>
+      <title>{intl.formatMessage ({id: 'NOT FOUND'})}</title>
+      <meta name="description" content={intl.formatMessage ({
+                id: "You just hit a route that doesn't exist... the sadness.",
+              })} />
+      <html lang={props.pageContext.locale} />
+    </Helmet>
       <section class="hero">
         <div class="hero-body">
           <div class="container has-text-centered">
