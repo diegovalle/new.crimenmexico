@@ -248,7 +248,6 @@ const HomeIndex = props => {
                     .replace ('municipios', 'a')
                     .split ('_');
                   return name[2] + months[name[1]] + name[0];
-                  return o.node.base;
                 },
               ],
               ['desc']
