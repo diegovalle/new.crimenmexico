@@ -13,6 +13,7 @@
 @import '../../../node_modules/bulma/sass/elements/title.sass';
 @import '../../../node_modules/bulma/sass/elements/table.sass';
 @import '../../../node_modules/bulma/sass/elements/image.sass';
+@import '../../../node_modules/bulma/sass/form/_all.sass';
 @import '../../../node_modules/bulma/sass/components/navbar.sass';
 @import '../../../node_modules/bulma/sass/components/level.sass';
 @import '../../../node_modules/bulma/sass/components/card.sass';
@@ -193,37 +194,6 @@ ol {
   // padding-right: 2px;
   padding-left: 1px;
   font-family: "Roboto Condensed"
-}
-.select-style {
-  border: 1px solid #ccc;
-  width: 320px;
-  border-radius: 3px;
-  overflow: hidden;
-  background: #fafafa
-    url('data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==')
-    no-repeat 90% 50%;
-}
-
-.select-style select {
-  padding: 5px 8px;
-  border: none;
-  width: 100%;
-  box-shadow: none;
-  background: transparent;
-  background-image: none;
-  -webkit-appearance: none;
-  font-size: 1em;
-  font-family: 'Source Sans Pro';
-  font-weight: 700;
-  color: #555;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  text-indent: 1px;
-  text-overflow: '';
-}
-
-.select-style select:focus {
-  outline: none;
 }
 #nat_hd .mg-chart-title {
   color: white;
@@ -556,4 +526,28 @@ abbr[title] {
 button.button a, button.button a{
   border-color: transparent;
   color: #fff;
+}
+
+.select:not(.is-multiple):not(.is-loading)::after{
+  border: 3px solid;
+  border-radius: 2px;
+  border-right: 0;
+  border-top: 0;
+  content: " ";
+  display: block;
+  height: 0.625em;
+  margin-top: -0.4375em;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-transform-origin: center;
+  transform-origin: center;
+  width: 0.625em;
+}
+
+.select select {
+  font-weight: bold;
+  color: #555;
 }

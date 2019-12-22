@@ -5,7 +5,6 @@ import CrimeChart from '../components/CrimeCharts';
 import MxHexTileMapTooltip from '../components/MxHexTileMapTooltip';
 import {useIntl, FormattedHTMLMessage} from 'react-intl';
 
-
 function FrontPageMap (props) {
   const intl = useIntl ();
   const [selected_state, setselected_state] = useState ('0');

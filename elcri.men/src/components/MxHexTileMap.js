@@ -147,11 +147,12 @@ function MxHexTileMap (props) {
               {parent => (
                 <React.Fragment>
 
-                  <div className="select-style">
+                  <div className="select">
                     <select
                       id="crimeSelect"
                       onChange={handleSelect}
                       aria-label="Select Crime"
+                      class="is-hovered"
                     >
                       <option value="hd">
                         {intl.formatMessage ({id: 'Homicidio Intencional'})}
@@ -300,9 +301,11 @@ function MxHexTileMap (props) {
                           <br />
                           <b>{intl.formatMessage ({id: 'tasa anualizada'})}:</b>
                           {' '}
-                          {data[crime].find (
+                          {
+                            data[crime].find (
                               o => o.state_code === tooltipData.state_code
-                            ).rate}
+                            ).rate
+                          }
                           <br />
                           <b>{intl.formatMessage ({id: 'count'})}:</b>
                           {' '}

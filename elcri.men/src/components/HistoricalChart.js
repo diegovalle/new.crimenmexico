@@ -129,8 +129,9 @@ function HistoricalChart (props) {
   return (
     <div className="columns is-multiline" id="national90">
       <div className="column is-half">
-        <div className="select-style is-pulled-right	">
+        <div className="select is-pulled-right">
           <select
+           class="is-hovered"
             id="state_select"
             onChange={handleSelect}
             aria-label="Select State"

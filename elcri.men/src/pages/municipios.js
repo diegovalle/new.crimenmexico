@@ -139,36 +139,39 @@ function Municipios (props) {
           {intl.formatMessage ({id: 'Crime in the Most Violent Municipios'})}
         </HeroTitlewithLegend>
         <section id="municipios">
-          <div
-            className="select-style"
-            style={{margin: '0 auto', marginBottom: '3em'}}
-          >
-            <select
-              id="crimeSelect"
-              onChange={handleSelect}
-              aria-label="Select Crime"
+          <div style={{textAlign: 'center'}}>
+            <div
+              className="select"
+              style={{margin: '0 auto', marginBottom: '3em'}}
             >
-              <option value="hd">
-                {intl.formatMessage ({id: 'Homicidio Intencional'})}
-              </option>
-              <option value="sec">
-                {intl.formatMessage ({id: 'Secuestro'})}
-              </option>
-              <option value="ext">
-                {intl.formatMessage ({id: 'Extorsión'})}
-              </option>
-              <option value="rvcv">
-                {intl.formatMessage ({
-                  id: 'Robo de Coches con Violencia',
-                })}
-              </option>
-              <option value="rvsv">
-                {intl.formatMessage ({
-                  id: 'Robo de Coches sin Violencia',
-                })}
-              </option>
-            </select>
+              <select
+                id="crimeSelect"
+                onChange={handleSelect}
+                aria-label="Select Crime"
+                class="is-hovered"
+              >
+                <option value="hd">
+                  {intl.formatMessage ({id: 'Homicidio Intencional'})}
+                </option>
+                <option value="sec">
+                  {intl.formatMessage ({id: 'Secuestro'})}
+                </option>
+                <option value="ext">
+                  {intl.formatMessage ({id: 'Extorsión'})}
+                </option>
+                <option value="rvcv">
+                  {intl.formatMessage ({
+                    id: 'Robo de Coches con Violencia',
+                  })}
+                </option>
+                <option value="rvsv">
+                  {intl.formatMessage ({
+                    id: 'Robo de Coches sin Violencia',
+                  })}
+                </option>
+              </select>
             </div>
+          </div>
 
           <div className="columns is-multiline" id="small-multiples">
             {ordered_states
@@ -189,7 +192,7 @@ function Municipios (props) {
                               let date = new Date (d.date);
                               let df = date_format ('%b %Y');
                               return (
-                                df(d.date) +
+                                df (d.date) +
                                 ', ' +
                                 intl.formatMessage ({id: 'num'}) +
                                 ': ' +
@@ -223,7 +226,6 @@ function Municipios (props) {
             </div>
           </div>
         </section>
-
 
       </div>
     </Layout>
