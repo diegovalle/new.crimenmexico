@@ -53,7 +53,7 @@ const HomeIndex = props => {
   const regex_en = /^infographic_(?!es)|^municipios_(?!es)/;
 
   useEffect (() => {
-    if (props.location.hash.includes('#historical')) {
+    if (props.location.hash.includes ('#historical')) {
       document.getElementById ('historical').scrollIntoView ();
     }
   });
@@ -103,7 +103,7 @@ const HomeIndex = props => {
         </div>
       </section>
 
-      <hr className="is-hidden-mobile" />
+      <hr className="is-hidden-mobile" style={{margin: "1rem 0 2.5rem 0"}} />
 
       <section className="frontpage">
         <div className="container  is-fullhd">
@@ -130,9 +130,12 @@ const HomeIndex = props => {
               </p>
             </div>
           </div>
+        </div>
+      </section>
 
+      <section id="hexmap_and_charts" style={{marginTop:".75rem"}}>
+        <div className="container  is-fullhd">
           <FrontPageMap />
-
           <div className="columns">
             <div className="column is-offset-6 is-half">
               <p>
