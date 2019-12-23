@@ -252,7 +252,7 @@ function Anomalies (props) {
         path={props.location.pathname}
         lang={props.pageContext.locale}
       />
-      <div className="container is-fluid">
+      <div className="container is-fullhd">
         <HeroTitle>
           {intl.formatMessage ({
             id: 'All municipios with a crime rate spike or a sharp decrease during',

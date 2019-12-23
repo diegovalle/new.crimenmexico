@@ -15,18 +15,8 @@ path.mg-line2 {
 }*/
 
 
-.mg-chart-title {
-    cursor: default;
-    font-size: .95rem;
-    font-family: 'Roboto Condensed';
-    font-weight: 700;
-}
 
-.mg-header {
-    /* transform: translateX(-6em); */
-    /* text-anchor: start; */
 
-}
 .mg-x-axis .label, .mg-y-axis .label, .mg-axis .label {
     font-size: 0.6rem;
     /*text-transform: uppercase;*/

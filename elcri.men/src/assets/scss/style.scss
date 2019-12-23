@@ -20,7 +20,6 @@
 @import '../../../node_modules/bulma/sass/components/media.sass';
 @import '../../../node_modules/bulma/sass/layout/hero.sass';
 @import '../../../node_modules/bulma/sass/layout/section.sass';
-@import '../../../node_modules/bulma/sass/utilities/mixins.sass';
 
 
 //@import '../../../node_modules/bulma-tooltip/src/sass/index.sass';
@@ -550,4 +549,13 @@ button.button a, button.button a{
 .select select {
   font-weight: bold;
   color: #555;
+}
+
+.mg-chart-title {
+  @extend .is-size-7-mobile;
+  // @extend .is-size-6-desktop;
+  cursor: default;
+  font-size: .9rem;
+  font-family: 'Roboto Condensed';
+  font-weight: 700;
 }
