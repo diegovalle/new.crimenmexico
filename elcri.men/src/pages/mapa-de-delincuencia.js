@@ -501,7 +501,11 @@ function HomicideMapPage (props) {
   const intl = useIntl ();
   const last_date = useLastMonth ();
   return (
-    <Layout locale={props.pageContext.locale} path={props.location.pathname}>
+    <Layout
+      locale={props.pageContext.locale}
+      path={props.location.pathname}
+      wide={true}
+    >
       <SEO
         title={intl.formatMessage ({id: 'title_mapa'})}
         description={intl.formatMessage ({id: 'desc_mapa'})}
