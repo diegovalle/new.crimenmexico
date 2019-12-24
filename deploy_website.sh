@@ -8,9 +8,11 @@ rsync --exclude='.git/' --exclude='nm*.csv.gz' -az --compress-level=9 --stats -e
 rsync --omit-dir-times -rz --compress-level=9 --stats -e 'ssh  -o StrictHostKeyChecking=no -i /root/.ssh/crimenmexico' /root/new.crimenmexico/data/  crimenmexico@"$IPADDRESS":/var/www/data.diegovalle.net/elcrimen
 
 # Commit generated infographics
-git status --porcelain elcri.men/static/e* | sed  "s/^?? //g" | xargs --max-args 1 git add
-git commit -m "Add new png infographics [Skip CI]"
-git push -q https://"$GITHUB_TOKEN":x-oauth-basic@github.com/diegovalle/new.crimenmexico.git master
+if [[ $(git status --porcelain elcri.men/static/e*) ]]; then
+    git status --porcelain elcri.men/static/e* | sed  "s/^?? //g" | xargs --max-args 1 git add
+    git commit -m "Add new png infographics [Skip CI]"
+    git push -q https://"$GITHUB_TOKEN":x-oauth-basic@github.com/diegovalle/new.crimenmexico.git master
+fi
 
 #DATE=$(date +%Y-%m-%d-%H-%Z)
 #LATEST_RELEASE=/var/www/bcrimenmexico.diegovalle.net/$DATE
