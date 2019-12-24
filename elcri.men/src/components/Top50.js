@@ -170,7 +170,8 @@ class Top50 extends React.Component {
                     width={width}
                     height={this.props.height}
                     // numTicksRows={0}
-                    numTicks={3}
+                    numTicks={4}
+                    strokeDasharray="4"
                   />
                 </svg>
 

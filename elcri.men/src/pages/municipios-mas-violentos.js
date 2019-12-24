@@ -68,7 +68,7 @@ function MostViolent (props) {
 
             <div className="columns is-centered">
               <div className="column is-8-desktop is-full-mobile is-full-tablet">
-                <div style={{height: ' 100%'}}>
+                <div style={{height: chartHeight + 80}}>
                   {data
                     ? <BarToolTip data={data} height={chartHeight} />
                     : <div />}
