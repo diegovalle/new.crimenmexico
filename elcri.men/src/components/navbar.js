@@ -30,10 +30,9 @@ const Navbar = ({locale, path}) => {
   const toggleMenu = () => {
     setActiveMenu (!activeMenu);
   };
-  const colorMenu = title => {
-    if (typeof window !== `undefined`) {
-      if (window.location.pathname.match (title))
-        return 'has-background-grey-dark has-text-white-ter has-text-weight-bold active';
+  const colorMenu = (title, path) => {
+    if (path.match (title)) {
+      return 'has-background-grey-dark has-text-white-ter has-text-weight-bold active';
     } else {
       return '';
     }
@@ -82,7 +81,8 @@ const Navbar = ({locale, path}) => {
               className={
                 'navbar-link ' +
                   colorMenu (
-                    /estados|state-crime|homicidios-mujeres|female-homicides|feminicidio|feminicides/g
+                    /estados|state-crime|homicidios-mujeres|female-homicides|feminicidio|feminicides/g,
+                    path
                   )
               }
             >
@@ -126,7 +126,8 @@ const Navbar = ({locale, path}) => {
               className={
                 'navbar-link ' +
                   colorMenu (
-                    /municipios|municipios-mas-violentos|most-violent-cities/g
+                    /municipios|municipios-mas-violentos|most-violent-cities/g,
+                    path
                   )
               }
             >
@@ -163,7 +164,8 @@ const Navbar = ({locale, path}) => {
               className={
                 'navbar-link ' +
                   colorMenu (
-                    /mapa-de-delincuencia|violence-map|cluster-map|mapa-clusters/g
+                    /mapa-de-delincuencia|violence-map|cluster-map|mapa-clusters/g,
+                    path
                   )
               }
             >
@@ -174,7 +176,8 @@ const Navbar = ({locale, path}) => {
               <a
                 className={
                   'navbar-item ' +
-                    colorMenu (/^\/mapa-de-delincuencia|violence-map/g)
+                    colorMenu (/^\/mapa-de-delincuencia|violence-map/g,
+                    path)
                 }
                 href={
                   locale === 'es'
@@ -186,7 +189,8 @@ const Navbar = ({locale, path}) => {
               </a>
               <a
                 className={
-                  'navbar-item ' + colorMenu (/^\/mapa-clusters|cluster-map/g)
+                  'navbar-item ' + colorMenu (/^\/mapa-clusters|cluster-map/g,
+                    path)
                 }
                 href={locale === 'es' ? '/mapa-clusters/' : '/en/cluster-map/'}
               >
@@ -201,7 +205,8 @@ const Navbar = ({locale, path}) => {
               className={
                 'navbar-link ' +
                   colorMenu (
-                    /tendencias|trends|envipe|underreporting-crime|anomalias|anomalies|infograficas|infographics/g
+                    /tendencias|trends|envipe|underreporting-crime|anomalias|anomalies|infograficas|infographics/g,
+                    path
                   )
               }
             >
