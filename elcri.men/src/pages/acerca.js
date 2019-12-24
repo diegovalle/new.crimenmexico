@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import Layout from '../components/layout';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
+import TextColumn from '../components/TextColumn';
 import {useIntl, FormattedHTMLMessage} from 'react-intl';
 import {FaFileDownload} from 'react-icons/fa';
 import {IoIosArrowDroprightCircle} from 'react-icons/io';
@@ -409,6 +410,11 @@ function HomeIndex (props) {
             </div>
           </div>
         </div>
+      </section>
+      <section>
+        <TextColumn>
+          <FormattedHTMLMessage id='additional_info' />
+        </TextColumn>
       </section>
     </Layout>
   );

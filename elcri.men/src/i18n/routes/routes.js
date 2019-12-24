@@ -16,6 +16,7 @@ module.exports = {
     '/dev-404-page/': '/dev-404-page/',
     '/404/': '/404/',
     '/404.html': '/404.html',
+    '/politica-privacidad/': '/privacy-policy/',
   },
   routes_inverted: {
     '/en/': '/',
@@ -34,5 +35,6 @@ module.exports = {
     '/en/dev-404-page/': '/dev-404-page/',
     '/en/404/': '/404/',
     '/en/404.html': '/404.html',
+    '/en/privacy-policy/': '/politica-privacidad/',
   },
 };
