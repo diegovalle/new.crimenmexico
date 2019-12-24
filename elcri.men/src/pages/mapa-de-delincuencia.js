@@ -539,10 +539,13 @@ function HomicideMapPage (props) {
         <FormattedDate value={new Date (last_date.iso_mid)} year="numeric" />
       </HeroTitle>
 
-      {/* <div id="map" style={{overflow: 'hidden'}} /> */}
-      <div style={{height: '900px', overflow: 'hidden'}}>
-        <DotMapGL />
-      </div>
+      <section id="map_container">
+        <div class="container is-widescreen">
+          <div style={{height: '900px', overflow: 'hidden'}}>
+            <DotMapGL />
+          </div>
+        </div>
+      </section>
 
       <hr />
       <TextColumn>

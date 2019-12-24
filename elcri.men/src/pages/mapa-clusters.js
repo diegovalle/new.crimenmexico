@@ -272,7 +272,11 @@ function ClusterMapPage (props) {
   const intl = useIntl ();
   const last_date = useLastMonth ();
   return (
-    <Layout locale={props.pageContext.locale} path={props.location.pathname} wide={true}>
+    <Layout
+      locale={props.pageContext.locale}
+      path={props.location.pathname}
+      wide={true}
+    >
       <SEO
         title={intl.formatMessage ({id: 'title_clusters'})}
         description={intl.formatMessage ({id: 'desc_clusters'})}
@@ -306,10 +310,16 @@ function ClusterMapPage (props) {
         <FormattedDate value={new Date (last_date.iso_mid)} year="numeric" />
       </HeroTitle>
 
-      <div style={{height: '700px', overflow: 'hidden'}}>
-        <ClusterMap />
-      </div>
+      <section id="map_container">
+        <div class="container is-widescreen">
+          <div style={{height: '700px', overflow: 'hidden'}}>
+            <ClusterMap />
+          </div>
+        </div>
+      </section>
+
       <hr />
+
       <TextColumn>
         {intl.formatMessage ({id: 'cluster_txt'})}
       </TextColumn>
