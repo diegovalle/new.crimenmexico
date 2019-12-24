@@ -4,8 +4,13 @@
 
 tryCatch({
   mun.map <- readOGR("maps/municipios.shp", "municipios", stringsAsFactors = FALSE)
+  pipe.map <- readOGR("maps/Ductos_Petroliferos.shp", "Ductos_Petroliferos", 
+                      stringsAsFactors = FALSE)
   mun.map$id_numeric <- as.numeric(mun.map$id)
   
+  mun_pipes <- read.csv("maps/muns_pipeline.csv")
+  mun_pipes$Pipeline <- TRUE
+  mun_pipes$CVE_ENT <- mun_pipes$CVE_MUN <- NULL
   #mun.map$id_numeric <- as.character(as.numeric(str_mxmunicipio(mun.map$CVE_ENT, mun.map$CVE_MUN)))
   
   muns2$id_numeric <- as.numeric(str_mxmunicipio(muns2$state_code, muns2$mun_code))
@@ -26,10 +31,12 @@ tryCatch({
   df <- data.frame(df, muns2[match(df$id_numeric, muns2$id_numeric),])
   df$id_numeric <- factor(df$id_numeric)
   df$state <- factor(df$state)
+  df$Pipeline <- FALSE
+  df$Pipeline[df$id_numeric %in% mun_pipes$id] <- TRUE
   
   #ctrl <- gam.control(nthreads = 2)
   m1 <- gam(count ~ s(id_numeric, bs = 'mrf', k = 250, xt = list(nb = nb)) + 
-              offset(log(population)) + s(state, bs = "re"),
+              offset(log(population)) + s(state, bs = "re") + Pipeline,
             data = df,
             method = 'REML', 
             #control = ctrl,
@@ -44,6 +51,7 @@ tryCatch({
   
   
   shpf <- fortify(mun.map, region = 'id_numeric')
+  pipesf <- fortify(pipe.map)
   
   
   df$id_numeric <- as.character(df$id_numeric)
@@ -85,9 +93,12 @@ tryCatch({
   
   ggplot(mdata, aes(x = long, y = lat, group = group)) +
     geom_polygon(aes(fill = pred_rate2)) + #, alpha = log(population)
+    geom_path(data = pipesf, size = .1, alpha = .8, aes(color = "black")) +
     geom_path(col = 'black', alpha = 0.5, size = 0.02) +
     coord_map("albers", lat0 = 14.5321, lat1 = 32.71865) +
     scale_alpha("log population") +
+    scale_color_manual("", labels = c("black" = "pipeline"),
+                         values = c("black" = "black")) +
     scale_fill_gradient2("smoothed rate", 
                          low = viridis(120, option = "viridis")[1], 
                          mid = viridis(120, option = "viridis")[60],
@@ -118,7 +129,8 @@ tryCatch({
                              "the variance in homicide rates per 100,000 tends to be high. To remove some of the variance,\n",
                              "and help discover patterns in the data, the homicide rate in each municipio was calculated\n",
                              "based on a GAM with a Gaussian Markov random field smoother and a zero-inflated Poisson\n",
-                             "response, with each state included as a treatment variable. Homicides include feminicides."))
+                             "response, with each state included as a treatment variable and whether an oil pipeline \n",
+                             "passes through a municipio. Homicides include feminicides."))
   ggsave("../elcri.men/static/smooth-latest.png", dpi = 100, width = 16, height = 11)
   
   
