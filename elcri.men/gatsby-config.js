@@ -180,7 +180,7 @@ module.exports = {
       resolve: `gatsby-plugin-purgecss`,
       options: {
         //printRejected: true, // Print removed selectors and processed file names
-        whitelistPatterns: [/.*mg-.*/, /metricsGraphicsCon/, /metrics.*/],
+        whitelistPatterns: [/.*mg-.*/, /metricsGraphicsCon/, /metrics.*/, /inegi/],
         //ignore: ['metricsgraphics.css', 'react-tabs.css'],
         purgeOnly: ['scss/style.scss', '_datepicker.css'],
         //develop: true, // Enable while using `gatsby develop`
