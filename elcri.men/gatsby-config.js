@@ -172,6 +172,8 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: `UA-100264-7`,
+        head: true,
+        siteSpeedSampleRate: 10,
       },
     },
     `gatsby-plugin-favicon`,
