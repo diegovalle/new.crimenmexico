@@ -41,7 +41,7 @@ const SEO = ( props ) => {
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="image" content={image} />
+      <meta name="image" content={defaults.siteUrl.replace(/\/$/, "") + image} />
 
       {/* Schema.org tags */}
       {/* <script type="application/ld+json">
@@ -52,7 +52,7 @@ const SEO = ( props ) => {
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
+      <meta property="og:image" content={defaults.siteUrl.replace(/\/$/, "") + image} />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:width" content="1200" />
 
