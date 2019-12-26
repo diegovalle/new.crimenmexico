@@ -390,14 +390,7 @@ class DotMapGL extends React.Component {
               console.log (v);
             }}
             onHover={this._onHover}
-            //mapStyle={"https://tile.thunderforest.com/thunderforest.transport-v1.json?apikey=b0ba23bd00dd483fa3e5e6c6c2afe6d2"}
-            //mapStyle="https://api.maptiler.com/maps/topo/style.json?key=1BrlyjfV5ry5lknBp5S6"
-            //mapStyle="mapbox://styles/mapbox/streets-v11"
-            //mapStyle="https://tileserver-902ec.firebaseapp.com/municipio-tiles/dark_matter.json"
             mapStyle={this.state.dark_matter}
-            //mapStyle="https://tileserver-mx.netlify.com/municipio-tiles/style.json"
-            //mapStyle="https://tileserver-902ec.firebaseapp.com/municipio-tiles/style_bw.json"
-            //mapboxApiAccessToken={process.env.GATSBY_MAPBOX_TOKEN}
             mapOptions={{
               customAttribution: '© MapTiler <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>',
             }}
