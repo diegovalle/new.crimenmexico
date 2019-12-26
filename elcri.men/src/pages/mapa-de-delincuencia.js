@@ -512,7 +512,14 @@ function HomicideMapPage (props) {
         bodyAttributes={{
           class: 'homepage',
         }}
-      />
+      >
+        <link
+          href="https://tileserver.netlify.com"
+          rel="preconnect"
+          crossorigin
+        />
+      </Helmet>
+
 
       <HeroTitle>
         {intl.formatMessage ({id: 'Map of homicides in Mexico from'})}
