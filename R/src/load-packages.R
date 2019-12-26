@@ -11,7 +11,7 @@ if (!require("AnomalyDetection")) {
   devtools::install_github('twitter/AnomalyDetection')
   require('AnomalyDetection')
 }
-if (!require("mxmortalitydb")) {
+if (Sys.getenv("CI") == "true") {
   devtools::install_github('diegovalle/mxmortalitydb')
   require('mxmortalitydb')
 }
