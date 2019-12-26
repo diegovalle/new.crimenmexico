@@ -13,7 +13,7 @@
 		
 		"openmaptiles2": {
 			"type": "vector",
-			"tiles": ["https://tileserver-902ec.firebaseapp.com/municipio-tiles/{z}/{x}/{y}.pbf"]
+			"tiles": ["https://tileserver.netlify.com/municipio-tiles/{z}/{x}/{y}.pbf"]
 		},
 		"openmaptiles": {
 			"type": "vector",
