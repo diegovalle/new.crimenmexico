@@ -8,6 +8,7 @@ import LegendLine from '../components/LegendLine';
 import {groupBy, map, reduce, sortBy, filter, max, maxBy} from 'lodash-es';
 import MG from 'metrics-graphics';
 import SEO from '../components/SEO';
+import AdSense from 'react-adsense';
 import {useIntl, injectIntl, FormattedMessage} from 'react-intl';
 import {FormattedHTMLMessage, FormattedDate} from 'react-intl';
 import {timeFormat as date_format} from 'd3-time-format';
@@ -143,6 +144,14 @@ function Estados (props) {
         >
           {intl.formatMessage ({id: 'Crime by State'})}
         </HeroTitlewithLegend>
+
+            <AdSense.Google
+              client="ca-pub-2949275046149330"
+              slot="8649980552"
+              style={{display: 'block'}}
+              format="auto"
+              responsive="true"
+            />
 
         <section id="estados">
           <div style={{textAlign: 'center'}}>

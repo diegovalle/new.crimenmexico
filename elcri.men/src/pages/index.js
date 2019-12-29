@@ -8,6 +8,7 @@ import HistoricalChart from '../components/HistoricalChart';
 import {useStaticQuery, graphql} from 'gatsby';
 import SEO from '../components/SEO';
 import LLink from '../components/LLink';
+import AdSense from 'react-adsense';
 
 import {orderBy, filter} from 'lodash-es';
 
@@ -99,6 +100,13 @@ const HomeIndex = props => {
               {' '}
               <FormattedMessage id="title_home" />
             </h1>
+            <AdSense.Google
+              client="ca-pub-2949275046149330"
+              slot="8649980552"
+              style={{display: 'block'}}
+              format="auto"
+              responsive="true"
+            />
           </div>
         </div>
       </section>
@@ -153,6 +161,13 @@ const HomeIndex = props => {
           <div className="column is-offset-3 is-half-desktop is-two-third-fullhd">
             <div className="content is-medium">
 
+              <AdSense.Google
+                client="ca-pub-2949275046149330"
+                slot="8649980552"
+                style={{display: 'block'}}
+                format="auto"
+                responsive="true"
+              />
               <FormattedHTMLMessage id="oficial_data" />
 
             </div>
@@ -176,6 +191,14 @@ const HomeIndex = props => {
         </div>
 
         <div className="container  is-widescreen">
+
+          <AdSense.Google
+            client="ca-pub-2949275046149330"
+            slot="8649980552"
+            style={{display: 'block'}}
+            format="auto"
+            responsive="true"
+          />
           <a name="#historical" id="historical" />
           <LazyLoad height={440} once offset={200}>
             <HistoricalChart hash={props.location.hash} />
@@ -254,7 +277,9 @@ const HomeIndex = props => {
             )
               .slice (0, 2)
               .map (edge => (
-                <React.Fragment key={edge.node.childImageSharp.fluid.originalName}>
+                <React.Fragment
+                  key={edge.node.childImageSharp.fluid.originalName}
+                >
 
                   <div
                     key={edge.node.childImageSharp.fluid.originalName + 'div'}
@@ -270,10 +295,14 @@ const HomeIndex = props => {
                     >
                       <figure
                         className="image is-3x5"
-                        key={edge.node.childImageSharp.fluid.originalName + 'fluid'}
+                        key={
+                          edge.node.childImageSharp.fluid.originalName + 'fluid'
+                        }
                       >
                         <Img
-                          key={edge.node.childImageSharp.fluid.originalName + 'img'}
+                          key={
+                            edge.node.childImageSharp.fluid.originalName + 'img'
+                          }
                           fluid={edge.node.childImageSharp.fluid}
                           title={intl.formatMessage ({
                             id: 'Infographic of crime in Mexico',

@@ -5,6 +5,7 @@ import Layout from '../components/layout';
 import SmallMultiple from '../components/SmallMultiple';
 import HeroTitle from '../components/HeroTitle';
 import SEO from '../components/SEO';
+import AdSense from 'react-adsense';
 import TextColumn from '../components/TextColumn';
 import {useIntl, injectIntl, FormattedMessage} from 'react-intl';
 import {FormattedHTMLMessage, FormattedDate} from 'react-intl';
@@ -180,7 +181,11 @@ function Anomalies (props) {
             <div className="columns" style={{paddingTop: '1rem'}} key={crime}>
 
               <div className="column is-three-fourths" key={crime}>
-                <div className="columns is-multiline" id="small-multiples" key={crime}>
+                <div
+                  className="columns is-multiline"
+                  id="small-multiples"
+                  key={crime}
+                >
                   {orderStates (data[crime]).map ((mun, i) => (
                     <div className="column is-half" key={i}>
 
@@ -265,6 +270,14 @@ function Anomalies (props) {
           <FormattedDate value={new Date (last_date.iso_mid)} year="numeric" />
         </HeroTitle>
 
+        <AdSense.Google
+          client="ca-pub-2949275046149330"
+          slot="8649980552"
+          style={{display: 'block'}}
+          format="auto"
+          responsive="true"
+        />
+
         <section id="anomaliesTabs">
 
           {data
@@ -278,10 +291,27 @@ function Anomalies (props) {
             : null}
 
         </section>
+
+        <AdSense.Google
+          client="ca-pub-2949275046149330"
+          slot="8649980552"
+          style={{display: 'block'}}
+          format="auto"
+          responsive="true"
+        />
+
         <hr />
         <TextColumn>
           <FormattedHTMLMessage id="anomalies_text" />
         </TextColumn>
+
+        <AdSense.Google
+          client="ca-pub-2949275046149330"
+          slot="8649980552"
+          style={{display: 'block'}}
+          format="auto"
+          responsive="true"
+        />
 
       </div>
     </Layout>

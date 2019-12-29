@@ -11,6 +11,7 @@
 // } from 'recharts';
 import React from 'react';
 import Helmet from 'react-helmet';
+import AdSense from 'react-adsense';
 
 import Layout from '../components/layout';
 import Footer from '../components/Footer';
@@ -59,7 +60,7 @@ import '../components/ClusterMap/ClusterMap.css';
 import {findIndex, countBy, filter, maxBy} from 'lodash-es';
 import {format as num_format} from 'd3-format';
 
-import dark_matter from '../components/DotMap/dot_map_style';
+import dark_matter from '../components/DotMap/dot_map_style_gray';
 
 const dataLayer = {
   id: 'data',
@@ -94,15 +95,15 @@ const dataLayer = {
       property: 'rate',
       type: 'interval',
       stops: [
-        [0, '#fff7ec'],
-        [12.5, '#fee8c8'],
-        [25, '#fdd49e'],
-        [37.5, '#fdbb84'],
-        [50, '#fc8d59'],
-        [62.5, '#ef6548'],
-        [75, '#d7301f'],
-        [87.55, '#b30000'],
-        [100, '#7f0000'],
+        [0, '#ffffcc'],
+        [12.5, '#ffeda0'],
+        [25, '#fed976'],
+        [37.5, '#feb24c'],
+        [50, '#fd8d3c'],
+        [62.5, '#fc4e2a'],
+        [75, '#e31a1c'],
+        [87.55, '#bd0026'],
+        [100, '#800026'],
       ],
     },
   },
@@ -178,7 +179,7 @@ class DotMapGL extends React.Component {
         hoveredFeature.properties.rate >= this.state.lower) &&
       <div
         className="tooltip is-size-6"
-        style={{left: x, top: y, backgroundColor: '#666', lineHeight: '1.1rem'}}
+        style={{left: x, top: y, backgroundColor: '#111', lineHeight: '1.1rem'}}
       >
         <div>
           <b>{hoveredFeature.properties.name}</b>
@@ -541,9 +542,24 @@ function HomicideMapPage (props) {
 
       <section id="map_container">
         <div class="container is-widescreen">
+            <AdSense.Google
+              client="ca-pub-2949275046149330"
+              slot="8649980552"
+              style={{display: 'block'}}
+              format="auto"
+              responsive="true"
+            />
           <div style={{height: '900px', overflow: 'hidden'}}>
             <DotMapGL />
           </div>
+
+            <AdSense.Google
+              client="ca-pub-2949275046149330"
+              slot="8649980552"
+              style={{display: 'block'}}
+              format="auto"
+              responsive="true"
+            />
         </div>
       </section>
 
@@ -551,6 +567,14 @@ function HomicideMapPage (props) {
       <TextColumn>
         {intl.formatMessage ({id: 'map_txt'})}
       </TextColumn>
+
+        <AdSense.Google
+          client="ca-pub-2949275046149330"
+          slot="8649980552"
+          style={{display: 'block'}}
+          format="auto"
+          responsive="true"
+        />
     </Layout>
   );
 }

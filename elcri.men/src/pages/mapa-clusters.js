@@ -5,6 +5,7 @@ import Layout from '../components/layout';
 import Footer from '../components/Footer';
 import HeroTitle from '../components/HeroTitle';
 import SEO from '../components/SEO';
+import AdSense from 'react-adsense';
 import {
   useIntl,
   FormattedHTMLMessage,
@@ -310,6 +311,14 @@ function ClusterMapPage (props) {
         <FormattedDate value={new Date (last_date.iso_mid)} year="numeric" />
       </HeroTitle>
 
+      <AdSense.Google
+        client="ca-pub-2949275046149330"
+        slot="8649980552"
+        style={{display: 'block'}}
+        format="auto"
+        responsive="true"
+      />
+
       <section id="map_container">
         <div class="container is-widescreen">
           <div style={{height: '700px', overflow: 'hidden'}}>
@@ -318,11 +327,27 @@ function ClusterMapPage (props) {
         </div>
       </section>
 
+      <AdSense.Google
+        client="ca-pub-2949275046149330"
+        slot="8649980552"
+        style={{display: 'block'}}
+        format="auto"
+        responsive="true"
+      />
+
       <hr />
 
       <TextColumn>
         {intl.formatMessage ({id: 'cluster_txt'})}
       </TextColumn>
+
+        <AdSense.Google
+          client="ca-pub-2949275046149330"
+          slot="8649980552"
+          style={{display: 'block'}}
+          format="auto"
+          responsive="true"
+        />
     </Layout>
   );
 }

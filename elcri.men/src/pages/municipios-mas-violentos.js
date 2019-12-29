@@ -8,6 +8,7 @@ import BarToolTip from '../components/BarToolTip';
 import MG from 'metrics-graphics';
 import SEO from '../components/SEO';
 import TextColumn from '../components/TextColumn';
+import AdSense from 'react-adsense';
 import {useIntl, injectIntl, FormattedMessage} from 'react-intl';
 import {FormattedHTMLMessage, FormattedDate} from 'react-intl';
 import useLastMonth from '../components/LastMonth';
@@ -62,26 +63,49 @@ function MostViolent (props) {
           <FormattedDate value={new Date (last_date.iso_mid)} year="numeric" />
         </HeroTitle>
 
-        
+        <AdSense.Google
+          client="ca-pub-2949275046149330"
+          slot="8649980552"
+          style={{display: 'block'}}
+          format="auto"
+          responsive="true"
+        />
 
-          <div className="container is-fullhd">
+        <div className="container is-fullhd">
 
-            <div className="columns is-centered">
-              <div className="column is-8-desktop is-full-mobile is-full-tablet">
-                <div style={{height: chartHeight + 80}}>
-                  {data
-                    ? <BarToolTip data={data} height={chartHeight} />
-                    : <div />}
-                </div>
+          <div className="columns is-centered">
+            <div className="column is-8-desktop is-full-mobile is-full-tablet">
+              <div style={{height: chartHeight + 80}}>
+                {data
+                  ? <BarToolTip data={data} height={chartHeight} />
+                  : <div />}
               </div>
             </div>
           </div>
+        </div>
+
+        <AdSense.Google
+          client="ca-pub-2949275046149330"
+          slot="8649980552"
+          style={{display: 'block'}}
+          format="auto"
+          responsive="true"
+        />
+
         <hr />
         <TextColumn>
           <p>
             <FormattedHTMLMessage id="top50_text" />
           </p>
         </TextColumn>
+
+        <AdSense.Google
+          client="ca-pub-2949275046149330"
+          slot="8649980552"
+          style={{display: 'block'}}
+          format="auto"
+          responsive="true"
+        />
       </div>
     </Layout>
   );
