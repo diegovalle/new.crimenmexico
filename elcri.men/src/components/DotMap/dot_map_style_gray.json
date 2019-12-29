@@ -812,10 +812,10 @@
         "visibility": "visible"
       },
       "paint": {
-        "line-color": "#ccc",
+        "line-color": "#888",
         "line-width": {"base": 2.3, "stops": [[3, 2], [22, 15]]},
         "line-blur": 0,
-        "line-dasharray": [1, 1],
+        "line-dasharray": [5, 2, 1, 2, 5],
         "line-opacity": 1
       }
     }, {
@@ -825,7 +825,7 @@
 			"visibility": "visible"
 		},
 		"paint": {
-			"line-color": "#666666",
+			"line-color": "#333",
 			"line-dasharray": [3, 1],
 			"line-width": {
 				"base": 0.5,
