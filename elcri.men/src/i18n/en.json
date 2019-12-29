@@ -128,7 +128,7 @@
   "indp_ans": "No, it's completly independent",
   "contact_ans": "You can contact me by using the information in the footer or using the form available at: <a href=\"https://www.diegovalle.net/contact.html\">https://www.diegovalle.net/contact.html</a>",
   "title_mapa": "Mexico Crime Map - Mexico Crime Report",
-  "desc_mapa": "This interactive map shows violence in Mexico at the municipio (county) level. Homicide rate in your area. Local homicide rates.",
+  "desc_mapa": "This interactive map shows violence in Mexico at the municipio (county) level. Homicide rates in your area.",
   "title_clusters": "Cluster Map of Homicides- Mexico Crime Report",
   "desc_clusters": "Cluster map of Mexican crime at the county level. Municipios (counties) that are close to each other and have high homicide rates.",
   "Map of homicide clusters in Mexico from": "Map of homicide clusters in Mexico from",
