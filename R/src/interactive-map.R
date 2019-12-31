@@ -1,6 +1,6 @@
 last_six_dates = str_sub(sort(unique(muns$date)), 0, 7)
-last_six_dates = last_six_dates[length((last_six_dates)): (length(last_six_dates) - 5)]
-last_six_dates_txt = paste(rep("'", 5),last_six_dates, rep("'", 5), collapse = ",", sep="")
+last_six_dates = last_six_dates[length((last_six_dates)): (length(last_six_dates) - 11)]
+last_six_dates_txt = paste(rep("'", 11),last_six_dates, rep("'", 11), collapse = ",", sep="")
 
 #JSON for the webpage titles
 exportJson <- toJSON(list("last_month" = paste0(last_six_dates[1], "-01"),
@@ -58,7 +58,7 @@ muns2 <- muns2 %>%
   mutate(tipo = str_replace(tipo, "HOMICIDIO DOLOSO", "Intentional Homicide")) %>%
   mutate(tipo = str_replace(tipo, "FEMINICIDIO", "Intentional Homicide")) %>%
   group_by(tipo, state, state_code, municipio, mun_code) %>%
-  summarise(count = sum(count, na.rm = TRUE), population = population[1], len = length(unique(date))) %>%
+  summarise(count = sum(count, na.rm = TRUE), population = population[7], len = length(unique(date))) %>%
   mutate(rate = ((count ) * (12/len)) / population * 10^5) %>%
   mutate(code = str_c(str_pad(state_code, 2, pad = '0'), str_pad(mun_code, 3, pad = '0'))) %>%
   mutate(name = str_c(municipio, ", ", state)) %>%

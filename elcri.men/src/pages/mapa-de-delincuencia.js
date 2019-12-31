@@ -72,13 +72,13 @@ const dataLayer = {
       ['linear'],
       ['zoom'],
       3,
-      ['sqrt', ['*', 0.5, ['number', ['get', 'count'], 0]]],
+      ['sqrt', ['*', 0.25, ['number', ['get', 'count'], 0]]],
       5,
-      ['sqrt', ['*', 1.5, ['number', ['get', 'count'], 0]]],
+      ['sqrt', ['*', 0.75, ['number', ['get', 'count'], 0]]],
       8,
-      ['+', ['sqrt', ['*', 7, ['number', ['get', 'count'], 0]]], 2],
+      ['+', ['sqrt', ['*', 3.5, ['number', ['get', 'count'], 0]]], 2],
       11,
-      ['+', ['sqrt', ['*', 12, ['number', ['get', 'count'], 0]]], 3],
+      ['+', ['sqrt', ['*', 6, ['number', ['get', 'count'], 0]]], 3],
     ],
     'circle-stroke-color': '#111',
     'circle-stroke-width': {
@@ -184,7 +184,7 @@ class DotMapGL extends React.Component {
         <div>
           <b>{hoveredFeature.properties.name}</b>
           <br />
-          <FormattedMessage id="tasa anualizada" />
+          <FormattedMessage id="rate" />
           :
           {' '}
           {hoveredFeature.properties.rate}
