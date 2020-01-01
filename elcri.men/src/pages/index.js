@@ -32,7 +32,7 @@ query query($fname_infographic: String, $fname_mun: String) {
         node {
           childImageSharp {
             fluid(maxWidth: 432) {
-              ...GatsbyImageSharpFluid_withWebp_noBase64
+              ...GatsbyImageSharpFluid_withWebp
               originalName
               originalImg
             }
@@ -311,7 +311,6 @@ const HomeIndex = props => {
                             id: 'Infographic of crime in Mexico',
                           })}
                           sizes={edge.node.childImageSharp.sizes}
-                          backgroundColor="#c7b470"
                           loading="lazy"
                         />
                       </figure>
