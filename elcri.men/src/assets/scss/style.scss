@@ -24,6 +24,19 @@
 
 //@import '../../../node_modules/bulma-tooltip/src/sass/index.sass';
 
+// fix for Edge dropdown
+@include desktop {
+    .navbar-item {
+        &.is-hoverable:hover {
+            .navbar-dropdown {
+                display: block;
+            }
+        }
+    }
+}
+.navbar-item.has-dropdown.is-active > .navbar-dropdown {
+    display: block;
+}
 
 .image.is-3by1-mobile-16by9 {  
   // 3by1
