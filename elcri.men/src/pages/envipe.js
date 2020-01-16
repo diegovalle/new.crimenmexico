@@ -127,9 +127,7 @@ function Envipe (props) {
         <section>
           <div className="columns is-multiline" id="small-multiples">
             <div className="column is-half">
-              <div
-                className="line-chart-brown"
-              >
+              <div className="line-chart-brown">
                 <figure className="image is-16by9">
                   <div className=" has-ratio">
                     <MetricsGraphics
@@ -165,13 +163,15 @@ function Envipe (props) {
                           ': ' +
                           comma (d.value) +
                           ' ' +
-                          intl.formatMessage ({id: 'superior'}) +
-                          ': ' +
-                          comma (d.sup) +
-                          ' ' +
-                          intl.formatMessage ({id: 'inferior'}) +
-                          ': ' +
-                          comma (d.inf)
+                          (typeof d.inf !== 'undefined'
+                            ? intl.formatMessage ({id: 'superior'}) +
+                                ': ' +
+                                comma (d.sup) +
+                                ' ' +
+                                intl.formatMessage ({id: 'inferior'}) +
+                                ': ' +
+                                comma (d.inf)
+                            : '')
                         );
                       }}
                       y_mouseover={() => null}
@@ -215,13 +215,15 @@ function Envipe (props) {
                           ': ' +
                           comma (d.value) +
                           ' ' +
-                          intl.formatMessage ({id: 'superior'}) +
-                          ': ' +
-                          comma (d.sup) +
-                          ' ' +
-                          intl.formatMessage ({id: 'inferior'}) +
-                          ': ' +
-                          comma (d.inf)
+                          (typeof d.inf !== 'undefined'
+                            ? intl.formatMessage ({id: 'superior'}) +
+                                ': ' +
+                                comma (d.sup) +
+                                ' ' +
+                                intl.formatMessage ({id: 'inferior'}) +
+                                ': ' +
+                                comma (d.inf)
+                            : '')
                         );
                       }}
                       y_mouseover={() => null}
@@ -269,13 +271,15 @@ function Envipe (props) {
                           ': ' +
                           comma (d.value) +
                           ' ' +
-                          intl.formatMessage ({id: 'superior'}) +
-                          ': ' +
-                          comma (d.sup) +
-                          ' ' +
-                          intl.formatMessage ({id: 'inferior'}) +
-                          ': ' +
-                          comma (d.inf)
+                          (typeof d.inf !== 'undefined'
+                            ? intl.formatMessage ({id: 'superior'}) +
+                                ': ' +
+                                comma (d.sup) +
+                                ' ' +
+                                intl.formatMessage ({id: 'inferior'}) +
+                                ': ' +
+                                comma (d.inf)
+                            : '')
                         );
                       }}
                       y_mouseover={() => null}
@@ -322,13 +326,15 @@ function Envipe (props) {
                           ': ' +
                           comma (d.value) +
                           ' ' +
-                          intl.formatMessage ({id: 'superior'}) +
-                          ': ' +
-                          comma (d.sup) +
-                          ' ' +
-                          intl.formatMessage ({id: 'inferior'}) +
-                          ': ' +
-                          comma (d.inf)
+                          (typeof d.inf !== 'undefined'
+                            ? intl.formatMessage ({id: 'superior'}) +
+                                ': ' +
+                                comma (d.sup) +
+                                ' ' +
+                                intl.formatMessage ({id: 'inferior'}) +
+                                ': ' +
+                                comma (d.inf)
+                            : '')
                         );
                       }}
                       y_mouseover={() => null}
