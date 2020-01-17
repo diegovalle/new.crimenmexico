@@ -23,7 +23,7 @@
   "name": "Diego Valle-Jones",
   "Please visit": "Please visit HoyoDeCrimen for <a href=\"https://hoyodecrimen.com/en\">Mexico City crime rates</a>",
   "© All rights reserved": "© All rights reserved",
-  "Delincuencia en México - El Crimen": "Mexico Crime Report - El Crimen",
+  "Delincuencia en México - El Crimen": "Mexico Crime Report ({year}) - El Crimen",
   "desc_index": "Interactive map and monthly report on Mexican crime rates (statistics on homicides, kidnappings, extortions and many more crimes)",
   "tasas de criminalidad": "map of crime rates",
   "inegi-adjusted": "<span class=\"inegi-adjusted\"><span class=\"has-text-weight-bold\">— </span><abbr title=\"data from death certificates\">INEGI</abbr> statistically adjusted </span>",

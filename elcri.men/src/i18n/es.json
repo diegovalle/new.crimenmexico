@@ -23,7 +23,7 @@
   "name": "Diego Valle Jones",
   "Please visit": "Si necesitan <a href=\"https://hoyodecrimen.com/en\">información delincuencial de CDMX</a> no olviden visitar HoyoDeCrimen",
   "© All rights reserved": "© Todos los derechos reservados",
-  "Delincuencia en México - El Crimen": "Delincuencia en México - El Crimen",
+  "Delincuencia en México - El Crimen": "Delincuencia en México {year} - El Crimen",
   "desc_index": "Descubre estadísticas de la delincuencia en tu estado y municipio con este mapa interactivo y reporte mensual de homicidios, secuestros, robos y más en México",
   "tasas de criminalidad": "tasas de criminalidad",
   "inegi-adjusted": "<span class=\"inegi-adjusted\"><span class=\"has-text-weight-bold\">— </span><abbr title=\"datos de certificados de defunción\">INEGI</abbr> ajustados estadísticamente</span>",
