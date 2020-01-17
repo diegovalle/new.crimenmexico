@@ -17,5 +17,7 @@ be available in the _elcri.men/public_ subdir. If you don't have
 the private key to deploy to [elcri.men](https://elcri.men) you should instead skip the deployment step and run the command:
 
 ```
+cd ~/new.crimenmexico
+git pull
 make download_csv download_inegi clean_data analysis website
 ```
