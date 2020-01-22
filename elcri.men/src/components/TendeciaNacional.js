@@ -57,8 +57,8 @@ function TendenciaNacional (props) {
               date_format (`%b\u00A0`) (data[key].date) +
               (parseInt (date_format ('%Y') (data[key].date)) - 1)}
           </td>
-          <td key={index + '2'}>{data[key].diff}</td>
-          <td key={index + '3'}>{data[key].diff_count}</td>
+          <td key={index + '2'} style={{textAlign: "right"}}>{Math.round(data[key].diff * 10) / 10}</td>
+          <td key={index + '3'} style={{textAlign: "right"}}>{data[key].diff_count}</td>
         </tr>
       );
     });
@@ -67,6 +67,7 @@ function TendenciaNacional (props) {
   const intl = useIntl ();
   let l;
   intl.locale === 'es' ? (l = timeFormatDefaultLocale (dateLoc.es_MX)) : null;
+  intl.locale === 'es' ? require("./TendenciaNacional/tendencia_es.css") : require("./TendenciaNacional/tendencia_en.css");
 
   return (
     <div className="columns">
@@ -158,7 +159,7 @@ function TendenciaNacional (props) {
                 </thead>
 
                 <tbody>
-                  {data ? trbody (data) : null}
+                  {data ? trbody (data.reverse()) : null}
                 </tbody>
               </table>
             </div>
