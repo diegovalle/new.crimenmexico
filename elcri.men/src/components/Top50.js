@@ -186,7 +186,7 @@ class Top50 extends React.Component {
                   >
                     <b>{tooltipData.name}</b>
                         <br />
-                        <b><FormattedMessage id='tasa anualizada' />:</b>
+                        <b><FormattedMessage id='rate' />:</b>
                         {' '}
                         {tooltipData.rate}
                         <br />
