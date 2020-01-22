@@ -63,7 +63,8 @@ def write_mun_db(conn, CSV_MUNICIPIOS):
     print("Writing municipio data to db")
     # Temporary fix because the SNSP duplicated (with different values) the data for 2055 TRINIDAD ZAACHILA
     #crime_municipios.data = crime_municipios.data[(crime_municipios.data['state_code'] != 22) & (crime_municipios.data['mun_code'] != 555)]
-    pd_sql.to_sql(crime_municipios.data, 'municipios_fuero_comun', conn, if_exists='append', index=False, chunksize=1000000)
+    for i in crime_municipios.years:
+		pd_sql.to_sql(crime_municipios.get_filtered_data(i, os.path.join('snsp-data', CSV_MUNICIPIOS)), 'municipios_fuero_comun', conn, if_exists='append', index=False, chunksize=1000000)
     print("End writing municipio data to db")
 
 #Clean the state and municipio fuero comun CSV files

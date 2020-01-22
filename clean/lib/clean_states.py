@@ -381,34 +381,22 @@ class CrimeMunicipios(CrimeStates):
     _columnOrder = ['date', 'state_code', 'mun_code', 'bien_juridico',
                      'tipo', 'subtipo', 'modalidad',  'count']
     municipios = pd.DataFrame()
-
-    def clean_file(self, fname):
+    years = []
+    
+    def get_filtered_data(self, year, fname):
         df = pd.read_csv(fname,  sep=",",# 'snsp-data/IncidenciaDelictiva_FueroComun_Estatal_1997-2015.csv'
                          encoding="windows-1252", dtype=object)
         df.columns = map(unicode.upper, df.columns)
         df.columns = df.columns.str.replace(u'ANO', u'AÑO')
         df.columns = df.columns.str.replace(u'CVE. MUNICIPIO', u'CVE_MUNICIPIO')
-
-
+ 
         if 'TOTAL' in [x.upper() for x in df.columns]:
             del df['TOTAL']
         if 'TOTAL ESTADO' in [x.upper() for x in df.columns]:
             del df['TOTAL ESTADO']
         df = df.dropna(axis=0, how='all')
 
-        self.municipios = pd.read_csv(os.path.join(self._DATADIR, "municipio_names.csv"),
-                                      encoding='windows-1252')
-        population = pd.read_csv(os.path.join(self._DATADIR, "pop_muns.csv"))
-        population['date'] = population.date.str.slice(0, 7)
-        self.population = population
-        del population
-
         self.check_file(df)
-
-        self.modalidad = self.get_uniq_df(df, 'MODALIDAD', 'modalidad')
-        self.tipo = self.get_uniq_df(df, 'TIPO DE DELITO', 'tipo')
-        self.subtipo = self.get_uniq_df(df, 'SUBTIPO DE DELITO', 'subtipo')
-        self.bien_juridico = self.get_uniq_df(df, 'BIEN JURIDICO', 'bien_juridico')
 
         df = df.replace({'MODALIDAD': self.get_uniq_values(df, 'MODALIDAD'),
                          'TIPO DE DELITO': self.get_uniq_values(df, 'TIPO DE DELITO'),
@@ -417,6 +405,8 @@ class CrimeMunicipios(CrimeStates):
                          })
 
         df.columns = self._columnNames
+
+        df = df[df['year'] == year]
 
         del df['municipio']
         del df['state']
@@ -449,7 +439,7 @@ class CrimeMunicipios(CrimeStates):
         #self.municipios = pd.concat([df['state_code'], df['mun_code'], df['municipio']], axis=1).drop_duplicates()
 
         df.columns = self._cleanColumnNames
-        df = df[self._columnOrder]
+        #df = df[self._columnOrder]
 
         df.is_copy = False
         # The SNSP reports months in the future as NA so get rid of them
@@ -497,4 +487,37 @@ class CrimeMunicipios(CrimeStates):
             print('setting counts as NA for state_code: 20 with date 2016-10 because they are all zeros')
 
         #import pdb;pdb.set_trace()
-        self.data = df
+        return df
+		
+
+    def clean_file(self, fname):
+        df = pd.read_csv(fname,  sep=",",# 'snsp-data/IncidenciaDelictiva_FueroComun_Estatal_1997-2015.csv'
+                         encoding="windows-1252", dtype=object)
+        df.columns = map(unicode.upper, df.columns)
+        df.columns = df.columns.str.replace(u'ANO', u'AÑO')
+        df.columns = df.columns.str.replace(u'CVE. MUNICIPIO', u'CVE_MUNICIPIO')
+
+
+        if 'TOTAL' in [x.upper() for x in df.columns]:
+            del df['TOTAL']
+        if 'TOTAL ESTADO' in [x.upper() for x in df.columns]:
+            del df['TOTAL ESTADO']
+        df = df.dropna(axis=0, how='all')
+
+        self.municipios = pd.read_csv(os.path.join(self._DATADIR, "municipio_names.csv"),
+                                      encoding='windows-1252')
+        population = pd.read_csv(os.path.join(self._DATADIR, "pop_muns.csv"))
+        population['date'] = population.date.str.slice(0, 7)
+        self.population = population
+        del population
+
+        self.check_file(df)
+
+        self.modalidad = self.get_uniq_df(df, 'MODALIDAD', 'modalidad')
+        self.tipo = self.get_uniq_df(df, 'TIPO DE DELITO', 'tipo')
+        self.subtipo = self.get_uniq_df(df, 'SUBTIPO DE DELITO', 'subtipo')
+        self.bien_juridico = self.get_uniq_df(df, 'BIEN JURIDICO', 'bien_juridico')
+
+        df.columns = self._columnNames
+        
+        self.years = df['year'].unique().tolist()
