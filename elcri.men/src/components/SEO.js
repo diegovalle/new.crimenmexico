@@ -66,10 +66,10 @@ const SEO = props => {
       <link
         rel="alternate"
         hreflang={props.lang === 'es' ? 'en' : 'es'}
-        href={
-          props.locale === 'es'
+        href={defaults.siteUrl.replace (/\/$/, '') + (
+          props.lang === 'es'
             ? '/en' + routes.routes[props.path]
-            : routes.routes_inverted[props.path]
+            : routes.routes_inverted[props.path])
         }
       />
 
