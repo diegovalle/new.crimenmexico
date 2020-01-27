@@ -29,7 +29,12 @@ const useLastMonth = () => {
 
 `
   );
-  return data.allDataJson.edges[0].node;
+  // sometimes gatsby returns an array of length 2 with the data in
+  // the second array instead of just one array
+  if (data.allDataJson.edges.length === 2)
+    return data.allDataJson.edges[1].node;
+  else
+    return data.allDataJson.edges[0].node;
 };
 
 // const sub6Months = (date) => {
