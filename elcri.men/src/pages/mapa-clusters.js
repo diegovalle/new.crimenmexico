@@ -106,7 +106,7 @@ class ClusterMap extends React.Component {
   _onHover = event => {
     const {features, srcEvent: {offsetX, offsetY}} = event;
     const hoveredFeature =
-      features && features.find (f => f.layer.id === 'mexico-geojson (1)');
+      features && features.find (f => f.layer.id === 'municipios');
 
     this.setState ({hoveredFeature, x: offsetX, y: offsetY});
   };
@@ -174,10 +174,10 @@ class ClusterMap extends React.Component {
         // });
         // console.timeEnd ('features');
         mapStyle.layers.push ({
-          id: 'mexico-geojson (1)',
+          id: 'municipios',
           type: 'fill',
           source: 'openmaptiles',
-          'source-layer': 'mexico_geojson',
+          'source-layer': 'municipios',
           layout: {},
           paint: {
             'fill-color': {
@@ -320,7 +320,7 @@ function ClusterMapPage (props) {
       />
 
       <section id="map_container">
-        <div class="container is-widescreen">
+        <div className="container is-widescreen">
           <div style={{height: '700px', overflow: 'hidden'}}>
             <ClusterMap />
           </div>

@@ -10,14 +10,13 @@
 		"openmaptiles2:mapbox:source:url": "mapbox://openmaptiles2.4qljc88t"
 	},
 	"sources": {
-		
 		"openmaptiles2": {
 			"type": "vector",
-			"tiles": ["https://tileserver.netlify.com/municipio-tiles/{z}/{x}/{y}.pbf"]
+			"tiles": ["https://tileserver-902ec.web.app/mexico-tiles/{z}/{x}/{y}.pbf"]
 		}
 	},
-	"sprite": "https://tileserver.netlify.com/sprites/sprite",
-	"glyphs": "https://tileserver.netlify.com/font/{fontstack}/{range}.pbf",
+	"sprite": "https://tileserver-902ec.web.app/sprites/sprite",
+	"glyphs": "https://tileserver-902ec.web.app/font/{fontstack}/{range}.pbf",
 	"layers": [{
 		"id": "background",
 		"paint": {
@@ -797,100 +796,7 @@
 		"source": "openmaptiles2",
 		"source-layer": "transportation",
 		"type": "line"
-	},
-    {
-      "id": "boundary_county",
-      "type": "line",
-      "metadata": {"mapbox:group": "a14c9607bc7954ba1df7205bf660433f"},
-      "source": "openmaptiles2",
-      "source-layer": "boundary",
-      "minzoom": 0,
-      "filter": ["any", ["==", "admin_level", 6]],
-      "layout": {
-        "line-cap": "round",
-        "line-join": "round",
-        "visibility": "visible"
-      },
-      "paint": {
-        "line-color": "#888",
-        "line-width": {"base": 2.3, "stops": [[3, 2], [22, 15]]},
-        "line-blur": 0,
-        "line-dasharray": [5, 2, 1, 2, 5],
-        "line-opacity": 1
-      }
-    }, {
-		"filter": ["in", "admin_level", 4, 8],
-		"id": "admin_sub",
-		"layout": {
-			"visibility": "visible"
-		},
-		"paint": {
-			"line-color": "#333",
-			"line-dasharray": [3, 1],
-			"line-width": {
-				"base": 0.5,
-				"stops": [
-				    [4, 0],
-					[5, 1.5],
-					[22, 1.5]
-				]
-			}
-		},
-		"source": "openmaptiles2",
-		"source-layer": "boundary",
-		"type": "line"
-	},{
-  "id": "boundary_2",
-  "type": "line",
-  "source": "openmaptiles2",
-  "source-layer": "boundary",
-  "filter": [
-    "all",
-    [
-      "==",
-      "admin_level",
-      2
-    ]
-  ],
-  "layout": {
-    "line-cap": "round",
-    "line-join": "round",
-    "visibility": "visible"
-  },
-  "paint": {
-    "line-color": "hsl(248, 1%, 41%)",
-    "line-opacity": {
-      "base": 1,
-      "stops": [
-        [
-          0,
-          0.4
-        ],
-        [
-          4,
-          1
-        ]
-      ]
-    },
-    "line-width": {
-      "base": 1,
-      "stops": [
-        [
-          3,
-          1
-        ],
-        [
-          5,
-          1.2
-        ],
-        [
-          12,
-          3
-        ]
-      ]
-    }
-  }
-},  {
+	}, {
 		"filter": ["all", ["==", "$type", "Point"],
 			["==", "rank", 1]
 		],
@@ -1046,6 +952,42 @@
 		"source": "openmaptiles2",
 		"source-layer": "place",
 		"type": "symbol"
+	}, {
+		"id": "estados",
+		"type": "line",
+		"source": "openmaptiles2",
+		"source-layer": "estados",
+		"layout": {},
+		"paint": {
+			"line-opacity": 1,
+			"line-color": "rgba(0, 0, 0, 1)",
+			"line-width": 0.3
+		  }
+	}, {
+		"id": "municipios",
+		"type": "line",
+		"source": "openmaptiles2",
+		"source-layer": "municipios",
+		"layout": {},
+		"paint": {
+			"line-opacity": 1,
+			"line-color": "rgba(146, 146, 146, 1)",
+			"line-width": 0.005
+		  },
+		  "minzoom": 6,
+		  "maxzoom": 10
+	}, {
+		"id": "ductos",
+		"type": "line",
+		"source": "openmaptiles2",
+		"source-layer": "ductos",
+		"layout": {},
+		"paint": {
+			"line-color": "rgba(222, 8, 8, 1)",
+			"line-width": 1
+		  },
+		  "minzoom": 4.5,
+		  "maxzoom": 10
 	}],
 	"id": "basic",
 	"center": [0, -1.1368683772161603e-13],
