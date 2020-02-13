@@ -78,11 +78,6 @@ function MxAnomalyMap (props) {
     //this.setState ({crime: value});
   };
 
-  const stateClick = e => {
-    props.updateState (e.target.attributes.state_code.value);
-    setselected_state (e.target.attributes.state.value);
-  };
-
   let opacity, strokeWidth;
   const {
     tooltipData,
@@ -137,7 +132,6 @@ function MxAnomalyMap (props) {
                                   <Circle
                                     onMouseMove={e => handleMouseOver (e, f)}
                                     onMouseOut={hideTooltip}
-                                    onClick={stateClick}
                                     key={`point-${i}`}
                                     cx={
                                       mercator.features[0].projection ([

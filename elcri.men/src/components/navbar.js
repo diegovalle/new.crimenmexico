@@ -154,6 +154,15 @@ const Navbar = ({locale, path}) => {
               >
                 {intl.formatMessage ({id: 'top50'})}
               </LLink>
+              <LLink
+                locale={locale}
+                className="navbar-item"
+                to="/turismo/"
+                partiallyActive={true}
+                activeClassName="has-background-grey-dark has-text-white-ter has-text-weight-bold active"
+              >
+                {intl.formatMessage ({id: 'Destinos Turísticos'})}
+              </LLink>
 
             </div>
           </div>

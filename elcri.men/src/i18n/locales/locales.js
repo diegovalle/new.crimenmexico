@@ -19,6 +19,7 @@ module.exports = {
       '/envipe/': '/underreporting-crime/',
       '/infograficas/': '/infographics/',
       '/acerca/': '/about/',
+      '/turismo/': '/tourism/'
     },
   },
   en : {
@@ -40,6 +41,7 @@ module.exports = {
       '/envipe/': '/underreporting-crime/',
       '/infograficas/': '/infographics/',
       '/acerca/': '/about/',
+      '/turismo/': '/tourism/'
     },
   }
 }
