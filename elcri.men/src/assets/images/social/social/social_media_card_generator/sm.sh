@@ -12,7 +12,8 @@ IMAGES=(acerca
         mapa
         municipios
         top50
-        trends)
+        trends
+        turismo)
 TITLES=("Datos\nabiertos"
         "Patrones\nanormales\nde\ndelitos"
         "Clusters de\nHomicidios\nen\nMéxico"
@@ -26,6 +27,7 @@ TITLES=("Datos\nabiertos"
         "Series\nde tiempo\ncriminales\npor\nmunicipio"
         "Municipios\nmás\nviolentos\nde\nMéxico"
         "Tendencias\nde\nhomicidios\nen\nMéxico"
+        "Destinos\nmás\nseguros\nde\nMéxico"
        )
 
 TITLES_EN=("Open\ncrime\ndata"
@@ -41,6 +43,7 @@ TITLES_EN=("Open\ncrime\ndata"
            "Mexican\nCrime\n\by\nCounty"
            "Most\nviolent\ncities\nin\nMexico"
            "Homicide\ntrends\nin\nMéxico"
+           "Safest\ntourism\ndestinations\nin\nMexico"
           )
 WW=1200
 HH=630

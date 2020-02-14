@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {feature} from 'topojson-client';
 import {scaleQuantize, scalePower} from '@vx/scale';
-import {schemeReds} from 'd3-scale-chromatic';
+import {schemeOrRd} from 'd3-scale-chromatic';
 import {format} from 'd3-format';
 import {Mercator} from '@vx/geo';
 import {ParentSize} from '@vx/responsive';
@@ -46,7 +46,7 @@ function TourismMap (props) {
       domain: [min_count, max_count],
     });
     const colorScale2 = scaleQuantize ({
-      range: schemeReds[9],
+      range: schemeOrRd[9],
       domain: [min_rate, max_rate >= 100 ? 100 : max_rate],
     });
     setcolorScale (() => colorScale2);
@@ -141,13 +141,13 @@ function TourismMap (props) {
                                       r={scalePower ({
                                         rangeRound: [
                                           parent.height / 200,
-                                          parent.height / 30,
+                                          parent.height / 26,
                                         ],
                                         domain: [min_count, max_count],
                                       }) (f.count + 1)}
                                       fill={colorScale (f.rate)}
                                       opacity={0.8}
-                                      stroke={'#bbb'}
+                                      stroke={'#111'}
                                     />
                                   );
                                 })}
@@ -171,7 +171,7 @@ function TourismMap (props) {
                           {' '}
                           {tooltipData.rate}
                           <br />
-                          <b>{intl.formatMessage ({id: 'count'})}:</b>
+                          <b>{intl.formatMessage ({id: 'homicides'})}:</b>
                           {' '}
 
                           {tooltipData.count}

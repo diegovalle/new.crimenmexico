@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {feature} from 'topojson-client';
 import {scaleQuantize, scalePower} from '@vx/scale';
-import {schemeReds} from 'd3-scale-chromatic';
+import {schemeYlOrRd} from 'd3-scale-chromatic';
 import {format} from 'd3-format';
 import {Mercator} from '@vx/geo';
 import {ParentSize} from '@vx/responsive';
@@ -45,8 +45,8 @@ function MxAnomalyMap (props) {
           domain: [min_count, max_count],
         });
         const colorScale2 = scaleQuantize ({
-          range: schemeReds[9],
-          domain: [min_rate, max_rate],
+          range: schemeYlOrRd[9],
+          domain: [min_rate, max_rate > 100 ? 100 : max_rate],
         });
         setcolorScale (() => colorScale2);
         setradiusScale (() => radiusScale2);
@@ -98,12 +98,12 @@ function MxAnomalyMap (props) {
                   <div style={{height: '100%', width: '100%'}}>
                     <svg
                       width={parent.width}
-                      height={(parent.width ? parent.width : 50) - 50}
+                      height={(parent.width ? parent.width : 50)}
                     >
 
                       <Mercator
                         fitExtent={[
-                          [[30, 0], [parent.width - 20, parent.width - 50]],
+                          [[30, 0], [parent.width - 30 , parent.width ]],
                           mexico,
                         ]}
                         data={mexico.features}
@@ -148,7 +148,7 @@ function MxAnomalyMap (props) {
                                     r={radiusScale (f.count) + 2}
                                     fill={colorScale (f.rate)}
                                     opacity={0.8}
-                                    stroke={'#bbb'}
+                                    stroke={'#111'}
                                   />
                                 );
                               })}

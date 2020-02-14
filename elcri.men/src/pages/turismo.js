@@ -12,9 +12,10 @@ import AdSense from 'react-adsense';
 import {useIntl, injectIntl, FormattedMessage} from 'react-intl';
 import {FormattedHTMLMessage, FormattedDate} from 'react-intl';
 import useLastMonth from '../components/LastMonth';
-import social_image from '../assets/images/social/social-top50.png';
-import social_image_en from '../assets/images/social/social-top50_en.png';
+import social_image from '../assets/images/social/social-turismo.png';
+import social_image_en from '../assets/images/social/social-turismo_en.png';
 import TourismMapTooltip from '../components/TourismMap/TourismMapTooltip';
+import {mapValues} from 'lodash-es';
 
 function MostViolent (props) {
   const [data, setdata] = useState (null);
@@ -23,6 +24,24 @@ function MostViolent (props) {
     fetch ('/elcrimen-json/tourists.json')
       .then (response => response.json ())
       .then (responseJSON => {
+        for (var i = 0; i < responseJSON.length; i++) {
+          responseJSON[i].name = responseJSON[i].name.replace (
+            'BENITO JUÁREZ, QROO',
+            'CANCÚN, QROO'
+          );
+          responseJSON[i].name = responseJSON[i].name.replace (
+            'BAHÍA DE BANDERAS, NAY',
+            'PUNTA MITA, NAY'
+          );
+          responseJSON[i].name = responseJSON[i].name.replace (
+            'ZIHUATANEJO DE AZUETA, GRO',
+            'ZIHUATANEJO, GRO'
+          );
+          responseJSON[i].name = responseJSON[i].name.replace (
+            'SAN PEDRO MIXTEPEC, OAX',
+            'PUERTO ESCONDIDO, OAX'
+          );
+        }
         setdata (responseJSON);
       })
       .catch (error => {

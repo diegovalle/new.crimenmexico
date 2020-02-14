@@ -961,7 +961,23 @@
 		"paint": {
 			"line-opacity": 1,
 			"line-color": "rgba(0, 0, 0, 1)",
-			"line-width": 0.3
+			"line-width": {
+				"base": 0.3,
+				"stops": [
+				  [
+					0,
+					0.3
+				  ],
+				  [
+					6,
+					0.3
+				  ],
+				  [
+					7,
+					1
+				  ]
+				]
+			  }
 		  }
 	}, {
 		"id": "municipios",
@@ -971,11 +987,10 @@
 		"layout": {},
 		"paint": {
 			"line-opacity": 1,
-			"line-color": "rgba(146, 146, 146, 1)",
-			"line-width": 0.005
+			"line-color": "rgba(0, 0, 0, .6)",
+			"line-width": 0.1
 		  },
-		  "minzoom": 6,
-		  "maxzoom": 10
+		  "minzoom": 7.8
 	}, {
 		"id": "ductos",
 		"type": "line",
@@ -986,8 +1001,7 @@
 			"line-color": "rgba(222, 8, 8, 1)",
 			"line-width": 1
 		  },
-		  "minzoom": 4.5,
-		  "maxzoom": 10
+		  "minzoom": 4.5
 	}],
 	"id": "basic",
 	"center": [0, -1.1368683772161603e-13],
