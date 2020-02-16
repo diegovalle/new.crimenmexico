@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Helmet from 'react-helmet';
 
 import Layout from '../components/layout';
+import {scaleLinear} from '@vx/scale';
 import SmallMultiple from '../components/SmallMultiple';
 import HeroTitle from '../components/HeroTitle';
 import BarToolTip from '../components/BarToolTip';
@@ -15,10 +16,11 @@ import useLastMonth from '../components/LastMonth';
 import social_image from '../assets/images/social/social-turismo.png';
 import social_image_en from '../assets/images/social/social-turismo_en.png';
 import TourismMapTooltip from '../components/TourismMap/TourismMapTooltip';
-import {mapValues} from 'lodash-es';
+import {minBy, maxBy, mapValues} from 'lodash-es';
 
 function MostViolent (props) {
   const [data, setdata] = useState (null);
+  const [colorScale, setColorScale] = useState (() => null);
 
   useEffect (() => {
     fetch ('/elcrimen-json/tourists.json')
@@ -42,6 +44,17 @@ function MostViolent (props) {
             'PUERTO ESCONDIDO, OAX'
           );
         }
+        let max_rate = maxBy (responseJSON, function (o) {
+          return o.rate;
+        })['rate'];
+        let min_rate = minBy (responseJSON, function (o) {
+          return o.rate;
+        })['rate'];
+        const colorScale2 = scaleLinear ({
+          range: ['#4575b4', '#ffffbf', '#d73027'],
+          domain: [min_rate, 25, max_rate >= 100 ? 100 : max_rate],
+        });
+        setColorScale (() => colorScale2);
         setdata (responseJSON);
       })
       .catch (error => {
@@ -92,10 +105,10 @@ function MostViolent (props) {
         />
 
         <div className="container is-fullhd">
-          <div class="columns is-centered">
+          <div className="columns is-centered">
             <div className="column is-8">
               <div>
-                <figure className="image is-5by4">
+                <figure className="image is-square">
                   <div className=" has-ratio">
                     {data ? <TourismMapTooltip data={data} /> : <div />}
                   </div>
@@ -104,11 +117,17 @@ function MostViolent (props) {
             </div>
           </div>
 
+          <hr style={{backgroundColor: '#fff'}} />
+
           <div className="columns is-centered">
             <div className="column is-8-desktop is-full-mobile is-full-tablet">
               <div style={{height: chartHeight + 80}}>
                 {data
-                  ? <BarToolTip data={data} height={chartHeight} />
+                  ? <BarToolTip
+                      data={data}
+                      height={chartHeight}
+                      scaleColor={colorScale}
+                    />
                   : <div />}
               </div>
             </div>

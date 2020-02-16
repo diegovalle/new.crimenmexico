@@ -91,7 +91,7 @@ class Top50 extends React.Component {
                         left={leftMargin}
                         stroke="#fff"
                         strokeWidth={2}
-                        fill="#fc4e2a"
+                        fill={this.props.scaleColor ? this.props.scaleColor(d.rate) : "#fc4e2a"}
                         // note: all additional props are thunks called with the bar data
                         // thunks are expected to return the desired attribute value
                         onMouseMove={e => this.handleMouseOverBar (e, d)}

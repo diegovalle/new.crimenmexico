@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {feature} from 'topojson-client';
-import {scaleQuantize, scalePower} from '@vx/scale';
-import {schemeOrRd} from 'd3-scale-chromatic';
+import {scalePower, scaleLinear} from '@vx/scale';
+import {schemeRdYlBu} from 'd3-scale-chromatic';
 import {format} from 'd3-format';
 import {Mercator} from '@vx/geo';
 import {ParentSize} from '@vx/responsive';
@@ -11,10 +11,15 @@ import {Circle} from '@vx/shape';
 import {minBy, maxBy} from 'lodash-es';
 import {useIntl, FormattedMessage} from 'react-intl';
 
+import LegendNumber from '../../components/TourismMap/LegendNumber';
+import LegendRate from '../../components/TourismMap/LegendRate';
+
 import topology from '../../assets/json/mexico_estatal.json';
 
 const mexico = feature (topology, topology.objects.mexico_estatal);
+const noDecimal = format ('.0f');
 var round1 = format ('.1f');
+const commaNoDecimal = format (',.0f');
 
 function TourismMap (props) {
   const [data, setdata] = useState (null);
@@ -41,16 +46,11 @@ function TourismMap (props) {
     })['rate'];
     set_min_count (min_count);
     set_max_count (max_count);
-    const radiusScale2 = scalePower ({
-      rangeRound: [2, 12],
-      domain: [min_count, max_count],
+    const colorScale = scaleLinear ({
+      range: ['#4575b4', '#ffffbf', '#d73027'],
+      domain: [min_rate, 25, max_rate >= 100 ? 100 : max_rate],
     });
-    const colorScale2 = scaleQuantize ({
-      range: schemeOrRd[9],
-      domain: [min_rate, max_rate >= 100 ? 100 : max_rate],
-    });
-    setcolorScale (() => colorScale2);
-    setradiusScale (() => radiusScale2);
+    setcolorScale (() => colorScale);
     setdata (data);
   }, []);
 
@@ -96,7 +96,13 @@ function TourismMap (props) {
 
                         <Mercator
                           fitExtent={[
-                            [[25, 0], [parent.width - 25, parent.height]],
+                            [
+                              [25, 0],
+                              [
+                                parent.width - 25,
+                                parent.width - parent.width / 3 + 2,
+                              ],
+                            ],
                             mexico,
                           ]}
                           data={mexico.features}
@@ -141,10 +147,11 @@ function TourismMap (props) {
                                       r={scalePower ({
                                         rangeRound: [
                                           parent.height / 200,
-                                          parent.height / 26,
+                                          parent.height / 27,
                                         ],
                                         domain: [min_count, max_count],
-                                      }) (f.count + 1)}
+                                        exponent: 0.5,
+                                      }) (f.count + 0.5)}
                                       fill={colorScale (f.rate)}
                                       opacity={0.8}
                                       stroke={'#111'}
@@ -174,15 +181,42 @@ function TourismMap (props) {
                           <b>{intl.formatMessage ({id: 'homicides'})}:</b>
                           {' '}
 
-                          {tooltipData.count}
+                          {commaNoDecimal (tooltipData.count)}
                         </TooltipWithBounds>}
 
                     </React.Fragment>
                   : <div />}
+                <div className="columns is-centered">
+                  <div className="column is-5">
+                    <LegendNumber
+                      scale={scalePower ({
+                        rangeRound: [parent.height / 200, parent.height / 27],
+                        domain: [min_count, max_count],
+                        exponent: 0.5,
+                      })}
+                    />
+                  </div><div className="column is-5">
+                    <LegendRate scale={colorScale} />
+                  </div>
+                </div>
               </React.Fragment>
             )}
           </ParentSize>
         : <div />}
+
+    </div>
+  );
+}
+
+function LegendDemo({title, children}) {
+  return (
+    <div className="legend">
+      {/* <h5 className="title  is-5">{title}</h5> */}
+      <span className="is-size-6">{title}</span>
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+
+        {children}
+      </div>
     </div>
   );
 }

@@ -43,10 +43,11 @@ function MxAnomalyMap (props) {
         const radiusScale2 = scalePower ({
           rangeRound: [2, 10],
           domain: [min_count, max_count],
+                                        exponent: 0.5,
         });
         const colorScale2 = scaleQuantize ({
           range: schemeYlOrRd[9],
-          domain: [min_rate, max_rate > 100 ? 100 : max_rate],
+          domain: [min_rate, (max_rate > 100 && crime === "hom") ? 100 : max_rate],
         });
         setcolorScale (() => colorScale2);
         setradiusScale (() => radiusScale2);

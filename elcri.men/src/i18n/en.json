@@ -67,7 +67,7 @@
   "Most violent municipios from": "Most violent municipios (counties) from",
   "to": "to",
   "top50_text": "All counts refer to police reports (averiguaciones previas which may contain more than one victim), since that is the only information available at the municipio level. Homicide rates were sorted based on the lower limit of the 99% credible interval of the number of homicides modeled as a Poisson variable assuming that the prior distribution is the number of homicides in the state, all this because of the need to balance the high homicide rates of some municipios with the uncertainty of small populations. Homicides include feminicides.",
-  "tourism_text": "<p>To help you plan your next vacation elcri.men has compiled a list of the top tourist destinations among Mexico's best cultural attractions, beautiful beaches, and archeological ruins. We've ranked them from most dangerous to least dangerous so you can enjoy your favorite vacation spots; from Punta Mita to Cancún and from Ciudad Madro to Huatulco be sure to enjoy a safe trip.</p> <p>All counts refer to police reports (averiguaciones previas which may contain more than one victim), since that is the only information available at the municipio level.</p>",
+  "tourism_text": "<p>To help you plan your next vacation elcri.men has compiled a list of the top tourist destinations among Mexico's best cultural attractions, beautiful beaches, and archeological ruins. We've ranked them from most dangerous to least dangerous so you can enjoy your favorite vacation spots; from Punta Mita to Cancún and from San Miguel de Allende to Huatulco be sure to enjoy a safe trip.</p> <p>All counts refer to police reports (averiguaciones previas which may contain more than one victim), since that is the only information available at the municipio level.</p>",
   "All municipios with a crime rate spike or a sharp decrease during": "Counties with a crime rate spike or a sharp decrease during",
   "Lesiones": "Lesions",
   "Fuga de Reos": "Helping Prisoners Escape",
@@ -165,5 +165,7 @@
   "Destinos Turísticos": "Tourist Destinations",
   "homicides": "homicides",
   "title_tourism": "Safest places to visit in Mexico",
-  "desc_tourism": "A list of the safest and best places to visit in Mexico. Cancún. Oaxaca. Guanajuato. Puebla. Puerto Vallarta. Cabo San Lucas. San Miguel de Allende. Tulum. Puerto Peñasco"
+  "desc_tourism": "A list of the safest and best places to visit in Mexico. Cancún. Oaxaca. Guanajuato. Puebla. Puerto Vallarta. Cabo San Lucas. San Miguel de Allende. Tulum. Puerto Peñasco",
+  "number of homicides:": "number of homicides:",
+  "homicide rate:": "homicide rate:"
 }
