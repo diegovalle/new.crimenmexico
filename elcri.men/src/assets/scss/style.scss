@@ -48,6 +48,16 @@
   }
 }
 
+.image.is-5by4-mobile-square {  
+  // almost 5by4 (85 instead of 80)
+  padding-top: 85%; 
+
+  @include mobile { 
+    // equivalent of is-1by1   
+    padding-top: 110%;
+  }
+}
+
 .image.is-big-national {  
   // 3by1
   padding-top: 28.3333%; 

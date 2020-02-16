@@ -108,8 +108,8 @@ function MostViolent (props) {
           <div className="columns is-centered">
             <div className="column is-8">
               <div>
-                <figure className="image is-square">
-                  <div className=" has-ratio">
+                <figure className="image is-square is-5by4-mobile-square">
+                  <div className="has-ratio">
                     {data ? <TourismMapTooltip data={data} /> : <div />}
                   </div>
                 </figure>

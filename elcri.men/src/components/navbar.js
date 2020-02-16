@@ -126,7 +126,7 @@ const Navbar = ({locale, path}) => {
               className={
                 'navbar-link ' +
                   colorMenu (
-                    /municipios|municipios-mas-violentos|most-violent-cities/g,
+                    /municipios|municipios-mas-violentos|most-violent-cities|turismo|tourism/g,
                     path
                   )
               }
