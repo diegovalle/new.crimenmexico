@@ -34,7 +34,8 @@ var lesiones_data = [
     {date: 2015, value: 150711},
     {date: 2016, value: 148391},
     {date: 2017, value: 165092},
-    {date: 2018, value: 158559},
+    {date: 2018, value: 158569},
+    {date: 2019, value: 170216}
   ],
 ];
 var secuestro_data = [
@@ -49,6 +50,7 @@ var secuestro_data = [
     {date: 2016, value: 1381},
     {date: 2017, value: 1390},
     {date: 2018, value: 1559},
+    {date: 2019, value: 1614},
   ],
 ];
 var extorsion_data = [
@@ -63,6 +65,7 @@ var extorsion_data = [
     {date: 2016, value: 5395},
     {date: 2017, value: 5947},
     {date: 2018, value: 6606},
+    {date: 2019, value: 8523}
   ],
 ];
 //Robo total de vehículo (automóvil, camioneta, camión).
@@ -83,6 +86,7 @@ var robocoche_data = [
     {date: 2016, value: 153437},
     {date: 2017, value: 179709},
     {date: 2018, value: 178935},
+    {date: 2019, value: 150306}
   ],
   [
     {date: 2015, value: 63044},

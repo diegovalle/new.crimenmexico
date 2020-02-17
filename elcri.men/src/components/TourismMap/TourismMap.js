@@ -82,12 +82,12 @@ function TourismMap (props) {
   } = props;
   const intl = useIntl ();
   return (
-    <div>
+    <div style={{height: "100%"}}>
       {data !== null
         ? <ParentSize>
             {parent => (
               <React.Fragment>
-                {parent.width
+                {parent.width > 0
                   ? <React.Fragment>
                       <svg
                         width={parent.width}
@@ -183,22 +183,24 @@ function TourismMap (props) {
 
                           {commaNoDecimal (tooltipData.count)}
                         </TooltipWithBounds>}
-
+                      <div className="columns is-centered">
+                        <div className="column is-5">
+                          <LegendNumber
+                            scale={scalePower ({
+                              rangeRound: [
+                                parent.height / 200,
+                                parent.height / 27,
+                              ],
+                              domain: [min_count, max_count],
+                              exponent: 0.5,
+                            })}
+                          />
+                        </div><div className="column is-5">
+                          <LegendRate scale={colorScale} />
+                        </div>
+                      </div>
                     </React.Fragment>
                   : <div />}
-                <div className="columns is-centered">
-                  <div className="column is-5">
-                    <LegendNumber
-                      scale={scalePower ({
-                        rangeRound: [parent.height / 200, parent.height / 27],
-                        domain: [min_count, max_count],
-                        exponent: 0.5,
-                      })}
-                    />
-                  </div><div className="column is-5">
-                    <LegendRate scale={colorScale} />
-                  </div>
-                </div>
               </React.Fragment>
             )}
           </ParentSize>

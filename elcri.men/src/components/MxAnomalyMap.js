@@ -89,12 +89,14 @@ function MxAnomalyMap (props) {
   } = props;
   const intl = useIntl ();
   return (
-    <div>
+    <div style={{height: '100%', width: '100%'}}>
       {data !== null
         ? <ParentSize>
             {parent => (
               <React.Fragment>
 
+                {parent.width > 0
+                  ?
                 <div style={{position: 'relative'}}>
                   <div style={{height: '100%', width: '100%'}}>
                     <svg
@@ -180,6 +182,7 @@ function MxAnomalyMap (props) {
                       </TooltipWithBounds>}
                   </div>
                 </div>
+                  : <div />}
               </React.Fragment>
             )}
           </ParentSize>

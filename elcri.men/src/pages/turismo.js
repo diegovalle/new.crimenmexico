@@ -6,17 +6,17 @@ import {scaleLinear} from '@vx/scale';
 import SmallMultiple from '../components/SmallMultiple';
 import HeroTitle from '../components/HeroTitle';
 import BarToolTip from '../components/BarToolTip';
-import MG from 'metrics-graphics';
 import SEO from '../components/SEO';
 import TextColumn from '../components/TextColumn';
 import AdSense from 'react-adsense';
 import {useIntl, injectIntl, FormattedMessage} from 'react-intl';
 import {FormattedHTMLMessage, FormattedDate} from 'react-intl';
 import useLastMonth from '../components/LastMonth';
+import TourismMapTooltip from '../components/TourismMap/TourismMapTooltip';
+import {minBy, maxBy} from 'lodash-es';
+import LazyLoad from 'react-lazyload';
 import social_image from '../assets/images/social/social-turismo.png';
 import social_image_en from '../assets/images/social/social-turismo_en.png';
-import TourismMapTooltip from '../components/TourismMap/TourismMapTooltip';
-import {minBy, maxBy, mapValues} from 'lodash-es';
 
 function MostViolent (props) {
   const [data, setdata] = useState (null);
@@ -118,36 +118,37 @@ function MostViolent (props) {
           </div>
 
           <hr style={{backgroundColor: '#fff'}} />
+          <AdSense.Google
+            client="ca-pub-2949275046149330"
+            slot="8649980552"
+            style={{display: 'block'}}
+            format="auto"
+            responsive="true"
+          />
+
+          <TextColumn>
+            <p>
+              <FormattedHTMLMessage id="tourism_text" />
+            </p>
+          </TextColumn>
 
           <div className="columns is-centered">
             <div className="column is-8-desktop is-full-mobile is-full-tablet">
               <div style={{height: chartHeight + 80}}>
-                {data
-                  ? <BarToolTip
-                      data={data}
-                      height={chartHeight}
-                      scaleColor={colorScale}
-                    />
-                  : <div />}
+                <LazyLoad height={440} once offset={200}>
+                  {data
+                    ? <BarToolTip
+                        data={data}
+                        height={chartHeight}
+                        scaleColor={colorScale}
+                      />
+                    : <div />}
+                </LazyLoad>
               </div>
             </div>
           </div>
         </div>
-
-        <AdSense.Google
-          client="ca-pub-2949275046149330"
-          slot="8649980552"
-          style={{display: 'block'}}
-          format="auto"
-          responsive="true"
-        />
-
         <hr />
-        <TextColumn>
-          <p>
-            <FormattedHTMLMessage id="tourism_text" />
-          </p>
-        </TextColumn>
 
         <AdSense.Google
           client="ca-pub-2949275046149330"
