@@ -30,8 +30,11 @@ municipal_fc_download() {
     ggID=$(curl -s  "$1" | \
                          grep -Po "(?<=href=\")[^\"][^\"]*(?=\">Municipal \d{4} - \d{4}<\/a>&nbsp;)" | \
                          sed 's| |%20|g' | sed 's|https://drive.google.com/open?id=||g')
-    ggURL='https://drive.google.com/uc?export=download'  
+    echo "ggId: $ggID" 
+    ggURL='https://drive.google.com/uc?export=download' 
+    curl -sc "$COOKIE_TMP" "${ggURL}&id=${ggID}" >/dev/null  
     getcode="$(awk '/_warning_/ {print $NF}' $COOKIE_TMP)"  
+    echo "getcode: $getcode"
     curl -Lb "$COOKIE_TMP" "${ggURL}&confirm=${getcode}&id=${ggID}" -o "$MUN_FC_ZIP"
 }
 
