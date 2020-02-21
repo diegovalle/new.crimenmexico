@@ -9,6 +9,8 @@ rsync --omit-dir-times -rz --compress-level=9 --stats -e 'ssh  -o StrictHostKeyC
 
 # Commit generated infographics
 if [[ $(git status --porcelain elcri.men/static/e*) ]]; then
+    git config --global user.email "$GITHUB_EMAIL"
+    git config --global user.name "diego"
     git status --porcelain elcri.men/static/e* | sed  "s/^?? //g" | xargs --max-args 1 git add
     git commit -m "Add new png infographics [Skip CI]"
     git push -q https://"$GITHUB_TOKEN":x-oauth-basic@github.com/diegovalle/new.crimenmexico.git master
