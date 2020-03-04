@@ -13,6 +13,13 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-subfont`,
+      options: {
+        fallback: false,
+        inlineFonts: true,
+      },
+    },
+    {
       resolve: `gatsby-plugin-react-helmet-canonical-urls`,
       options: {
         siteUrl: `${SITENAME_NO_SLASH}`,
