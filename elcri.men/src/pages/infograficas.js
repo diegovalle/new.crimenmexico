@@ -106,7 +106,10 @@ const Infographics = ({data, location, pageContext}) => {
             ).map ((edge, i) => (
               <React.Fragment key={i}>
                 {i % 2 === 0
-                  ? <div className="column is-full has-text-centered" key={i + 'div'}>
+                  ? <div
+                      className="column is-full has-text-centered"
+                      key={i + 'div'}
+                    >
                       <h3 className="title is-4" key={i}>
                         {edge.node.base
                           .replace ('_es', '')
@@ -125,8 +128,10 @@ const Infographics = ({data, location, pageContext}) => {
                     key={i + 'a'}
                     className="absolutlynocallsname"
                     href={
-                      '/es/images/infographics/fulls/' +
-                        edge.node.childImageSharp.fluid.originalName
+                      (pageContext.locale === 'es'
+                        ? '/es/images/infographics/fulls/'
+                        : '/en/images/infographics/fulls/') +
+                            edge.node.childImageSharp.fluid.originalName
                     }
                   >
                     <figure className="image is-3x5" key={i + 'figure'}>
