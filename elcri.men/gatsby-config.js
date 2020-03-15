@@ -86,7 +86,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-layout`,
-    `gatsby-plugin-preload-fonts`,
+    //`gatsby-plugin-preload-fonts`,
     // {
     //   resolve: 'gatsby-plugin-webpack-bundle-analyzer',
     //   options: {
