@@ -21,6 +21,9 @@ import {
 import MG from 'metrics-graphics';
 import TextColumn from '../components/TextColumn';
 
+import { select, selectAll } from 'd3-selection'
+import { transition } from 'd3-transition'
+
 import {timeFormat as date_format} from 'd3-time-format';
 import {format} from 'd3-format';
 import {dateLoc} from '../../src/i18n';

@@ -15,6 +15,9 @@ import SEO from '../components/SEO';
 import TextColumn from '../components/TextColumn';
 import {useIntl, FormattedHTMLMessage} from 'react-intl';
 
+import { select, selectAll } from 'd3-selection'
+import { transition } from 'd3-transition'
+
 import social_image from '../assets/images/social/social-envipe.png';
 import social_image_en from '../assets/images/social/social-envipe_en.png';
 

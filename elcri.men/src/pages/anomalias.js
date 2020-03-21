@@ -23,6 +23,9 @@ import {
 } from 'lodash-es';
 import MG from 'metrics-graphics';
 
+import { select, selectAll } from 'd3-selection'
+import { transition } from 'd3-transition'
+
 import {format} from 'd3-format';
 import {dateLoc} from '../../src/i18n';
 import {timeFormatDefaultLocale, timeFormatLocale} from 'd3-time-format';

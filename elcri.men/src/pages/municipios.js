@@ -15,6 +15,9 @@ import {format} from 'd3-format';
 import {dateLoc} from '../../src/i18n';
 import {timeFormatDefaultLocale, timeFormatLocale} from 'd3-time-format';
 
+import { select, selectAll } from 'd3-selection'
+import { transition } from 'd3-transition'
+
 import social_image from '../assets/images/social/social-municipios.png';
 import social_image_en from '../assets/images/social/social-municipios_en.png';
 
