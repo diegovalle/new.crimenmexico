@@ -13,11 +13,11 @@
 		
 		"openmaptiles": {
 			"type": "vector",
-			"tiles": ["https://tilesmexico.netlify.com/mexico-tiles/{z}/{x}/{y}.pbf"]
+			"tiles": ["https://tilesmexico.netlify.app/mexico-tiles/{z}/{x}/{y}.pbf"]
 		}
 	},
-	"sprite": "https://tilesmexico.netlify.com/sprites/sprite",
-	"glyphs": "https://tilesmexico.netlify.com/font/{fontstack}/{range}.pbf",
+	"sprite": "https://tilesmexico.netlify.app/sprites/sprite",
+	"glyphs": "https://tilesmexico.netlify.app/font/{fontstack}/{range}.pbf",
 	"layers": [{
 		"id": "background",
 		"paint": {

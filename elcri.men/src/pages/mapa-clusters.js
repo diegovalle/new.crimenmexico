@@ -287,7 +287,7 @@ function ClusterMapPage (props) {
         }}
       >
         <link
-          href="https://tileserver.netlify.com"
+          href="https://tilesmexico.netlify.app"
           rel="preconnect"
           crossorigin
         />

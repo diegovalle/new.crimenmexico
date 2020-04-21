@@ -20,11 +20,11 @@
   "sources": {
     "openmaptiles": {
       "type": "vector",
-      "tiles": ["https://tileserver.netlify.com/municipio-tiles/{z}/{x}/{y}.pbf"]
+      "tiles": ["https://tilesmexico.netlify.app/municipio-tiles/{z}/{x}/{y}.pbf"]
     }
   },
-	"glyphs": "https://tileserver.netlify.com/font/{fontstack}/{range}.pbf",
-	"sprite": "https://tileserver.netlify.com/sprites/sprite",
+	"glyphs": "https://tilesmexico.netlify.app/font/{fontstack}/{range}.pbf",
+	"sprite": "https://tilesmexico.netlify.app/sprites/sprite",
   "layers": [
     {
       "id": "background",
