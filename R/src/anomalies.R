@@ -225,6 +225,11 @@ if(nrow(ll$ext) > 0) {
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
 }
+if(nrow(ll$reos) > 0) {
+  cities$reos <- right_join(centroids, ll$reos, by = c("state_code", "mun_code")) %>%
+    group_by(name, state_code, mun_code, lat, long) %>%
+    do(tail(. ,1))
+}
 write(toJSON(cities), file = 'json/cities.json')
 
 j = 1
