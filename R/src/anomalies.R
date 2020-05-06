@@ -194,38 +194,38 @@ ll$reos <- NULL
 
 centroids <- read.csv("data/mun_centroids.csv")
 cities <- list()
-if(nrow(ll$hom) > 0) {
+if(length(ll$hom) > 0) {
   cities$hom <- right_join(centroids, ll$hom, by = c("state_code", "mun_code")) %>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
 }
-if(nrow(ll$rvcv) > 0) {
+if(length(ll$rvcv) > 0) {
   cities$rvcv <- right_join(centroids, ll$rvcv, by = c("state_code", "mun_code")) %>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
 }
-if(nrow(ll$rvsv) > 0) {
+if(length(ll$rvsv) > 0) {
   cities$rvsv <- right_join(centroids, ll$rvsv, by = c("state_code", "mun_code")) %>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
 }
-if(nrow(ll$lesions) > 0) {
+if(length(ll$lesions) > 0) {
   cities$lesions <- right_join(centroids, ll$lesions, by = c("state_code", "mun_code")) %>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
   
 }
-if(nrow(ll$kidnapping) > 0) {
+if(length(ll$kidnapping) > 0) {
   cities$kidnapping <- right_join(centroids, ll$kidnapping, by = c("state_code", "mun_code")) %>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
 }
-if(nrow(ll$ext) > 0) {
+if(length(ll$ext) > 0) {
   cities$ext <- right_join(centroids, ll$ext, by = c("state_code", "mun_code")) %>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
 }
-if(nrow(ll$reos) > 0) {
+if(length(ll$reos) > 0) {
   cities$reos <- right_join(centroids, ll$reos, by = c("state_code", "mun_code")) %>%
     group_by(name, state_code, mun_code, lat, long) %>%
     do(tail(. ,1))
