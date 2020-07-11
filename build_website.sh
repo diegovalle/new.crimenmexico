@@ -44,9 +44,7 @@ fi
 cd R/interactive-map/ && ./convert.sh && cd ../..
 cp R/interactive-map/municipios*.json elcri.men/static/elcrimen-json/
 
-if ! [ -x "$(command -v yarn)" ]; then
-  npm install -g yarn
-fi
+npm install -g npm@6.14.5
 if ! [ -x "$(command -v gatsby)" ]; then
     npm install -g gatsby-cli@2.11.5
 fi
