@@ -51,7 +51,8 @@ states_snsp <- subset(vic, tipo == 'Homicidio Doloso')[,c("date",
                                                           "count", 
                                                           "population", 
                                                           "state_code")]
-states_snsp <- rbind(states_snsp, filter(national_hom, 
+states_snsp$state_code <- as.character(states_snsp$state_code)
+states_snsp <- bind_rows(states_snsp, filter(national_hom, 
                                          tipo == 'Homicidio Doloso')[,c("date", 
                                                                         "rate", 
                                                                         "count", 
