@@ -63,7 +63,7 @@ tryCatch({
                                    "ACAPULCO DE JUÁREZ, GUERRERO",
                                    #"LOS CABOS, BAJA CALIFORNIA SUR",
                                    "MANZANILLO, COLIMA",
-                                   #"VICTORIA, TAMAULIPAS",
+                                   "VICTORIA, TAMAULIPAS",
                                    "ZACATECAS, ZACATECAS",
                                    "APATZINGÁN, MICHOACÁN",
                                    #"TEPIC, NAYARIT",
@@ -82,7 +82,8 @@ tryCatch({
                                    "TECAMACHALCO, PUEBLA",
                                    "JUÁREZ, CHIHUAHUA",
                                    "BENEMÉRITO DE LAS AMÉRICAS, CHIAPAS",
-                                   "SUCHIATE, CHIAPAS"))
+                                   "SUCHIATE, CHIAPAS",
+                                   "SÁRIC, SONORA"))
   cities$group <- 1
   cities$municipio <- str_replace(cities$municipio, "BENITO JUÁREZ", "CANCÚN")
   cities$municipio <- str_replace(cities$municipio, "ZIHUATANEJO DE AZUETA", "ZIHUATANEJO")
