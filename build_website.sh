@@ -49,7 +49,7 @@ if ! [ -x "$(command -v gatsby)" ]; then
     npm install -g gatsby-cli@2.11.5
 fi
 export GATSBY_TELEMETRY_DISABLED=1
-cd elcri.men && npm install && gatsby build && cd ..
+(cd elcri.men && npm install && gatsby build --verbose)
 
 echo "Exporting databases to csv.gz"
 # Export the sqlite database to csv and compress
