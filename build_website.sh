@@ -41,7 +41,7 @@ if [ -f R/interactive-map/municipios-centroids.json ]
 then
     rm R/interactive-map/municipios-centroids.json
 fi
-cd R/interactive-map/ && ./convert.sh && cd ../..
+(cd R/interactive-map/ && ./convert.sh)
 cp R/interactive-map/municipios*.json elcri.men/static/elcrimen-json/
 
 npm install -g npm@6.14.5
