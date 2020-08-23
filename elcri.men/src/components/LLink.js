@@ -7,7 +7,7 @@ const LLink = ({locale, children, to, prefetch, ...props}) => {
   if (!prefetch) {
     return <a href={locale === "es" ? to : "/en/" + routes.routes[to]} {...props}>{children}</a>;
   }
-  return <Link to={locale === "es" ? to : "en/" + routes.routes[to]} {...props}>{children}</Link>;
+  return <Link to={locale === "es" ? to : "/en/" + routes.routes[to]} {...props}>{children}</Link>;
 };
 
 LLink.defaultProps = {
