@@ -69,7 +69,7 @@ const HomeIndex = props => {
         }}
       />
       <SEO
-        title={intl.formatMessage ({id: 'Delincuencia en México - El Crimen'}, {year:last_date.year.toString()})}
+        title={intl.formatMessage ({id: 'Delincuencia en México - El Crimen'})}
         socialTitle="ElCri.men"
         description={intl.formatMessage ({id: 'desc_index'})}
         socialImage={
