@@ -25,6 +25,7 @@ import useBestImages from '../components/BestImages';
 import social_image from '../assets/images/social/social-index.png';
 import social_image_en from '../assets/images/social/social-index_en.png';
 
+// variables for the inforgraphic names are in gatsby-node.js
 export const data_query = graphql`
 query query($fname_infographic: String, $fname_mun: String) {
     allFile(filter: { name: { in: [$fname_infographic, $fname_mun]} }) {

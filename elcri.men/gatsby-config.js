@@ -184,7 +184,7 @@ module.exports = {
         //printRejected: true, // Print removed selectors and processed file names
         whitelistPatterns: [/.*mg-.*/, /metricsGraphicsCon/, /metrics.*/, /inegi/],
         //ignore: ['metricsgraphics.css', 'react-tabs.css'],
-        purgeOnly: ['scss/style.scss', '_datepicker.css'],
+        purgeOnly: ['scss/style.scss', '_datepicker.css', 'top50.css','mapbox-gl.css'],
         //develop: true, // Enable while using `gatsby develop`
         // tailwind: true, // Enable tailwindcss support
         // whitelist: ['whitelist'], // Don't remove this selector
