@@ -1,5 +1,5 @@
 
-last_inegi_date <- '2018-12-01'
+last_inegi_date <- '2019-12-01'
 
 source(file.path("src", "load-packages.R"))
 source(file.path("src", "functions.R"))
