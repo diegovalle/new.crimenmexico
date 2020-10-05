@@ -7,6 +7,9 @@ jobs:
     working_directory:  /var/tmp
     docker:
       - image: diegovalle/elcrimen-docker
+        auth:
+          username: diegovalle  # can specify string literal values
+          password: $DOCKERHUB_PASSWORD  # or project environment variable reference
     steps:
       - checkout
       - run:
