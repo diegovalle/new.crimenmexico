@@ -9,7 +9,7 @@ module.exports = {
     baseUrl: `${SITENAME}`,
     siteUrl: `${SITENAME}`,
     twitterHandle: '@diegovalle',
-    preliminaryINEGI: true,
+    preliminaryINEGI: false,
   },
   plugins: [
     {
