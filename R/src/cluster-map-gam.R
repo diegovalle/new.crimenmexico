@@ -63,7 +63,7 @@ tryCatch({
                                    "ACAPULCO DE JUÁREZ, GUERRERO",
                                    #"LOS CABOS, BAJA CALIFORNIA SUR",
                                    "MANZANILLO, COLIMA",
-                                   "VICTORIA, TAMAULIPAS",
+                                   #"VICTORIA, TAMAULIPAS",
                                    "ZACATECAS, ZACATECAS",
                                    "APATZINGÁN, MICHOACÁN",
                                    #"TEPIC, NAYARIT",
@@ -75,7 +75,7 @@ tryCatch({
                                    #"GUAYMAS, SONORA",
                                    "JOJUTLA, MORELOS",
                                    "ZAMORA, MICHOACÁN",
-                                   "CAJEME, SONORA",
+                                   "GUAYMAS, SONORA",
                                    "GUADALAJARA, JALISCO",
                                    "ZIHUATANEJO DE AZUETA, GUERRERO",
                                    "SALAMANCA, GUANAJUATO",
@@ -83,11 +83,11 @@ tryCatch({
                                    "JUÁREZ, CHIHUAHUA",
                                    "BENEMÉRITO DE LAS AMÉRICAS, CHIAPAS",
                                    "SUCHIATE, CHIAPAS",
-                                   "SÁRIC, SONORA"))
+                                   "CABORCA, SONORA"))
   cities$group <- 1
   cities$municipio <- str_replace(cities$municipio, "BENITO JUÁREZ", "CANCÚN")
   cities$municipio <- str_replace(cities$municipio, "ZIHUATANEJO DE AZUETA", "ZIHUATANEJO")
-  cities$municipio <- str_replace(cities$municipio, "CAJEME", "CIUDAD OBREGÓN")
+  #cities$municipio <- str_replace(cities$municipio, "CAJEME", "CIUDAD OBREGÓN")
   cities$municipio <- str_replace(cities$municipio, "ACAPULCO DE JUÁREZ", "ACAPULCO")
   cities$municipio <- str_replace(cities$municipio, "SUCHIATE", "CIUDAD HIDALGO")
   #cities$municipio <- str_replace(cities$municipio, "POZA RICA DE HIDALGO", "POZA RICA")
