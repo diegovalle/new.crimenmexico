@@ -32,6 +32,7 @@ var lesiones_data = [
       sup: 1032059 + 78700.1618011502,
       inf: 1032059 - 78700.1618011502,
     },
+    {date: 2019, value: 1102457, sup: 1102457 + 112375.118767821, inf: 1102457 - 112375.118767821},
   ],
   [
     {date: 2015, value: 150711},
@@ -47,6 +48,7 @@ var secuestro_data = [
     {date: 2016, value: 66842, sup: 81522, inf: 52162},
     {date: 2017, value: 80319, sup: 80319 * 1.21, inf: 80319 * 0.79},
     {date: 2018, value: 79315, sup: 92998, inf: 65632},
+    {date: 2019, value: 105189, sup: 129706, inf: 80672},
   ],
   [
     {date: 2015, value: 1310},
@@ -62,6 +64,7 @@ var extorsion_data = [
     {date: 2016, value: 7503477, sup: 7787836, inf: 7219118},
     {date: 2017, value: 6590728, sup: 6590728 + 182555, inf: 6590728 - 182555},
     {date: 2018, value: 5716346, sup: 5716346 + 155019, inf: 5716346 - 155019},
+    {date: 2019, value: 4617275, sup: 4617275 + 189696.522637496, inf: 4617275 - 189696.522637496},
   ],
   [
     {date: 2015, value: 5277},
@@ -71,7 +74,8 @@ var extorsion_data = [
     {date: 2019, value: 8523}
   ],
 ];
-//Robo total de vehículo (automóvil, camioneta, camión).
+// Robo total de vehículo (automóvil, camioneta, camión).
+// Amis: http://www.amisprensa.org/wp-content/uploads/2020/02/Robo-de-autos-2019-V4-1VF_compressed-1.pdf
 var robocoche_data = [
   [
     {date: 2015, value: 452001, sup: 486110, inf: 417893},
@@ -83,6 +87,7 @@ var robocoche_data = [
       sup: 605817 + 23245.2550962169,
       inf: 605817 - 23245.2550962169,
     },
+    {date: 2019, value: 645618, sup: 645618 + 26159.9756948209, inf: 645618 - 26159.9756948209},
   ],
   [
     {date: 2015, value: 145734},
@@ -92,10 +97,11 @@ var robocoche_data = [
     {date: 2019, value: 150306}
   ],
   [
-    {date: 2015, value: 63044},
-    {date: 2016, value: 80542},
-    {date: 2017, value: 93168},
-    {date: 2018, value: 91559},
+    {date: 2015, value: 60829},
+    {date: 2016, value: 69422},
+    {date: 2017, value: 89045},
+    {date: 2018, value: 94544},
+    {date: 2019, value: 84133},
   ],
 ];
 
