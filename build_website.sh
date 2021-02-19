@@ -46,7 +46,7 @@ cp R/interactive-map/municipios*.json elcri.men/static/elcrimen-json/
 
 npm install -g npm@6.14.5
 if ! [ -x "$(command -v gatsby)" ]; then
-    npm install -g gatsby-cli@2.32.3
+    npm install -g gatsby-cli@2.11.5
 fi
 export GATSBY_TELEMETRY_DISABLED=1
 (cd elcri.men && npm install && gatsby build --verbose)
