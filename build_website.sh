@@ -11,6 +11,13 @@ ESTADOS_FILE=nm-fuero-comun-estados.csv.gz
 MUNICIPIOS_FILE=nm-fuero-comun-municipios.csv.gz
 VICTIMAS_FILE=nm-estatal-victimas.csv.gz
 
+if [ "$CI" = true ] ; then
+  # Upload a copy of the database
+  rsync --exclude='.git/' --exclude='nm*.csv.gz' -az --compress-level=9 --stats -e 'ssh  -o StrictHostKeyChecking=no -i /root/.ssh/crimenmexico' --delete /root/new.crimenmexico  crimenmexico@"$IPADDRESS":/home/crimenmexico
+  # copy the csv.gz files to data.diegovalle.net
+  rsync --omit-dir-times -rz --compress-level=9 --stats -e 'ssh  -o StrictHostKeyChecking=no -i /root/.ssh/crimenmexico' /root/new.crimenmexico/data/  crimenmexico@"$IPADDRESS":/var/www/data.diegovalle.net/elcrimen
+fi
+
 
 # Convert the infographics R created to png and optimize for the web
 for filename in R/graphs/*.svg; do
