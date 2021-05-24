@@ -3,6 +3,10 @@
 set -e # stop the script on errors
 set -o pipefail # piping a failed process into a successful one is an error
 
+if [ "$CI" = true ] ; then
+  # copy the csv.gz files to data.diegovalle.net
+  rsync --omit-dir-times -rz --compress-level=9 --stats -e 'ssh  -o StrictHostKeyChecking=no -i /root/.ssh/crimenmexico' /root/new.crimenmexico/data/  crimenmexico@"$IPADDRESS":/var/www/data.diegovalle.net/elcrimen
+fi
 
 # Commit generated infographics
 if [[ $(git status --porcelain elcri.men/static/e*) ]]; then
