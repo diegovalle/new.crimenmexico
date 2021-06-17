@@ -42,5 +42,14 @@
 /es/ENVIPE.html                        https://elcri.men/envipe/                               301  
 /es/municipios-mas-violentos.html      https://elcri.men/municipios-mas-violentos/             301  
 
+/data/victimas.csv.gz                  https://data.diegovalle.net/elcrimen/victimas.csv.gz    301
+/data/fuero-comun-municipios.csv.gz    https://data.diegovalle.net/elcrimen/fuero-comun-municipios.csv.gz    301
+/data/fuero-comun-estados.csv.gz       https://data.diegovalle.net/elcrimen/fuero-comun-estados.csv.gz   301
+
+
+/data/nm-estatal-victimas.csv.gz       https://elcri.men/acerca/#:~:text=nm-estatal-victimas.csv.gz 301
+/data/nm-fuero-comun-estados.csv.gz    https://data.diegovalle.net/elcrimen/nm-fuero-comun-estados.csv.gz    301
+/data/nm-fuero-comun-municipios.csv.gz https://data.diegovalle.net/elcrimen/nm-fuero-comun-municipios.csv.gz   301
+
 # Custom 404 English page
 /en/*                                  /en/404.html                                            404
