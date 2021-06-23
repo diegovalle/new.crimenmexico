@@ -11,12 +11,6 @@ ESTADOS_FILE=nm-fuero-comun-estados.csv.gz
 MUNICIPIOS_FILE=nm-fuero-comun-municipios.csv.gz
 VICTIMAS_FILE=nm-estatal-victimas.csv.gz
 
-if [ "$CI" = true ] ; then
-  # Upload a copy of the database
-  rsync --exclude='.git/' --exclude='nm*.csv.gz' -az --compress-level=9 --stats -e 'ssh  -o StrictHostKeyChecking=no -i /root/.ssh/crimenmexico' --delete /root/new.crimenmexico  crimenmexico@"$IPADDRESS":/home/crimenmexico
-fi
-
-
 # Convert the infographics R created to png and optimize for the web
 for filename in R/graphs/*.svg; do
     if [ ! -f "R/graphs/$(basename "$filename" .svg).png" ]
@@ -49,6 +43,13 @@ fi
 (cd R/interactive-map/ && ./convert.sh)
 cp R/interactive-map/municipios*.json elcri.men/static/elcrimen-json/
 
+# Copy the files to a backup server
+if [ "$CI" = true ] ; then
+  # Upload a copy of the database
+  rsync --exclude='.git/' --exclude='nm*.csv.gz' -az --compress-level=9 --stats -e 'ssh  -o StrictHostKeyChecking=no -i /root/.ssh/crimenmexico' --delete /root/new.crimenmexico  crimenmexico@"$IPADDRESS":/home/crimenmexico
+fi
+
+# Build the gatsby website
 npm install -g npm@6.14.5
 if ! [ -x "$(command -v gatsby)" ]; then
     npm install -g gatsby-cli@2.11.5
