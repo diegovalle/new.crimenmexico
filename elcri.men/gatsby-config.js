@@ -143,6 +143,18 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     'gatsby-plugin-react-helmet',
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: 'ElCri.men',
+        short_name: 'elcrimen',
+        start_url: '/',
+        background_color: '#ffffff',
+        theme_color: '#ffffff',
+        display: 'minimal-ui',
+        icon: `src/favicon.png`,
+      },
+    },
     'gatsby-plugin-sass',
     {
       resolve: `gatsby-plugin-sitemap`,
