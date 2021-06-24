@@ -65,14 +65,13 @@ tryCatch({
                                    "MANZANILLO, COLIMA",
                                    #"VICTORIA, TAMAULIPAS",
                                    "ZACATECAS, ZACATECAS",
-                                   "APATZINGÁN, MICHOACÁN",
+                                   #"APATZINGÁN, MICHOACÁN",
                                    #"TEPIC, NAYARIT",
                                    "CULIACÁN, SINALOA",
                                    "GUADALUPE Y CALVO, CHIHUAHUA",
                                    "MIGUEL ALEMÁN, TAMAULIPAS",
                                    #"COATZACOALCOS, VERACRUZ",
                                    "BENITO JUÁREZ, QUINTANA ROO",
-                                   #"GUAYMAS, SONORA",
                                    "JOJUTLA, MORELOS",
                                    "ZAMORA, MICHOACÁN",
                                    "GUAYMAS, SONORA",
@@ -81,8 +80,8 @@ tryCatch({
                                    "SALAMANCA, GUANAJUATO",
                                    "TECAMACHALCO, PUEBLA",
                                    "JUÁREZ, CHIHUAHUA",
-                                   "BENEMÉRITO DE LAS AMÉRICAS, CHIAPAS",
-                                   "SUCHIATE, CHIAPAS",
+                                   #"BENEMÉRITO DE LAS AMÉRICAS, CHIAPAS",
+                                   #"SUCHIATE, CHIAPAS",
                                    "CABORCA, SONORA"))
   cities$group <- 1
   cities$municipio <- str_replace(cities$municipio, "BENITO JUÁREZ", "CANCÚN")
