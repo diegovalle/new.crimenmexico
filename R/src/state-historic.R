@@ -14,24 +14,26 @@ pop_states_national <-  read.csv('../clean/data/pop_states.csv') %>%
 
 pop_states <-  read.csv('../clean/data/pop_states.csv') %>%
   rename(pop = population) %>%
-  mutate(date = str_sub(date, 1, 7))
+  mutate(date = str_sub(date, 1, 7)) %>%
+  mutate(state_code = as.character(state_code))
 pop_states <- rbind(pop_states, pop_states_national)
 
 months <- as.character(c(1:12))
 names(months) <- unique(c("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", 
                           "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"))
-inegi90 <- read.csv('data/INEGI_exporta.csv', skip = 3, 
+inegi90 <- read.csv('data/INEGI_exporta.csv', skip = 6, 
                     fileEncoding = 'cp1252', stringsAsFactors = FALSE) %>%
   filter(X != "FUENTE: INEGI. Estadísticas de mortalidad.") %>%
   mutate(X.1 = str_replace(X.1, "=CONCATENAR\\(.*,", "")) %>%
   mutate(X.1 = str_replace(X.1, "\\)", "")) %>%
-  dplyr::select(-Total, -X.2, -X.3) %>%
+  dplyr::select(-Total, -X.2) %>%
   rename(state_code = X.1, year = X) %>%
-  mutate(state_code = ifelse(state_code == " ", "national", as.integer(state_code))) %>%
+  mutate(state_code = ifelse(is.na(state_code), "national", as.character(state_code))) %>%
   gather(month, count, 3:14) %>%
   filter(!state_code %in% c(33, 34)) %>%
   mutate(month = str_replace_all(month,  months)) %>%
   mutate(date = str_c(year, '-', str_pad(month, 2, 'left', '0'))) %>%
+  mutate(date = str_trim(date)) %>%
   mutate(count = str_replace(count, ',', '')) %>%
   mutate(count = as.integer(ifelse(count == "", 0, count)))%>%
   dplyr::select(-year, -month)  %>%
