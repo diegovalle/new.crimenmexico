@@ -21,6 +21,7 @@ pop_states <- rbind(pop_states, pop_states_national)
 months <- as.character(c(1:12))
 names(months) <- unique(c("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", 
                           "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"))
+print("processing INEGI data")
 inegi90 <- read.csv('data/INEGI_exporta.csv', skip = 6, 
                     fileEncoding = 'cp1252', stringsAsFactors = FALSE) %>%
   filter(X != "FUENTE: INEGI. Estadísticas de mortalidad.") %>%
