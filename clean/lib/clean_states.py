@@ -487,6 +487,8 @@ class CrimeMunicipios(CrimeStates):
             print('setting counts as NA for state_code: 20 with date 2016-10 because they are all zeros')
 
         #import pdb;pdb.set_trace()
+        # Temporary fix because of new municipios with no matching population
+        #crime_municipios.data = crime_municipios.data[(crime_municipios.data['state_code'] != 2) & (crime_municipios.data['mun_code'] != 6)]
         return df
 		
 
