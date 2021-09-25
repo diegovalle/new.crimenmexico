@@ -33,13 +33,15 @@ var lesiones_data = [
       inf: 1032059 - 78700.1618011502,
     },
     {date: 2019, value: 1102457, sup: 1102457 + 112375.118767821, inf: 1102457 - 112375.118767821},
+    {date: 2020, value: 928471, sup: 928471 + 52192.4166909969, inf: 928471 - 52192.4166909969},
   ],
   [
-    {date: 2015, value: 150711},
-    {date: 2016, value: 148391},
-    {date: 2017, value: 165092},
-    {date: 2018, value: 158569},
-    {date: 2019, value: 170216}
+    {date: 2015, value: 153458},
+    {date: 2016, value: 149961},
+    {date: 2017, value: 167680},
+    {date: 2018, value: 170572},
+    {date: 2019, value: 181936},
+    {date: 2020, value: 161071}
   ],
 ];
 var secuestro_data = [
@@ -49,13 +51,15 @@ var secuestro_data = [
     {date: 2017, value: 80319, sup: 80319 * 1.21, inf: 80319 * 0.79},
     {date: 2018, value: 79315, sup: 92998, inf: 65632},
     {date: 2019, value: 105189, sup: 129706, inf: 80672},
+    {date: 2020, value: 74393, sup: 89015, inf: 59771},
   ],
   [
-    {date: 2015, value: 1310},
+    {date: 2015, value: 1312},
     {date: 2016, value: 1381},
     {date: 2017, value: 1390},
-    {date: 2018, value: 1559},
-    {date: 2019, value: 1614},
+    {date: 2018, value: 1560},
+    {date: 2019, value: 1630},
+    {date: 2020, value: 1047},
   ],
 ];
 var extorsion_data = [
@@ -65,17 +69,19 @@ var extorsion_data = [
     {date: 2017, value: 6590728, sup: 6590728 + 182555, inf: 6590728 - 182555},
     {date: 2018, value: 5716346, sup: 5716346 + 155019, inf: 5716346 - 155019},
     {date: 2019, value: 4617275, sup: 4617275 + 189696.522637496, inf: 4617275 - 189696.522637496},
+    {date: 2020, value: 4660898, sup: 4660898 + 136221.422399905, inf: 4660898 - 136221.422399905},
   ],
   [
-    {date: 2015, value: 5277},
-    {date: 2016, value: 5395},
-    {date: 2017, value: 5947},
-    {date: 2018, value: 6606},
-    {date: 2019, value: 8523}
+    {date: 2015, value: 6223},
+    {date: 2016, value: 5854},
+    {date: 2017, value: 6278},
+    {date: 2018, value: 6895},
+    {date: 2019, value: 9003},
+    {date: 2020, value: 8380}
   ],
 ];
 // Robo total de vehículo (automóvil, camioneta, camión).
-// Amis: http://www.amisprensa.org/wp-content/uploads/2020/02/Robo-de-autos-2019-V4-1VF_compressed-1.pdf
+// Amis: https://www.amisprensa.org/wp-content/uploads/2021/02/Robo-de-autos-enero-a-diciembre-2020-V6.pdf
 var robocoche_data = [
   [
     {date: 2015, value: 452001, sup: 486110, inf: 417893},
@@ -88,20 +94,23 @@ var robocoche_data = [
       inf: 605817 - 23245.2550962169,
     },
     {date: 2019, value: 645618, sup: 645618 + 26159.9756948209, inf: 645618 - 26159.9756948209},
+    {date: 2020, value: 473640, sup: 473640 + 20815.1807250605, inf: 473640 - 20815.1807250605},
   ],
   [
-    {date: 2015, value: 145734},
-    {date: 2016, value: 153437},
-    {date: 2017, value: 179709},
-    {date: 2018, value: 178935},
-    {date: 2019, value: 150306}
+    {date: 2015, value: 145796 + 15949},
+    {date: 2016, value: 153418 + 22246},
+    {date: 2017, value: 179721 + 31938},
+    {date: 2018, value: 178935 + 36004},
+    {date: 2019, value: 152544 + 35797},
+    {date: 2020, value: 115325 + 30804}
   ],
   [
-    {date: 2015, value: 60829},
-    {date: 2016, value: 69422},
-    {date: 2017, value: 89045},
-    {date: 2018, value: 94544},
-    {date: 2019, value: 84133},
+    {date: 2015, value: 60700},
+    {date: 2016, value: 69200},
+    {date: 2017, value: 87800},
+    {date: 2018, value: 92600},
+    {date: 2019, value: 85400},
+    {date: 2020, value: 68100}
   ],
 ];
 
