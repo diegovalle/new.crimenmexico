@@ -51,7 +51,8 @@ convert_to_csv() {
 }
 
 if ! [ -x "$(command -v gdown)" ]; then
-    pip install gdown==3.13.0
+    pip install --upgrade pip
+    pip install gdown
 fi
 
 URL="https://www.gob.mx/sesnsp/acciones-y-programas/incidencia-delictiva-del-fuero-comun-nueva-metodologia?state=published"
