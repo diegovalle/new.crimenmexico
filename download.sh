@@ -51,8 +51,9 @@ convert_to_csv() {
 }
 
 if ! [ -x "$(command -v gdown)" ]; then
-    pip install --upgrade pip
-    pip install gdown
+    virtualenv gdown
+    . gdown/bin/activate
+    pip2 install gdown
 fi
 
 URL="https://www.gob.mx/sesnsp/acciones-y-programas/incidencia-delictiva-del-fuero-comun-nueva-metodologia?state=published"
@@ -66,3 +67,5 @@ estatal_download "$URL_VIC" "V&iacute;ctimas" "$ESTADOS_VIC_ZIP"
 convert_to_csv "$ESTADOS_FC_ZIP" estados
 convert_to_csv "$MUN_FC_ZIP" municipios
 convert_to_csv "$ESTADOS_VIC_ZIP" estados_victimas
+
+deactivate || true
