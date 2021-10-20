@@ -53,7 +53,7 @@ convert_to_csv() {
 if ! [ -x "$(command -v gdown)" ]; then
     virtualenv gdown
     set +u
-    source root/new.crimenmexico/gdown/bin/activate
+    source /root/new.crimenmexico/gdown/bin/activate
     set -u
     pip2 install gdown
 fi
