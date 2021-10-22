@@ -69,9 +69,11 @@ bigBins <- function(vic, max_date, legend_title, title, crime) {
                                   color = "#0D0D0D", size = 10),
       legend.text = element_text(family = "Ubuntu", color = "#0D0D0D", size = 9),
       legend.key = element_rect(fill = NA),
-      legend.background = element_rect(fill = "#C7B470"),
+      legend.background = element_rect(fill = "#C7B470",
+                                       color = "#C7B470"),
       legend.key.height = unit(.7, "cm"), 
-      legend.key.width = unit(1.1, "cm")
+      legend.key.width = unit(1.1, "cm"),
+      panel.grid.major.y = element_blank(),
     ) +
     scale_fill_gradientn(legend_title,
                          colours = brewer.pal(9, "YlOrRd"),
