@@ -1,6 +1,6 @@
 
 if (!require(devtools)) {
-  install.packages("devtools", repos="https://mran.revolutionanalytics.com/snapshot/2018-07-30")
+  install.packages("devtools")
 }
 
 if (!require("mxmaps")) {

@@ -55,7 +55,7 @@ if ! [ -x "$(command -v gdown)" ]; then
     set +u
     source /root/new.crimenmexico/gdown/bin/activate
     set -u
-    pip2 install gdown
+    pip install gdown
 fi
 
 URL="https://www.gob.mx/sesnsp/acciones-y-programas/incidencia-delictiva-del-fuero-comun-nueva-metodologia?state=published"
