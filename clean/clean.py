@@ -1,9 +1,8 @@
 #!/usr/bin/env python # -*- coding: utf-8 -*-
-from BeautifulSoup import BeautifulSoup, SoupStrainer
 import requests
 import re
 import pycurl
-from StringIO import StringIO
+from io import StringIO
 import ntpath
 import hashlib
 import urllib
@@ -62,17 +61,18 @@ def write_mun_db(conn, CSV_MUNICIPIOS):
     pd_sql.to_sql(crime_municipios.population, 'population_municipios', conn, if_exists='append', index=False, chunksize=20000)
     print("Writing municipio data to db")
     for i in crime_municipios.years:
-		print("Writing year: " + i)
-		pd_sql.to_sql(crime_municipios.get_filtered_data(i, os.path.join('snsp-data', CSV_MUNICIPIOS)), 'municipios_fuero_comun', conn, if_exists='append', index=False, chunksize=1000000)
+        print("Writing year: " + i)
+        pd_sql.to_sql(crime_municipios.get_filtered_data(i, os.path.join('snsp-data', CSV_MUNICIPIOS)), 'municipios_fuero_comun', conn, if_exists='append', index=False, chunksize=1000000)
     print("End writing municipio data to db")
 
-#Clean the state and municipio fuero comun CSV files
+
+# Clean the state and municipio fuero comun CSV files
 CLEAN_DIR = os.path.join('..', 'db')
 
 conn = sq.connect(os.path.join(CLEAN_DIR, 'crimenmexico.db'))
 conn.execute('pragma foreign_keys=ON')
 write_state_victimas_db(conn, 'estados_victimas.csv')
-write_state_db(conn, 'estados.csv') 
+write_state_db(conn, 'estados.csv')
 write_mun_db(conn, 'municipios.csv')
 
 conn.close()
