@@ -13,7 +13,7 @@
     - name: Ensure .ssh directory exists.
       when: secrets is defined
       file:
-        dest: "{{ key_file | dirname }}"
+        dest:  ~/.ssh/
         mode: 0700
         state: directory
 
@@ -21,13 +21,13 @@
       when: secrets is defined
       copy:
         content: "{{ ssh_key }}"
-        dest: "{{ key_file }}"
+        dest: ~/.ssh/crimenmexico
         mode: 0600
       no_log: true
 
     # Use 'ssh-keyscan -t rsa IP' to create the crimenmexico.known_host file
     - name: tell the host about servers it might want to ssh to
       when: secrets is defined
-      known_hosts: path='/etc/ssh/ssh_known_hosts'
+      known_hosts: path='~/.ssh/known_hosts'
                    name="{{  lookup('env','IPADDRESS') }}"
                    key="{{ lookup('file', 'crimenmexico.known_host') }}"

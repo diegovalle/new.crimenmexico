@@ -51,10 +51,9 @@ convert_to_csv() {
 }
 
 if ! [ -x "$(command -v gdown)" ]; then
-    virtualenv gdown
-    set +u
-    source /root/new.crimenmexico/gdown/bin/activate
-    set -u
+    virtualenv ~/.virtualenvs/gdown
+    # shellcheck source=/dev/null
+    source /home/rstudio/.virtualenvs/gdown/bin/activate
     pip install gdown
 fi
 

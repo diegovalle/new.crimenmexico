@@ -18,6 +18,8 @@ the private key to deploy to [elcri.men](https://elcri.men) you should instead s
 
 ```
 cd ~/new.crimenmexico
+git config --global url."https://github.com/".insteadOf git@github.com:
+git config --global url."https://".insteadOf git://
 git pull
 make download_csv download_inegi clean_data analysis website
 ```

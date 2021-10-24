@@ -51,7 +51,7 @@ def write_state_db(conn, CSV_ESTADOS):
 def write_mun_db(conn, CSV_MUNICIPIOS):
     print("Cleaning municipio data")
     crime_municipios = CrimeMunicipios(os.path.join('snsp-data', CSV_MUNICIPIOS))
-    print("Writing metada to db")
+    print("Writing metadata to db")
     # has to be append to preserve the foreign keys
     pd_sql.to_sql(crime_municipios.tipo, 'tipo_municipios', conn, if_exists='append', index=False)
     pd_sql.to_sql(crime_municipios.subtipo, 'subtipo_municipios', conn, if_exists='append', index=False)

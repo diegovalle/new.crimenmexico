@@ -13,6 +13,7 @@ VICTIMAS_FILE=nm-estatal-victimas.csv.gz
 
 # Convert the infographics R created to png and optimize for the web
 for filename in R/graphs/*.svg; do
+    [ -f "$filename" ] || continue
     if [ ! -f "R/graphs/$(basename "$filename" .svg).png" ]
     then
         echo "Converting $filename"
@@ -46,18 +47,10 @@ cp R/interactive-map/municipios*.json elcri.men/static/elcrimen-json/
 # Copy the files to a backup server
 if [ "$CI" = true ] ; then
   # Upload a copy of the database
-  rsync --exclude='.git/' --exclude='nm*.csv.gz' -az --compress-level=9 --stats -e 'ssh  -o StrictHostKeyChecking=no -i /root/.ssh/crimenmexico' --delete /root/new.crimenmexico  crimenmexico@"$IPADDRESS":/home/crimenmexico
+  rsync --exclude='.git/' --exclude='nm*.csv.gz' -az --compress-level=9 --stats -e 'ssh  -o StrictHostKeyChecking=no -i ~/.ssh/crimenmexico' --delete ~/new.crimenmexico  crimenmexico@"$IPADDRESS":/home/crimenmexico
 fi
 
-# Build the gatsby website
-npm install -g npm@6.14.5
-if ! [ -x "$(command -v gatsby)" ]; then
-    npm install -g gatsby-cli@2.11.5
-fi
 export GATSBY_TELEMETRY_DISABLED=1
-if [ "$CI" = true ] ; then
-    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - && sudo apt install nodejs
-fi
 (cd elcri.men && npm install && gatsby build --verbose)
 
 echo "Exporting databases to csv.gz"
