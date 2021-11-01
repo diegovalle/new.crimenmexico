@@ -1,72 +1,141 @@
-import React from 'react'
-import { curveLinear as linear } from 'd3-shape'
-import { format as num_format } from 'd3-format'
-import { timeFormat as date_format } from 'd3-time-format'
-import MetricsGraphics from 'react-metrics-graphics'
-import 'metrics-graphics/dist/metricsgraphics.css'
-import SmallMultipleTrend from '../components/SmallMultipleTrend'
+import React, {useState, useEffect} from 'react';
+import {curveLinear as linear} from 'd3-shape';
+import {format as num_format} from 'd3-format';
+import {timeFormat as date_format} from 'd3-time-format';
+import {groupBy, map, reduce, sortBy, filter, max, maxBy} from 'lodash-es';
+import HeroTitle from '../components/HeroTitle';
+import {useIntl, injectIntl, FormattedMessage} from 'react-intl';
+import MetricsGraphics from 'react-metrics-graphics';
+import 'metrics-graphics/dist/metricsgraphics.css';
+import SmallMultipleTrend from '../components/SmallMultipleTrend';
+import {timeFormatDefaultLocale, timeFormatLocale} from 'd3-time-format';
+import {dateLoc} from '../../src/i18n';
+import '../assets/css/trends.css';
 
-import '../assets/css/trends.css'
+function TrendChart (props) {
+  const [data, setData] = useState (null);
 
-class TrendChart extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      data: null,
-    }
-  }
-
-  componentDidMount() {
-    fetch('/elcrimen-json/states_trends.json')
-      .then(response => response.json())
-      .then(responseJSON => {
-        this.setState({ data: responseJSON })
+  useEffect (() => {
+    fetch ('/elcrimen-json/states_trends.json')
+      .then (response => response.json ())
+      .then (responseJSON => {
+        setData (responseJSON);
       })
-      .catch(error => {
-        console.error(error)
-      })
-  }
+      .catch (error => {
+        console.error (error);
+      });
+  }, []);
 
-  formatData(data) {
-    let state = Object.keys(data)[0]
-    let len = data[state][0].length
-    let state_tidy = [[], []]
+  const maxRate = data => {
+    if (!data  || data.length == 0) return null;
+    let max_rate = maxBy (data, function (o) {
+      console.log (Object.keys (o));
+      return max (o[Object.keys (o)[0]][3]);
+    });
+    return max (max_rate[Object.keys (max_rate)[0]][3]);
+  };
+
+  const formatData = data => {
+    let state = Object.keys (data)[0];
+    let len = data[state][0].length;
+    let state_tidy = [[], []];
     for (let i = 0; i < len; i++) {
-      let d = new Date(2015, 0, 1)
-      state_tidy[0].push({
+      let d = new Date (2015, 0, 1);
+      state_tidy[0].push ({
         value: data[state][1][i],
-        date: new Date(d.setMonth(d.getMonth() + i)),
+        date: new Date (d.setMonth (d.getMonth () + i)),
         l: data[state][0][i],
         u: data[state][2][i],
         active: true,
-      })
-      state_tidy[1].push({
+      });
+      state_tidy[1].push ({
         value: data[state][3][i],
-        date: new Date(d.setMonth(d.getMonth())),
+        date: new Date (d.setMonth (d.getMonth ())),
         active: true,
-      })
+      });
     }
     //for (var i = 0; i < state_tidy.length; i++) {
     //    state_tidy[i] = MG_convert_date(state_tidy[i], "date");
-     // }
-    return state_tidy
-  }
+    // }
+    return state_tidy;
+  };
 
-  render() {
-    return (
-      <div className="grid-wrapper" id="small-multiples">
-      
-        {this.state.data ? (
-          this.state.data.map((state, i) => (
-            <SmallMultipleTrend data={state} key={i} formatData={this.formatData}/>
-          ))
-        ) : (
-          <div></div>
-        )}
-      
+  const intl = useIntl ();
+  let l;
+  intl.locale === 'es' ? (l = timeFormatDefaultLocale (dateLoc.es_MX)) : null;
+
+  console.time ();
+  let pos = filter (data, function (o) {
+    return o.trend[0] === 'positive';
+  });
+  let max_pos = maxRate (pos);
+
+  let neg = filter (data, function (o) {
+    return o.trend[0] === 'negative';
+  });
+  let max_neg = maxRate (neg);
+
+  let na = filter (data, function (o) {
+    return o.trend[0] === null;
+  });
+  let max_na = maxRate (na);
+  console.timeEnd ();
+  return (
+    <div id="up-down">
+
+<HeroTitle>
+            {intl.formatMessage ({id: 'States with an upward trend'})}
+          </HeroTitle>
+
+    <div className="grid-wrapper" id="small-multiples">
+      <div className="columns is-multiline" id="small-multiples">
+        {pos
+          ? pos.map ((state, i) => (
+              <div className="column is-3" key={i}>
+                <figure className="image is-16by9" key={i}>
+                  <div className=" has-ratio" key={i}>
+                    <SmallMultipleTrend
+                      data={state}
+                      key={i}
+                      formatData={formatData}
+                      max_y={max_pos}
+                    />
+                  </div>
+                </figure>
+              </div>
+            ))
+          : <div />}
       </div>
-    )
-  }
+    </div>
+
+<HeroTitle>
+            {intl.formatMessage ({id: 'States with a downward trend'})}
+          </HeroTitle>
+
+     <div className="grid-wrapper" id="small-multiples">
+      <div className="columns is-multiline" id="small-multiples">
+        {neg
+          ? neg.map ((state, i) => (
+              <div className="column is-3" key={i}>
+                <figure className="image is-16by9" key={i}>
+                  <div className=" has-ratio" key={i}>
+                    <SmallMultipleTrend
+                      data={state}
+                      key={i}
+                      formatData={formatData}
+                      max_y={max_neg}
+                    />
+                  </div>
+                </figure>
+              </div>
+            ))
+          : <div />}
+      </div>
+    </div>
+
+
+    </div>
+  );
 }
 
-export default TrendChart
+export default TrendChart;
