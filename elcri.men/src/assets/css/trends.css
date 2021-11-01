@@ -1,18 +1,17 @@
 path.mg-confidence-band {
-    fill: #101010;
+    fill: #969696;
     opacity: 0.4;
     stroke: none;
 }
-/*path.mg-line1 {
+path.mg-line1 {
     fill: none;
     opacity: 1;
     stroke-width: 2.1px;
 }
-path.mg-line2 {
+svg > mg-line2 {
     fill: none;
     opacity: 1;
-    stroke-width: .5px;
-}*/
+}
 
 
 

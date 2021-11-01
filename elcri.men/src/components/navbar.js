@@ -214,7 +214,7 @@ const Navbar = ({locale, path}) => {
               className={
                 'navbar-link ' +
                   colorMenu (
-                    /tendencias|trends|envipe|underreporting-crime|anomalias|anomalies|infograficas|infographics/g,
+                    /tendencias|trends|envipe|underreporting-crime|anomalias|anomalies|infograficas|infographics|tendencias_estado|trends_state/g,
                     path
                   )
               }
@@ -240,6 +240,15 @@ const Navbar = ({locale, path}) => {
                 activeClassName="has-background-grey-dark has-text-white-ter has-text-weight-bold active"
               >
                 {intl.formatMessage ({id: 'trends'})}
+              </LLink>
+               <LLink
+                locale={locale}
+                className="navbar-item"
+                to="/tendencias_estado/"
+                partiallyActive={true}
+                activeClassName="has-background-grey-dark has-text-white-ter has-text-weight-bold active"
+              >
+                {intl.formatMessage ({id: 'trends_state'})}
               </LLink>
               <LLink
                 locale={locale}

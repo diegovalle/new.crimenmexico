@@ -21,7 +21,7 @@
   "Reporte de": "Reporte de",
   "author": "Autor",
   "name": "Diego Valle Jones",
-  "Please visit": "Si necesitan <a href=\"https://hoyodecrimen.com/en\">información delincuencial de CDMX</a> no olviden visitar HoyoDeCrimen",
+  "Please visit": "Si necesitan <a href=\"https://hoyodecrimen.com/en\">información delincuencial de CDMX</a> no se olviden de visitar HoyoDeCrimen",
   "© All rights reserved": "© Todos los derechos reservados",
   "Delincuencia en México - El Crimen": "Delincuencia en México - El Crimen",
   "desc_index": "Descubre estadísticas de la delincuencia en tu estado y municipio con este mapa interactivo y reporte mensual de homicidios, secuestros, robos y más en México",
@@ -127,7 +127,7 @@
   "munnames_ans": "Vienen del <a href=\"https://www.inegi.org.mx/app/ageeml/\">Catálogo de entidades federativas, municipios y localidades del INEGI</a>",
   "rates_ans": "Las tasas que se muestran en este sitio están anualizadas (multiplicadas por 12) y usan meses de 30 días. Para obtener la tasa hay que dividir el número de asesinatos por el número de días del mes y multiplicar por 30",
   "indp_ans": "No, es completamente independiente",
-  "contact_ans": "Me pueden contactar en: <a href=\"https://www.diegovalle.net/contact.html\">https://www.diegovalle.net/contact.html</a>",
+  "contact_ans": "Me pueden contactar en: <a href=\"https://www.diegovalle.net/contact/\">https://www.diegovalle.net/contact/</a>",
   "title_mapa": "Mapa de Delincuencia en México",
   "desc_mapa": "Mapa interactivo de homicidios en México a nivel municipio. Ubica geográficamente y expone hechos delictivos",
   "title_clusters": "Hotspots de homicidio - Delincuencia en México",
@@ -168,5 +168,10 @@
   "title_tourism": "Destinos turísiticos más seguros de México",
   "desc_tourism": "Mapa de las ciudades más seguras para hacer turismo en México. Información de: Cancún, Oaxaca, Guanajuato, Puebla, Puerto Vallarta, Cabo San Lucas, San Miguel de Allende, Tulum...",
   "number of homicides:": "número de homicidios:",
-  "homicide rate:": "tasa de homicidio:"
+  "homicide rate:": "tasa de homicidio:",
+  "title_trends_states": "Tendencias de homicidio por estado",
+  "desc_trends_states": "Las tendencias de homicidio van en aumento o descenso en cada estado de México",
+  "States with a downward trend": "Estados con una tendencia a la baja",
+  "States with an upward trend": "Estados con una tendencia al alza",
+  "trends_state": "Tendencias por estados"
 }

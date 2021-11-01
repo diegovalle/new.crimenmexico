@@ -127,7 +127,7 @@
   "munnames_ans": "They come from the <a href=\"https://www.inegi.org.mx/app/ageeml/\">Catálogo de entidades federativas, municipios y localidades del INEGI</a>",
   "rates_ans": "The rates shown on this website are annualized (multiplied by 12) and use 30 day months, so you have to divide the homicide numbers by the number of days in the month and then multiply by 30",
   "indp_ans": "No, it's completly independent",
-  "contact_ans": "You can contact me by using the information in the footer or using the form available at: <a href=\"https://www.diegovalle.net/contact.html\">https://www.diegovalle.net/contact.html</a>",
+  "contact_ans": "You can contact me by using the information in the footer or using the form available at: <a href=\"https://www.diegovalle.net/contact/\">https://www.diegovalle.net/contact/</a>",
   "title_mapa": "Mexico Crime Map - Mexico Crime Report",
   "desc_mapa": "This interactive map shows violence in Mexico at the municipio (county) level. Homicide rates in your area.",
   "title_clusters": "Cluster Map of Homicides- Mexico Crime Report",
@@ -167,5 +167,10 @@
   "title_tourism": "Safest places to visit in Mexico",
   "desc_tourism": "Map of the safest and best places to visit in Mexico. Cancún. Oaxaca. Guanajuato. Puebla. Puerto Vallarta. Cabo San Lucas. San Miguel de Allende. Tulum. Puerto Peñasco...",
   "number of homicides:": "number of homicides:",
-  "homicide rate:": "homicide rate:"
+  "homicide rate:": "homicide rate:",
+  "title_trends_states": "Homicide trends by states",
+  "desc_trends_states": "Are homicides going up or down in your state",
+  "States with a downward trend": "States with a downward trend",
+  "States with an upward trend": "States with an upward trend",
+  "trends_state": "Trends by state"
 }
