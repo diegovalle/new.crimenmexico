@@ -21,7 +21,7 @@
   "Reporte de": "Reporte de",
   "author": "Autor",
   "name": "Diego Valle Jones",
-  "Please visit": "Si necesitan <a href=\"https://hoyodecrimen.com/en\">información delincuencial de CDMX</a> no se olviden de visitar HoyoDeCrimen",
+  "Please visit": "Si necesitan <a href=\"https://hoyodecrimen.com/\">información delincuencial de CDMX</a> no se olviden de visitar <a href=\"https://hoyodecrimen.com/\">HoyoDeCrimen</a>",
   "© All rights reserved": "© Todos los derechos reservados",
   "Delincuencia en México - El Crimen": "Delincuencia en México - El Crimen",
   "desc_index": "Descubre estadísticas de la delincuencia en tu estado y municipio con este mapa interactivo y reporte mensual de homicidios, secuestros, robos y más en México",
@@ -171,7 +171,8 @@
   "homicide rate:": "tasa de homicidio:",
   "title_trends_states": "Tendencias de homicidio por estado",
   "desc_trends_states": "Las tendencias de homicidio van en aumento o descenso en cada estado de México",
-  "States with a downward trend": "Estados con una tendencia a la baja",
-  "States with an upward trend": "Estados con una tendencia al alza",
-  "trends_state": "Tendencias por estados"
+  "States with a downward trend": "Estados con una tendencia a la baja durante ",
+  "States with an upward trend": "Estados con una tendencia al alza durante ",
+  "trends_state": "Tendencias por estados",
+  "trend_text": "La tendencia corresponde a la primera derivada del último valor de un modelo aditivo generalizado ajustado a los valores de los homicidios quitando la tendencia estacional"
 }

@@ -3,6 +3,7 @@ import {curveLinear as linear} from 'd3-shape';
 import {format as num_format} from 'd3-format';
 import {timeFormat as date_format} from 'd3-time-format';
 import {groupBy, map, reduce, sortBy, filter, max, maxBy} from 'lodash-es';
+import {FormattedDate} from 'react-intl';
 import HeroTitle from '../components/HeroTitle';
 import {useIntl, injectIntl, FormattedMessage} from 'react-intl';
 import MetricsGraphics from 'react-metrics-graphics';
@@ -14,9 +15,10 @@ import '../assets/css/trends.css';
 
 function TrendChart (props) {
   const [data, setData] = useState (null);
+  const [month, setMonth] = useState (null);
 
   useEffect (() => {
-    fetch ('/elcrimen-json/states_trends.json')
+    fetch ('https://trends.elcri.men/states_trends.json')
       .then (response => response.json ())
       .then (responseJSON => {
         setData (responseJSON);
@@ -27,7 +29,7 @@ function TrendChart (props) {
   }, []);
 
   const maxRate = data => {
-    if (!data  || data.length == 0) return null;
+    if (!data || data.length == 0) return null;
     let max_rate = maxBy (data, function (o) {
       console.log (Object.keys (o));
       return max (o[Object.keys (o)[0]][3]);
@@ -38,6 +40,7 @@ function TrendChart (props) {
   const formatData = data => {
     let state = Object.keys (data)[0];
     let len = data[state][0].length;
+    setMonth (len % 12);
     let state_tidy = [[], []];
     for (let i = 0; i < len; i++) {
       let d = new Date (2015, 0, 1);
@@ -83,39 +86,81 @@ function TrendChart (props) {
   return (
     <div id="up-down">
 
-<HeroTitle>
-            {intl.formatMessage ({id: 'States with an upward trend'})}
-          </HeroTitle>
+      <HeroTitle>
+        {intl.formatMessage ({id: 'States with an upward trend'})}
+        {month
+          ? <i>
+              <FormattedDate
+                value={new Date (2020, month - 1, 1)}
+                month="long"
+              />
+            </i>
+          : null}
+      </HeroTitle>
 
-    <div className="grid-wrapper" id="small-multiples">
-      <div className="columns is-multiline" id="small-multiples">
-        {pos
-          ? pos.map ((state, i) => (
-              <div className="column is-3" key={i}>
-                <figure className="image is-16by9" key={i}>
-                  <div className=" has-ratio" key={i}>
-                    <SmallMultipleTrend
-                      data={state}
-                      key={i}
-                      formatData={formatData}
-                      max_y={max_pos}
-                    />
-                  </div>
-                </figure>
-              </div>
-            ))
-          : <div />}
+      <div className="grid-wrapper" id="small-multiples">
+        <div className="columns is-multiline" id="small-multiples">
+          {pos
+            ? pos.map ((state, i) => (
+                <div className="column is-3" key={i}>
+                  <figure className="image is-16by9" key={i}>
+                    <div className=" has-ratio" key={i}>
+                      <SmallMultipleTrend
+                        data={state}
+                        key={i}
+                        formatData={formatData}
+                        max_y={max_pos}
+                      />
+                    </div>
+                  </figure>
+                </div>
+              ))
+            : <div />}
+        </div>
       </div>
-    </div>
 
-<HeroTitle>
-            {intl.formatMessage ({id: 'States with a downward trend'})}
+      <HeroTitle>
+        {intl.formatMessage ({id: 'States with a downward trend'})}
+        {month
+          ? <i>
+              <FormattedDate
+                value={new Date (2020, month - 1, 1)}
+                month="long"
+              />
+            </i>
+          : null}
+      </HeroTitle>
+
+      <div className="grid-wrapper" id="small-multiples">
+        <div className="columns is-multiline" id="small-multiples">
+          {neg
+            ? neg.map ((state, i) => (
+                <div className="column is-3" key={i}>
+                  <figure className="image is-16by9" key={i}>
+                    <div className=" has-ratio" key={i}>
+                      <SmallMultipleTrend
+                        data={state}
+                        key={i}
+                        formatData={formatData}
+                        max_y={max_neg}
+                      />
+                    </div>
+                  </figure>
+                </div>
+              ))
+            : <div />}
+        </div>
+      </div>
+
+      {/* 
+    <HeroTitle>
+            {intl.formatMessage ({id: 'States with no trend detected'})}
           </HeroTitle>
 
      <div className="grid-wrapper" id="small-multiples">
       <div className="columns is-multiline" id="small-multiples">
-        {neg
-          ? neg.map ((state, i) => (
+        {na
+          ? na.map ((state, i) => (
               <div className="column is-3" key={i}>
                 <figure className="image is-16by9" key={i}>
                   <div className=" has-ratio" key={i}>
@@ -123,7 +168,7 @@ function TrendChart (props) {
                       data={state}
                       key={i}
                       formatData={formatData}
-                      max_y={max_neg}
+                      max_y={max_na}
                     />
                   </div>
                 </figure>
@@ -131,8 +176,7 @@ function TrendChart (props) {
             ))
           : <div />}
       </div>
-    </div>
-
+    </div> */}
 
     </div>
   );

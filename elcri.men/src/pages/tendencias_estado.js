@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import Layout from '../components/layout';
 import TrendChart from '../components/TrendChart';
 import SEO from '../components/SEO';
-import {useIntl, injectIntl, FormattedMessage} from 'react-intl';
+import {useIntl, injectIntl, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
 import {timeFormatDefaultLocale, timeFormatLocale} from 'd3-time-format';
 
 import {dateLoc} from '../../src/i18n';
@@ -31,7 +31,7 @@ function TrendsDeriv (props) {
         lang={props.pageContext.locale}
       />
         
-       <div className="container is-fullhd">
+       <div className="container is-fullhd" id="trends">
         <article id="content">
           
 
@@ -42,6 +42,9 @@ function TrendsDeriv (props) {
           <br />
           <br />
           <br />
+           <p style={{lineHeight: '1.2rem'}}>
+          <FormattedHTMLMessage id="trend_text" />
+        </p>
           <p style={{textAlign: 'left'}}>
             
           </p>
