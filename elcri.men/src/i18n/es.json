@@ -174,5 +174,12 @@
   "States with a downward trend": "Estados con una tendencia a la baja durante ",
   "States with an upward trend": "Estados con una tendencia al alza durante ",
   "trends_state": "Tendencias por estados",
-  "trend_text": "La tendencia corresponde a la primera derivada del último valor de un modelo aditivo generalizado ajustado a los valores de los homicidios quitando la tendencia estacional"
+  "trend_text": "La tendencia corresponde a la primera derivada del último valor de un modelo aditivo generalizado ajustado a los valores de los homicidios quitando la tendencia estacional",
+  "rate difference": "diferencia en tasa",
+  "count difference": "diferencia en número",
+  "title_state_diff": "Cambio en tasas de homicidio",
+  "desc_state_diff": "Cambio en tasas de homicidio por estado. ¿En qué estados esta subiendo o bajando el crimen?",
+  "12-month change in homicides rates by state (": "Cambio de 12 meses en tasa de homicidios (",
+  "-": "–",
+  "changes": "Cambios por año"
 }

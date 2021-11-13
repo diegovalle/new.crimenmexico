@@ -173,5 +173,12 @@
   "States with a downward trend": "States with a downward trend during ",
   "States with an upward trend": "States with an upward trend during ",
   "trends_state": "Trends by state",
-  "trend_text": "The trend is the value of the first derivative at the last point of a generalized additive model (GAM) fitted to the homicide counts with the seasonal component removed"
+  "trend_text": "The trend is the value of the first derivative at the last point of a generalized additive model (GAM) fitted to the homicide counts with the seasonal component removed",
+  "rate difference": "rate difference",
+  "count difference": "count difference",
+  "title_state_diff": "12-month change in homicides rates",
+  "desc_state_diff": "12-month change in homicides rates by state. Which Mexican states are suffering from crime increases?",
+  "12-month change in homicides rates by state (": "12-month change in homicides rates by state (",
+  "-": "–",
+  "changes": "12-month changes"
 }

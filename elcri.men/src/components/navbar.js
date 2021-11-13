@@ -81,7 +81,7 @@ const Navbar = ({locale, path}) => {
               className={
                 'navbar-link ' +
                   colorMenu (
-                    /estados|state-crime|homicidios-mujeres|female-homicides|feminicidio|feminicides/g,
+                    /estados|state-crime|homicidios-mujeres|female-homicides|feminicidio|feminicides|estados-diferencia|state-changes/g,
                     path
                   )
               }
@@ -116,7 +116,15 @@ const Navbar = ({locale, path}) => {
               >
                 {intl.formatMessage ({id: 'feminicides'})}
               </LLink>
-
+              <LLink
+                locale={locale}
+                className="navbar-item"
+                to="/estados-diferencia/"
+                partiallyActive={true}
+                activeClassName="has-background-grey-dark has-text-white-ter has-text-weight-bold active"
+              >
+                {intl.formatMessage ({id: 'changes'})}
+              </LLink>
             </div>
           </div>
 
@@ -185,8 +193,7 @@ const Navbar = ({locale, path}) => {
               <a
                 className={
                   'navbar-item ' +
-                    colorMenu (/^\/mapa-de-delincuencia|violence-map/g,
-                    path)
+                    colorMenu (/^\/mapa-de-delincuencia|violence-map/g, path)
                 }
                 href={
                   locale === 'es'
@@ -198,8 +205,8 @@ const Navbar = ({locale, path}) => {
               </a>
               <a
                 className={
-                  'navbar-item ' + colorMenu (/^\/mapa-clusters|cluster-map/g,
-                    path)
+                  'navbar-item ' +
+                    colorMenu (/^\/mapa-clusters|cluster-map/g, path)
                 }
                 href={locale === 'es' ? '/mapa-clusters/' : '/en/cluster-map/'}
               >
@@ -241,10 +248,10 @@ const Navbar = ({locale, path}) => {
               >
                 {intl.formatMessage ({id: 'trends'})}
               </LLink>
-               <LLink
+              <LLink
                 locale={locale}
                 className="navbar-item"
-                to="/tendencias_estado/"
+                to="/tendencias-estado/"
                 partiallyActive={true}
                 activeClassName="has-background-grey-dark has-text-white-ter has-text-weight-bold active"
               >

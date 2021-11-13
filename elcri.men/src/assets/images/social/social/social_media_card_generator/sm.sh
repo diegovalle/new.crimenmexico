@@ -13,7 +13,9 @@ IMAGES=(acerca
         municipios
         top50
         trends
-        turismo)
+        trends-states
+        turismo
+        estados-diff)
 TITLES=("Datos\nabiertos"
         "Patrones\nanormales\nde\ndelitos"
         "Clusters de\nHomicidios\nen\nMéxico"
@@ -27,7 +29,9 @@ TITLES=("Datos\nabiertos"
         "Series\nde tiempo\ncriminales\npor\nmunicipio"
         "Municipios\nmás\nviolentos\nde\nMéxico"
         "Tendencias\nde\nhomicidios\nen\nMéxico"
+        "Tendencias\nde\nhomicidios\npor\nEstado"
         "Destinos\nmás\nseguros\nde\nMéxico"
+        "Diferencias\nen\nhomicidios"
        )
 
 TITLES_EN=("Open\ncrime\ndata"
@@ -42,8 +46,10 @@ TITLES_EN=("Open\ncrime\ndata"
            "Crime\nMap\nof\nMexico"
            "Mexican\nCrime\n\by\nCounty"
            "Most\nviolent\ncities\nin\nMexico"
-           "Homicide\ntrends\nin\nMéxico"
+           "Homicide\nTrends\nin\nMexico"
+           "Homicide\nTrends\nby\nState"
            "Safest\ntourism\ndestinations\nin\nMexico"
+           "Changes\nin\nhomicide\nrates"
           )
 WW=1200
 HH=630
