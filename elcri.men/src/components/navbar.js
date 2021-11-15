@@ -81,7 +81,7 @@ const Navbar = ({locale, path}) => {
               className={
                 'navbar-link ' +
                   colorMenu (
-                    /estados|state-crime|homicidios-mujeres|female-homicides|feminicidio|feminicides|estados-diferencia|state-changes/g,
+                    /estados|state-crime|homicidios-mujeres|female-homicides|feminicidio|feminicides|estados-diferencia|state-changes|estados-ranking|state-ranking/g,
                     path
                   )
               }
@@ -124,6 +124,15 @@ const Navbar = ({locale, path}) => {
                 activeClassName="has-background-grey-dark has-text-white-ter has-text-weight-bold active"
               >
                 {intl.formatMessage ({id: 'changes'})}
+              </LLink>
+               <LLink
+                locale={locale}
+                className="navbar-item"
+                to="/estados-ranking/"
+                partiallyActive={true}
+                activeClassName="has-background-grey-dark has-text-white-ter has-text-weight-bold active"
+              >
+                {intl.formatMessage ({id: 'ranking'})}
               </LLink>
             </div>
           </div>

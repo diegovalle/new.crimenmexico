@@ -102,7 +102,7 @@
   "title_about": "Crime Data - Mexico Crime Report",
   "Acerca de": "About",
   "Datos": "Data",
-  "about_intro": "<p>All data available on this website comes from the <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/incidencia-delictiva-del-fuero-comun-nueva-metodologia\">Mexican Justice System</a> and the INEGI. If you use the data I would appreciate a link back. Some states may be missing from the municipio data because they haven't reported their data, if this happens wait a couple of days and download the data again.</p>",
+  "about_intro": "<p>Made by  <a href=\"https://www.diegovalle.net\">Diego Valle-Jones</a>. All data available on this website comes from the <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/incidencia-delictiva-del-fuero-comun-nueva-metodologia\">Mexican Justice System</a> and the INEGI. If you use the data I would appreciate a link back. Some states may be missing from the municipio data because they haven't reported their data, if this happens wait a couple of days and download the data again.</p>",
   "New methodology": "New methodology",
   "Old methodology (up to 2017)": "Old methodology (up to 2017)",
   "Frequently Asked Questions": "Frequently Asked Questions",
@@ -175,10 +175,14 @@
   "trends_state": "Trends by state",
   "trend_text": "The trend is the value of the first derivative at the last point of a generalized additive model (GAM) fitted to the homicide counts with the seasonal component removed",
   "rate difference": "rate difference",
-  "count difference": "count difference",
+  "count difference": "homicide difference",
   "title_state_diff": "12-month change in homicides rates",
   "desc_state_diff": "12-month change in homicides rates by state. Which Mexican states are suffering from crime increases?",
   "12-month change in homicides rates by state (": "12-month change in homicides rates by state (",
   "-": "–",
-  "changes": "12-month changes"
+  "changes": "12-month changes",
+  "ranking": "Ranking",
+  "title_ranking": "Most violent states during the last 12 months",
+  "desc_ranking": "Most violent states during the last 12 months",
+  "Most violent states during the last 12 months (": "Most violent states during the last 12 months ("
 }

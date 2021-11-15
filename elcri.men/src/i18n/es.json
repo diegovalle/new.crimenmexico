@@ -102,7 +102,7 @@
   "title_about": "Datos Criminales - Delincuencia en México",
   "Acerca de": "Acerca de",
   "Datos": "Datos",
-  "about_intro": "<p>Todos los datos de este sitio web provienen del <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/incidencia-delictiva-del-fuero-comun-nueva-metodologia\">SESNSP</a> y el <a href=\"https://github.com/diegovalle/mxmortalitydb\"> INEGI</a> (sólo homicidios). Si usan estos datos les agradecería incluyeran un link a este sitio.  En los datos municipales a veces faltan estados porque se tardan en reportar sus datos, si esto pasa pueden esperar un par de días y volver a descargar los datos para que esten completos.</p>",
+  "about_intro": "<p>Hecho por <a href=\"https://www.diegovalle.net\">Diego Valle</a>. Todos los datos de este sitio web provienen del <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/incidencia-delictiva-del-fuero-comun-nueva-metodologia\">SESNSP</a> y el <a href=\"https://github.com/diegovalle/mxmortalitydb\"> INEGI</a> (sólo homicidios). Si usan estos datos les agradecería incluyeran un link a este sitio.  En los datos municipales a veces faltan estados porque se tardan en reportar sus datos, si esto pasa pueden esperar un par de días y volver a descargar los datos para que esten completos.</p>",
   "New methodology": "Nueva Metodología",
   "Old methodology (up to 2017)": "Vieja Metodología (hasta el 2017)",
   "Frequently Asked Questions": "Preguntas frecuentes",
@@ -176,10 +176,14 @@
   "trends_state": "Tendencias por estados",
   "trend_text": "La tendencia corresponde a la primera derivada del último valor de un modelo aditivo generalizado ajustado a los valores de los homicidios quitando la tendencia estacional",
   "rate difference": "diferencia en tasa",
-  "count difference": "diferencia en número",
+  "count difference": "diferencia en homicidios",
   "title_state_diff": "Cambio en tasas de homicidio",
   "desc_state_diff": "Cambio en tasas de homicidio por estado. ¿En qué estados esta subiendo o bajando el crimen?",
-  "12-month change in homicides rates by state (": "Cambio de 12 meses en tasa de homicidios (",
+  "12-month change in homicides rates by state (": "Cambios en tasas de homicidios durante los últimos 12 meses (",
   "-": "–",
-  "changes": "Cambios por año"
+  "changes": "Cambios anuales",
+  "ranking": "Ranking",
+  "title_ranking": "Estados más violentos durante los últimos 12 meses",
+  "desc_ranking": "Estados más violentos durante los últimos 12 meses",
+  "Most violent states during the last 12 months (": "Estados más violentos durante los últimos 12 meses ("
 }

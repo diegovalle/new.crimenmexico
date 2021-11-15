@@ -15,7 +15,8 @@ IMAGES=(acerca
         trends
         trends-states
         turismo
-        estados-diff)
+        estados-diff
+        estados-ranking)
 TITLES=("Datos\nabiertos"
         "Patrones\nanormales\nde\ndelitos"
         "Clusters de\nHomicidios\nen\nMéxico"
@@ -32,6 +33,7 @@ TITLES=("Datos\nabiertos"
         "Tendencias\nde\nhomicidios\npor\nEstado"
         "Destinos\nmás\nseguros\nde\nMéxico"
         "Diferencias\nen\nhomicidios"
+        "Ranking\npor\nestado"
        )
 
 TITLES_EN=("Open\ncrime\ndata"
@@ -50,6 +52,7 @@ TITLES_EN=("Open\ncrime\ndata"
            "Homicide\nTrends\nby\nState"
            "Safest\ntourism\ndestinations\nin\nMexico"
            "Changes\nin\nhomicide\nrates"
+           "Crime\nrank\nby\nstate"
           )
 WW=1200
 HH=630

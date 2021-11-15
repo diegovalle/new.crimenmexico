@@ -25,9 +25,9 @@ import {mapValues} from 'lodash-es';
 import {useIntl, injectIntl, FormattedMessage} from 'react-intl';
 import {FormattedHTMLMessage, FormattedDate} from 'react-intl';
 import useLastMonth from '../components/LastMonth';
-import social_image from '../assets/images/social/social-estados-diff.png';
+import social_image from '../assets/images/social/social-estados-ranking.png';
 import social_image_en
-  from '../assets/images/social/social-estados-diff_en.png';
+  from '../assets/images/social/social-estados-ranking_en.png';
 
 echarts.use ([
   TitleComponent,
@@ -58,22 +58,22 @@ function MostViolent (props) {
         return (
           '<b>' +
           params[0].data.state +
-          '</b><br>' +
-          intl.formatMessage ({id: 'rate difference'}) +
-          ': <b>' +
-          (params[0].value >= 0 ? '+' + params[0].value : params[0].value) +
-          '</b><br>' +
-          intl.formatMessage ({id: 'count difference'}) +
-          ': <b>' +
-          (params[0].data.count_diff >= 0
-            ? '+' + params[0].data.count_diff
-            : params[0].data.count_diff) +
+          '<br/></b>' +
+          intl.formatMessage ({id: 'rate'}) +
+          ': ' +
+          '<b>' +
+          params[0].value +
+          '</b><br/>' +
+          intl.formatMessage ({id: 'homicides'}) +
+          ': ' +
+          '<b>' +
+          params[0].data.count_diff +
           '</b>'
         );
       },
     },
     grid: {
-      top: 20,
+      top: 0,
       bottom: 30,
       height: chartHeight - 100,
       containLabel: true,
@@ -92,24 +92,26 @@ function MostViolent (props) {
     yAxis: {
       type: 'category',
       axisLine: {show: false},
-      axisLabel: {show: false},
       axisTick: {show: false},
       splitLine: {show: false},
+      axisLabel: {
+        fontWeight: '500',
+        margin: 3,
+        overflow: 'break',
+        fontFamily: 'Roboto Condensed',
+        lineHeight: 14,
+        formatter: params => {
+          return params.replace (' ', '\n');
+        },
+      },
     },
     series: [
       {
-        name: intl.formatMessage ({id: 'rate difference'}),
         type: 'bar',
         stack: 'Total',
-        barCategoryGap: '7%',
-        label: {
-          fontFamily: 'Roboto Condensed',
-          fontWeight: 500,
-          show: true,
-          formatter: '{b}',
-          position: 'left',
-          textBorderColor: 'black',
-        },
+        barCategoryGap: '5%',
+        barMaxWidth: 24,
+        barWidth: '100%',
       },
     ],
   };
@@ -119,21 +121,14 @@ function MostViolent (props) {
   const eChartsRef = React.useRef (null);
 
   useEffect (() => {
-    fetch ('/elcrimen-json/states_diff.json')
+    fetch ('/elcrimen-json/states_yearly_rates.json')
       .then (response => response.json ())
       .then (responseJSON => {
         let states = responseJSON.map (s => s.state);
         mapValues (responseJSON, function (val, key) {
-          if (val.value >= 0)
-            val.itemStyle = {
-              color: '#b2182b',
-            };
-          else {
-            val.label = {position: 'right'};
-            val.itemStyle = {
-              color: '#2166ac',
-            };
-          }
+          val.itemStyle = {
+            color: '#fc4e2a',
+          };
         });
         const option2 = {
           ...option,
@@ -156,18 +151,18 @@ function MostViolent (props) {
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
       <SEO
-        title={intl.formatMessage ({id: 'title_state_diff'})}
-        description={intl.formatMessage ({id: 'desc_state_diff'})}
+        title={intl.formatMessage ({id: 'title_ranking'})}
+        description={intl.formatMessage ({id: 'desc_ranking'})}
         socialImage={
           props.pageContext.locale === 'es' ? social_image : social_image_en
         }
         path={props.location.pathname}
         lang={props.pageContext.locale}
       />
-      <div id="estados-diferencia">
+      <div id="estados-ranking">
         <HeroTitle>
           {intl.formatMessage ({
-            id: '12-month change in homicides rates by state (',
+            id: 'Most violent states during the last 12 months (',
           })}
           <i>
             {props.pageContext.locale === 'es'
@@ -189,24 +184,6 @@ function MostViolent (props) {
               value={new Date (last_date.iso_mid)}
               year="numeric"
             />
-            {' '}
-          </i>
-          {intl.formatMessage ({id: 'vs'})}
-          <i>
-            {' '}
-            {props.pageContext.locale === 'es'
-              ? last_date.month_short_es6
-              : last_date.month_short_en6}
-            {' '}
-            <FormattedDate value={last_year1} year="numeric" />
-
-            {intl.formatMessage ({id: '-'})}
-
-            {props.pageContext.locale === 'es'
-              ? last_date.month_short_es
-              : last_date.month_short_en}
-            {' '}
-            <FormattedDate value={last_year2} year="numeric" />
           </i>
           {')'}
         </HeroTitle>

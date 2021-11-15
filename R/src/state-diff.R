@@ -27,6 +27,6 @@ write( toJSON(states_diff %>%
                filter(group == 2) %>%
                 rename(value = diff) %>%
                 dplyr::select(-group) %>%
-                arrange(-value)),
+                arrange(value)),
        "json/states_yearly_rates.json")
 
