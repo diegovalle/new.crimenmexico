@@ -4,12 +4,18 @@ import Helmet from 'react-helmet';
 import Layout from '../components/layout';
 import TrendChart from '../components/TrendChart';
 import SEO from '../components/SEO';
-import {useIntl, injectIntl, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
+import {
+  useIntl,
+  injectIntl,
+  FormattedMessage,
+  FormattedHTMLMessage,
+} from 'react-intl';
 import {timeFormatDefaultLocale, timeFormatLocale} from 'd3-time-format';
 
 import {dateLoc} from '../../src/i18n';
 import social_image from '../assets/images/social/social-trends-states.png';
-import social_image_en from '../assets/images/social/social-trends-states_en.png';
+import social_image_en
+  from '../assets/images/social/social-trends-states_en.png';
 
 function TrendsDeriv (props) {
   const siteTitle = 'Gatsby Starter - Strata';
@@ -30,24 +36,19 @@ function TrendsDeriv (props) {
         path={props.location.pathname}
         lang={props.pageContext.locale}
       />
-        
-       <div className="container is-fullhd" id="trends">
+
+      <div className="container is-fullhd" id="trends">
         <article id="content">
-          
 
           <TrendChart />
 
-         
-
           <br />
           <br />
           <br />
-           <p style={{lineHeight: '1.2rem'}}>
-          <FormattedHTMLMessage id="trend_text" />
-        </p>
-          <p style={{textAlign: 'left'}}>
-            
+          <p style={{lineHeight: '1.2rem'}}>
+            <FormattedHTMLMessage id="trend_text" />
           </p>
+          <p style={{textAlign: 'left'}} />
           <br />
         </article>
       </div>

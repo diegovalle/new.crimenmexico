@@ -31,7 +31,6 @@ function TrendChart (props) {
   const maxRate = data => {
     if (!data || data.length == 0) return null;
     let max_rate = maxBy (data, function (o) {
-      console.log (Object.keys (o));
       return max (o[Object.keys (o)[0]][3]);
     });
     return max (max_rate[Object.keys (max_rate)[0]][3]);
@@ -67,7 +66,6 @@ function TrendChart (props) {
   let l;
   intl.locale === 'es' ? (l = timeFormatDefaultLocale (dateLoc.es_MX)) : null;
 
-  console.time ();
   let pos = filter (data, function (o) {
     return o.trend[0] === 'positive';
   });
@@ -82,7 +80,7 @@ function TrendChart (props) {
     return o.trend[0] === null;
   });
   let max_na = maxRate (na);
-  console.timeEnd ();
+
   return (
     <div id="up-down">
 
@@ -98,12 +96,13 @@ function TrendChart (props) {
           : null}
       </HeroTitle>
 
+      {neg ? console.time ('answer time') : null}
       <div className="grid-wrapper" id="small-multiples">
         <div className="columns is-multiline" id="small-multiples">
           {pos
             ? pos.map ((state, i) => (
-                <div className="column is-3" key={i}>
-                  <figure className="image is-16by9" key={i}>
+                <div className="column is-4" key={i}>
+                  <figure className="image is-4by3" key={i}>
                     <div className=" has-ratio" key={i}>
                       <SmallMultipleTrend
                         data={state}
@@ -133,10 +132,11 @@ function TrendChart (props) {
 
       <div className="grid-wrapper" id="small-multiples">
         <div className="columns is-multiline" id="small-multiples">
+
           {neg
             ? neg.map ((state, i) => (
-                <div className="column is-3" key={i}>
-                  <figure className="image is-16by9" key={i}>
+                <div className="column is-4" key={i}>
+                  <figure className="image is-4by3" key={i}>
                     <div className=" has-ratio" key={i}>
                       <SmallMultipleTrend
                         data={state}
@@ -151,7 +151,7 @@ function TrendChart (props) {
             : <div />}
         </div>
       </div>
-
+      {neg ? console.timeEnd ('answer time') : null}
       {/* 
     <HeroTitle>
             {intl.formatMessage ({id: 'States with no trend detected'})}
