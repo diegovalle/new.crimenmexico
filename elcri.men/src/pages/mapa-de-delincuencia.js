@@ -388,7 +388,7 @@ class DotMapGL extends React.Component {
             {...this.state.viewport}
             onViewportChange={this._onViewportChange}
             onResize={v => {
-              console.log (v);
+              //console.log (v);
             }}
             onHover={this._onHover}
             mapStyle={this.state.dark_matter}

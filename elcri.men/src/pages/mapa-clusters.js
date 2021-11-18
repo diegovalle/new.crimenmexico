@@ -153,7 +153,7 @@ class ClusterMap extends React.Component {
       .then (responseJSON => {
         let values = responseJSON[1];
         let index;
-        console.time ('features');
+        //console.time ('features');
         let colors = zip (
           responseJSON[1]['mun.map.id'],
           responseJSON[1]['color']

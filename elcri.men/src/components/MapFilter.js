@@ -84,7 +84,7 @@ export default class MapFilter extends BaseControl {
       [10000000, 0],
     ];
     //opacity.paint['circle-opacity'].type = "error"
-    console.log (opacity['circle-opacity']);
+    //console.log (opacity['circle-opacity']);
     this._map.setPaintProperty (
       'data',
       'circle-opacity',
@@ -99,7 +99,7 @@ export default class MapFilter extends BaseControl {
   }
 
   changeExtent (e) {
-    console.log (e);
+    //console.log (e);
     let opacity = this.props.dataLayer.paint;
     opacity['circle-opacity'].stops = [
       [0, 0],
@@ -120,7 +120,7 @@ export default class MapFilter extends BaseControl {
       ? opacity['circle-stroke-width'].stops.slice (1)
       : opacity['circle-stroke-width'].stops;
     //opacity.paint['circle-opacity'].type = "error"
-    console.log (opacity['circle-opacity'].stops);
+    //console.log (opacity['circle-opacity'].stops);
     this.props.map.setPaintProperty (
       'data',
       'circle-opacity',
