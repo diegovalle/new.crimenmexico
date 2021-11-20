@@ -1,13 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {curveLinear as linear} from 'd3-shape';
-import {format as num_format} from 'd3-format';
-import {timeFormat as date_format} from 'd3-time-format';
 import {groupBy, map, reduce, sortBy, filter, max, maxBy} from 'lodash-es';
 import {FormattedDate} from 'react-intl';
 import HeroTitle from '../components/HeroTitle';
 import {useIntl, injectIntl, FormattedMessage} from 'react-intl';
-import MetricsGraphics from 'react-metrics-graphics';
-import 'metrics-graphics/dist/metricsgraphics.css';
 import SmallMultipleTrend from '../components/SmallMultipleTrend';
 import {timeFormatDefaultLocale, timeFormatLocale} from 'd3-time-format';
 import {dateLoc} from '../../src/i18n';

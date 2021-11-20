@@ -1,5 +1,4 @@
 import React from 'react';
-import {timeFormat as date_format} from 'd3-time-format';
 import {timeFormatDefaultLocale} from 'd3-time-format';
 import {useIntl} from 'react-intl';
 import {dateLoc} from '../../src/i18n';
@@ -134,8 +133,6 @@ function SmallMultipleTrend (props) {
         }),
         itemStyle: {
           color: 'black',
-          borderColor: '#777',
-          borderWidth: .3,
           opacity: .7
         },
         symbol: 'circle',
