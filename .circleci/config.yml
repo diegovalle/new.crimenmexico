@@ -10,6 +10,7 @@ jobs:
         auth:
           username: diegovalle  # can specify string literal values
           password: $DOCKERHUB_PASSWORD  # or project environment variable reference
+    resource_class: large
     steps:
       - checkout
       - run:
