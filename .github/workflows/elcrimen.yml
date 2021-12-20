@@ -25,6 +25,13 @@ jobs:
         SEMAPHORE_PROJECT_ID: ${{ secrets.SEMAPHORE_PROJECT_ID }}
         SEMAPHORE_REF: ${{ secrets.SEMAPHORE_REF }}
     steps:
+      - uses: actions/checkout@v2
+      - name: What OS is running
+        run: uname -a
+      - name: Print current dir
+        run: echo "$PWD"
+      - name: Print current user
+        run: echo "$USER"
       - name: Build the website https://elcri.men
         run: |
           bash -c "cd /home/rstudio/new.crimenmexico/ansible/ && echo $ANSIBLE_PASSWORD > password.txt && ansible-playbook -c local ssh.yml --vault-password-file=/home/rstudio/new.crimenmexico/ansible/password.txt --extra-vars 'secrets=true' && cd /home/rstudio/new.crimenmexico && git config --global url.'https://github.com/'.insteadOf git@github.com: && git config --global url.'https://'.insteadOf git:// && git pull && make"
