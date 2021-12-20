@@ -10,11 +10,11 @@ fi
 
 # Commit generated infographics
 if [[ $(git status --porcelain elcri.men/static/e*) ]]; then
-    git config --global user.email "$GITHUB_EMAIL"
+    git config --global user.email "$GH_EMAIL"
     git config --global user.name "diego"
     git status --porcelain elcri.men/static/e* | sed  "s/^?? //g" | xargs --max-args 1 git add
     git commit -m "Add new png infographics [Skip CI]"
-    git push -q https://"$GITHUB_TOKEN":x-oauth-basic@github.com/diegovalle/new.crimenmexico.git master
+    git push -q https://"$GH_PAT":x-oauth-basic@github.com/diegovalle/new.crimenmexico.git master
 fi
 
 #DATE=$(date +%Y-%m-%d-%H-%Z)
