@@ -156,7 +156,7 @@ function Envipe (props) {
                       title={intl.formatMessage ({id: 'Car Robbery'})}
                       // description="This graphic shows a time-series of downloads."
                       data={robocoche_data}
-                      y_label="crimes"
+                      y_label={intl.formatMessage ({id: 'crimes'})}
                       show_confidence_band={['inf', 'sup']}
                       full_width={true}
                       full_height={true}
@@ -262,7 +262,7 @@ function Envipe (props) {
                       title={intl.formatMessage ({id: 'Extorsión'})}
                       // description="This graphic shows a time-series of downloads."
                       data={extorsion_data}
-                      y_label="crimes"
+                      y_label={intl.formatMessage ({id: 'crimes'})}
                       show_confidence_band={['inf', 'sup']}
                       // colors={[this.props.data.trend[0] === "positive" ? "#e41a1c" : this.props.data.trend[0] === "negative" ? "#377eb8" : "#e5d8bd", "#888888"]}
                       // small_text={true}
@@ -318,7 +318,7 @@ function Envipe (props) {
                       title={intl.formatMessage ({id: 'Secuestro'})}
                       // description="This graphic shows a time-series of downloads."
                       data={secuestro_data}
-                      y_label="crimes"
+                      y_label={intl.formatMessage ({id: 'crimes'})}
                       show_confidence_band={['inf', 'sup']}
                       // colors={[this.props.data.trend[0] === "positive" ? "#e41a1c" : this.props.data.trend[0] === "negative" ? "#377eb8" : "#e5d8bd", "#888888"]}
                       // small_text={true}
