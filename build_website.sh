@@ -45,10 +45,10 @@ fi
 cp R/interactive-map/municipios*.json elcri.men/static/elcrimen-json/
 
 # Copy the files to a backup server
-if [ "$CI" = true ] ; then
+#if [ "$CI" = true ] ; then
   # Upload a copy of the database
-  rsync --exclude='.git/' --exclude='nm*.csv.gz' --include='*.db' -az --compress-level=9 --stats -e 'ssh  -o StrictHostKeyChecking=no -i ~/.ssh/crimenmexico' --delete ~/new.crimenmexico  crimenmexico@"$IPADDRESS":/home/crimenmexico
-fi
+#  rsync --exclude='.git/' --exclude='nm*.csv.gz' --include='*.db' --include='*/static/smooth-latest.png' --include='*/R/graphs/*.png'-az --compress-level=9 --stats -e 'ssh  -o StrictHostKeyChecking=no -i ~/.ssh/crimenmexico' --delete ~/new.crimenmexico  crimenmexico@"$IPADDRESS":/home/crimenmexico
+#fi
 
 export GATSBY_TELEMETRY_DISABLED=1
 (cd elcri.men && npm install && gatsby build --verbose)

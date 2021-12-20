@@ -36,4 +36,16 @@ jobs:
       - name: Build the website https://elcri.men
         run: |
           bash -c "export HOME=/home/rstudio && cd ~/new.crimenmexico/ansible/ && echo $ANSIBLE_PASSWORD > password.txt && ansible-playbook -c local ssh.yml --vault-password-file=~/new.crimenmexico/ansible/password.txt --extra-vars 'secrets=true' && cd ~/new.crimenmexico && git config --global url.'https://github.com/'.insteadOf git@github.com: && git config --global url.'https://'.insteadOf git:// && git pull && make"
+      - name: Compress db
+        run: gzip -9 /home/rstudio/new.crimenmexico/db/crimenmexico.db
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: elcrimen
+          path: |
+            /home/rstudio/new.crimenmexico/elcrimen/static/smooth-latest.png 
+            /home/rstudio/new.crimenmexico/db/crimenmexico.db.gz
+            /home/rstudio/new.crimenmexico/new.crimenmexico/data/*.gz
+            /home/rstudio/new.crimenmexico/R/graphs/*.png
+          retention-days: 2
       - run: echo "🍏 This job's status is ${{ job.status }}."
