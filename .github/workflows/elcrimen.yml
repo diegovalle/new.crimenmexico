@@ -27,5 +27,5 @@ jobs:
     steps:
       - name: Build the website https://elcri.men
         run: |
-          bash -c "cd ~/new.crimenmexico/ansible/ && echo $ANSIBLE_PASSWORD > password.txt && ansible-playbook -c local ssh.yml --vault-password-file=~/new.crimenmexico/ansible/password.txt --extra-vars 'secrets=true' && cd ~/new.crimenmexico && git config --global url.'https://github.com/'.insteadOf git@github.com: && git config --global url.'https://'.insteadOf git:// && git pull && make"
+          bash -c "cd /home/rstudio/new.crimenmexico/ansible/ && echo $ANSIBLE_PASSWORD > password.txt && ansible-playbook -c local ssh.yml --vault-password-file=~/new.crimenmexico/ansible/password.txt --extra-vars 'secrets=true' && cd ~/new.crimenmexico && git config --global url.'https://github.com/'.insteadOf git@github.com: && git config --global url.'https://'.insteadOf git:// && git pull && make"
       - run: echo "🍏 This job's status is ${{ job.status }}."
