@@ -13,7 +13,7 @@ if [[ $(git status --porcelain elcri.men/static/e*) ]]; then
     git config --global user.email "$GH_EMAIL"
     git config --global user.name "diego"
     git status --porcelain elcri.men/static/e* | sed  "s/^?? //g" | xargs --max-args 1 git add
-    git commit -m "Add new png infographics [Skip CI]"
+    git commit -m "Add new png infographics [skip ci]"
     git push -q https://"$GH_PAT":x-oauth-basic@github.com/diegovalle/new.crimenmexico.git master
 fi
 

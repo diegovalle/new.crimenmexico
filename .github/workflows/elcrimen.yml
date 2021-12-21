@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: Build https://elcri.men
 on:
   # Trigger the workflow on push or pull request,
   # but only for the master branch
@@ -36,16 +36,28 @@ jobs:
       - name: Build the website https://elcri.men
         run: |
           bash -c "export HOME=/home/rstudio && cd ~/new.crimenmexico/ansible/ && echo $ANSIBLE_PASSWORD > password.txt && ansible-playbook -c local ssh.yml --vault-password-file=~/new.crimenmexico/ansible/password.txt --extra-vars 'secrets=true' && cd ~/new.crimenmexico && git config --global url.'https://github.com/'.insteadOf git@github.com: && git config --global url.'https://'.insteadOf git:// && git pull && make"
-      - name: Compress db
-        run: gzip -9 /home/rstudio/new.crimenmexico/db/crimenmexico.db
-      - name: Upload artifacts
+      - name: Upload build artifacts
+        if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: elcrimen
+          name: elcrimen-sqlite-db
           path: |
-            /home/rstudio/new.crimenmexico/elcrimen/static/smooth-latest.png 
-            /home/rstudio/new.crimenmexico/db/crimenmexico.db.gz
-            /home/rstudio/new.crimenmexico/new.crimenmexico/data/*.gz
+            /home/rstudio/new.crimenmexico/db/crimenmexico.db
             /home/rstudio/new.crimenmexico/R/graphs/*.png
+            /home/rstudio/new.crimenmexico/elcrimen/static/smooth-latest.png 
           retention-days: 2
+      - name: Upload crime data files
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: data-files
+          path: |
+            /home/rstudio/new.crimenmexico/data/*.gz
+          retention-days: 30
+      - uses: jakejarvis/backblaze-b2-action@cfaebe85dda6a440fe12c93e7b9c2dcb31fbcdb4
+        env:
+          SOURCE_DIR: '/home/rstudio/new.crimenmexico/data/'
+          B2_BUCKET: ${{ secrets.B2_BUCKET }}
+          B2_APPKEY_ID: ${{ secrets.B2_APPKEY_ID }}
+          B2_APPKEY: ${{ secrets.B2_APPKEY }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
