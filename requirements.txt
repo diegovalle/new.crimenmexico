@@ -21,7 +21,7 @@ isodate==0.6.0
 jdcal==1.3
 leather==0.3.4
 ndg-httpsclient==0.5.1
-numpy==1.19.5
+numpy==1.21.0
 olefile==0.46
 openpyxl==2.4.7
 packaging==16.8
