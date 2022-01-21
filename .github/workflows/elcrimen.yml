@@ -26,24 +26,22 @@ jobs:
         SEMAPHORE_API_TOKEN: ${{ secrets.SEMAPHORE_API_TOKEN }}
         SEMAPHORE_PROJECT_ID: ${{ secrets.SEMAPHORE_PROJECT_ID }}
         SEMAPHORE_REF: ${{ secrets.SEMAPHORE_REF }}
+        B2_BUCKET: ${{ secrets.B2_BUCKET }}
+        B2_APPKEY_ID: ${{ secrets.B2_APPKEY_ID }}
+        B2_APPKEY: ${{ secrets.B2_APPKEY }}
+        CACHE_INVALIDATE_HEADER: ${{ secrets.CACHE_INVALIDATE_HEADER }}
     steps:
       - name: Build the website (https://elcri.men)
         run: |
           bash -c "export HOME=/home/rstudio && cd ~/new.crimenmexico/ansible/ && echo $ANSIBLE_PASSWORD > password.txt && ansible-playbook -c local ssh.yml --vault-password-file=~/new.crimenmexico/ansible/password.txt --extra-vars 'secrets=true' && cd ~/new.crimenmexico && git config --global url.'https://github.com/'.insteadOf git@github.com: && git config --global url.'https://'.insteadOf git:// && git pull && make"
-      - uses: jakejarvis/backblaze-b2-action@cfaebe85dda6a440fe12c93e7b9c2dcb31fbcdb4
-        env:
-          SOURCE_DIR: '/home/rstudio/new.crimenmexico/data/'
-          B2_BUCKET: ${{ secrets.B2_BUCKET }}
-          B2_APPKEY_ID: ${{ secrets.B2_APPKEY_ID }}
-          B2_APPKEY: ${{ secrets.B2_APPKEY }}
       - name: Invalidate stale cache
         run: |
-          curl -o /dev/null -v https://data.diegovalle.net/elcrimen/nm-estatal-victimas.csv.gz -H "$CACHE_INVALIDATE_HEADER:true"
-          curl -o /dev/null -v https://data.diegovalle.net/elcrimen/nm-fuero-comun-estados.csv.gz -H "$CACHE_INVALIDATE_HEADER:true"
-          curl -o /dev/null -v https://data.diegovalle.net/elcrimen/nm-estatal-victimas.csv.gz -H "$CACHE_INVALIDATE_HEADER:true"
+          curl --retry 15 -o /dev/null -v https://data.diegovalle.net/elcrimen/nm-estatal-victimas.csv.gz -H "$CACHE_INVALIDATE_HEADER:true"
+          curl --retry 15 -o /dev/null -v https://data.diegovalle.net/elcrimen/nm-fuero-comun-estados.csv.gz -H "$CACHE_INVALIDATE_HEADER:true"
+          curl --retry 15 -o /dev/null -v https://data.diegovalle.net/elcrimen/nm-estatal-victimas.csv.gz -H "$CACHE_INVALIDATE_HEADER:true"
       - name: Create the json for the state trends webpage
         run: >
-          curl -i -H "Authorization: Token $SEMAPHORE_API_TOKEN"
+          curl  --retry 15 -i -H "Authorization: Token $SEMAPHORE_API_TOKEN"
           -d "project_id=$SEMAPHORE_PROJECT_ID&reference=$SEMAPHORE_REF"
           -X POST  "https://diegovalle.semaphoreci.com/api/v1alpha/plumber-workflows"
       - name: Upload build artifacts
