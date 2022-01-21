@@ -34,7 +34,8 @@ function TrendChart (props) {
   const formatData = data => {
     let state = Object.keys (data)[0];
     let len = data[state][0].length;
-    setMonth (len % 12);
+    // Substract one from the length of the array since js months are zero indexed
+    setMonth ((len-1) % 12);
     let state_tidy = [[], []];
     for (let i = 0; i < len; i++) {
       let d = new Date (2015, 0, 1);
@@ -84,7 +85,7 @@ function TrendChart (props) {
         {month
           ? <i>
               <FormattedDate
-                value={new Date (2020, month - 1, 1)}
+                value={new Date (2020, month, 15)}
                 month="long"
               />
             </i>
@@ -118,7 +119,7 @@ function TrendChart (props) {
         {month
           ? <i>
               <FormattedDate
-                value={new Date (2020, month - 1, 1)}
+                value={new Date (2020, month, 15)}
                 month="long"
               />
             </i>

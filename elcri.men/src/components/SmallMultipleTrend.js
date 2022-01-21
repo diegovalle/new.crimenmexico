@@ -108,7 +108,7 @@ function SmallMultipleTrend (props) {
       {
         name: intl.formatMessage ({id: 'tasa anualizada'}),
         nameLocation: 'middle',
-        nameGap: 30,
+        nameGap: 25,
         nameTextStyle: {fontFamily: 'Roboto Condensed'},
         type: 'value',
         scale: false,
