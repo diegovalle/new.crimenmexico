@@ -69,4 +69,4 @@ convert_to_csv "$ESTADOS_FC_ZIP" estados
 convert_to_csv "$MUN_FC_ZIP" municipios
 convert_to_csv "$ESTADOS_VIC_ZIP" estados_victimas
 
-deactivate || true
+source deactivate || true
