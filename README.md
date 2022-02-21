@@ -1,4 +1,4 @@
-[![Build Status](https://circleci.com/gh/diegovalle/new.crimenmexico.png?style=shield&circle-token=:circle-token)](https://circleci.com/gh/diegovalle/new.crimenmexico)
+![Build Status](https://github.com/diegovalle/new.crimenmexico/actions/workflows/elcrimen.yml/badge.svg)
 
 # new.crimenmexico
 
