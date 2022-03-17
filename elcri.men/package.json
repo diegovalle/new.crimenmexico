@@ -54,7 +54,6 @@
     "mapbox-gl": "^1.4.1",
     "metrics-graphics": "^2.15.6",
     "mozjpeg": "7.1.0",
-    "node-sass": "^4.11.0",
     "react": "16.12.0",
     "react-adsense": "^0.1.0",
     "react-dates": "^21.5.0",
@@ -89,7 +88,8 @@
     "preload-fonts": "gatsby-preload-fonts"
   },
   "devDependencies": {
-    "prettier": "^1.14.2"
+    "prettier": "^1.14.2",
+    "sass": "^1.49.8"
   },
   "repository": {
     "type": "git",

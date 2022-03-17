@@ -82,7 +82,7 @@ function TrendChart (props) {
 
       <HeroTitle>
         {intl.formatMessage ({id: 'States with an upward trend'})}
-        {month
+        {month !== null
           ? <i>
               <FormattedDate
                 value={new Date (2020, month, 15)}
@@ -95,7 +95,7 @@ function TrendChart (props) {
       {neg ? console.time ('answer time') : null}
       <div className="grid-wrapper" id="small-multiples">
         <div className="columns is-multiline" id="small-multiples">
-          {pos
+          {data ? (pos.length
             ? pos.map ((state, i) => (
                 <div className="column is-4" key={i}>
                   <figure className="image is-4by3" key={i}>
@@ -110,13 +110,13 @@ function TrendChart (props) {
                   </figure>
                 </div>
               ))
-            : <div />}
+            : <p>{intl.formatMessage ({id: 'None'})} 😃</p>) : null}
         </div>
       </div>
 
       <HeroTitle>
         {intl.formatMessage ({id: 'States with a downward trend'})}
-        {month
+        {month !== null
           ? <i>
               <FormattedDate
                 value={new Date (2020, month, 15)}
@@ -129,7 +129,7 @@ function TrendChart (props) {
       <div className="grid-wrapper" id="small-multiples">
         <div className="columns is-multiline" id="small-multiples">
 
-          {neg
+          {data ? (neg.length
             ? neg.map ((state, i) => (
                 <div className="column is-4" key={i}>
                   <figure className="image is-4by3" key={i}>
@@ -144,7 +144,7 @@ function TrendChart (props) {
                   </figure>
                 </div>
               ))
-            : <div />}
+            : <p>{intl.formatMessage ({id: 'None'})} 😡</p>) : null}
         </div>
       </div>
       {neg ? console.timeEnd ('answer time') : null}
