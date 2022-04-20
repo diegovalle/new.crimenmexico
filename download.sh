@@ -10,14 +10,15 @@ MUN_FC_ZIP=$SNSP_DIR/municpios_fc_original.zip
 ESTADOS_VIC_ZIP=$SNSP_DIR/estados_vic_original.zip
 
 estatal_download() {
-    regex="(?<=href=\")[^\"][^\"]*(?=\">$2 \d{4} - \d{4}<\/a><\/p>)"
+    regex="(?<=href=\")[^\"][^\"]*(?=\">$4.*<\/a>)"
     INTERMEDIATE_LINK=$(curl -s -L  "$1" | \
                                 grep -Po "$regex" | tail -n1 | \
                                 sed 's| |%20|g'  | grep -oP '(?<=/)[0-9a-zA-Z_-]{20,}(?=/)')
     echo "$INTERMEDIATE_LINK"
-    gdown "https://drive.google.com/uc?id=$INTERMEDIATE_LINK" -O "$3"
+    gdown "https://drive.google.com/uc?id=$INTERMEDIATE_LINK" -O "$SNSP_DIR"/"$3"
     #drive_direct_download "$INTERMEDIATE_LINK"
 }
+
 
 municipal_fc_download() {
     #ggID='1FoFXpt4OeEXP8qeDzPKU-qky1f5iL8Gh'
@@ -62,13 +63,13 @@ URL_MUNS="https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incid
 
 municipal_fc_download "$URL_MUNS"
 
-estatal_download "$URL_ESTADOS" "Estatal" "$ESTADOS_FC_ZIP"
+estatal_download "$URL_MUNS" "Estatal" "estados.csv" "Cifras de Incidencia Delictiva Estatal, 2015"
 
 URL_VIC="https://www.gob.mx/sesnsp/acciones-y-programas/victimas-nueva-metodologia?state=published"
-estatal_download "$URL_VIC" "V&iacute;ctimas" "$ESTADOS_VIC_ZIP"
+estatal_download "$URL_MUNS" "V&iacute;ctimas" "estados_victimas.csv" "Cifras de V&iacute;ctimas del Fuero Com&uacute;n, 2015"
 
-convert_to_csv "$ESTADOS_FC_ZIP" estados
+#convert_to_csv "$ESTADOS_FC_ZIP" estados
 #convert_to_csv "$MUN_FC_ZIP" municipios
-convert_to_csv "$ESTADOS_VIC_ZIP" estados_victimas
+#convert_to_csv "$ESTADOS_VIC_ZIP" estados_victimas
 
 deactivate || true
