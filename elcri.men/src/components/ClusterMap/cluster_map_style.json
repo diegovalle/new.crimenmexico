@@ -295,7 +295,7 @@
 		"id": "housenumber",
 		"layout": {
 			"text-field": "{housenumber}",
-			"text-font": ["Noto Sans Regular"],
+			"text-font": ["noto sans regular"],
 			"text-size": 10
 		},
 		"minzoom": 17,
@@ -829,7 +829,7 @@
 			"icon-size": 1,
 			"text-anchor": "top",
 			"text-field": "{name:latin}\n{name:nonlatin}",
-			"text-font": ["Noto Sans Regular"],
+			"text-font": ["noto sans regular"],
 			"text-max-width": 8,
 			"text-offset": [0, 0.5],
 			"text-size": 11,
@@ -852,7 +852,7 @@
 			"icon-size": 1,
 			"text-anchor": "top",
 			"text-field": "{name:latin}\n{name:nonlatin}",
-			"text-font": ["Noto Sans Regular"],
+			"text-font": ["noto sans regular"],
 			"text-max-width": 8,
 			"text-offset": [0, 0.5],
 			"text-size": 11,
@@ -874,7 +874,7 @@
 		"layout": {
 			"symbol-placement": "line",
 			"text-field": "{name:latin} {name:nonlatin}",
-			"text-font": ["Noto Sans Regular"],
+			"text-font": ["noto sans regular"],
 			"text-letter-spacing": 0.1,
 			"text-rotation-alignment": "map",
 			"text-size": {
@@ -902,7 +902,7 @@
 		"layout": {
 			"text-anchor": "center",
 			"text-field": "{name:latin}\n{name:nonlatin}",
-			"text-font": ["Noto Sans Regular"],
+			"text-font": ["noto sans regular"],
 			"text-max-width": 6,
 			"text-size": {
 				"stops": [
@@ -929,7 +929,7 @@
 		"id": "place_label_city",
 		"layout": {
 			"text-field": "{name:latin}\n{name:nonlatin}",
-			"text-font": ["Noto Sans Regular"],
+			"text-font": ["noto sans regular"],
 			"text-max-width": 10,
 			"text-size": {
 				"stops": [
@@ -956,7 +956,7 @@
 		"id": "country_label-other",
 		"layout": {
 			"text-field": "{name:latin}",
-			"text-font": ["Noto Sans Regular"],
+			"text-font": ["noto sans regular"],
 			"text-max-width": 10,
 			"text-size": {
 				"stops": [

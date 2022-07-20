@@ -23,8 +23,8 @@
       "tiles": ["https://tilesmexico.netlify.app/municipio-tiles/{z}/{x}/{y}.pbf"]
     }
   },
-	"glyphs": "https://tilesmexico.netlify.app/font/{fontstack}/{range}.pbf",
-	"sprite": "https://tilesmexico.netlify.app/sprites/sprite",
+	"glyphs": "https://elcri.men/tiles/font/{fontstack}/{range}.pbf",
+	"sprite": "https://elcri.men/tiles/sprites/sprite",
   "layers": [
     {
       "id": "background",

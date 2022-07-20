@@ -1,3 +1,13 @@
+/* To extract tiles:
+
+tippecanoe -o estados.mbtiles -l estados -n "estados" -z10 estados.geojson
+tippecanoe -o municipios.mbtiles -l municipios -n "municipios" -z10 municipios.geojson
+tile-join -o mexico.mbtiles estados.mbtiles municipios.mbtiles ductos.mbtiles 2017-07-03_north-america_mexico.mbtiles municipios-centroids.mbtiles
+mb-util --image_format=pbf mexico.mbtiles mexico-tiles
+gzip -d -r -S .pbf * 
+find . -type f -exec mv '{}' '{}'.pbf \;   
+
+*/
 import React from 'react';
 import Helmet from 'react-helmet';
 

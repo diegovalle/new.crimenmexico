@@ -1,0 +1,48 @@
+[[headers]]
+  for = "/*.pbf"
+  [headers.values]
+  Access-Control-Allow-Origin = "https://elcri.men"
+  Vary = "Origin"
+  Cache-Control = "public, max-age=31536000"
+  Content-Type = "application/x-protobuf"
+
+[[headers]]
+  for = "/*.eot"
+  [headers.values]
+  Access-Control-Allow-Origin = "https://elcri.men"
+  Vary = "Origin"
+  Cache-Control = "public, max-age=31536000"
+  Content-Type = "application/vnd.ms-fontobject"}
+  
+[[headers]]
+  for = "/*.woff"
+  [headers.values]
+  Access-Control-Allow-Origin = "https://elcri.men"
+  Vary = "Origin"
+  Cache-Control = "public, max-age=31536000"
+  Content-Type = "font/woff"
+  
+[[headers]]
+  for = "/*.json"
+  [headers.values]
+  Access-Control-Allow-Origin = "https://elcri.men"
+  Vary = "Origin"
+  Cache-Control = "public, max-age=31536000"
+  Content-Type = "application/json"
+  
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+  Access-Control-Allow-Origin = "https://elcri.men"
+  Vary = "Origin"
+  Cache-Control = "public, max-age=31536000"
+  Content-Type = "image/png"
+  
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+  Access-Control-Allow-Origin = "https://elcri.men"
+  Vary = "Origin"
+  Cache-Control = "public, max-age=31536000"
+  Content-Type = "image/svg+xml"
+
