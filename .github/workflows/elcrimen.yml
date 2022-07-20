@@ -8,7 +8,7 @@ on:
   push:
     branches:
       - master
-  repository_dispatch:
+
 jobs:
   Build-Elcrimen:
     runs-on: ubuntu-latest
