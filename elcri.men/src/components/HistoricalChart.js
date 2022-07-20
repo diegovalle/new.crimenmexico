@@ -57,6 +57,11 @@ function HistoricalChart (props) {
           preliminaryINEGI
         }
       }
+      site {
+        siteMetadata {
+          monthsPreliminaryINEGI
+        }
+      }
     }
   `);
 
@@ -103,8 +108,15 @@ function HistoricalChart (props) {
     if (preliminary.site.siteMetadata.preliminaryINEGI)
       data2 = [
         data2[0],
-        data2[1].slice (0, data2[1].length - 12),
-        data2[1].slice (data2[1].length - 13, data2[1].length),
+        data2[1].slice (
+          0,
+          data2[1].length - preliminary.site.siteMetadata.monthsPreliminaryINEGI
+        ),
+        data2[1].slice (
+          data2[1].length -
+            (preliminary.site.siteMetadata.monthsPreliminaryINEGI + 1),
+          data2[1].length
+        ),
       ];
     return data2;
   };
@@ -131,7 +143,7 @@ function HistoricalChart (props) {
       <div className="column is-half">
         <div className="select is-pulled-right">
           <select
-           className="is-hovered"
+            className="is-hovered"
             id="state_select"
             onChange={handleSelect}
             aria-label="Select State"
@@ -256,7 +268,9 @@ function HistoricalChart (props) {
 
         {preliminary.site.siteMetadata.preliminaryINEGI
           ? <p>
-              Las cifras correspondientes a los homicidios INEGI de los últimos 12 meses son de carácter preliminar y muy probablemente presentan un subregistro.
+              <FormattedHTMLMessage id="prelim1" />
+              {preliminary.site.siteMetadata.monthsPreliminaryINEGI}
+              <FormattedHTMLMessage id="prelim2" />
             </p>
           : null}
       </div>

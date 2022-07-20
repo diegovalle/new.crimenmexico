@@ -9,7 +9,8 @@ module.exports = {
     baseUrl: `${SITENAME}`,
     siteUrl: `${SITENAME}`,
     twitterHandle: '@diegovalle',
-    preliminaryINEGI: false,
+    preliminaryINEGI: true,
+    monthsPreliminaryINEGI: 6
   },
   plugins: [
     {
@@ -46,6 +47,11 @@ module.exports = {
             'cache-control: max-age=2592000',
           ],
           '/es/images/infographics/fulls/*': [
+            'cache-control: public',
+            'cache-control: max-age=2592000',
+          ],
+          '/tiles/*': [
+            'Access-Control-Allow-Origin: https://elcri.men',
             'cache-control: public',
             'cache-control: max-age=2592000',
           ]
