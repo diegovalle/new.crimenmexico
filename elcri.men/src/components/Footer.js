@@ -24,6 +24,7 @@ function Footer (props) {
                {intl.formatMessage ({id: 'author'})}:
               {' '}
               <a
+                rel="me" 
                 className="title is-4 is-size-5"
                 href="https://www.diegovalle.net/"
               >
@@ -40,6 +41,7 @@ function Footer (props) {
                 <a
                   className="level-item"
                   aria-label="Twitter"
+                  rel="me" 
                   href="https://twitter.com/diegovalle"
                 >
                   <span className="icon icon is-large"><FaTwitterSquare /></span>
@@ -49,6 +51,7 @@ function Footer (props) {
                 <a
                   className="level-item"
                   aria-label="Facebook"
+                  rel="me" 
                   href="https://facebook.com/diegovalle"
                 >
                   {' '}
@@ -62,6 +65,7 @@ function Footer (props) {
               {intl.formatMessage ({id: 'author'})}:
               {' '}
               <a
+                rel="me" 
                 className="title is-5 is-size-5"
                 href="https://www.diegovalle.net/"
               >
@@ -78,6 +82,7 @@ function Footer (props) {
                 <a
                   className="level-item"
                   aria-label="GitHub"
+                  rel="me" 
                   href="https://github.com/diegovalle"
                 >
                   <span className="icon icon is-large"><FaGithubSquare /></span>
