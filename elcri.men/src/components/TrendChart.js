@@ -32,13 +32,14 @@ function TrendChart (props) {
   };
 
   const formatData = data => {
+	const start_year = 2017
     let state = Object.keys (data)[0];
     let len = data[state][0].length;
     // Substract one from the length of the array since js months are zero indexed
     setMonth ((len-1) % 12);
     let state_tidy = [[], []];
     for (let i = 0; i < len; i++) {
-      let d = new Date (2015, 0, 1);
+      let d = new Date (start_year, 0, 1);
       state_tidy[0].push ({
         value: data[state][1][i],
         date: new Date (d.setMonth (d.getMonth () + i)),
