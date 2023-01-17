@@ -30,7 +30,7 @@ module.exports = {
           ],
           '/*': [
             'Strict-Transport-Security: max-age=31536000',
-            "Feature-Policy: microphone 'none'; camera 'none'; gyroscope 'none'; usb 'none'",
+            "Permissions-Policy: geolocation=(self) fullscreen=(self)",
           ],
           '/*.html': [
             'cache-control: public',
