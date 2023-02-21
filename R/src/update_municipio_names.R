@@ -4,8 +4,8 @@ library(tidyverse)
 df <- read.csv("../clean/snsp-data/municipios.csv", 
                fileEncoding = "windows-1252")
 
-df20 <- subset(df, Año == 2020)
-df21 <- subset(df, Año == 2021)
+df20 <- subset(df, Año == 2022)
+df21 <- subset(df, Año == 2023)
 new_muns <- setdiff(unique(df21$Cve..Municipio), unique(df20$Cve..Municipio))
 #names of the new municipios
 unique(df[which(df$Cve..Municipio %in% new_muns), ]$Municipio)
