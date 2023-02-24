@@ -15,6 +15,18 @@ import topology from '../assets/json/mx_hexgrid_topojson.json';
 const mexico = feature (topology, topology.objects.mx_hexgrid);
 var round1 = format ('.1f');
 var comma = format (',');
+const contrast = [
+  '#010101',
+  '#010101',
+  '#010101',
+  '#010101',
+  '#010101',
+  '#010101',
+  '#FFFFFF',
+  '#FFFFFF',
+  '#FFFFFF',
+];
+const best_contrast = schemeYlOrRd[9].reduce ((acc, curr, i) => ((acc[curr] = contrast[i]), acc), {});
 const stateNames = {
   AGS: 'AGUASCALIENTES',
   BC: 'BAJA CALIFORNIA',
@@ -239,6 +251,7 @@ function MxHexTileMap (props) {
                                         textAnchor="middle"
                                         className="is-size-7-mobile"
                                         dominantBaseline="mathemetical"
+                                        fill={best_contrast[f[crime]]}
                                         x={
                                           mercator.path.centroid (f)[0]
                                             ? mercator.path.centroid (f)[0]
