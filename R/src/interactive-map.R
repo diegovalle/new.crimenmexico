@@ -1,3 +1,7 @@
+# Abort processing if the max date of the state data
+# is not equal to the one in the municipio data
+stopifnot(max(vic$date) == max(muns$date))
+
 last_six_dates = str_sub(sort(unique(muns$date)), 0, 7)
 last_six_dates = last_six_dates[length((last_six_dates)): (length(last_six_dates) - 11)]
 last_six_dates_txt = paste(rep("'", 11),last_six_dates, rep("'", 11), collapse = ",", sep="")
