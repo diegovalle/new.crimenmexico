@@ -122,7 +122,7 @@
   "github_ans": "Sí, está disponible en <a href=\"https://github.com/diegovalle/new.crimenmexico\">GitHub</a>",
   "mxmaps_ans": "Puedes usar el paquete R <a href=\"https://www.diegovalle.net/mxmaps/index.html\">mxmaps</a> para crear mapas hexagonales de México (y muchos otros tipos de mapas)",
   "mxmortalitydb_ans": "Sí pueden usar el paquete <a href=\"https://github.com/diegovalle/mxmortalitydb\">mxmortalitydb</a>",
-  "month_ans": "Cada mes alrededor del día 20 tle_en la noche",
+  "month_ans": "Cada mes alrededor del día 20",
   "inegi_ans": "A finales de cada año, además hay datos prelimaneres a finales de julio, pero no hay una fecha definida",
   "munnames_ans": "Vienen del <a href=\"https://www.inegi.org.mx/app/ageeml/\">Catálogo de entidades federativas, municipios y localidades del INEGI</a>",
   "rates_ans": "Las tasas que se muestran en este sitio están anualizadas (multiplicadas por 12) y usan meses de 30 días. Para obtener la tasa hay que dividir el número de asesinatos por el número de días del mes y multiplicar por 30",
