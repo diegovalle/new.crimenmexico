@@ -5,7 +5,7 @@ agate-sql==0.5.8
 appdirs==1.4.3
 asn1crypto==0.24.0
 Babel==2.9.1
-certifi==2022.12.7
+certifi==2023.7.22
 charset-normalizer==2.0.7
 cryptography==41.0.2
 csvkit==1.0.6
