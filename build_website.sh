@@ -45,6 +45,7 @@ fi
 cp R/interactive-map/municipios*.json elcri.men/static/elcrimen-json/
 
 export GATSBY_TELEMETRY_DISABLED=1
+(cd elcri.men && npx browserslist@latest --update-db)
 (cd elcri.men && npm install && gatsby build --verbose)
 
 echo "Exporting databases to csv.gz"
