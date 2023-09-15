@@ -15,8 +15,8 @@ import SEO from '../components/SEO';
 import TextColumn from '../components/TextColumn';
 import {useIntl, FormattedHTMLMessage} from 'react-intl';
 
-import { select, selectAll } from 'd3-selection'
-import { transition } from 'd3-transition'
+import {select, selectAll} from 'd3-selection';
+import {transition} from 'd3-transition';
 
 import social_image from '../assets/images/social/social-envipe.png';
 import social_image_en from '../assets/images/social/social-envipe_en.png';
@@ -32,8 +32,30 @@ var lesiones_data = [
       sup: 1032059 + 78700.1618011502,
       inf: 1032059 - 78700.1618011502,
     },
-    {date: 2019, value: 1102457, sup: 1102457 + 112375.118767821, inf: 1102457 - 112375.118767821},
-    {date: 2020, value: 928471, sup: 928471 + 52192.4166909969, inf: 928471 - 52192.4166909969},
+    {
+      date: 2019,
+      value: 1102457,
+      sup: 1102457 + 112375.118767821,
+      inf: 1102457 - 112375.118767821,
+    },
+    {
+      date: 2020,
+      value: 928471,
+      sup: 928471 + 52192.4166909969,
+      inf: 928471 - 52192.4166909969,
+    },
+    {
+      date: 2021,
+      value: 1005025,
+      sup: 1005025 + 59030.4508951442,
+      inf: 1005025 - 59030.4508951442,
+    },
+    {
+      date: 2022,
+      value: 1017768,
+      sup: 1017768 + 58608.0764495694,
+      inf: 1017768 - 58608.0764495694,
+    },
   ],
   [
     {date: 2015, value: 153458},
@@ -41,7 +63,9 @@ var lesiones_data = [
     {date: 2017, value: 167680},
     {date: 2018, value: 170572},
     {date: 2019, value: 181936},
-    {date: 2020, value: 161071}
+    {date: 2020, value: 161071},
+    {date: 2021, value: 170460},
+    {date: 2022, value: 180683},
   ],
 ];
 var secuestro_data = [
@@ -52,6 +76,8 @@ var secuestro_data = [
     {date: 2018, value: 79315, sup: 92998, inf: 65632},
     {date: 2019, value: 105189, sup: 129706, inf: 80672},
     {date: 2020, value: 74393, sup: 89015, inf: 59771},
+    {date: 2021, value: 56994, inf: 46533, sup: 67455},
+    {date: 2022, value: 69829, inf: 57430, sup: 82228},
   ],
   [
     {date: 2015, value: 1312},
@@ -60,6 +86,8 @@ var secuestro_data = [
     {date: 2018, value: 1560},
     {date: 2019, value: 1630},
     {date: 2020, value: 1047},
+    {date: 2021, value: 815},
+    {date: 2022, value: 724},
   ],
 ];
 var extorsion_data = [
@@ -68,8 +96,30 @@ var extorsion_data = [
     {date: 2016, value: 7503477, sup: 7787836, inf: 7219118},
     {date: 2017, value: 6590728, sup: 6590728 + 182555, inf: 6590728 - 182555},
     {date: 2018, value: 5716346, sup: 5716346 + 155019, inf: 5716346 - 155019},
-    {date: 2019, value: 4617275, sup: 4617275 + 189696.522637496, inf: 4617275 - 189696.522637496},
-    {date: 2020, value: 4660898, sup: 4660898 + 136221.422399905, inf: 4660898 - 136221.422399905},
+    {
+      date: 2019,
+      value: 4617275,
+      sup: 4617275 + 189696.522637496,
+      inf: 4617275 - 189696.522637496,
+    },
+    {
+      date: 2020,
+      value: 4660898,
+      sup: 4660898 + 136221.422399905,
+      inf: 4660898 - 136221.422399905,
+    },
+    {
+      date: 2021,
+      value: 4910206,
+      sup: 4910206 + 137417.969098067,
+      inf: 4910206 - 137417.969098067,
+    },
+    {
+      date: 2022,
+      value: 4726724,
+      sup: 4726724 + 142299.702778443,
+      inf: 4726724 - 142299.702778443,
+    },
   ],
   [
     {date: 2015, value: 6223},
@@ -77,12 +127,17 @@ var extorsion_data = [
     {date: 2017, value: 6278},
     {date: 2018, value: 6895},
     {date: 2019, value: 9003},
-    {date: 2020, value: 8380}
+    {date: 2020, value: 8380},
+    {date: 2021, value: 9408},
+    {date: 2022, value: 11039},
   ],
 ];
-// Robo total de vehículo (automóvil, camioneta, camión).
+// ENVIPE: Robo total de vehículo (automóvil, camioneta, camión).
 // Amis: https://www.amisprensa.org/wp-content/uploads/2021/02/Robo-de-autos-enero-a-diciembre-2020-V6.pdf
+// https://amisprensa.org/public/documentos/conferencia-robo-de-autos-corte-a-diciembre-2022-25.pdf
+// SNSP: Robo de coche de 4 ruedas (Unidades)
 var robocoche_data = [
+  // ENVIPE
   [
     {date: 2015, value: 452001, sup: 486110, inf: 417893},
     {date: 2016, value: 493727, sup: 527885, inf: 459570},
@@ -93,24 +148,52 @@ var robocoche_data = [
       sup: 605817 + 23245.2550962169,
       inf: 605817 - 23245.2550962169,
     },
-    {date: 2019, value: 645618, sup: 645618 + 26159.9756948209, inf: 645618 - 26159.9756948209},
-    {date: 2020, value: 473640, sup: 473640 + 20815.1807250605, inf: 473640 - 20815.1807250605},
+    {
+      date: 2019,
+      value: 645618,
+      sup: 645618 + 26159.9756948209,
+      inf: 645618 - 26159.9756948209,
+    },
+    {
+      date: 2020,
+      value: 473640,
+      sup: 473640 + 20815.1807250605,
+      inf: 473640 - 20815.1807250605,
+    },
+    {
+      date: 2021,
+      value: 469082,
+      sup: 469082 + 20881.7139124846,
+      inf: 469082 - 20881.7139124846,
+    },
+    {
+      date: 2022,
+      value: 446905,
+      sup: 446905 + 20684.1464980831,
+      inf: 446905 - 20684.1464980831,
+    },
   ],
+  // SNSP
   [
-    {date: 2015, value: 145796 + 15949},
-    {date: 2016, value: 153418 + 22246},
-    {date: 2017, value: 179721 + 31938},
-    {date: 2018, value: 178935 + 36004},
-    {date: 2019, value: 152544 + 35797},
-    {date: 2020, value: 115325 + 30804}
+    {date: 2015, value: 145796 + 15949 - 15949},
+    {date: 2016, value: 153418 + 22246 - 22246},
+    {date: 2017, value: 179721 + 31938 - 31938},
+    {date: 2018, value: 178935 + 36004 - 36004},
+    {date: 2019, value: 152544 + 35797 - 35797},
+    {date: 2020, value: 115325 + 30804 - 30804},
+    {date: 2021, value: 108680 + 32568 - 32568},
+    {date: 2022, value: 101809 + 36901 - 36901},
   ],
+  // AMIS
   [
     {date: 2015, value: 60700},
     {date: 2016, value: 69200},
-    {date: 2017, value: 87800},
-    {date: 2018, value: 92600},
-    {date: 2019, value: 85400},
-    {date: 2020, value: 68100}
+    {date: 2017, value: 88888},
+    {date: 2018, value: 94159},
+    {date: 2019, value: 85301},
+    {date: 2020, value: 68254},
+    {date: 2021, value: 62142},
+    {date: 2022, value: 60523},
   ],
 ];
 
