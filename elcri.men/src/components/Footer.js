@@ -21,18 +21,18 @@ function Footer (props) {
         <div className="container">
           <div className="columns">
             <div className="column is-4 has-text-centered is-hidden-tablet">
-               {intl.formatMessage ({id: 'author'})}:
+              {intl.formatMessage ({id: 'author'})}:
               {' '}
               <a
-                rel="me" 
+                rel="me"
                 className="title is-4 is-size-5"
                 href="https://www.diegovalle.net/"
               >
-                 {intl.formatMessage ({id: 'name'})}
+                {intl.formatMessage ({id: 'name'})}
               </a>
               <hr />
               <p>
-                 <FormattedHTMLMessage id='Please visit' />
+                <FormattedHTMLMessage id="Please visit" />
               </p>
             </div>
             <div className="column is-4">
@@ -41,21 +41,25 @@ function Footer (props) {
                 <a
                   className="level-item"
                   aria-label="Twitter"
-                  rel="me" 
+                  rel="me"
                   href="https://twitter.com/diegovalle"
                 >
-                  <span className="icon icon is-large"><FaTwitterSquare /></span>
+                  <span className="icon icon is-large">
+                    <FaTwitterSquare />
+                  </span>
                   <span className="is-hidden">Twitter</span>
                 </a>
 
                 <a
                   className="level-item"
                   aria-label="Facebook"
-                  rel="me" 
+                  rel="me"
                   href="https://facebook.com/diegovalle"
                 >
                   {' '}
-                  <span className="icon icon is-large"><FaFacebookSquare /></span>
+                  <span className="icon icon is-large">
+                    <FaFacebookSquare />
+                  </span>
                   <span className="is-hidden">Facebook</span>
                 </a>
 
@@ -65,15 +69,15 @@ function Footer (props) {
               {intl.formatMessage ({id: 'author'})}:
               {' '}
               <a
-                rel="me" 
+                rel="me"
                 className="title is-5 is-size-5"
                 href="https://www.diegovalle.net/"
               >
-                 {intl.formatMessage ({id: 'name'})}
+                <h7>{intl.formatMessage ({id: 'name'})}</h7>
               </a>
               <hr />
               <p>
-                <FormattedHTMLMessage id='Please visit' />
+                <FormattedHTMLMessage id="Please visit" />
               </p>
             </div>
             <div className="column is-4 has-text-right">
@@ -82,7 +86,7 @@ function Footer (props) {
                 <a
                   className="level-item"
                   aria-label="GitHub"
-                  rel="me" 
+                  rel="me"
                   href="https://github.com/diegovalle"
                 >
                   <span className="icon icon is-large"><FaGithubSquare /></span>
