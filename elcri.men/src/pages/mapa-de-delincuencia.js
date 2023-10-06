@@ -541,7 +541,7 @@ function HomicideMapPage (props) {
       </HeroTitle>
 
       <section id="map_container">
-        <div className="container is-widescreen">
+        <div className="container is-fluid">
             <AdSense.Google
               client="ca-pub-2949275046149330"
               slot="8649980552"

@@ -330,7 +330,7 @@ function ClusterMapPage (props) {
       />
 
       <section id="map_container">
-        <div className="container is-widescreen">
+        <div className="container is-fluid">
           <div style={{height: '700px', overflow: 'hidden'}}>
             <ClusterMap />
           </div>
