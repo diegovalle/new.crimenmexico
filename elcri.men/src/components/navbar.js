@@ -76,7 +76,7 @@ const Navbar = ({locale, path}) => {
           </LLink>
 
           <div className="navbar-item has-dropdown is-hoverable is-boxed">
-            <a
+            <div
               style={{borderRadius: '0 0 5px 5px'}}
               className={
                 'navbar-link ' +
@@ -87,7 +87,7 @@ const Navbar = ({locale, path}) => {
               }
             >
               {intl.formatMessage ({id: 'states'})}
-            </a>
+            </div>
             <div className="navbar-dropdown is-size-6">
               <LLink
                 locale={locale}
@@ -138,7 +138,7 @@ const Navbar = ({locale, path}) => {
           </div>
 
           <div className="navbar-item has-dropdown is-hoverable is-boxed">
-            <a
+            <div
               style={{borderRadius: '0 0 5px 5px'}}
               className={
                 'navbar-link ' +
@@ -149,7 +149,7 @@ const Navbar = ({locale, path}) => {
               }
             >
               {intl.formatMessage ({id: 'municipios'})}
-            </a>
+            </div>
 
             <div className="navbar-dropdown  is-size-6">
 
@@ -185,7 +185,7 @@ const Navbar = ({locale, path}) => {
           </div>
 
           <div className="navbar-item has-dropdown is-hoverable is-boxed">
-            <a
+            <div
               style={{borderRadius: '0 0 5px 5px'}}
               className={
                 'navbar-link ' +
@@ -196,7 +196,7 @@ const Navbar = ({locale, path}) => {
               }
             >
               {intl.formatMessage ({id: 'Mapas'})}
-            </a>
+            </div>
 
             <div className="navbar-dropdown  is-size-6">
               <a
@@ -225,7 +225,7 @@ const Navbar = ({locale, path}) => {
           </div>
 
           <div className="navbar-item has-dropdown is-hoverable is-boxed">
-            <a
+            <div
               style={{borderRadius: '0 0 5px 5px'}}
               className={
                 'navbar-link ' +
@@ -236,7 +236,7 @@ const Navbar = ({locale, path}) => {
               }
             >
               {intl.formatMessage ({id: 'statistics'})}
-            </a>
+            </div>
 
             <div className="navbar-dropdown  is-size-6">
               <LLink

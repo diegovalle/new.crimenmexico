@@ -346,9 +346,9 @@ const HomeIndex = props => {
           </h2>
           <div className="columns">
             <div className="column">
-              <h5 className="title is-5">
+              <h3 className="title is-5">
                 <FormattedMessage id="crime_map" />
-              </h5>
+              </h3>
               <br />
               <div className="level">
                 <div className="level-item">
@@ -377,9 +377,9 @@ const HomeIndex = props => {
               </button>
             </div>
             <div className="column">
-              <h5 className="title is-5">
+              <h3 className="title is-5">
                 <FormattedMessage id="anomalies" />
-              </h5>
+              </h3>
               <div className="level">
                 <div className="level-item">
                   <figure className="image is-128x128">
@@ -404,7 +404,7 @@ const HomeIndex = props => {
               </button>
             </div>
             <div className="column">
-              <h5 className="title is-5"><FormattedMessage id="trends" /></h5>
+              <h3 className="title is-5"><FormattedMessage id="trends" /></h3>
               <br />
               <div className="level">
                 <div className="level-item">
