@@ -54,6 +54,9 @@ module.exports = {
             'Access-Control-Allow-Origin: https://elcri.men',
             'cache-control: public',
             'cache-control: max-age=2592000',
+          ],
+          '/|/estados/|/homicidios-mujeres/|/feminicidio/|/estados-diferencia/|/estados-ranking/|/mapa-de-delincuencia/|/mapa-clusters/|/envipe/|/acerca//tendencias/' : [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin'
           ]
         }, // option to add more headers. `Link` headers are transformed by the below criteria
       },
