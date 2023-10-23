@@ -155,6 +155,18 @@ function MostViolent (props) {
 
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
+      <Helmet
+        link={[
+          {
+            rel: 'preload',
+            href:
+              '/static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2',
+            as: 'font',
+            type: 'font/woff2',
+            crossorigin: 'anonymous',
+          },
+        ]}
+      />
       <SEO
         title={intl.formatMessage ({id: 'title_state_diff'})}
         description={intl.formatMessage ({id: 'desc_state_diff'})}

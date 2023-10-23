@@ -1,51 +1,69 @@
-import React from 'react';
-import {useStaticQuery, graphql} from 'gatsby';
-import Layout from '../components/layout';
-import {useIntl, injectIntl, FormattedMessage, FormattedHTMLMessage} from 'react-intl';
-import Img from 'gatsby-image';
-import useBestImages from '../components/BestImages';
-import LLink from '../components/LLink';
-import Helmet from 'react-helmet';
+import React from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
+import Layout from '../components/layout'
+import {
+  useIntl,
+  injectIntl,
+  FormattedMessage,
+  FormattedHTMLMessage,
+} from 'react-intl'
+import Img from 'gatsby-image'
+import useBestImages from '../components/BestImages'
+import LLink from '../components/LLink'
+import Helmet from 'react-helmet'
 
 const useError = () => {
-  const data = useStaticQuery (graphql`
-query errorQuery {
-  
-  fatbubu:file(relativePath: {eq: "fatbubu.jpg"}) {
-    childImageSharp {
-      fixed(width: 300, height: 400, quality: 80) {
-        ...GatsbyImageSharpFixed_withWebp
-        originalName
-        width
+  const data = useStaticQuery(graphql`
+    query errorQuery {
+      fatbubu: file(relativePath: { eq: "fatbubu.jpg" }) {
+        childImageSharp {
+          fixed(width: 300, height: 400, quality: 80) {
+            ...GatsbyImageSharpFixed_withWebp
+            originalName
+            width
+          }
+        }
       }
     }
-  }
+  `)
+  return data
 }
-`);
-  return data;
-};
 
 const NotFoundPage = props => {
-  const intl = useIntl ();
-  const image = useError ();
-  const bestImages = useBestImages ();
+  const intl = useIntl()
+  const image = useError()
+  const bestImages = useBestImages()
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
-    <Helmet>
-      <title>{intl.formatMessage ({id: 'NOT FOUND'})}</title>
-      <meta name="description" content={intl.formatMessage ({
-                id: "You just hit a route that doesn't exist... the sadness.",
-              })} />
-      <html lang={props.pageContext.locale} />
-    </Helmet>
+      <Helmet
+        link={[
+          {
+            rel: 'preload',
+            href:
+              '/static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2',
+            as: 'font',
+            type: 'font/woff2',
+            crossorigin: 'anonymous',
+          },
+        ]}
+      >
+        <title>{intl.formatMessage({ id: 'NOT FOUND' })}</title>
+        <meta
+          name="description"
+          content={intl.formatMessage({
+            id: "You just hit a route that doesn't exist... the sadness.",
+          })}
+        />
+        <html lang={props.pageContext.locale} />
+      </Helmet>
       <section class="hero">
         <div class="hero-body">
           <div class="container has-text-centered">
             <h1 className="title has-text-centered has-text-danger">
-              {intl.formatMessage ({id: 'NOT FOUND'})}
+              {intl.formatMessage({ id: 'NOT FOUND' })}
             </h1>
             <h2 className="subtitle  has-text-centered has-text-danger">
-              {intl.formatMessage ({
+              {intl.formatMessage({
                 id: "You just hit a route that doesn't exist... the sadness.",
               })}
             </h2>
@@ -58,10 +76,10 @@ const NotFoundPage = props => {
             <Img
               key={image.fatbubu.childImageSharp.fixed}
               fixed={image.fatbubu.childImageSharp.fixed}
-              title={intl.formatMessage ({
+              title={intl.formatMessage({
                 id: 'NOT FOUND',
               })}
-              alt={intl.formatMessage ({
+              alt={intl.formatMessage({
                 id: 'NOT FOUND',
               })}
             />
@@ -69,14 +87,16 @@ const NotFoundPage = props => {
         </div>
       </div>
 
-      <section class="more is-widescreen" style={{paddingTop: '2rem'}}>
+      <section class="more is-widescreen" style={{ paddingTop: '2rem' }}>
         <div class="container has-text-centered">
           <h2 class="title">
             <FormattedMessage id="best_site" />
           </h2>
           <div class="columns">
             <div class="column">
-              <h5 class="title is-5"><FormattedMessage id="crime_map" /></h5>
+              <h5 class="title is-5">
+                <FormattedMessage id="crime_map" />
+              </h5>
               <br />
               <div class="level">
                 <div class="level-item">
@@ -85,8 +105,8 @@ const NotFoundPage = props => {
                       className="is-rounded"
                       key={bestImages.mapa.childImageSharp.fixed}
                       fixed={bestImages.mapa.childImageSharp.fixed}
-                      title={intl.formatMessage ({id: 'Crime map of Mexico'})}
-                      alt={intl.formatMessage ({id: 'Crime map of Mexico'})}
+                      title={intl.formatMessage({ id: 'Crime map of Mexico' })}
+                      alt={intl.formatMessage({ id: 'Crime map of Mexico' })}
                     />
                   </figure>
                 </div>
@@ -105,7 +125,9 @@ const NotFoundPage = props => {
               </button>
             </div>
             <div class="column">
-              <h5 class="title is-5"><FormattedMessage id="anomalies" /></h5>
+              <h5 class="title is-5">
+                <FormattedMessage id="anomalies" />
+              </h5>
               <div class="level">
                 <div class="level-item">
                   <figure class="image is-128x128">
@@ -113,8 +135,8 @@ const NotFoundPage = props => {
                       className="is-rounded"
                       key={bestImages.anomalies.childImageSharp.fixed}
                       fixed={bestImages.anomalies.childImageSharp.fixed}
-                      title={intl.formatMessage ({id: 'Crime anomalies'})}
-                      alt={intl.formatMessage ({id: 'Crime anomalies'})}
+                      title={intl.formatMessage({ id: 'Crime anomalies' })}
+                      alt={intl.formatMessage({ id: 'Crime anomalies' })}
                     />
                   </figure>
                 </div>
@@ -130,7 +152,10 @@ const NotFoundPage = props => {
               </button>
             </div>
             <div class="column">
-              <h5 class="title is-5"><FormattedMessage id="trends" /></h5><br />
+              <h5 class="title is-5">
+                <FormattedMessage id="trends" />
+              </h5>
+              <br />
               <div class="level">
                 <div class="level-item">
                   <figure class="image is-128x128">
@@ -138,10 +163,10 @@ const NotFoundPage = props => {
                       className="is-rounded"
                       key={bestImages.trend.childImageSharp.fixed}
                       fixed={bestImages.trend.childImageSharp.fixed}
-                      title={intl.formatMessage ({
+                      title={intl.formatMessage({
                         id: 'Homicide trends in Mexico',
                       })}
-                      alt={intl.formatMessage ({
+                      alt={intl.formatMessage({
                         id: 'Homicide trends in Mexico',
                       })}
                     />
@@ -161,9 +186,8 @@ const NotFoundPage = props => {
           </div>
         </div>
       </section>
-
     </Layout>
-  );
-};
+  )
+}
 
-export default NotFoundPage;
+export default NotFoundPage

@@ -1,16 +1,17 @@
-SITENAME="https://elcri.men/"
-SITENAME_NO_SLASH="https://elcri.men"
+SITENAME = 'https://elcri.men/'
+SITENAME_NO_SLASH = 'https://elcri.men'
 
 module.exports = {
   siteMetadata: {
     title: 'Delincuencia en México - El Crimen',
     author: 'Diego Valle-Jones',
-    description: 'Descubre estadísticas de la delincuencia en tu estado y municipio con este mapa interactivo y reporte mensual de homicidios, secuestros, robos y más en México',
+    description:
+      'Descubre estadísticas de la delincuencia en tu estado y municipio con este mapa interactivo y reporte mensual de homicidios, secuestros, robos y más en México',
     baseUrl: `${SITENAME}`,
     siteUrl: `${SITENAME}`,
     twitterHandle: '@diegovalle',
     preliminaryINEGI: true,
-    monthsPreliminaryINEGI: 12
+    monthsPreliminaryINEGI: 12,
   },
   plugins: [
     {
@@ -30,7 +31,7 @@ module.exports = {
           ],
           '/*': [
             'Strict-Transport-Security: max-age=31536000',
-            "Permissions-Policy: geolocation=(self), fullscreen=(self)",
+            'Permissions-Policy: geolocation=(self), fullscreen=(self)',
           ],
           '/*.html': [
             'cache-control: public',
@@ -55,9 +56,57 @@ module.exports = {
             'cache-control: public',
             'cache-control: max-age=2592000',
           ],
-          '/|/estados/|/homicidios-mujeres/|/feminicidio/|/estados-diferencia/|/estados-ranking/|/mapa-de-delincuencia/|/mapa-clusters/|/envipe/|/acerca//tendencias/' : [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin'
-          ]
+          '/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/en/violence-map/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/en/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/municipios-mas-violentos/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/municipios/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/en/tourism/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/en/state-crime/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/estados/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/homicidios-mujeres/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/feminicidio/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/estados-diferencia/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/estados-ranking/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/mapa-de-delincuencia/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/mapa-clusters/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/envipe/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/tendencias/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
+          '/acerca/': [
+            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
+          ],
         }, // option to add more headers. `Link` headers are transformed by the below criteria
       },
     },
@@ -84,13 +133,13 @@ module.exports = {
             }
           }
       }`,
-        serialize: ({site, allSitePage}) =>
-          allSitePage.edges.map (edge => {
+        serialize: ({ site, allSitePage }) =>
+          allSitePage.edges.map(edge => {
             return {
               url: site.siteMetadata.siteUrl + edge.node.path,
               changefreq: `monthly`,
               priority: 0.7,
-            };
+            }
           }),
       },
     },
@@ -174,7 +223,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
-        policy: [{userAgent: '*', allow: '/'}],
+        policy: [{ userAgent: '*', allow: '/' }],
       },
     },
     {
@@ -183,7 +232,7 @@ module.exports = {
         // selfHostedOrigin: "YOUR_SELF_HOSTED_ORIGIN",
         // You can add multiple tracking ids and a pageview event will be fired for all of them.
         trackingIds: [
-          "G-SMLSV8EVFV", // Google Analytics / GA
+          'G-SMLSV8EVFV', // Google Analytics / GA
         ],
       },
     },
@@ -193,9 +242,19 @@ module.exports = {
       resolve: `gatsby-plugin-purgecss`,
       options: {
         //printRejected: true, // Print removed selectors and processed file names
-        whitelistPatterns: [/.*mg-.*/, /metricsGraphicsCon/, /metrics.*/, /inegi/],
+        whitelistPatterns: [
+          /.*mg-.*/,
+          /metricsGraphicsCon/,
+          /metrics.*/,
+          /inegi/,
+        ],
         //ignore: ['metricsgraphics.css', 'react-tabs.css'],
-        purgeOnly: ['scss/style.scss', '_datepicker.css', 'top50.css','mapbox-gl.css'],
+        purgeOnly: [
+          'scss/style.scss',
+          '_datepicker.css',
+          'top50.css',
+          'mapbox-gl.css',
+        ],
         //develop: true, // Enable while using `gatsby develop`
         // tailwind: true, // Enable tailwindcss support
         // whitelist: ['whitelist'], // Don't remove this selector
@@ -204,4 +263,4 @@ module.exports = {
       },
     },
   ],
-};
+}
