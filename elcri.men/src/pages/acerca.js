@@ -387,27 +387,6 @@ function HomeIndex(props) {
                       <div className="media-content">
                         <h3 className="title is-4">
                           {intl.formatMessage({
-                            id: 'How can I send you bitcoin?',
-                          })}
-                        </h3>
-                        <p>
-                          <FormattedHTMLMessage id="bitcoin_ans" />
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="card block">
-                  <div className="card-content">
-                    <div className="media">
-                      <div className="media-left">
-                        <span className="icon is-medium mdi mdi-24px">
-                          <IoIosArrowDroprightCircle />
-                        </span>
-                      </div>
-                      <div className="media-content">
-                        <h3 className="title is-4">
-                          {intl.formatMessage({
                             id: 'How can I contact you?',
                           })}
                         </h3>
