@@ -1,6 +1,3 @@
-Sys.setenv("CURLOPT_SSL_VERIFYPEER" = 0)
-Sys.setenv("CURLOPT_SSL_VERIFYSTATUS" = 0)
-
 url <- "https://conapo.segob.gob.mx/work/models/CONAPO/Datos_Abiertos/pry23/00_Pob_Mitad_1950_2070.csv"
 
 df <- read.csv("~/Downloads/00_Pob_Mitad_1950_2070.csv") |>
