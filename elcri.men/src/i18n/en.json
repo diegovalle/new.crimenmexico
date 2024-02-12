@@ -102,7 +102,7 @@
   "title_about": "Crime Data - El Crimen",
   "Acerca de": "About",
   "Datos": "Data",
-  "about_intro": "<p>Made by  <a href=\"https://www.diegovalle.net\">Diego Valle-Jones</a>. All data available on this website comes from the <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/incidencia-delictiva-del-fuero-comun-nueva-metodologia\">Mexican Justice System</a> and the INEGI. If you use the data I would appreciate a link back. Some states may be missing from the municipio data because they haven't reported their data, if this happens wait a couple of days and download the data again.</p>",
+  "about_intro": "<p>Made by  <a href=\"https://www.diegovalle.net\">Diego Valle-Jones</a>. All data available on this website comes from the <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/incidencia-delictiva-del-fuero-comun-nueva-metodologia\">Mexican Justice System</a> and the INEGI.</p>",
   "New methodology": "New methodology",
   "Old methodology (up to 2017)": "Old methodology (up to 2017)",
   "Frequently Asked Questions": "Frequently Asked Questions",
