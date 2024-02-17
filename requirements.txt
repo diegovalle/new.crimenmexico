@@ -7,7 +7,7 @@ asn1crypto==0.24.0
 Babel==2.9.1
 certifi==2023.7.22
 charset-normalizer==2.0.7
-cryptography==41.0.4
+cryptography==42.0.2
 csvkit==1.0.6
 dbfread==2.0.7
 enum34==1.1.6
