@@ -394,7 +394,11 @@ class CrimeMunicipios(CrimeStates):
             del df['TOTAL']
         if 'TOTAL ESTADO' in [x.upper() for x in df.columns]:
             del df['TOTAL ESTADO']
+        # drop rows with all NaN's
         df = df.dropna(axis=0, how='all')
+        ## TEMP FIXME
+        # drop row where ESTADO is nan because of an error in the last row
+        df = df[df['ENTIDAD'].notna()]
 
         self.check_file(df)
 
@@ -504,7 +508,11 @@ class CrimeMunicipios(CrimeStates):
             del df['TOTAL']
         if 'TOTAL ESTADO' in [x.upper() for x in df.columns]:
             del df['TOTAL ESTADO']
+        # drop rows with all NaN's
         df = df.dropna(axis=0, how='all')
+        ## TEMP FIXME
+        # drop row where ESTADO is nan because of an error in the last row
+        df = df[df['ENTIDAD'].notna()]
 
         self.municipios = pd.read_csv(os.path.join(self._DATADIR, "municipio_names.csv"),
                                       encoding='windows-1252')
