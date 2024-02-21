@@ -118,7 +118,7 @@
   "How can I contact you?": "How can I contact you?",
   "How can I send you bitcoin?": "Where can I send you Bitcoin?",
   "bitcoin_ans": "You can send your Bitcoins to 1D9o9JeZbsWvHhQMnhphab85i97S5e24Pj",
-  "data_ans": "The data comes from the <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva\">SESNSP</a> (both victims and 'carpetas delictivas') and from the <a href=\"https://www.inegi.org.mx/sistemas/olap/proyectos/bd/continuas/mortalidad/defuncioneshom.asp?s=est\">INEGI</a>. The population data comes from the <a href=\"https://datos.gob.mx/busca/dataset/proyecciones-de-la-poblacion-de-mexico-y-de-las-entidades-federativas-2020-2070/resource/4d72720a-228d-4df5-90bf-da55e7e0b8f7\">CONAPO</a> projections (2015-2030)",
+  "data_ans": "The data comes from the <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva\">SESNSP</a> (both victims and 'carpetas delictivas') and from the <a href=\"https://www.inegi.org.mx/sistemas/olap/proyectos/bd/continuas/mortalidad/defuncioneshom.asp?s=est\">INEGI</a>. The population data comes from the <a href=\"https://datos.gob.mx/busca/dataset/proyecciones-de-la-poblacion-de-mexico-y-de-las-entidades-federativas-2020-2070/resource/1d3a38bd-3282-4c96-bc67-45cf14e14acb\">CONAPO</a> projections (2015-2030)",
   "github_ans": "Yes, it's available from <a href=\"https://github.com/diegovalle/new.crimenmexico\">GitHub</a>",
   "mxmaps_ans": "You can use the <a href=\"https://www.diegovalle.net/mxmaps/index.html\">mxmaps</a> R package to create hexbin maps of Mexico (and also lots of other kinds of maps)",
   "mxmortalitydb_ans": "Yes, you can use the <a href=\"https://github.com/diegovalle/mxmortalitydb\">mxmortalitydb</a> package",
