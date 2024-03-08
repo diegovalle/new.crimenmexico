@@ -107,6 +107,12 @@ module.exports = {
           '/acerca/': [
             'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
           ],
+          '/tendencias-estado/': [
+            'Link: <https://trends.elcri.men/states_trends.json>; rel=preload; as=fetch; crossorigin',
+          ],
+          '/trends-states/': [
+            'Link: <https://trends.elcri.men/states_trends.json>; rel=preload; as=fetch; crossorigin',
+          ],
         }, // option to add more headers. `Link` headers are transformed by the below criteria
       },
     },

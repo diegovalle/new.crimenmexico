@@ -27,6 +27,17 @@ function TrendsDeriv (props) {
 
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
+      <Helmet
+        link={[
+          {
+            rel: 'preload',
+            href:
+              'https://trends.elcri.men/states_trends.json',
+            as: 'fetch',
+            crossorigin: 'anonymous',
+          },
+        ]}
+      />
       <SEO
         title={intl.formatMessage ({id: 'title_trends_states'})}
         description={intl.formatMessage ({id: 'desc_trends_states'})}
