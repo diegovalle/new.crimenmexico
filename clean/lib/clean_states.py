@@ -399,6 +399,8 @@ class CrimeMunicipios(CrimeStates):
         ## TEMP FIXME
         # drop row where ESTADO is nan because of an error in the last row
         df = df[df['ENTIDAD'].notna()]
+        # drop repeated header rows
+        df = df[df['ENTIDAD'] != 'Entidad']
 
         self.check_file(df)
 
