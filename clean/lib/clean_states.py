@@ -513,6 +513,8 @@ class CrimeMunicipios(CrimeStates):
         ## TEMP FIXME
         # drop row where ESTADO is nan because of an error in the last row
         df = df[df['ENTIDAD'].notna()]
+        # drop repeated header rows
+        df = df[df['ENTIDAD'] != 'Entidad']
 
         self.municipios = pd.read_csv(os.path.join(self._DATADIR, "municipio_names.csv"),
                                       encoding='windows-1252')
@@ -520,7 +522,7 @@ class CrimeMunicipios(CrimeStates):
         population['date'] = population.date.str.slice(0, 7)
         self.population = population
         del population
-
+ 
         self.check_file(df)
 
         self.modalidad = self.get_uniq_df(df, 'MODALIDAD', 'modalidad')
