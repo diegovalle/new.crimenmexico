@@ -102,7 +102,7 @@
   "title_about": "Acerca de - El Crimen",
   "Acerca de": "Datos de Criminalidad",
   "Datos": "Formato Abierto",
-  "about_intro": "<p>Hecho por <a href=\"https://www.diegovalle.net\">Diego Valle</a>. Todos los datos de este sitio web provienen del <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/incidencia-delictiva-del-fuero-comun-nueva-metodologia\">SESNSP</a> y el <a href=\"https://github.com/diegovalle/mxmortalitydb\"> INEGI</a> (sólo homicidios).</p>",
+  "about_intro": "<p>Hecho por <a href=\"https://www.diegovalle.net\">Diego Valle</a>. Todos los datos de este sitio web provienen del <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/incidencia-delictiva-del-fuero-comun-nueva-metodologia\">SESNSP</a> y el <a href=\"https://github.com/diegovalle/mxmortalitydb\"> INEGI</a> (sólo homicidios). Si usan estos datos les agradecería incluyeran un link a este sitio.</p>",
   "New methodology": "Nueva Metodología",
   "Old methodology (up to 2017)": "Vieja Metodología (hasta el 2017)",
   "Frequently Asked Questions": "Preguntas frecuentes",

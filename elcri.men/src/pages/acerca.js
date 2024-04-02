@@ -56,7 +56,7 @@ function HomeIndex(props) {
             <div className="content is-medium">
               <FormattedHTMLMessage id="about_intro" />
               <br />
-              {/* <div className="columns is-centered">
+              <div className="columns is-centered">
                 <div className="column is-8">
                   <table className="table">
                     <thead>
@@ -162,7 +162,7 @@ function HomeIndex(props) {
                     </tbody>
                   </table>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
