@@ -6,34 +6,74 @@ path.mg-confidence-band {
 path.mg-line1 {
     fill: none;
     opacity: 1;
-    stroke-width: 2.1px;
+    stroke-width: 1.1px;
 }
 svg > mg-line2 {
     fill: none;
     opacity: 1;
 }
 
-
-
-
 .mg-x-axis .label, .mg-y-axis .label, .mg-axis .label {
-    font-size: 0.6rem;
+    /*font-size: 0.6rem;*/
     /*text-transform: uppercase;*/
     font-weight: 400;
     font-family: 'Roboto Condensed';
+    
 }
 
-.mg-x-axis text, .mg-y-axis text, .mg-histogram .axis text {
-    fill: black;
-    font-size: 0.7rem;
-    opacity: 0.6;
-    font-weight: 400;
+@media screen and (min-width: 401px) and (max-width: 720px) {
+    .mg-x-axis .label, .mg-y-axis .label, .mg-axis .label {font-size: 11px;}
+    .mg-x-axis text, .mg-y-axis text, .mg-histogram .axis text {
+    font-size: 11px;
+        font-weight: 400;
     font-family: 'Roboto Condensed';
+    }
 }
+
+@media screen and (min-width: 721px) and (max-width: 1280px) {
+   .mg-x-axis .label, .mg-y-axis .label, .mg-axis .label { font-size: 11;}
+    .mg-x-axis text, .mg-y-axis text, .mg-histogram .axis text {
+    font-size: 11px;
+        font-weight: 400;
+    font-family: 'Roboto Condensed';
+    }
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+    .mg-x-axis .label, .mg-y-axis .label, .mg-axis .label {font-size: 11px;}
+    .mg-x-axis text, .mg-y-axis text, .mg-histogram .axis text {
+    font-size: 11px;
+        font-weight: 400;
+    font-family: 'Roboto Condensed';
+    }
+}
+
+@media screen and (min-width: 1441px) and (max-width: 1920px) {
+    .mg-x-axis .label, .mg-y-axis .label, .mg-axis .label {font-size: 12px;}
+    .mg-x-axis text, .mg-y-axis text, .mg-histogram .axis text {
+    font-size: 12px;
+        font-weight: 400;
+    font-family: 'Roboto Condensed';
+    }
+}
+
+@media screen and (min-width: 1921px) {
+    .mg-x-axis .label, .mg-y-axis .label, .mg-axis .label {font-size: 12px;}
+    .mg-x-axis text, .mg-y-axis text, .mg-histogram .axis text {
+    font-size: 12px;
+        font-weight: 400;
+    font-family: 'Roboto Condensed';
+    }
+}
+
+
+
+
+
 
 .mg-y-axis .label {
     text-transform: none;
-    font-size: 0.75rem;    
+   /*font-size: 0.75rem;   */
     transform: rotate(-90deg) translateY(8px) translateX(7px);
 }
 

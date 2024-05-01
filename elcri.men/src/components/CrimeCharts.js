@@ -1,22 +1,47 @@
-import React, {useState, useEffect} from 'react';
-import {curveLinear as linear} from 'd3-shape';
-import {format as num_format} from 'd3-format';
-import {timeFormat as date_format} from 'd3-time-format';
-import {timeFormatDefaultLocale} from 'd3-time-format';
-import MetricsGraphics from 'react-metrics-graphics';
-import MG from 'metrics-graphics';
-import 'metrics-graphics/dist/metricsgraphics.css';
-import SmallMultiple from '../components/SmallMultiple';
-import {useIntl, FormattedMessage} from 'react-intl';
+import React, { useState, useEffect } from 'react'
+import { curveLinear as linear } from 'd3-shape'
+import { format as num_format } from 'd3-format'
+import { timeFormat as date_format } from 'd3-time-format'
+import { timeFormatDefaultLocale } from 'd3-time-format'
+import SmallMultiple from '../components/SmallMultiple'
+import { useIntl, FormattedMessage } from 'react-intl'
 
-import {filter} from 'lodash-es';
-import {dateLoc} from '../../src/i18n';
-import {format} from 'd3-format';
+import { filter } from 'lodash-es'
+import { dateLoc } from '../../src/i18n'
+import { format } from 'd3-format'
 
-const round1 = format ('.1f');
-const comma = format (',');
+import ReactEChartsCore from 'echarts-for-react/lib/core'
+// Import the echarts core module, which provides the necessary interfaces for using echarts.
+import * as echarts from 'echarts/core'
+import { LineChart, ScatterChart } from 'echarts/charts'
+import {
+  GridComponent,
+  TooltipComponent,
+  TitleComponent,
+  DatasetComponent,
+} from 'echarts/components'
+import {
+  CanvasRenderer,
+  // SVGRenderer,
+} from 'echarts/renderers'
 
-function CrimeChart (props) {
+import { YYYYmmddCollectionToDate } from './utils.js'
+
+import '../assets/css/trends.css'
+
+echarts.use([
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  LineChart,
+  ScatterChart,
+  CanvasRenderer,
+])
+
+const round1 = format('.1f')
+const comma = format(',')
+
+function CrimeChart(props) {
   const stateNames = {
     '0': 'National',
     '1': 'AGS',
@@ -51,39 +76,39 @@ function CrimeChart (props) {
     '30': 'VER',
     '31': 'YUC',
     '32': 'ZAC',
-  };
-  const [data, setData] = useState (null);
+  }
+  const [data, setData] = useState(null)
 
-  useEffect (() => {
-    fetch ('/elcrimen-json/states2.json')
-      .then (response => response.json ())
-      .then (responseJSON => {
-        var a = {
-          ext: zipObject (responseJSON.ext),
-          rvcv: zipObject (responseJSON.rvcv),
-          rvsv: zipObject (responseJSON.rvsv),
-          sec: zipObject (responseJSON.sec),
-          hd: [zipObject (responseJSON.hd[0]), zipObject (responseJSON.hd[1])],
+  useEffect(() => {
+    fetch('/elcrimen-json/states2.json')
+      .then(response => response.json())
+      .then(responseJSON => {
+        var ans = {
+          ext: zipObject(responseJSON.ext),
+          rvcv: zipObject(responseJSON.rvcv),
+          rvsv: zipObject(responseJSON.rvsv),
+          sec: zipObject(responseJSON.sec),
+          hd: [zipObject(responseJSON.hd[0]), zipObject(responseJSON.hd[1])],
           national: {
-            ext: zipObject (responseJSON.national.ext),
-            rvcv: zipObject (responseJSON.national.rvcv),
-            rvsv: zipObject (responseJSON.national.rvsv),
-            sec: zipObject (responseJSON.national.sec),
+            ext: zipObject(responseJSON.national.ext),
+            rvcv: zipObject(responseJSON.national.rvcv),
+            rvsv: zipObject(responseJSON.national.rvsv),
+            sec: zipObject(responseJSON.national.sec),
             hd: [
-              zipObject (responseJSON.national.hd[0]),
-              zipObject (responseJSON.national.hd[1]),
+              zipObject(responseJSON.national.hd[0]),
+              zipObject(responseJSON.national.hd[1]),
             ],
           },
-        };
-        setData (a);
+        }
+        setData(ans)
       })
-      .catch (error => {
-        console.error (error);
-      });
-  }, []);
+      .catch(error => {
+        console.error(error)
+      })
+  }, [])
 
   const zipObject = obj => {
-    let result = new Array (obj.d.length);
+    let result = new Array(obj.d.length)
     if ('s' in obj)
       for (let i = 0; i < obj.d.length; i++) {
         result[i] = {
@@ -92,7 +117,7 @@ function CrimeChart (props) {
           c: obj.c[i],
           p: obj.p[i],
           s: obj.s[i],
-        };
+        }
       }
     else
       for (let i = 0; i < obj.d.length; i++) {
@@ -101,123 +126,249 @@ function CrimeChart (props) {
           r: obj.r[i],
           c: obj.c[i],
           p: obj.p[i],
-        };
+        }
       }
-    return result;
-  };
+    return result
+  }
 
   const singleChart = title => {
-    if (!data) return <div />;
-    let dataf, selected_state = props.selected_state;
+    if (!data) return <div />
+    let dataf,
+      selected_state = props.selected_state
     switch (title) {
-      case intl.formatMessage ({id: 'Homicidio Intencional'}):
-        if (selected_state === '0') dataf = data.national.hd;
+      case intl.formatMessage({ id: 'Homicidio Intencional' }):
+        if (selected_state === '0') dataf = data.national.hd
         else
           dataf = [
-            filter (data.hd[0], {s: parseInt (selected_state)}),
-            filter (data.hd[1], {s: parseInt (selected_state)}),
-          ];
-        break;
-      case intl.formatMessage ({id: 'Secuestro'}):
-        if (selected_state === '0') dataf = data.national.sec;
-        else dataf = filter (data.sec, {s: parseInt (selected_state)});
-        break;
-      case intl.formatMessage ({id: 'Extorsión'}):
-        if (selected_state === '0') dataf = data.national.ext;
-        else dataf = filter (data.ext, {s: parseInt (selected_state)});
-        break;
-      case intl.formatMessage ({id: 'Robo de Coche c/v'}):
-        if (selected_state === '0') dataf = data.national.rvcv;
-        else dataf = filter (data.rvcv, {s: parseInt (selected_state)});
-        break;
-      case intl.formatMessage ({id: 'Robo de Coche s/v'}):
-        if (selected_state === '0') dataf = data.national.rvsv;
-        else dataf = filter (data.rvsv, {s: parseInt (selected_state)});
-        break;
+            filter(data.hd[0], { s: parseInt(selected_state) }),
+            filter(data.hd[1], { s: parseInt(selected_state) }),
+          ]
+        break
+      case intl.formatMessage({ id: 'Secuestro' }):
+        if (selected_state === '0') dataf = data.national.sec
+        else dataf = filter(data.sec, { s: parseInt(selected_state) })
+        break
+      case intl.formatMessage({ id: 'Extorsión' }):
+        if (selected_state === '0') dataf = data.national.ext
+        else dataf = filter(data.ext, { s: parseInt(selected_state) })
+        break
+      case intl.formatMessage({ id: 'Robo de Coche c/v' }):
+        if (selected_state === '0') dataf = data.national.rvcv
+        else dataf = filter(data.rvcv, { s: parseInt(selected_state) })
+        break
+      case intl.formatMessage({ id: 'Robo de Coche s/v' }):
+        if (selected_state === '0') dataf = data.national.rvsv
+        else dataf = filter(data.rvsv, { s: parseInt(selected_state) })
+        break
       default:
-        throw new Error ("Unknown crime. Don't know how to filter");
+        throw new Error("Unknown crime. Don't know how to filter")
     }
 
-    dataf = formatData (dataf);
+    dataf = formatData(dataf)
     title =
       title +
       ' - ' +
       (stateNames[props.selected_state] === 'National'
-        ? intl.formatMessage ({id: 'nacional'})
-        : stateNames[props.selected_state]);
+        ? intl.formatMessage({ id: 'nacional' })
+        : stateNames[props.selected_state])
+    let chartOption = {
+      animation: true,
+      animationDuration: 0,
+      // toolbox: {
+      //   show: true,
+      //   feature: {
+      //     saveAsImage: { show: true },
+      //   },
+      // },
+      title: {
+        text: title,
+        top: '3%',
+        left: 'center',
+        textStyle: {
+          fontFamily: 'Trebuchet MS',
+          fontSize: 13,
+          fontWeight: 'bold',
+        },
+      },
+      tooltip: {
+        trigger: 'axis',
+        textStyle: {
+          color: '#111',
+          fontFamily: 'Roboto Condensed',
+        },
+        axisPointer: {
+          animation: false,
+        },
+        formatter: function(item) {
+          if (item.length == 2) {
+            let date = new Date(item[0].name)
+            let datestr = [
+              date.toLocaleString(intl.locale, { month: 'long' }),
+              date.getFullYear(),
+            ].join(' ')
+            let tasa = intl.formatMessage({ id: 'rate' })
+            let rate_inegi =
+              typeof item[1].value === 'undefined' ? '-' : item[1].value
+            let rate_snsp =
+              typeof item[0].value === 'undefined' ? '-' : item[0].value
+            let num_inegi =
+              dataf[1][item[0].dataIndex].c === null
+                ? '-'
+                : comma(dataf[1][item[0].dataIndex].c)
+            let num_snsp =
+              dataf[0][item[1].dataIndex].c === null
+                ? '-'
+                : comma(dataf[0][item[1].dataIndex].c)
+            return (
+              `${datestr}<br/>${tasa} <span class="inegi-adjusted">INEGI</span>: <b>${rate_inegi}</b> (${num_inegi})` +
+              `<br/>${tasa} <span class="snsp">SNSP</span>: <b>${rate_snsp}</b> (${num_snsp})`
+            )
+          } else {
+            let date = new Date(item[0].name)
+            let datestr = [
+              date.toLocaleString(intl.locale, { month: 'long' }),
+              date.getFullYear(),
+            ].join(' ')
+            let tasa = intl.formatMessage({ id: 'rate' })
+            return `${datestr}<br/>${tasa}: <b>${item[0].value}</b> (${comma(
+              dataf[item[0].dataIndex].c
+            )})`
+          }
+        },
+      },
+      grid: {
+        left: '45',
+        right: '2%',
+        bottom: '13%',
+        top: '25%',
+        containLabel: false,
+      },
+      xAxis: {
+        animation: false,
+        type: 'category',
+        data:
+          dataf.length === 2
+            ? dataf[0].map(item => item.d)
+            : dataf.map(item => item.d),
+        axisLabel: {
+          interval: 35,
+          formatter: function(value, idx) {
+            var date = new Date(value)
+            return [
+              date.toLocaleString(intl.locale, { month: 'short' }),
+              date.getFullYear() - 2000,
+            ].join(' ')
+          },
+        },
+        boundaryGap: false,
+        splitNumber: 2,
+      },
+      yAxis: [
+        {
+          animation: false,
+          name: intl.formatMessage({ id: 'tasa anualizada' }),
+          nameLocation: 'middle',
+          nameGap: 25,
+          nameTextStyle: { fontFamily: 'Arial' },
+          type: 'value',
+          scale: false,
+          splitNumber: 2,
+          // interval:
+          //   Math.round(Math.round((((props.max_y + 5) / 10) * 10) / 3) / 10) *
+          //   10,
+          // max: Math.round((props.max_y + 5) / 10) * 10,
+          splitLine: {
+            show: true,
+            lineStyle: {
+              type: 'solid',
+              color: '#b3b2b2',
+              width: 0.4,
+            },
+          },
+          axisLabel: {
+            margin: 0,
+            padding: [0, 2, 0, 0],
+          },
+        },
+      ],
+      series: [
+        {
+          emphasis: {
+            disabled: true,
+          },
+          name: 'crime',
+          type: 'line',
+          data:
+            dataf.length === 2
+              ? dataf[0].map(item => item.r)
+              : dataf.map(item => item.r),
+          itemStyle: {
+            color: '#333',
+          },
+          lineStyle: {
+            width: 1.2,
+            color: '#008085',
+          },
+          showSymbol: false,
+        },
+        {
+          emphasis: {
+            disabled: true,
+          },
+          name: 'snsp',
+          type: 'line',
+          data: dataf.length === 2 ? dataf[1].map(item => item.r) : null,
+          itemStyle: {
+            color: '#333',
+          },
+          lineStyle: {
+            width: 1.2,
+            color: '#e81208',
+          },
+          showSymbol: false,
+        },
+      ],
+    }
+
+    function onChartReady(echarts) {
+      echarts.hideLoading()
+    }
+
     return (
-      <MetricsGraphics
-        title={title}
-        //description="This graphic shows a time-series of downloads."
-        data={dataf}
-        y_label={intl.formatMessage ({id: 'tasa anualizada'})}
-        //height={200}
-        small_text={true}
-        small_height_threshold={301}
-        full_width={true}
-        full_height={true}
-        area={false}
-        interpolate={linear}
-        xax_count={2}
-        yax_count={3}
-        xax_format={date_format ('%b %Y')}
-        yax_format={
-          title === 'Secuestro' ? num_format ('.1f') : num_format ('.0f')
-        }
-        x_accessor="d"
-        y_accessor="r"
-        min_y={0}
-        y_extended_ticks={true}
-        show_secondary_x_label={false}
-        min_y_from_data={false}
-        left={53}
-        buffer={0}
-        top={38}
-        bottom={40}
-        center_title_full_width={true}
-        colors={['#008085', '#E81208']}
-        y_mouseover={() => null}
-        x_mouseover={function (d) {
-          let date = new Date (d.d);
-          let df = date_format ('%b %Y');
-          return (
-            df (d.d) +
-            ', ' +
-            intl.formatMessage ({id: 'count'}) +
-            ': ' +
-            comma (d.c) +
-            ' ' +
-            intl.formatMessage ({id: 'rate'}) +
-            ': ' +
-            round1 (d.r)
-          );
-        }}
+      <ReactEChartsCore
+        echarts={echarts}
+        option={chartOption}
+        style={{ height: '100%', width: '100%' }}
+        opts={{ locale: echarts.registerLocale('ES') }}
+        //showLoading={true}
+        //onChartReady={onChartReady}
+        //loadingOption={{ text: intl.formatMessage({ id: 'loading' }) }}
       />
-    );
-  };
+    )
+  }
 
   const formatData = crimeData => {
     if (crimeData.length === 2) {
       if (!(crimeData[0][0].d instanceof Date)) {
-        crimeData[0] = MG.convert.date (crimeData[0], 'd');
-        crimeData[1] = MG.convert.date (crimeData[1], 'd');
+        crimeData[0] = YYYYmmddCollectionToDate(crimeData[0], 'd')
+        crimeData[1] = YYYYmmddCollectionToDate(crimeData[1], 'd')
       }
     } else {
       if (!(crimeData[0].d instanceof Date))
-        crimeData = MG.convert.date (crimeData, 'd');
+        crimeData = YYYYmmddCollectionToDate(crimeData, 'd')
     }
 
-    return crimeData;
-  };
-  const intl = useIntl ();
-  let l;
-  intl.locale === 'es' ? (l = timeFormatDefaultLocale (dateLoc.es_MX)) : null;
+    return crimeData
+  }
+  const intl = useIntl()
+  let l
+  intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
 
   return (
     <React.Fragment>
       <div className="columns">
         <div className="column is-full">
-          <figure className="image is-3by1 is-3by1-mobile-16by9">
+          <figure className="image">
             <div
               id="nat_hd"
               className={
@@ -226,15 +377,19 @@ function CrimeChart (props) {
                   : 'line-chart-blue has-ratio'
               }
             >
-              {singleChart (intl.formatMessage ({id: 'Homicidio Intencional'}))}
+              <div className="is-3by1-tablet-only-6by3-mobile-16by9">
+                {singleChart(
+                  intl.formatMessage({ id: 'Homicidio Intencional' })
+                )}
+              </div>
             </div>
           </figure>
         </div>
       </div>
 
-      <div className="columns">
-        <div className="column is-half">
-          <figure className="image is-16by9">
+      <div className="columns is-desktop">
+        <div className="column is-half-desktop">
+          <figure className="image">
             <div
               id="nat_sec"
               className={
@@ -243,12 +398,14 @@ function CrimeChart (props) {
                   : 'line-chart-blue has-ratio'
               }
             >
-              {singleChart (intl.formatMessage ({id: 'Secuestro'}))}
+              <div className="is-16by9-tablet-only-6by3-mobile-16by9">
+                {singleChart(intl.formatMessage({ id: 'Secuestro' }))}
+              </div>
             </div>
           </figure>
         </div>
-        <div className="column is-half">
-          <figure className="image is-16by9">
+        <div className="column is-half-desktop">
+          <figure className="image">
             <div
               id="nat_ext"
               className={
@@ -257,14 +414,16 @@ function CrimeChart (props) {
                   : 'line-chart-blue has-ratio'
               }
             >
-              {singleChart (intl.formatMessage ({id: 'Extorsión'}))}
+              <div className="is-16by9-tablet-only-6by3-mobile-16by9">
+                {singleChart(intl.formatMessage({ id: 'Extorsión' }))}
+              </div>
             </div>
           </figure>
         </div>
       </div>
-      <div className="columns">
-        <div className="column is-half">
-          <figure className="image is-16by9">
+      <div className="columns is-desktop">
+        <div className="column is-half-desktop">
+          <figure className="image">
             <div
               id="nat_rvcv"
               className={
@@ -273,12 +432,14 @@ function CrimeChart (props) {
                   : 'line-chart-blue has-ratio'
               }
             >
-              {singleChart (intl.formatMessage ({id: 'Robo de Coche c/v'}))}
+              <div className="is-16by9-tablet-only-6by3-mobile-16by9">
+                {singleChart(intl.formatMessage({ id: 'Robo de Coche c/v' }))}
+              </div>{' '}
             </div>
           </figure>
         </div>
-        <div className="column is-half">
-          <figure className="image is-16by9">
+        <div className="column is-half-desktop">
+          <figure className="image">
             <div
               id="nat_rvsv"
               className={
@@ -287,14 +448,15 @@ function CrimeChart (props) {
                   : 'line-chart-blue has-ratio'
               }
             >
-              {singleChart (intl.formatMessage ({id: 'Robo de Coche s/v'}))}
+              <div className="is-16by9-tablet-only-6by3-mobile-16by9">
+                {singleChart(intl.formatMessage({ id: 'Robo de Coche s/v' }))}
+              </div>{' '}
             </div>
           </figure>
         </div>
-
       </div>
     </React.Fragment>
-  );
+  )
 }
 
-export default CrimeChart;
+export default CrimeChart

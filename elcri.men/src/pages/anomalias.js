@@ -21,7 +21,8 @@ import {
   mapValues,
   size,
 } from 'lodash-es';
-import MG from 'metrics-graphics';
+import { YYYYmmddCollectionToDate } from '../components/utils.js';
+
 
 import { select, selectAll } from 'd3-selection'
 import { transition } from 'd3-transition'
@@ -113,13 +114,13 @@ function Anomalies (props) {
     if (data.length === 2) {
       data = [filter (data[0], {name: name}), filter (data[1], {name: name})];
       if (typeof data[0][0].date !== 'object') {
-        data[0] = MG.convert.date (data[0], 'date');
-        data[1] = MG.convert.date (data[1], 'date');
+        data[0] = YYYYmmddCollectionToDate (data[0], 'date');
+        data[1] = YYYYmmddCollectionToDate (data[1], 'date');
       }
     } else {
       data = filter (data, {name: name});
       if (typeof data[0].date !== 'object')
-        data = MG.convert.date (data, 'date');
+        data = YYYYmmddCollectionToDate (data, 'date');
     }
 
     return data;
@@ -190,14 +191,14 @@ function Anomalies (props) {
                   key={crime}
                 >
                   {orderStates (data[crime]).map ((mun, i) => (
-                    <div className="column is-half" key={i}>
+                    <div className="column is-half-desktop is-full-tablet" key={i}>
 
                       <figure className="image is-2by1" key={i}>
                         <div className=" has-ratio" key={i}>
                           <SmallMultiple
                             data={filterCrime (data[crime], mun)}
                             key={i}
-                            formatData={data => data}
+                            formatData={data => [data]}
                             y={'rate'}
                             title={mun}
                             metrics={{

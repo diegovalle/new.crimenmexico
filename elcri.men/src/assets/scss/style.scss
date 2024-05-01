@@ -4,6 +4,8 @@
 // Importing Bulma from node_modules
 //@import '../../../node_modules/bulma/bulma.sass';
 
+//@import "~/bulma/bulma.sass";
+
 @import '../../../node_modules/bulma/sass/utilities/_all.sass';
 @import '../../../node_modules/bulma/sass/base/_all.sass';
 @import '../../../node_modules/bulma/sass/grid/columns.sass';
@@ -21,57 +23,86 @@
 @import '../../../node_modules/bulma/sass/layout/hero.sass';
 @import '../../../node_modules/bulma/sass/layout/section.sass';
 
-
 //@import '../../../node_modules/bulma-tooltip/src/sass/index.sass';
 
 // fix for Edge dropdown
 @include desktop {
-    .navbar-item {
-        &.is-hoverable:hover {
-            .navbar-dropdown {
-                display: block;
-            }
-        }
+  .navbar-item {
+    &.is-hoverable:hover {
+      .navbar-dropdown {
+        display: block;
+      }
     }
+  }
 }
 .navbar-item.has-dropdown.is-active > .navbar-dropdown {
-    display: block;
+  display: block;
 }
 
-.image.is-3by1-mobile-16by9 {  
+.is-3by1-tablet-only-6by3-mobile-16by9 {
   // 3by1
-  padding-top: 33.3333%; 
+  aspect-ratio: 3 / 1;
 
-  @include mobile { 
-    // equivalent of is-16by9   
+  @include tablet-only {
+    // equivalent of is-16by9
+    aspect-ratio: 7 / 3;
+  }
+
+  @include mobile {
+    // equivalent of is-16by9
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.is-16by9-tablet-only-6by3-mobile-16by9 {
+  // 3by1
+  aspect-ratio: 16 / 9;
+
+  @include tablet-only {
+    // equivalent of is-16by9
+    aspect-ratio: 7 / 3;
+  }
+
+  @include mobile {
+    // equivalent of is-16by9
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.image.is-3by1-mobile-16by9 {
+  // 3by1
+  padding-top: 33.3333%;
+
+  @include mobile {
+    // equivalent of is-16by9
     padding-top: 56.25%;
   }
 }
 
-.image.is-5by4-mobile-square {  
+.image.is-5by4-mobile-square {
   // almost 5by4 (85 instead of 80)
-  padding-top: 85%; 
+  padding-top: 85%;
 
-  @include mobile { 
-    // equivalent of is-1by1   
+  @include mobile {
+    // equivalent of is-1by1
     padding-top: 110%;
   }
 }
 
-.image.is-big-national {  
+.image.is-big-national {
   // 3by1
-  padding-top: 28.3333%; 
+  padding-top: 28.3333%;
 
-  @include mobile { 
-    // equivalent of is-16by9   
+  @include mobile {
+    // equivalent of is-16by9
     padding-top: 56.25%;
   }
 }
 
-.image.is-historical {  
-  padding-top: 40.25%; 
+.image.is-historical {
+  padding-top: 40.25%;
 
-  @include mobile {  
+  @include mobile {
     padding-top: 62%;
   }
 }
@@ -157,7 +188,7 @@ button:hover {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
 }
-.line-chart.metricsGraphicsCon{
+.line-chart.metricsGraphicsCon {
   background-image: url(/assets/css/images/bg01-brown.png);
   border-radius: 10px;
 }
@@ -215,7 +246,7 @@ ol {
   display: inline-block;
   // padding-right: 2px;
   padding-left: 1px;
-  font-family: "Roboto Condensed"
+  font-family: 'Roboto Condensed';
 }
 #nat_hd .mg-chart-title {
   color: white;
@@ -412,17 +443,17 @@ a.navbar-item {
   border-radius: 0;
 }
 
-
 .navbar.is-transparent a.navbar-item:hover {
-  background-color: #E5E5E5 !important;
+  background-color: #e5e5e5 !important;
 }
 
 .navbar.is-transparent a.active:hover {
   background-color: #4a4a4a !important;
 }
 
-.navbar-item, .navbar-link {
-    padding: 0.5rem 1.5rem;
+.navbar-item,
+.navbar-link {
+  padding: 0.5rem 1.5rem;
 }
 
 .navbar-link:hover {
@@ -434,9 +465,9 @@ a.navbar-item {
 }
 
 $inegi-color: rgb(179, 88, 6);
-$inegi-adjusted-color: #E81208;
+$inegi-adjusted-color: #e81208;
 $snsp-color: #008085;
-$amis-color: #C05502;
+$amis-color: #c05502;
 $envipe-color: #c51b7d;
 $regression-color: green;
 
@@ -464,15 +495,19 @@ span.amis {
   color: $amis-color;
 }
 
-svg > path.mg-line1, svg > path.mg-line2, svg > path.mg-line3 {
+svg > path.mg-line1,
+svg > path.mg-line2,
+svg > path.mg-line3 {
   stroke-width: 1.1;
 }
 
-#estados .mg-line1-color, #municipios .mg-line1-color {
+#estados .mg-line1-color,
+#municipios .mg-line1-color {
   stroke: $snsp-color;
 }
 
-#estados .mg-line2-color, #municipios .mg-line2-color {
+#estados .mg-line2-color,
+#municipios .mg-line2-color {
   stroke: $inegi-adjusted-color;
 }
 
@@ -480,14 +515,13 @@ svg > path.mg-line1, svg > path.mg-line2, svg > path.mg-line3 {
   padding-left: 3rem;
 }
 
-
 .control-panel {
   position: absolute;
   bottom: 10%;
   left: -1%;
   max-width: 320px;
   background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   padding: 12px 24px;
   margin: 20px;
   font-size: 13px;
@@ -511,11 +545,10 @@ div.is-rounded img {
 }
 
 div#national90 svg > path.mg-line3-color {
-  stroke-dasharray: 4,1;
+  stroke-dasharray: 4, 1;
   stroke: #b35806;
   stroke-width: 1.6px;
 }
-
 
 div#tendencias svg > path.mg-line1-color {
   stroke: $snsp-color;
@@ -524,38 +557,39 @@ div#tendencias svg > path.mg-line1-color {
 div#tendencias svg > path.mg-line2-color {
   stroke: $regression-color;
   stroke-width: 3px;
-  opacity: 0.6; 
+  opacity: 0.6;
 }
 
 div#tendencias svg > path.mg-line3-color {
   stroke: black;
-  stroke-width: 2px,
+  stroke-width: 2px;
 }
 
 .metricsGraphicsCon {
   height: 100%;
 }
 
-abbr, acronym
-{
-  border-bottom: .05em dotted;
+abbr,
+acronym {
+  border-bottom: 0.05em dotted;
   cursor: help;
 }
 abbr[title] {
   text-decoration: none;
 }
 
-button.button a, button.button a{
+button.button a,
+button.button a {
   border-color: transparent;
   color: #fff;
 }
 
-.select:not(.is-multiple):not(.is-loading)::after{
+.select:not(.is-multiple):not(.is-loading)::after {
   border: 3px solid;
   border-radius: 2px;
   border-right: 0;
   border-top: 0;
-  content: " ";
+  content: ' ';
   display: block;
   height: 0.625em;
   margin-top: -0.4375em;
@@ -575,18 +609,77 @@ button.button a, button.button a{
 }
 
 .mg-chart-title {
-  @extend .is-size-7-mobile;
+  // @extend .is-size-7-mobile;
   // @extend .is-size-6-desktop;
   cursor: default;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-family: 'Roboto Condensed';
   font-weight: 700;
 }
 
-h1,h2,h3,h4,h5,h6,h7 {
-  font-family: "IBM Plex Sans", sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+h7 {
+  font-family: 'IBM Plex Sans', sans-serif;
 }
 
 p a {
   text-decoration: underline;
 }
+
+@media screen and (max-width: 768px) {
+  .is-size-8-mobile {
+    font-size: 0.65rem !important;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .is-size-65-tablet {
+    font-size: 0.85rem !important;
+  }
+}
+
+.has-background-skeleton {
+  //animation: skeleton-loading 1.5s linear infinite alternate;
+  background-color: #dddbdd;
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+      90deg,
+      rgba(#fff, 0) 0,
+      rgba(#fff, 0.2) 20%,
+      rgba(#fff, 0.5) 60%,
+      rgba(#fff, 0)
+    );
+    animation: shimmer 5s infinite;
+    content: '';
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(0, 0%, 71%);
+  }
+  100% {
+    background-color: hsl(0, 0%, 39%);
+  }
+}
+
+/*  {
+  background-color: hsl(0, 0%, 71%);
+} */

@@ -53,9 +53,6 @@ function TrendChart (props) {
         active: true,
       });
     }
-    //for (var i = 0; i < state_tidy.length; i++) {
-    //    state_tidy[i] = MG_convert_date(state_tidy[i], "date");
-    // }
     return state_tidy;
   };
 

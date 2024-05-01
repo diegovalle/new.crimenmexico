@@ -101,13 +101,13 @@ const HomeIndex = props => {
               {' '}
               <FormattedMessage id="title_home" />
             </h1>
-            <AdSense.Google
+            {/* <AdSense.Google
               client="ca-pub-2949275046149330"
               slot="8649980552"
-              style={{display: 'block'}}
-              format="auto"
-              responsive="true"
-            />
+              // style={{display: 'block'}}
+              // format="auto"
+              // responsive="true"
+            /> */}
           </div>
         </div>
       </section>
@@ -162,13 +162,13 @@ const HomeIndex = props => {
           <div className="column is-offset-3 is-half-desktop is-two-third-fullhd">
             <div className="content is-medium">
 
-              <AdSense.Google
+              {/* <AdSense.Google
                 client="ca-pub-2949275046149330"
                 slot="8649980552"
-                style={{display: 'block'}}
-                format="auto"
-                responsive="true"
-              />
+                // style={{display: 'block'}}
+                // format="auto"
+                // responsive="true"
+              /> */}
               <FormattedHTMLMessage id="oficial_data" />
 
             </div>
@@ -193,13 +193,13 @@ const HomeIndex = props => {
 
         <div className="container  is-widescreen">
 
-          <AdSense.Google
+          {/* <AdSense.Google
             client="ca-pub-2949275046149330"
             slot="8649980552"
-            style={{display: 'block'}}
-            format="auto"
-            responsive="true"
-          />
+            // style={{display: 'block'}}
+            // format="auto"
+            // responsive="true"
+          /> */}
           <a name="#historical" id="historical" />
           <LazyLoad height={440} once offset={200}>
             <HistoricalChart hash={props.location.hash} />

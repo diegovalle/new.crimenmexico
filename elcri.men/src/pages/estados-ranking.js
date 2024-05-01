@@ -204,18 +204,18 @@ function MostViolent (props) {
 
           <div className="columns is-centered">
             <div className="column is-8-desktop is-full-mobile is-full-tablet">
-              <div style={{height: chartHeight + 80}}>
+             
                 {data
-                  ? <ReactEChartsCore
+                  ?  <div style={{height: chartHeight + 80}}><ReactEChartsCore
                       echarts={echarts}
                       option={barOptions}
                       style={{height: chartHeight, width: '100%'}}
                       notMerge={true}
                       ref={eChartsRef}
-                    />
-                  : null}
+                    /> </div>
+                  : <div className="has-background-skeleton" style={{height: chartHeight + 80}}/>}
 
-              </div>
+             
             </div>
           </div>
         </div>
