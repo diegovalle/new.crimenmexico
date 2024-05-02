@@ -29,20 +29,21 @@ endef
 
 all: download_csv download_inegi clean_data analysis website deploy
 
-
+.PHONY: download_csv
 download_csv:
 	@echo "\n\n****************Download SNSP csv files****************\n"
 	./download.sh
 
-
+.PHONY: download_inegi
 download_inegi: R/data/INEGI_exporta.csv
 
-R/data/INEGI_exporta.csv:
+
+R/data/INEGI_exporta.csv: R/data/inegi.sh
 	@echo "\n\n****************Downloading INEGI homicide data***********\n"
 	cd R/data && ./inegi.sh
 
 
-
+.PHONY: clean_data
 clean_data: db/crimenmexico.db
 
 db/crimenmexico.db: download_csv
@@ -51,7 +52,7 @@ db/crimenmexico.db: download_csv
 	sqlite3 db/crimenmexico.db < clean/meta/sql.sql
 	. ~/.virtualenvs/crimenmexico/bin/activate; cd clean && python clean.py
 
-
+.PHONY: analysis
 analysis: clean_data download_inegi
 	@echo "\n\n****************Statistical Analysis******************\n"
 	cd R && Rscript run_all.R

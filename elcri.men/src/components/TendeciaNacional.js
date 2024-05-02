@@ -115,6 +115,7 @@ function TendenciaNacional(props) {
         fontFamily: 'Trebuchet MS',
         fontSize: 14,
         fontWeight: 'bold',
+        color: "#111"
       },
     },
     tooltip: {
@@ -135,7 +136,6 @@ function TendenciaNacional(props) {
         let rate_diff = intl.formatMessage({ id: 'rate_diff' })
         let count_diff = intl.formatMessage({ id: 'count_diff' })
         let num = data[item[0].dataIndex].diff_count
-        console.log(num)
         return (
           `${datestr}<br/>` +
           `<b>${rate_diff}</b>: ${round1(item[0].value)}<br/>` +
@@ -201,7 +201,7 @@ function TendenciaNacional(props) {
     series: [
       {
         emphasis: {
-          disabled: true,
+          lineStyle: { width: 1.2 },
         },
         name: 'crime',
         type: 'line',
@@ -218,7 +218,7 @@ function TendenciaNacional(props) {
       },
       {
         emphasis: {
-          disabled: true,
+          lineStyle: { width: 1.2 },
         },
         tooltip: {
           show: false,
@@ -255,7 +255,7 @@ function TendenciaNacional(props) {
             </div>
           ) : (
             <div
-              className="has-background-grey-light has-ratio"
+              className="has-background-skeleton has-ratio"
               id="tendencias"
             />
           )}
@@ -285,7 +285,38 @@ function TendenciaNacional(props) {
                   </tr>
                 </thead>
 
-                <tbody>{data ? trbody([...data].reverse()) : null}</tbody>
+                <tbody>
+                  {data
+                    ? trbody([...data].reverse())
+                    : [...Array(5)].map((e, index) => (
+                        <tr key={index}>
+                          <td
+                            key={index + '1'}
+                            style={{ color: 'transparent' }}
+                          >
+                            <span className="has-background-grey-light">
+                              \u00A0\u00A0
+                            </span>
+                          </td>
+                          <td
+                            key={index + '2'}
+                            style={{ textAlign: 'right', color: 'transparent' }}
+                          >
+                            <span className="has-background-grey-light">
+                              ---
+                            </span>
+                          </td>
+                          <td
+                            key={index + '3'}
+                            style={{ textAlign: 'right', color: 'transparent' }}
+                          >
+                            <span className="has-background-grey-light">
+                              ----
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                </tbody>
               </table>
             </div>
           </div>

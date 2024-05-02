@@ -109,7 +109,13 @@ function MostViolent(props) {
                       <TourismMapTooltip data={data} />{' '}
                     </div>
                   ) : (
-                    <div className="has-background-grey-light has-ratio" />
+                    <div className="has-ratio">
+                      <div class="is-hidden-desktop columns is-mobile is-centered">
+                        <div class="box">
+                          <div role="status" className="circle-spin-2"></div>
+                        </div>
+                      </div>
+                    </div>
                   )}
                 </figure>
               </div>
@@ -142,7 +148,13 @@ function MostViolent(props) {
                       scaleColor={colorScale}
                     />
                   ) : (
-                    <div />
+                    <div style={{ height: chartHeight + 80 }}>
+                      <div class="is-hidden-desktop columns is-mobile is-centered">
+                        <div class="box">
+                          <div role="status" className="circle-spin-2"></div>
+                        </div>
+                      </div>
+                    </div>
                   )}
                 </LazyLoad>
               </div>

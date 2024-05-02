@@ -224,10 +224,15 @@ function MostViolent(props) {
                   />
                 </div>
               ) : (
-                <div
-                  className="has-background-skeleton"
-                  style={{ height: chartHeight + 80 }}
-                />
+                <div style={{ height: chartHeight + 80 }}>
+                  <div class="is-hidden-desktop columns is-mobile is-centered">
+                  <div class="box">
+                    <div
+                      role="status"
+                      className="circle-spin-2"
+                    ></div></div>
+                  </div>
+                </div>
               )}
             </div>
           </div>

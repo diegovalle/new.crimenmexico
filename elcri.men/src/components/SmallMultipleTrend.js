@@ -53,10 +53,11 @@ function SmallMultipleTrend(props) {
         fontFamily: 'Trebuchet MS',
         fontSize: 14,
         fontWeight: 'bold',
+        color: "#111"
       },
     },
     tooltip: {
-      trigger: 'item',
+      trigger: 'axis',
       axisPointer: {
         animation: false,
         label: {
@@ -71,13 +72,13 @@ function SmallMultipleTrend(props) {
         },
       },
       formatter: function(item) {
-        let date = new Date(item.name)
+        let date = new Date(item[0].name)
         let datestr = [
           date.toLocaleString(intl.locale, { month: 'long' }),
           date.getFullYear(),
         ].join(' ')
         let tasa = intl.formatMessage({ id: 'tasa anualizada' })
-        return `${datestr}<br/>${tasa}: <b>${item.value}</b>`
+        return `${datestr}<br/>${tasa}: <b>${item[0].value}</b>`
       },
     },
     grid: {
@@ -135,20 +136,31 @@ function SmallMultipleTrend(props) {
     ],
     series: [
       {
+        emphasis: {
+          itemStyle: {
+            color: 'black',
+            borderColor: 'Black',
+            opacity: 1,
+          },
+        },
         type: 'scatter',
         data: data[1].map(function(item) {
           return item.value
         }),
         itemStyle: {
-          color: 'black',
-          opacity: 0.7,
+          color: 'white',
+          borderColor: 'Black',
+          opacity: 1,
         },
         symbol: 'circle',
-        symbolSize: 4,
-        showSymbol: false,
+        symbolSize: 5,
+        //showSymbol: false,
         z: 1000,
       },
       {
+        emphasis: {
+          lineStyle: { width: 1.2 },
+        },
         name: 'L',
         type: 'line',
         data: data[0].map(function(item) {
@@ -161,6 +173,9 @@ function SmallMultipleTrend(props) {
         symbol: 'none',
       },
       {
+        emphasis: {
+          lineStyle: { width: 1.2 },
+        },
         name: 'U',
         type: 'line',
         data: data[0].map(function(item) {
@@ -176,6 +191,9 @@ function SmallMultipleTrend(props) {
         symbol: 'none',
       },
       {
+        emphasis: {
+          lineStyle: { width: 2.5 },
+        },
         name: 'median',
         type: 'line',
         data: data[0].map(function(item) {
@@ -194,6 +212,7 @@ function SmallMultipleTrend(props) {
               : '#252525',
         },
         showSymbol: false,
+        symbol: 'none',
       },
     ],
   }

@@ -145,13 +145,7 @@ const HomeIndex = props => {
       <section id="hexmap_and_charts" style={{marginTop: '.75rem'}}>
         <div className="container  is-fullhd">
           <FrontPageMap />
-          <div className="columns">
-            <div className="column is-offset-6 is-half">
-              <p>
-                <FormattedMessage id="front-caption" />
-              </p>
-            </div>
-          </div>
+          
         </div>
       </section>
 

@@ -6,9 +6,42 @@ import { format } from 'd3-format'
 import { useIntl, FormattedMessage } from 'react-intl'
 import { keyBy, find } from 'lodash-es'
 
-import topology from '../assets/json/mx_hexgrid_topojson.json'
-
-const mexico = feature(topology, topology.objects.mx_hexgrid)
+const mexico = {
+  features: [
+    { properties: { state_abbr: 'BCS', state_code: 3 } },
+    { properties: { state_abbr: 'BC', state_code: 2 } },
+    { properties: { state_abbr: 'SIN', state_code: 25 } },
+    { properties: { state_abbr: 'SON', state_code: 26 } },
+    { properties: { state_abbr: 'NAY', state_code: 18 } },
+    { properties: { state_abbr: 'DGO', state_code: 10 } },
+    { properties: { state_abbr: 'GRO', state_code: 12 } },
+    { properties: { state_abbr: 'MICH', state_code: 16 } },
+    { properties: { state_abbr: 'COL', state_code: 6 } },
+    { properties: { state_abbr: 'JAL', state_code: 14 } },
+    { properties: { state_abbr: 'ZAC', state_code: 32 } },
+    { properties: { state_abbr: 'CHIH', state_code: 8 } },
+    { properties: { state_abbr: 'MOR', state_code: 17 } },
+    { properties: { state_abbr: 'MEX', state_code: 15 } },
+    { properties: { state_abbr: 'GTO', state_code: 11 } },
+    { properties: { state_abbr: 'AGS', state_code: 1 } },
+    { properties: { state_abbr: 'COAH', state_code: 5 } },
+    { properties: { state_abbr: 'OAX', state_code: 20 } },
+    { properties: { state_abbr: 'PUE', state_code: 21 } },
+    { properties: { state_abbr: 'CDMX', state_code: 9 } },
+    { properties: { state_abbr: 'QRO', state_code: 22 } },
+    { properties: { state_abbr: 'SLP', state_code: 24 } },
+    { properties: { state_abbr: 'NL', state_code: 19 } },
+    { properties: { state_abbr: 'CHPS', state_code: 7 } },
+    { properties: { state_abbr: 'TLAX', state_code: 29 } },
+    { properties: { state_abbr: 'HGO', state_code: 13 } },
+    { properties: { state_abbr: 'VER', state_code: 30 } },
+    { properties: { state_abbr: 'TAM', state_code: 28 } },
+    { properties: { state_abbr: 'TAB', state_code: 27 } },
+    { properties: { state_abbr: 'CAMP', state_code: 4 } },
+    { properties: { state_abbr: 'QROO', state_code: 23 } },
+    { properties: { state_abbr: 'YUC', state_code: 31 } },
+  ],
+}
 var round1 = format('.1f')
 var comma = format(',')
 const contrast = [
@@ -147,41 +180,7 @@ function MxHexTileMap(props) {
 
   const [width, setWidth] = useState()
   const [height, setHeight] = useState()
-  const canvasRef = useRef(null)
-  useEffect(
-    () => {
-      if (!canvasRef.current) {
-        // we do not initialize the observer unless the ref has
-        // been assigned
-        return
-      }
 
-      // we also instantiate the resizeObserver and we pass
-      // the event handler to the constructor
-      const resizeObserver = new ResizeObserver(() => {
-        if (canvasRef.current.offsetWidth !== width) {
-          setWidth(canvasRef.current.offsetWidth)
-        }
-        if (canvasRef.current.offsetHeight !== height) {
-          setHeight(canvasRef.current.offsetHeight)
-        }
-      })
-
-      // the code in useEffect will be executed when the component
-      // has mounted, so we are certain canvasRef.current will contain
-      // the div we want to observe
-      resizeObserver.observe(canvasRef.current)
-
-      // if useEffect returns a function, it is called right before the
-      // component unmounts, so it is the right place to stop observing
-      // the div
-      return function cleanup() {
-        resizeObserver.disconnect()
-      }
-    },
-    // only update the effect if the ref element changed
-    [canvasRef.current]
-  )
   const findColor = state_abbr => {
     if (mapData) {
       let c = find(mapData, function(item) {
@@ -257,7 +256,6 @@ function MxHexTileMap(props) {
           <div className="has-ratio">
             <div
               id="hexmap"
-              ref={canvasRef}
               style={{ height: '100%', width: '100%', position: 'relative' }}
             >
               <svg

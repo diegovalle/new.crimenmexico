@@ -245,6 +245,7 @@ function Envipe(props) {
           fontFamily: 'Trebuchet MS',
           fontSize: 14,
           fontWeight: 'bold',
+          color: "#111"
         },
       },
       tooltip: {

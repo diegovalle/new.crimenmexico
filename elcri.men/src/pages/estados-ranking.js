@@ -1,48 +1,47 @@
-import React, {useState, useEffect} from 'react';
-import Helmet from 'react-helmet';
+import React, { useState, useEffect } from 'react'
+import Helmet from 'react-helmet'
 
-import ReactEChartsCore from 'echarts-for-react/lib/core';
+import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
-import * as echarts from 'echarts/core';
-import {BarChart} from 'echarts/charts';
+import * as echarts from 'echarts/core'
+import { BarChart } from 'echarts/charts'
 import {
   GridComponent,
   TooltipComponent,
   TitleComponent,
   DatasetComponent,
-} from 'echarts/components';
+} from 'echarts/components'
 import {
   CanvasRenderer,
   // SVGRenderer,
-} from 'echarts/renderers';
+} from 'echarts/renderers'
 
-import Layout from '../components/layout';
-import HeroTitle from '../components/HeroTitle';
-import SEO from '../components/SEO';
-import TextColumn from '../components/TextColumn';
-import AdSense from 'react-adsense';
-import {mapValues} from 'lodash-es';
-import {useIntl, injectIntl, FormattedMessage} from 'react-intl';
-import {FormattedHTMLMessage, FormattedDate} from 'react-intl';
-import useLastMonth from '../components/LastMonth';
-import social_image from '../assets/images/social/social-estados-ranking.png';
-import social_image_en
-  from '../assets/images/social/social-estados-ranking_en.png';
+import Layout from '../components/layout'
+import HeroTitle from '../components/HeroTitle'
+import SEO from '../components/SEO'
+import TextColumn from '../components/TextColumn'
+import AdSense from 'react-adsense'
+import { mapValues } from 'lodash-es'
+import { useIntl, injectIntl, FormattedMessage } from 'react-intl'
+import { FormattedHTMLMessage, FormattedDate } from 'react-intl'
+import useLastMonth from '../components/LastMonth'
+import social_image from '../assets/images/social/social-estados-ranking.png'
+import social_image_en from '../assets/images/social/social-estados-ranking_en.png'
 
-echarts.use ([
+echarts.use([
   TitleComponent,
   TooltipComponent,
   GridComponent,
   BarChart,
   CanvasRenderer,
-]);
+])
 
-function MostViolent (props) {
-  const chartHeight = 1020;
-  const intl = useIntl ();
+function MostViolent(props) {
+  const chartHeight = 1020
+  const intl = useIntl()
   const labelRight = {
     position: 'right',
-  };
+  }
   var option = {
     autoPlay: true,
     animation: false,
@@ -59,17 +58,17 @@ function MostViolent (props) {
           '<b>' +
           params[0].data.state +
           '<br/></b>' +
-          intl.formatMessage ({id: 'rate'}) +
+          intl.formatMessage({ id: 'rate' }) +
           ': ' +
           '<b>' +
           params[0].value +
           '</b><br/>' +
-          intl.formatMessage ({id: 'homicides'}) +
+          intl.formatMessage({ id: 'homicides' }) +
           ': ' +
           '<b>' +
           params[0].data.count_diff +
           '</b>'
-        );
+        )
       },
     },
     grid: {
@@ -91,9 +90,9 @@ function MostViolent (props) {
     ],
     yAxis: {
       type: 'category',
-      axisLine: {show: false},
-      axisTick: {show: false},
-      splitLine: {show: false},
+      axisLine: { show: false },
+      axisTick: { show: false },
+      splitLine: { show: false },
       axisLabel: {
         fontWeight: '500',
         margin: 3,
@@ -101,7 +100,7 @@ function MostViolent (props) {
         fontFamily: 'Roboto Condensed',
         lineHeight: 14,
         formatter: params => {
-          return params.replace (' ', '\n');
+          return params.replace(' ', '\n')
         },
       },
     },
@@ -114,39 +113,39 @@ function MostViolent (props) {
         barWidth: '100%',
       },
     ],
-  };
-  const [data, setdata] = useState (null);
-  const [states, setStates] = useState (null);
-  const [barOptions, setBarOptions] = useState (null);
-  const eChartsRef = React.useRef (null);
+  }
+  const [data, setdata] = useState(null)
+  const [states, setStates] = useState(null)
+  const [barOptions, setBarOptions] = useState(null)
+  const eChartsRef = React.useRef(null)
 
-  useEffect (() => {
-    fetch ('/elcrimen-json/states_yearly_rates.json')
-      .then (response => response.json ())
-      .then (responseJSON => {
-        let states = responseJSON.map (s => s.state);
-        mapValues (responseJSON, function (val, key) {
+  useEffect(() => {
+    fetch('/elcrimen-json/states_yearly_rates.json')
+      .then(response => response.json())
+      .then(responseJSON => {
+        let states = responseJSON.map(s => s.state)
+        mapValues(responseJSON, function(val, key) {
           val.itemStyle = {
             color: '#fc4e2a',
-          };
-        });
+          }
+        })
         const option2 = {
           ...option,
-          yAxis: {...option.yAxis, data: states},
-          series: [{...option.series[0], data: responseJSON}],
-        };
-        setBarOptions (option2);
-        setStates (states);
-        setdata (responseJSON);
+          yAxis: { ...option.yAxis, data: states },
+          series: [{ ...option.series[0], data: responseJSON }],
+        }
+        setBarOptions(option2)
+        setStates(states)
+        setdata(responseJSON)
       })
-      .catch (error => {
-        console.error (error);
-      });
-  }, []);
+      .catch(error => {
+        console.error(error)
+      })
+  }, [])
 
-  const last_date = useLastMonth ();
-  const last_year2 = new Date (last_date.year - 1, last_date.month6 - 1, 1);
-  const last_year1 = new Date (last_date.year6 - 1, last_date.month - 1, 1);
+  const last_date = useLastMonth()
+  const last_year2 = new Date(last_date.year - 1, last_date.month6 - 1, 1)
+  const last_year1 = new Date(last_date.year6 - 1, last_date.month - 1, 1)
 
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
@@ -163,8 +162,8 @@ function MostViolent (props) {
         ]}
       />
       <SEO
-        title={intl.formatMessage ({id: 'title_ranking'})}
-        description={intl.formatMessage ({id: 'desc_ranking'})}
+        title={intl.formatMessage({ id: 'title_ranking' })}
+        description={intl.formatMessage({ id: 'desc_ranking' })}
         socialImage={
           props.pageContext.locale === 'es' ? social_image : social_image_en
         }
@@ -173,56 +172,56 @@ function MostViolent (props) {
       />
       <div id="estados-ranking">
         <HeroTitle>
-          {intl.formatMessage ({
+          {intl.formatMessage({
             id: 'Most violent states during the last 12 months (',
           })}
           <i>
             {props.pageContext.locale === 'es'
               ? last_date.month_short_es6
-              : last_date.month_short_en6}
-            {' '}
+              : last_date.month_short_en6}{' '}
             <FormattedDate
-              value={new Date (last_date.iso_mid6)}
+              value={new Date(last_date.iso_mid6)}
               year="numeric"
             />
-
-            {intl.formatMessage ({id: '-'})}
-
+            {intl.formatMessage({ id: '-' })}
             {props.pageContext.locale === 'es'
               ? last_date.month_short_es
-              : last_date.month_short_en}
-            {' '}
-            <FormattedDate
-              value={new Date (last_date.iso_mid)}
-              year="numeric"
-            />
+              : last_date.month_short_en}{' '}
+            <FormattedDate value={new Date(last_date.iso_mid)} year="numeric" />
           </i>
           {')'}
         </HeroTitle>
 
         <div className="container is-fullhd">
-
           <div className="columns is-centered">
             <div className="column is-8-desktop is-full-mobile is-full-tablet">
-             
-                {data
-                  ?  <div style={{height: chartHeight + 80}}><ReactEChartsCore
-                      echarts={echarts}
-                      option={barOptions}
-                      style={{height: chartHeight, width: '100%'}}
-                      notMerge={true}
-                      ref={eChartsRef}
-                    /> </div>
-                  : <div className="has-background-skeleton" style={{height: chartHeight + 80}}/>}
-
-             
+              {data ? (
+                <div style={{ height: chartHeight + 80 }}>
+                  <ReactEChartsCore
+                    echarts={echarts}
+                    option={barOptions}
+                    style={{ height: chartHeight, width: '100%' }}
+                    notMerge={true}
+                    ref={eChartsRef}
+                  />{' '}
+                </div>
+              ) : (
+                <div style={{ height: chartHeight + 80 }}>
+                <div class="is-hidden-desktop columns is-mobile is-centered">
+                <div class="box">
+                  <div
+                    role="status"
+                    className="circle-spin-2"
+                  ></div></div>
+                </div>
+              </div>
+              )}
             </div>
           </div>
         </div>
-
       </div>
     </Layout>
-  );
+  )
 }
 
-export default MostViolent;
+export default MostViolent

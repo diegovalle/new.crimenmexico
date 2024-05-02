@@ -46,7 +46,7 @@
   "Extorsión": "Extortion",
   "Robo de Coches con Violencia": "Car robbery with violence",
   "Robo de Coches sin Violencia": "Car robbery w/o violence",
-  "Robo de Coche c/v": "Car robbery with violence",
+  "Robo de Coche c/v": "Car robbery w/ violence",
   "Robo de Coche s/v": "Car robbery w/o violence",
   "rate": "rate",
   "count": "count",
@@ -194,5 +194,8 @@
   "ext": "extortions",
   "sec": "kidnappings",
   "rvcv": "car robberies (with violence)",
-  "rvsv": "car robberies (without violence)"
+  "rvsv": "car robberies (without violence)",
+  "vs": "vs",
+  "Robo de Coche Sin Violencia": "Car Robbery Without Violence",
+  "Robo de Coche Con Violencia": "Car Robbery With Violence"
 }

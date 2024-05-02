@@ -3,7 +3,7 @@ import {useStaticQuery, graphql} from 'gatsby';
 const useInfographics = () => {
   const data = useStaticQuery (
     graphql`{
-    allFile(filter: {name: {regex: "/(^municipios_|^infographic_)/"}}) {
+    allFile(filter: {name: {regex: "/(^municipios_.*20[2-9][2-9]|^infographic_.*20[2-9][2-9])/"}}) {
       edges {
         node {
           childImageSharp {

@@ -62,6 +62,7 @@ function SmallMultiple(props) {
         fontFamily: 'Trebuchet MS',
         fontSize: 14,
         fontWeight: 'bold',
+        color: "#111"
       },
     },
     tooltip: {
@@ -105,9 +106,9 @@ function SmallMultiple(props) {
         } else {
           // array (just SNSP)
           let num_snsp =
-          d[0][item[0].dataIndex].count === null
-            ? '-'
-            : comma(d[0][item[0].dataIndex].count)
+            d[0][item[0].dataIndex].count === null
+              ? '-'
+              : comma(d[0][item[0].dataIndex].count)
           return (
             `${datestr}<br/>` +
             `<b><span class="snsp">SNSP</span></b>: ${rate_snsp}: (${num_snsp})<br/>`
@@ -173,7 +174,9 @@ function SmallMultiple(props) {
     ],
     series: [
       {
-        emphasis: { disable: true },
+        emphasis: {
+          lineStyle: { width: 1.2 },
+        },
         name: 'SNSP',
         type: 'line',
         data:
@@ -192,7 +195,9 @@ function SmallMultiple(props) {
         showSymbol: false,
       },
       {
-        emphasis: { disable: true },
+        emphasis: {
+          lineStyle: { width: 1.2 },
+        },
         name: 'INEGI',
         type: 'line',
         data:

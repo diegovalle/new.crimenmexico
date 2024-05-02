@@ -19,6 +19,7 @@ import {
   TooltipComponent,
   TitleComponent,
   DatasetComponent,
+  ToolboxComponent,
 } from 'echarts/components'
 import {
   CanvasRenderer,
@@ -36,6 +37,7 @@ echarts.use([
   LineChart,
   ScatterChart,
   CanvasRenderer,
+  ToolboxComponent,
 ])
 
 const round1 = format('.1f')
@@ -131,7 +133,7 @@ function CrimeChart(props) {
     return result
   }
 
-  const singleChart = title => {
+  const singleChart = (title, toolboxTip) => {
     if (!data) return <div />
     let dataf,
       selected_state = props.selected_state
@@ -174,20 +176,15 @@ function CrimeChart(props) {
     let chartOption = {
       animation: true,
       animationDuration: 0,
-      // toolbox: {
-      //   show: true,
-      //   feature: {
-      //     saveAsImage: { show: true },
-      //   },
-      // },
       title: {
         text: title,
         top: '3%',
         left: 'center',
         textStyle: {
           fontFamily: 'Trebuchet MS',
-          fontSize: 13,
+          fontSize: 14,
           fontWeight: 'bold',
+          color: "#111"
         },
       },
       tooltip: {
@@ -294,7 +291,7 @@ function CrimeChart(props) {
       series: [
         {
           emphasis: {
-            disabled: true,
+            lineStyle: { width: 1.2 },
           },
           name: 'crime',
           type: 'line',
@@ -313,7 +310,7 @@ function CrimeChart(props) {
         },
         {
           emphasis: {
-            disabled: true,
+            lineStyle: { width: 1.2 },
           },
           name: 'snsp',
           type: 'line',
@@ -329,6 +326,33 @@ function CrimeChart(props) {
         },
       ],
     }
+
+    if (toolboxTip)
+      chartOption.toolbox = {
+        show: true,
+        showTitle: false,
+        itemSize: 13,
+        iconStyle: { color: '#333' },
+        tooltip: {
+          show: true,
+          padding: 2,
+          formatter: () => toolboxTip,
+        },
+        feature: {
+          // saveAsImage: {
+          //   show: true,
+          //   },
+          myInfo: {
+            show: true,
+            title: 'robo',
+            icon:
+              'path://M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z',
+            onclick: function() {
+              return null
+            },
+          },
+        },
+      }
 
     function onChartReady(echarts) {
       echarts.hideLoading()
@@ -433,7 +457,10 @@ function CrimeChart(props) {
               }
             >
               <div className="is-16by9-tablet-only-6by3-mobile-16by9">
-                {singleChart(intl.formatMessage({ id: 'Robo de Coche c/v' }))}
+                {singleChart(
+                  intl.formatMessage({ id: 'Robo de Coche c/v' }),
+                  intl.formatMessage({ id: 'Robo de Coche Con Violencia' })
+                )}
               </div>{' '}
             </div>
           </figure>
@@ -449,12 +476,22 @@ function CrimeChart(props) {
               }
             >
               <div className="is-16by9-tablet-only-6by3-mobile-16by9">
-                {singleChart(intl.formatMessage({ id: 'Robo de Coche s/v' }))}
+                {singleChart(
+                  intl.formatMessage({ id: 'Robo de Coche s/v' }),
+                  intl.formatMessage({ id: 'Robo de Coche Sin Violencia' })
+                )}
               </div>{' '}
             </div>
           </figure>
         </div>
       </div>
+      <div className="columns">
+            <div className="column is-full">
+              <p>
+                <FormattedMessage id="front-caption" />
+              </p>
+            </div>
+          </div>
     </React.Fragment>
   )
 }

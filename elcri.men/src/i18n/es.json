@@ -29,7 +29,7 @@
   "inegi-adjusted": "<span class=\"inegi-adjusted\"><span class=\"has-text-weight-bold\">— </span><abbr title=\"datos de certificados de defunción\">INEGI</abbr> ajustados estadísticamente</span>",
   "inegi-legend": "<span class=\"inegi\"><span class=\"has-text-weight-bold\">— </span><abbr title=\"datos de certificados de defunción\">INEGI</abbr></span>",
   "snsp-victims": "<span class=\"snsp\"><span class=\"has-text-weight-bold\">— </span><abbr title=\"datos de las procuradurías \">SESNSP</abbr> víctimas</span>",
-  "front-caption": "Puedes dar click en el mapa para mostrar la información de cada estado. Las tasas son calculadas usando meses de 30 días y son por 100,000 habitantes. Los homicidios intencionales incluyen los feminicidios. Oaxaca no remitió datos durante varios meses en el 2015 y 2016",
+  "front-caption": "Puedes dar click en el mapa para mostrar la información de cada estado. Las tasas son calculadas usando meses de 30 días y son por 100,000 habitantes. Los homicidios intencionales incluyen los feminicidios. Oaxaca no remitió datos durante varios meses del 2015 y 2016",
   "oficial_data": "<h2 class=\"has-text-centered\">Cifras Oficiales de Inseguridad y Delincuencia en México</h2> <p>Cada mes el <a href=\"https://www.gob.mx/sesnsp\"> Secretariado Ejecutivo del Sistema Nacional de Seguridad Pública </a> publica la información de incidencia delictiva que le remiten las procuradurías estatales en su sitio web. Junto con las cifras de homicidio del Instituto Nacional de Geografía y Estadística (INEGI) estos son los principales instrumentos para medir la magnitud del fenómeno de la <b>inseguridad en México</b>. Este sitio descarga, procesa y presenta los datos de una manera fácil de interpretar.</p> <p>De acuerdo con el INEGI en el 2022 ocurrieron un total de 33,287 homicidios, según el SESNSP los delincuentes terminaron con la vida de un total 30,973 víctimas por medio de homicidios dolosos. Esto significa que la <b>tasa de homicidios en México en el 2022 fue de 25 por 100,000 habitantes</b> usando las cifras del INEGI. </p>  <p>Los secuestros, homicidios y extorsiones refiere el número de víctimas, pero los robos de vehículo a las averiguaciones previas. Los robos de vehículo incluyen solamente robo de coche de 4 ruedas. Los homicidios incluyen los feminicidios.</p> <p>Los datos de homicidio del INEGI tienden a ser más precisos. Además de incluir muertes por intervenciones legales y actos de guerra incluyen los resultados de clasificar las muertes de intención desconocida con un modelo estadístico similar al descrito en este post . La desventaja es que tienden a tardar más de un año en ser actualizados.</p> <p>La siguiente gráfica muestra los homicidios sin ningún ajuste estadístico desde 1990</p>",
   "histchart_title": "Homicidios desde 1990",
   "Infographics": "Infográficas",
@@ -195,5 +195,8 @@
   "ext": "extorsiones",
   "sec": "secuestros",
   "rvcv": "robo de coche con violencia",
-  "rvsv": "robo de coche sin violencia"
+  "rvsv": "robo de coche sin violencia",
+  "vs": "vs",
+  "Robo de Coche Sin Violencia": "Robo de Coche Sin Violencia",
+  "Robo de Coche Con Violencia": "Robo de Coche Con Violencia"
 }
