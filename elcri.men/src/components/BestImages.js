@@ -7,7 +7,7 @@ query indexQuery {
   anomalies:file(relativePath: {eq: "anomalies.png"}) {
     childImageSharp {
       fixed(width: 128, height: 128, quality: 80) {
-        ...GatsbyImageSharpFixed_withWebp
+        ...GatsbyImageSharpFixed_withWebp_noBase64
         originalName
         width
       }
@@ -17,7 +17,7 @@ query indexQuery {
   trend:file(relativePath: {eq: "trend.png"}) {
     childImageSharp {
       fixed(width: 128, height: 128, quality: 80) {
-        ...GatsbyImageSharpFixed_withWebp
+        ...GatsbyImageSharpFixed_withWebp_noBase64
         originalName
         width
       }
@@ -27,7 +27,7 @@ query indexQuery {
   mapa:file(relativePath: {eq: "mapa.png"}) {
     childImageSharp {
       fixed(width: 128, height: 128, quality: 80) {
-        ...GatsbyImageSharpFixed_withWebp
+        ...GatsbyImageSharpFixed_withWebp_noBase64
         originalName
         width
       }

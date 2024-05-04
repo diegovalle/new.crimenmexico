@@ -28,12 +28,13 @@ import social_image_en from '../assets/images/social/social-index_en.png';
 // variables for the inforgraphic names are in gatsby-node.js
 export const data_query = graphql`
 query query($fname_infographic: String, $fname_mun: String) {
-    allFile(filter: { name: { in: [$fname_infographic, $fname_mun]} }) {
+    allFile(filter: {sourceInstanceName: { in: ["infographics_en", "infographics_es"] }, 
+            name: { in: [$fname_infographic, $fname_mun]} }) {
       edges {
         node {
           childImageSharp {
-            fluid(maxWidth: 432) {
-              ...GatsbyImageSharpFluid_withWebp
+            fluid(maxWidth: 432, srcSetBreakpoints: [216, 432, 648 ]) {
+              ...GatsbyImageSharpFluid_withWebp_noBase64
               originalName
               originalImg
             }
