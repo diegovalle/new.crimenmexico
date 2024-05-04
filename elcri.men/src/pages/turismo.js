@@ -91,13 +91,13 @@ function MostViolent(props) {
           <FormattedDate value={new Date(last_date.iso_mid)} year="numeric" />
         </HeroTitle>
 
-        <AdSense.Google
+        {/* <AdSense.Google
           client="ca-pub-2949275046149330"
           slot="8649980552"
           style={{ display: 'block' }}
           format="auto"
           responsive="true"
-        />
+        /> */}
 
         <div className="container is-fullhd">
           <div className="columns is-centered">
