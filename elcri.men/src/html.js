@@ -1,13 +1,17 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from 'react'
+import PropTypes from 'prop-types'
 
-let ca= "ca-pub-2949275046149330"
+let ca = 'ca-pub-2949275046149330'
 
 export default function HTML(props) {
   return (
     <html {...props.htmlAttributes}>
       <head>
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script
+          async
+          src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2949275046149330"
+          crossOrigin="anonymous"
+        ></script>
         <meta charSet="utf-8" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
         <meta

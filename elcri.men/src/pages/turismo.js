@@ -110,8 +110,8 @@ function MostViolent(props) {
                     </div>
                   ) : (
                     <div className="has-ratio">
-                      <div class="is-hidden-desktop columns is-mobile is-centered">
-                        <div class="box">
+                      <div className="is-hidden-desktop columns is-mobile is-centered">
+                        <div className="box">
                           <div role="status" className="circle-spin-2"></div>
                         </div>
                       </div>
@@ -123,13 +123,13 @@ function MostViolent(props) {
           </div>
 
           <hr style={{ backgroundColor: '#fff' }} />
-          <AdSense.Google
+          {/* <AdSense.Google
             client="ca-pub-2949275046149330"
             slot="8649980552"
             style={{ display: 'block' }}
             format="auto"
             responsive="true"
-          />
+          /> */}
 
           <TextColumn>
             <p>
@@ -149,8 +149,8 @@ function MostViolent(props) {
                     />
                   ) : (
                     <div style={{ height: chartHeight + 80 }}>
-                      <div class="is-hidden-desktop columns is-mobile is-centered">
-                        <div class="box">
+                      <div className="is-hidden-desktop columns is-mobile is-centered">
+                        <div className="box">
                           <div role="status" className="circle-spin-2"></div>
                         </div>
                       </div>
@@ -163,13 +163,13 @@ function MostViolent(props) {
         </div>
         <hr />
 
-        <AdSense.Google
+        {/* <AdSense.Google
           client="ca-pub-2949275046149330"
           slot="8649980552"
           style={{ display: 'block' }}
           format="auto"
           responsive="true"
-        />
+        /> */}
       </div>
     </Layout>
   )

@@ -10,9 +10,11 @@ import { FaFileDownload } from 'react-icons/fa'
 import { IoIosArrowDroprightCircle } from 'react-icons/io'
 import social_image from '../assets/images/social/social-acerca.png'
 import social_image_en from '../assets/images/social/social-acerca_en.png'
+import '../assets/css/acerca.css'
 
 function HomeIndex(props) {
   const intl = useIntl()
+
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
       <SEO
@@ -58,8 +60,8 @@ function HomeIndex(props) {
               <br />
               <div className="columns is-centered">
                 <div className="column is-8">
-                  <table className="table">
-                    <thead>
+                  <table className="table about">
+                    <thead className="about">
                       <tr>
                         <th>
                           {intl.formatMessage({ id: 'New methodology' })}:
@@ -68,7 +70,7 @@ function HomeIndex(props) {
                     </thead>
                     <tbody>
                       <tr>
-                        <td>
+                        <td className="about">
                           <a
                             href="https://data.diegovalle.net/elcrimen/nm-fuero-comun-municipios.csv.gz"
                             rel="nofollow"
@@ -81,7 +83,7 @@ function HomeIndex(props) {
                         </td>
                       </tr>
                       <tr>
-                        <td>
+                        <td className="about">
                           <a
                             href="https://data.diegovalle.net/elcrimen/nm-fuero-comun-estados.csv.gz"
                             rel="nofollow"
@@ -94,7 +96,7 @@ function HomeIndex(props) {
                         </td>
                       </tr>
                       <tr>
-                        <td>
+                        <td className="about">
                           <a
                             href="https://data.diegovalle.net/elcrimen/nm-estatal-victimas.csv.gz"
                             rel="nofollow"
@@ -121,7 +123,7 @@ function HomeIndex(props) {
                     </thead>
                     <tbody>
                       <tr>
-                        <td>
+                        <td className="about">
                           <a
                             href="https://data.diegovalle.net/elcrimen/fuero-comun-municipios.csv.gz"
                             rel="nofollow"
@@ -134,7 +136,7 @@ function HomeIndex(props) {
                         </td>
                       </tr>
                       <tr>
-                        <td>
+                        <td className="about">
                           <a
                             href="https://data.diegovalle.net/elcrimen/fuero-comun-estados.csv.gz"
                             rel="nofollow"
@@ -147,7 +149,7 @@ function HomeIndex(props) {
                         </td>
                       </tr>
                       <tr>
-                        <td>
+                        <td className="about">
                           <a
                             href="https://data.diegovalle.net/elcrimen/victimas.csv.gz"
                             rel="nofollow"

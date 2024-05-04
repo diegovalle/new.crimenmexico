@@ -38,7 +38,6 @@
 const {locales, routes} = require ('./src/i18n');
 const files = require('./src/data/infographics_filenames.json');
 
-
 exports.onCreatePage = ({page, actions}) => {
   const {createPage, deletePage} = actions;
 

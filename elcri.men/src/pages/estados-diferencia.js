@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Helmet from 'react-helmet'
 
+import { titleCasePlaces } from '../components/utils.js'
+
 import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
 import * as echarts from 'echarts/core'
@@ -121,14 +123,16 @@ function MostViolent(props) {
     fetch('/elcrimen-json/states_diff.json')
       .then(response => response.json())
       .then(responseJSON => {
-        let states = responseJSON.map(s => s.state)
+        let states = responseJSON.map(s => titleCasePlaces(s.state))
         mapValues(responseJSON, function(val, key) {
-          if (val.value >= 0)
+          if (val.value >= 0) {
+            val.label = { position: 'left', fontSize: 17 }
             val.itemStyle = {
               color: '#b2182b',
             }
+          }
           else {
-            val.label = { position: 'right' }
+            val.label = { position: 'right', fontSize: 17 }
             val.itemStyle = {
               color: '#2166ac',
             }
@@ -225,8 +229,8 @@ function MostViolent(props) {
                 </div>
               ) : (
                 <div style={{ height: chartHeight + 80 }}>
-                  <div class="is-hidden-desktop columns is-mobile is-centered">
-                  <div class="box">
+                  <div className="is-hidden-desktop columns is-mobile is-centered">
+                  <div className="box">
                     <div
                       role="status"
                       className="circle-spin-2"

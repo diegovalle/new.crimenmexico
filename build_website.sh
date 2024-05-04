@@ -29,6 +29,22 @@ cp -n -v R/graphs/municipios_???_????.png elcri.men/static/en/images/infographic
 cp -n -v R/graphs/infographic_es_???_????.png elcri.men/static/es/images/infographics/fulls/
 cp -n -v R/graphs/municipios_es_???_????.png elcri.men/static/es/images/infographics/fulls/
 
+# Commit generated infographics
+if [[ $(git status --porcelain elcri.men/static/e*) ]]; then
+    git config --global user.email "$GH_EMAIL"
+    git config --global user.name "diego"
+    git status --porcelain elcri.men/static/e* | sed  "s/^?? //g" | xargs --max-args 1 git add
+    git commit -m "Add new png infographics [skip ci]"
+    git push -q https://"$GH_PAT":x-oauth-basic@github.com/diegovalle/new.crimenmexico.git master
+fi
+
+# Delete old infographics to keep the website size down
+rm -rf elcri.men/static/es/images/infographics/fulls/*201?.png
+rm -rf elcri.men/static/en/images/infographics/fulls/*201?.png
+rm -rf elcri.men/static/es/images/infographics/fulls/*202[01].png
+rm -rf elcri.men/static/en/images/infographics/fulls/*202[01].png
+
+
 # Move the json files with the chart data to the website directory
 cp R/json/*.json elcri.men/static/elcrimen-json/
 

@@ -9,16 +9,5 @@ import React from 'react'
 
 export const onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
   setHeadComponents([
-    <link
-      rel="dns-prefetch"
-      key="dns-prefetch-googlesyndication"
-      href="https://pagead2.googlesyndication.com"
-    />,
-    <link
-      rel="dns-prefetch"
-      key="dns-prefetch-google-analytics"
-      href="https://www.google-analytics.com"
-    />,
   ])
-
 }

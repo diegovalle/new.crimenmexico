@@ -14,6 +14,7 @@ import {Link} from 'gatsby';
 import social_image from '../assets/images/social/social-infographics.png';
 import social_image_en
   from '../assets/images/social/social-infographics_en.png';
+const files = require('../data/infographics_filenames.json');
 
 const Infographics = ({data, location, pageContext}) => {
   const regex_es = /^infographic_es|^municipios_es/;

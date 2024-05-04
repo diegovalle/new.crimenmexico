@@ -9,6 +9,8 @@ import '../assets/css/trends.css'
 import { useIntl } from 'react-intl'
 import { dateLoc } from '../../src/i18n'
 
+import { titleCasePlaces } from './utils.js'
+
 import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
 import * as echarts from 'echarts/core'
@@ -48,21 +50,34 @@ function SmallMultiple(props) {
     ...restProps
   } = props
   const intl = useIntl()
-  let l
+  let l, title
   intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
+
+  if (props.title.length > 21) {
+    let lastComma = props.title.lastIndexOf(',')
+    if (lastComma) {
+      let before = props.title.substr(0, lastComma).substr(0, 16)
+      let after = props.title.substr(lastComma).substr(0, 5)
+      title = before + '…' + after
+    } else {
+      title = props.title.substr(0, lastComma).substr(0, 21)
+    }
+  } else title = props.title
+
+  title = titleCasePlaces(title)
 
   let chartOption = {
     animation: true,
     animationDuration: 0,
     title: {
-      text: props.title,
+      text: title,
       top: '3%',
       left: 'center',
       textStyle: {
-        fontFamily: 'Trebuchet MS',
-        fontSize: 14,
+        fontFamily: 'system-ui',
+        fontSize: 13.5,
         fontWeight: 'bold',
-        color: "#111"
+        color: '#111',
       },
     },
     tooltip: {
@@ -232,20 +247,18 @@ function SmallMultiple(props) {
   }
 
   return (
-    <div className={col_class} style={{ marginBottom: '15px', height: '100%' }}>
-      <div
-        style={{ borderRadius: '5px', height: '100%' }}
-        className={backgroundClass || 'line-chart-brown'}
-      >
-        <LazyLoad height={height} once offset={200}>
-          <ReactEChartsCore
-            echarts={echarts}
-            option={chartOption}
-            style={{ height: '100%', width: '100%' }}
-            opts={{ locale: echarts.registerLocale('ES') }}
-          />
-        </LazyLoad>
-      </div>
+    <div
+      style={{ borderRadius: '5px', height: '100%' }}
+      className={backgroundClass || 'line-chart-brown'}
+    >
+      <LazyLoad height={height} once offset={200}>
+        <ReactEChartsCore
+          echarts={echarts}
+          option={chartOption}
+          style={{ height: '100%', width: '100%' }}
+          opts={{ locale: echarts.registerLocale('ES') }}
+        />
+      </LazyLoad>
     </div>
   )
 }

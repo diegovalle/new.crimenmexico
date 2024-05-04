@@ -12,6 +12,9 @@ import {scaleBand, scaleLinear, scaleOrdinal} from '@vx/scale';
 import {maxBy} from 'lodash-es';
 import {FormattedMessage} from 'react-intl';
 import {format} from 'd3-format';
+
+import { titleCasePlaces } from './utils.js'
+
 import '../assets/css/top50.css';
 
 // accessors
@@ -107,7 +110,7 @@ class Top50 extends React.Component {
                       children={function (x) {
                         let words;
                         let ret = x.ticks.map ((d, i) => {
-                          let strs = splitter (d.value, 12);
+                          let strs = splitter (titleCasePlaces(d.value), 12);
                           let len = strs.length;
                           let a = {
                             1: [0],
@@ -123,7 +126,7 @@ class Top50 extends React.Component {
                               key={d.value}
                               fill="black"
                               fontFamily="Roboto Condensed"
-                              fontSize="11"
+                              fontSize="13"
                               textAnchor="end"
                             >
                               {strs.map ((split, i) => (
@@ -182,7 +185,7 @@ class Top50 extends React.Component {
                     style={{backgroundColor: 'black', color: 'white'}}
                     top={tooltipTop}
                     left={tooltipLeft}
-                    class=" is-size-6"
+                    className="is-size-6"
                   >
                     <b>{tooltipData.name}</b>
                         <br />

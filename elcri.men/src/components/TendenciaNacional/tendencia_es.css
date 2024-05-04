@@ -1,8 +1,13 @@
-
-@media
-only screen and (max-width: 1024px) {
-table td:not([align]){text-align: right;}
-  table, thead, tbody, th, td, tr {
+@media only screen and (max-width: 1024px) {
+  table td:not([align]) {
+    text-align: right;
+  }
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     display: block;
   }
   thead tr {
@@ -10,23 +15,41 @@ table td:not([align]){text-align: right;}
     top: -9999px;
     left: -9999px;
   }
-  tr { border: 1px solid #ccc; }
-  td {
+  tr {
+    border: 1px solid #ccc;
+  }
+  td.es {
+    font-family: 'ui-monospace';
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
-		padding-left: 50%; 
-		text-align: right;
+    padding-left: 50%;
+    text-align: right;
   }
-  td:before {
+  td.es:before {
     position: absolute;
     top: 12px;
     left: 6px;
-		width: 45%; 
+    width: 45%;
     padding-right: 10px;
     white-space: nowrap;
   }
-  td:nth-of-type(1):before { font-weight: bold; text-align: left;content: "Fecha:"; }
-  td:nth-of-type(2):before { font-weight: bold; text-align: left;content: "Dif. tasa:"; }
-  td:nth-of-type(3):before { font-weight: bold; text-align: left;content: "Dif. número:"; }
+  td.es:nth-of-type(1):before {
+    font-family: 'ui-monospace';
+    font-weight: bold;
+    text-align: left;
+    content: 'Fecha:';
+  }
+  td.es:nth-of-type(2):before {
+    font-family: 'ui-monospace';
+    font-weight: bold;
+    text-align: left;
+    content: 'Dif. tasa:';
+  }
+  td.es:nth-of-type(3):before {
+    font-family: 'ui-monospace';
+    font-weight: bold;
+    text-align: left;
+    content: 'Dif. número:';
+  }
 }

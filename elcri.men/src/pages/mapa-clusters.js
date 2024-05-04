@@ -321,13 +321,13 @@ function ClusterMapPage (props) {
         <FormattedDate value={new Date (last_date.iso_mid)} year="numeric" />
       </HeroTitle>
 
-      <AdSense.Google
+      {/* <AdSense.Google
         client="ca-pub-2949275046149330"
         slot="8649980552"
         style={{display: 'block'}}
         format="auto"
         responsive="true"
-      />
+      /> */}
 
       <section id="map_container">
         <div className="container is-fluid">
@@ -337,13 +337,13 @@ function ClusterMapPage (props) {
         </div>
       </section>
 
-      <AdSense.Google
+      {/* <AdSense.Google
         client="ca-pub-2949275046149330"
         slot="8649980552"
         style={{display: 'block'}}
         format="auto"
         responsive="true"
-      />
+      /> */}
 
       <hr />
 
@@ -351,13 +351,13 @@ function ClusterMapPage (props) {
         {intl.formatMessage ({id: 'cluster_txt'})}
       </TextColumn>
 
-        <AdSense.Google
+        {/* <AdSense.Google
           client="ca-pub-2949275046149330"
           slot="8649980552"
           style={{display: 'block'}}
           format="auto"
           responsive="true"
-        />
+        /> */}
     </Layout>
   );
 }

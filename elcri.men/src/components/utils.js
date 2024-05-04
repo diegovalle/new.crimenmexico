@@ -1,5 +1,3 @@
-
-
 export function YYYYmmddToDate15(str) {
   let date = new Date()
 
@@ -23,3 +21,19 @@ export function YYYYmmddCollectionToDate(col, acc) {
   })
 }
 
+export function titleCasePlaces(str) {
+  if (str.length <= 4) return str
+  let before_comma,
+    after_comma = '',
+    comma = str.lastIndexOf(',')
+  if (comma >= 0) {
+    before_comma = str.substr(0, comma)
+    after_comma = str.substr(comma)
+  } else before_comma = str
+  before_comma = before_comma.toLowerCase()
+  let splitStr = before_comma.toLowerCase().split(' ')
+  for (let i = 0; i < splitStr.length; i++) {
+    splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1)
+  }
+  return splitStr.join(' ') + after_comma
+}

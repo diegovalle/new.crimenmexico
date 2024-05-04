@@ -14,6 +14,8 @@ import {
 import { cloneDeepWith } from 'lodash-es'
 
 import '../assets/css/trends.css'
+import './TendenciaNacional/tendencia_es.css'
+import './TendenciaNacional/tendencia_en.css'
 import { useIntl } from 'react-intl'
 import { dateLoc } from '../../src/i18n'
 
@@ -64,22 +66,28 @@ function TendenciaNacional(props) {
     return [diffs, gam, zero]
   }
 
-  const trbody = data => {
+  const trbody = (data, l) => {
     let df = date_format(`%b\u00A0%Y`)
     let a = Object.keys(data).map(function(key, index) {
       let date = YYYYmmddToDate15(data[key].date)
       return (
         <tr key={index}>
-          <td key={index + '1'}>
+          <td
+            className={l}
+            key={index + '1'}
+            style={{
+              fontFamily: 'monospace',
+            }}
+          >
             {df(date) +
               `\u00A0-\u00A0` +
               date_format(`%b\u00A0`)(date) +
               (parseInt(date_format('%Y')(date)) - 1)}
           </td>
-          <td key={index + '2'} style={{ textAlign: 'right' }}>
+          <td className={l} key={index + '2'} style={{ textAlign: 'right' }}>
             {Math.round(data[key].diff * 10) / 10}
           </td>
-          <td key={index + '3'} style={{ textAlign: 'right' }}>
+          <td className={l} key={index + '3'} style={{ textAlign: 'right' }}>
             {data[key].diff_count}
           </td>
         </tr>
@@ -92,9 +100,10 @@ function TendenciaNacional(props) {
   const comma = num_format(',.0f')
   const round1 = num_format('.1f')
   intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
-  intl.locale === 'es'
-    ? require('./TendenciaNacional/tendencia_es.css')
-    : require('./TendenciaNacional/tendencia_en.css')
+  // intl.locale === 'es'
+  //   ? require('./TendenciaNacional/tendencia_es.css')
+  //   : require('./TendenciaNacional/tendencia_en.css')
+  //   console.log(intl.locale)
 
   let chartOption = {
     animation: true,
@@ -115,7 +124,7 @@ function TendenciaNacional(props) {
         fontFamily: 'Trebuchet MS',
         fontSize: 14,
         fontWeight: 'bold',
-        color: "#111"
+        color: '#111',
       },
     },
     tooltip: {
@@ -146,7 +155,7 @@ function TendenciaNacional(props) {
     grid: {
       left: '45',
       right: '2%',
-      bottom: '10%',
+      bottom: '15%',
       top: '25%',
       containLabel: false,
     },
@@ -162,7 +171,7 @@ function TendenciaNacional(props) {
           return [
             date.toLocaleString(intl.locale, { month: 'short' }),
             date.getFullYear(),
-          ].join('\n')
+          ].join(' ')
         },
       },
       axisLine: { lineStyle: { color: '#111', width: 2 } },
@@ -243,7 +252,7 @@ function TendenciaNacional(props) {
   return (
     <div className="columns">
       <div className="column is-full">
-        <figure className="image is-3by1 is-big-national">
+        <figure className="image is-5by3">
           {data ? (
             <div className=" has-ratio" id="tendencias">
               <ReactEChartsCore
@@ -287,18 +296,23 @@ function TendenciaNacional(props) {
 
                 <tbody>
                   {data
-                    ? trbody([...data].reverse())
+                    ? trbody([...data].reverse(), intl.locale)
                     : [...Array(5)].map((e, index) => (
                         <tr key={index}>
                           <td
+                            className={intl.locale}
                             key={index + '1'}
-                            style={{ color: 'transparent' }}
+                            style={{
+                              color: 'transparent',
+                              fontFamily: 'monospace',
+                            }}
                           >
                             <span className="has-background-grey-light">
                               \u00A0\u00A0
                             </span>
                           </td>
                           <td
+                            className={intl.locale}
                             key={index + '2'}
                             style={{ textAlign: 'right', color: 'transparent' }}
                           >
@@ -307,6 +321,7 @@ function TendenciaNacional(props) {
                             </span>
                           </td>
                           <td
+                            className={intl.locale}
                             key={index + '3'}
                             style={{ textAlign: 'right', color: 'transparent' }}
                           >

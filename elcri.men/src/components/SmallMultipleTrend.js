@@ -53,7 +53,7 @@ function SmallMultipleTrend(props) {
         fontFamily: 'Trebuchet MS',
         fontSize: 14,
         fontWeight: 'bold',
-        color: "#111"
+        color: '#111',
       },
     },
     tooltip: {
@@ -82,10 +82,11 @@ function SmallMultipleTrend(props) {
       },
     },
     grid: {
-      left: '3%',
+      top: '10%',
+      left: '15%',
       right: '4%',
-      bottom: '3%',
-      containLabel: true,
+      bottom: '26%',
+      containLabel: false,
     },
     xAxis: {
       type: 'category',
@@ -218,22 +219,14 @@ function SmallMultipleTrend(props) {
   }
 
   return (
-    <div className="col-3" style={{ marginBottom: '15px' }}>
-      <div
-        style={{ width: '100%', borderRadius: '5px' }}
-        className="line-chart"
-        id={'line' + Object.keys(props.data)[0].replace(/ |\.|,/g, '')}
-      >
-        <LazyLoad height={height} once offset={200}>
-          <ReactEChartsCore
-            echarts={echarts}
-            option={chartOption}
-            style={{ height: 300, width: '100%' }}
-            opts={{ locale: echarts.registerLocale('ES') }}
-          />
-        </LazyLoad>
-      </div>
-    </div>
+    <LazyLoad height={height} once offset={200}>
+      <ReactEChartsCore
+        echarts={echarts}
+        option={chartOption}
+        style={{ height: '100%', width: '100%' }}
+        opts={{ locale: echarts.registerLocale('ES') }}
+      />
+    </LazyLoad>
   )
 }
 

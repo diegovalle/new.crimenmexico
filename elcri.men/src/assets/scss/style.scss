@@ -39,19 +39,57 @@
   display: block;
 }
 
-.is-3by1-tablet-only-6by3-mobile-16by9 {
-  // 3by1
-  aspect-ratio: 3 / 1;
+.image.is-3by1-tablet-only-3by2-mobile-3by2 {
+  /*  // 3by1
+  //aspect-ratio: 3 / 1; */
+  padding-top: 33.3333%;
 
   @include tablet-only {
-    // equivalent of is-16by9
-    aspect-ratio: 7 / 3;
+    padding-top: 42.857%;
+    /*  // position: relative
+    // height: 0
+    //aspect-ratio: 7 / 3; */
   }
 
   @include mobile {
-    // equivalent of is-16by9
-    aspect-ratio: 16 / 9;
+    padding-top: 66.666%;
+    /*  //aspect-ratio: 3 / 2; */
   }
+}
+
+.is-3by1-tablet-only-3by2-mobile-3by2 .has-ratio {
+  height: 100%;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.image.is-3by2-tablet-only-3by2-mobile-3by1 {
+  padding-top: 58.666%;
+  /*  //aspect-ratio: 3 / 2; */
+
+  @include tablet-only {
+    padding-top: 42.857%;
+    /* //aspect-ratio: 7 / 3; */
+  }
+
+  @include mobile {
+    padding-top: 66.666%;
+    /* //aspect-ratio: 3 / 2; */
+  }
+}
+
+.is-3by2-tablet-only-3by2-mobile-3by1 .has-ratio {
+  height: 100%;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .is-16by9-tablet-only-6by3-mobile-16by9 {
@@ -683,7 +721,7 @@ p a {
 .circle-spin-2 {
   --size: 54px;
   --stroke-width: calc(var(--size) / 6);
-  --accent-opacity: .25;
+  --accent-opacity: 0.25;
   --color: currentColor;
   --animation-timing-function: linear;
   --animation-duration: 3s;
@@ -701,7 +739,8 @@ p a {
   border-style: solid;
   border-radius: 50%;
   transform: rotate(0deg);
-  animation: var(--animation-timing-function) var(--animation-duration) infinite circle-spin-2-animation;
+  animation: var(--animation-timing-function) var(--animation-duration) infinite
+    circle-spin-2-animation;
 }
 
 .circle-spin-2::before {
@@ -722,4 +761,3 @@ p a {
     transform: rotate(360deg);
   }
 }
-

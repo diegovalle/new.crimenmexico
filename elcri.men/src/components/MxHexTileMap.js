@@ -571,7 +571,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="67.6111111111111"
                     y="199.57741548062216"
@@ -582,7 +582,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="67.61111111111113"
                     y="132.85921296512737"
@@ -593,7 +593,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="123.88888888888883"
                     y="166.34030695380414"
@@ -604,7 +604,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="123.88888888888881"
                     y="99.09741661128288"
@@ -615,7 +615,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="180.11111111111106"
                     y="199.57741548062222"
@@ -626,7 +626,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="180.11111111111103"
                     y="132.85921296512737"
@@ -637,7 +637,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="236.3888888888887"
                     y="428.7045607366951"
@@ -648,7 +648,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="236.38888888888883"
                     y="363.74371112696997"
@@ -659,7 +659,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="236.388888888889"
                     y="298.4153821347561"
@@ -670,7 +670,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="236.3888888888886"
                     y="232.6059857686502"
@@ -681,7 +681,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="236.38888888888889"
                     y="166.3403069538042"
@@ -692,7 +692,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="236.38888888888877"
                     y="99.09741661128288"
@@ -703,7 +703,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="292.6111111111112"
                     y="396.22993672103865"
@@ -714,7 +714,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="292.61111111111103"
                     y="331.21420629737963"
@@ -725,7 +725,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="292.61111111111074"
                     y="265.65381528601864"
@@ -736,7 +736,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="292.61111111111114"
                     y="199.57741548062222"
@@ -747,7 +747,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="292.611111111111"
                     y="132.85921296512734"
@@ -758,7 +758,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="348.88888888888846"
                     y="493.7455859022052"
@@ -769,7 +769,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="348.88888888888926"
                     y="428.70456073669607"
@@ -780,7 +780,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="348.88888888888863"
                     y="363.7437111269699"
@@ -791,7 +791,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="348.8888888888885"
                     y="298.4153821347557"
@@ -802,7 +802,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="348.8888888888888"
                     y="232.60598576865044"
@@ -813,7 +813,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="348.8888888888887"
                     y="166.34030695380406"
@@ -824,7 +824,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="405.1111111111112"
                     y="461.19920420580985"
@@ -835,7 +835,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="405.1111111111109"
                     y="396.229936721038"
@@ -846,7 +846,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="405.11111111111086"
                     y="331.21420629737963"
@@ -857,7 +857,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="405.11111111111126"
                     y="265.65381528601904"
@@ -868,7 +868,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="405.1111111111105"
                     y="199.577415480622"
@@ -879,7 +879,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="461.3888888888885"
                     y="428.70456073669516"
@@ -890,7 +890,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="517.6111111111109"
                     y="396.22993672103786"
@@ -901,7 +901,7 @@ function MxHexTileMap(props) {
 
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="573.8888888888899"
                     y="428.70456073669635"
@@ -911,7 +911,7 @@ function MxHexTileMap(props) {
                   </text>
                   <text
                     textAnchor="middle"
-                    className="is-size-8-mobile is-size-65-tablet is-size-5"
+                    className="is-size-7-mobile is-size-6-tablet is-size-5"
                     dominantBaseline="mathemetical"
                     x="573.8888888888886"
                     y="363.74371112697"

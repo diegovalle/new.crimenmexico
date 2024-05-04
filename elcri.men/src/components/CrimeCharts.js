@@ -169,7 +169,7 @@ function CrimeChart(props) {
     dataf = formatData(dataf)
     title =
       title +
-      ' - ' +
+      '\u0020-\u0020' +
       (stateNames[props.selected_state] === 'National'
         ? intl.formatMessage({ id: 'nacional' })
         : stateNames[props.selected_state])
@@ -181,10 +181,10 @@ function CrimeChart(props) {
         top: '3%',
         left: 'center',
         textStyle: {
-          fontFamily: 'Trebuchet MS',
-          fontSize: 14,
+          fontFamily: 'system-ui',
+          fontSize: 13.5,
           fontWeight: 'bold',
-          color: "#111"
+          color: '#111',
         },
       },
       tooltip: {
@@ -235,8 +235,8 @@ function CrimeChart(props) {
       },
       grid: {
         left: '45',
-        right: '2%',
-        bottom: '13%',
+        right: '17',
+        bottom: '15%',
         top: '25%',
         containLabel: false,
       },
@@ -332,7 +332,7 @@ function CrimeChart(props) {
         show: true,
         showTitle: false,
         itemSize: 13,
-        iconStyle: { color: '#333' },
+        iconStyle: { color: '#000', borderColor: '#eee' },
         tooltip: {
           show: true,
           padding: 2,
@@ -392,20 +392,17 @@ function CrimeChart(props) {
     <React.Fragment>
       <div className="columns">
         <div className="column is-full">
-          <figure className="image">
+          <figure className="image is-3by1-tablet-only-3by2-mobile-3by2">
             <div
               id="nat_hd"
+              style={{height: '100%'}}
               className={
                 props.selected_crime === 'hd'
                   ? 'line-chart-brown has-ratio'
                   : 'line-chart-blue has-ratio'
               }
             >
-              <div className="is-3by1-tablet-only-6by3-mobile-16by9">
-                {singleChart(
-                  intl.formatMessage({ id: 'Homicidio Intencional' })
-                )}
-              </div>
+              {singleChart(intl.formatMessage({ id: 'Homicidio Intencional' }))}
             </div>
           </figure>
         </div>
@@ -413,85 +410,81 @@ function CrimeChart(props) {
 
       <div className="columns is-desktop">
         <div className="column is-half-desktop">
-          <figure className="image">
+          <figure className="image is-3by2-tablet-only-3by2-mobile-3by1">
             <div
               id="nat_sec"
+              style={{height: '100%'}}
               className={
                 props.selected_crime === 'sec'
                   ? 'line-chart-brown has-ratio'
                   : 'line-chart-blue has-ratio'
               }
             >
-              <div className="is-16by9-tablet-only-6by3-mobile-16by9">
-                {singleChart(intl.formatMessage({ id: 'Secuestro' }))}
-              </div>
+              {singleChart(intl.formatMessage({ id: 'Secuestro' }))}
             </div>
           </figure>
         </div>
         <div className="column is-half-desktop">
-          <figure className="image">
+          <figure className="image is-3by2-tablet-only-3by2-mobile-3by1">
             <div
               id="nat_ext"
+              style={{height: '100%'}}
               className={
                 props.selected_crime === 'ext'
                   ? 'line-chart-brown has-ratio'
                   : 'line-chart-blue has-ratio'
               }
             >
-              <div className="is-16by9-tablet-only-6by3-mobile-16by9">
-                {singleChart(intl.formatMessage({ id: 'Extorsión' }))}
-              </div>
+              {singleChart(intl.formatMessage({ id: 'Extorsión' }))}
             </div>
           </figure>
         </div>
       </div>
       <div className="columns is-desktop">
         <div className="column is-half-desktop">
-          <figure className="image">
+          <figure className="image is-3by2-tablet-only-3by2-mobile-3by1">
             <div
               id="nat_rvcv"
+              style={{height: '100%'}}
               className={
                 props.selected_crime === 'rvcv'
                   ? 'line-chart-brown has-ratio'
                   : 'line-chart-blue has-ratio'
               }
             >
-              <div className="is-16by9-tablet-only-6by3-mobile-16by9">
-                {singleChart(
-                  intl.formatMessage({ id: 'Robo de Coche c/v' }),
-                  intl.formatMessage({ id: 'Robo de Coche Con Violencia' })
-                )}
-              </div>{' '}
+              {singleChart(
+                intl.formatMessage({ id: 'Robo de Coche c/v' }),
+                intl.formatMessage({ id: 'Robo de Coche Con Violencia' })
+              )}
             </div>
           </figure>
         </div>
         <div className="column is-half-desktop">
-          <figure className="image">
+          <figure className="image is-3by2-tablet-only-3by2-mobile-3by1">
             <div
               id="nat_rvsv"
+              style={{height: '100%'}}
               className={
                 props.selected_crime === 'rvsv'
                   ? 'line-chart-brown has-ratio'
                   : 'line-chart-blue has-ratio'
               }
             >
-              <div className="is-16by9-tablet-only-6by3-mobile-16by9">
-                {singleChart(
-                  intl.formatMessage({ id: 'Robo de Coche s/v' }),
-                  intl.formatMessage({ id: 'Robo de Coche Sin Violencia' })
-                )}
-              </div>{' '}
+              {singleChart(
+                intl.formatMessage({ id: 'Robo de Coche s/v' }),
+                intl.formatMessage({ id: 'Robo de Coche Sin Violencia' })
+              )}
             </div>
           </figure>
         </div>
       </div>
       <div className="columns">
-            <div className="column is-full">
-              <p>
-                <FormattedMessage id="front-caption" />
-              </p>
-            </div>
-          </div>
+        <div className="column is-full">
+          <p>
+            <FormattedMessage id="front-caption" />
+          </p>
+        </div>
+      </div>
     </React.Fragment>
   )
 }

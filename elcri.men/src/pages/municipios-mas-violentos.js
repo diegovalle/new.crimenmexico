@@ -57,13 +57,13 @@ function MostViolent(props) {
           <FormattedDate value={new Date(last_date.iso_mid)} year="numeric" />
         </HeroTitle>
 
-        <AdSense.Google
+        {/* <AdSense.Google
           client="ca-pub-2949275046149330"
           slot="8649980552"
           style={{ display: 'block' }}
           format="auto"
           responsive="true"
-        />
+        /> */}
 
         <div className="container is-fullhd">
           <div className="columns is-centered">
@@ -74,8 +74,8 @@ function MostViolent(props) {
                 </div>
               ) : (
                 <div style={{ height: chartHeight + 80 }}>
-                  <div class="is-hidden-desktop columns is-mobile is-centered">
-                  <div class="box">
+                  <div className="is-hidden-desktop columns is-mobile is-centered">
+                  <div className="box">
                     <div
                       role="status"
                       className="circle-spin-2"
@@ -87,13 +87,13 @@ function MostViolent(props) {
           </div>
         </div>
 
-        <AdSense.Google
+        {/* <AdSense.Google
           client="ca-pub-2949275046149330"
           slot="8649980552"
           style={{ display: 'block' }}
           format="auto"
           responsive="true"
-        />
+        /> */}
 
         <hr />
         <TextColumn>
@@ -102,13 +102,13 @@ function MostViolent(props) {
           </p>
         </TextColumn>
 
-        <AdSense.Google
+        {/* <AdSense.Google
           client="ca-pub-2949275046149330"
           slot="8649980552"
           style={{ display: 'block' }}
           format="auto"
           responsive="true"
-        />
+        /> */}
       </div>
     </Layout>
   )

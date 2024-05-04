@@ -1,32 +1,31 @@
 @media only screen and (max-width: 1024px) {
-  table td:not([align]) {
+  table.about td:not([align]) {
     text-align: right;
   }
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr {
+  table.about,
+  thead.about,
+  tbody.about,
+  th.about,
+  td.about,
+  tr.about {
     display: block;
   }
-  thead tr {
+  thead.about tr.about {
     position: absolute;
     top: -9999px;
     left: -9999px;
   }
-  tr {
+  tr.about {
     border: 1px solid #ccc;
   }
-  td.en {
-    font-family: 'ui-monospace';
+  td.about {
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
     padding-left: 50%;
     text-align: right;
   }
-  td.en:before {
+  td.about:before {
     position: absolute;
     top: 12px;
     left: 6px;
@@ -34,19 +33,19 @@
     padding-right: 10px;
     white-space: nowrap;
   }
-  td.en:nth-of-type(1):before {
-    font-family: 'ui-monospace';
+  td.about:nth-of-type(1):before {
+    font-weight: bold;
     text-align: left;
-    content: 'Date:';
+    content: '';
   }
-  td.en:nth-of-type(2):before {
-    font-family: 'ui-monospace';
+  td.about:nth-of-type(2):before {
+    font-weight: bold;
     text-align: left;
-    content: 'Diff rate:';
+    content: '';
   }
-  td.en:nth-of-type(3):before {
-    font-family: 'ui-monospace';
+  td.about:nth-of-type(3):before {
+    font-weight: bold;
     text-align: left;
-    content: 'Diff number:';
+    content: '';
   }
 }

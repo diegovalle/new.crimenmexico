@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Helmet from 'react-helmet'
 
+import { titleCasePlaces } from '../components/utils.js'
+
 import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
 import * as echarts from 'echarts/core'
@@ -91,14 +93,16 @@ function MostViolent(props) {
     yAxis: {
       type: 'category',
       axisLine: { show: false },
-      axisTick: { show: false },
+      //axisTick: { show: false },
       splitLine: { show: false },
       axisLabel: {
         fontWeight: '500',
         margin: 3,
         overflow: 'break',
         fontFamily: 'Roboto Condensed',
+        fontSize: 15,
         lineHeight: 14,
+        color: '#111',
         formatter: params => {
           return params.replace(' ', '\n')
         },
@@ -123,7 +127,7 @@ function MostViolent(props) {
     fetch('/elcrimen-json/states_yearly_rates.json')
       .then(response => response.json())
       .then(responseJSON => {
-        let states = responseJSON.map(s => s.state)
+        let states = responseJSON.map(s => titleCasePlaces(s.state))
         mapValues(responseJSON, function(val, key) {
           val.itemStyle = {
             color: '#fc4e2a',
@@ -207,8 +211,8 @@ function MostViolent(props) {
                 </div>
               ) : (
                 <div style={{ height: chartHeight + 80 }}>
-                <div class="is-hidden-desktop columns is-mobile is-centered">
-                <div class="box">
+                <div className="is-hidden-desktop columns is-mobile is-centered">
+                <div className="box">
                   <div
                     role="status"
                     className="circle-spin-2"

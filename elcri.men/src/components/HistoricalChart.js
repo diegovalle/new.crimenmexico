@@ -438,7 +438,7 @@ function HistoricalChart(props) {
       <div className="column is-full">
         <a name="historical" id="historical" />
         <div id="national90">
-          <figure className="image is-2by1 is-historical">
+          <figure className="image is-2by1">
             <div className="has-ratio">
               {data ? (
                 <ReactEChartsCore

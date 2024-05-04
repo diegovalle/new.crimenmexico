@@ -279,13 +279,13 @@ function Anomalies(props) {
           <FormattedDate value={new Date(last_date.iso_mid)} year="numeric" />
         </HeroTitle>
 
-        <AdSense.Google
+        {/* <AdSense.Google
           client="ca-pub-2949275046149330"
           slot="8649980552"
           style={{ display: 'block' }}
           format="auto"
           responsive="true"
-        />
+        /> */}
 
         <section id="anomaliesTabs">
           {data ? (
@@ -303,7 +303,7 @@ function Anomalies(props) {
                   </span>
                 </Tab>
               </TabList>
-
+              <TabPanel key="tab1">
               <div className="columns" style={{ paddingTop: '1rem' }}>
                 <div className="column is-three-fourths">
                   <div className="columns is-multiline" id="small-multiples">
@@ -326,30 +326,31 @@ function Anomalies(props) {
                   </figure>
                 </div>
               </div>
+              </TabPanel>
             </Tabs>
           )}
         </section>
 
-        <AdSense.Google
+        {/* <AdSense.Google
           client="ca-pub-2949275046149330"
           slot="8649980552"
           style={{ display: 'block' }}
           format="auto"
           responsive="true"
-        />
+        /> */}
 
         <hr />
         <TextColumn>
           <FormattedHTMLMessage id="anomalies_text" />
         </TextColumn>
 
-        <AdSense.Google
+        {/* <AdSense.Google
           client="ca-pub-2949275046149330"
           slot="8649980552"
           style={{ display: 'block' }}
           format="auto"
           responsive="true"
-        />
+        /> */}
       </div>
     </Layout>
   )
