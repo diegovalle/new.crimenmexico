@@ -197,7 +197,6 @@ module.exports = {
         path: `${__dirname}/src/assets/images/`,
       },
     },
-    `gatsby-transformer-json`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -205,6 +204,7 @@ module.exports = {
         path: `${__dirname}/src/data`,
       },
     },
+    `gatsby-transformer-json`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     'gatsby-plugin-react-helmet',
