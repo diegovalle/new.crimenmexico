@@ -39,18 +39,6 @@ import 'react-tabs/style/react-tabs.css'
 import social_image from '../assets/images/social/social-anomalias.png'
 import social_image_en from '../assets/images/social/social-anomalias_en.png'
 
-// export const query = graphql`
-// query MyQuery {
-//   allDataJson {
-//     edges {
-//       node {
-//         last_month
-//       }
-//     }
-//   }
-// }
-// `;
-
 function Anomalies(props) {
   const [data, setdata] = useState(null)
   const [ordered_states, setordered_states] = useState(null)
