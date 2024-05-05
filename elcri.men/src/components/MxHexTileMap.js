@@ -239,7 +239,7 @@ function MxHexTileMap(props) {
               return (
                 <li
                   key={i}
-                  className="key is-size-6 is-size-6-mobile"
+                  className="key is-size-6 is-size-7-mobile"
                   style={{ borderTopColor: feature }}
                 >
                   {data ? (
@@ -285,288 +285,256 @@ function MxHexTileMap(props) {
                     fill={findColor('BCS')}
                     state_code="3"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M49,161.44849558071485L86.5,161.44849558071485L105,194.6698894283065L86.5,227.68321689360846L49,227.68321689360846L30,194.6698894283065Z"
+                    d="m49 161.45h37.5l18.5 33.221-18.5 33.013h-37.5l-19-33.013z"
                   ></path>
                   <path
                     state="BC"
                     fill={findColor('BC')}
                     state_code="2"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M86.5,94.23881426017817L105,127.98367732257401L86.5,161.44849558071485L49,161.44849558071485L30,127.98367732257401L49,94.23881426017817Z"
+                    d="m86.5 94.239 18.5 33.745-18.5 33.465h-37.5l-19-33.465 19-33.745z"
                   ></path>
                   <path
                     state="SIN"
                     fill={findColor('SIN')}
                     state_code="25"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M86.5,161.44849558071485L105,127.98367732257401L142.5,127.98367732257401L161.49999999999977,161.44849558071485L142.5,194.6698894283065L105,194.6698894283065Z"
+                    d="m86.5 161.45 18.5-33.465h37.5l19 33.465-19 33.221h-37.5z"
                   ></path>
                   <path
                     state="SON"
                     fill={findColor('SON')}
                     state_code="26"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M86.5,94.23881426017817L105,60.17580648776794L142.5,60.17580648776794L161.49999999999977,94.23881426017817L142.5,127.98367732257401L105,127.98367732257401Z"
+                    d="m86.5 94.239 18.5-34.063h37.5l19 34.063-19 33.745h-37.5z"
                   ></path>
                   <path
                     state="NAY"
                     fill={findColor('NAY')}
                     state_code="18"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M142.5,194.6698894283065L161.49999999999977,161.44849558071485L198.99999999999977,161.44849558071485L217.5,194.6698894283065L198.99999999999977,227.68321689360846L161.49999999999977,227.68321689360846Z"
+                    d="m142.5 194.67 19-33.221h37.5l18.5 33.221-18.5 33.013h-37.5z"
                   ></path>
                   <path
                     state="DGO"
                     fill={findColor('DGO')}
                     state_code="10"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M142.5,127.98367732257401L161.49999999999977,94.23881426017817L198.99999999999977,94.23881426017817L217.5,127.98367732257401L198.99999999999977,161.44849558071485L161.49999999999977,161.44849558071485Z"
+                    d="m142.5 127.98 19-33.745h37.5l18.5 33.745-18.5 33.465h-37.5z"
                   ></path>
                   <path
                     state="GRO"
                     fill={findColor('GRO')}
                     state_code="12"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M217.5,391.2350818517051L254.99999999999977,391.2350818517051L274,423.6956824072873L254.99999999999977,456.17625920403776L217.5,456.17625920403776L198.99999999999977,423.6956824072873Z"
+                    d="m217.5 391.24h37.5l19 32.461-19 32.481h-37.5l-18.5-32.481z"
                   ></path>
                   <path
                     state="MICH"
                     fill={findColor('MICH')}
                     state_code="16"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M217.5,326.2475419959468L254.99999999999977,326.2475419959468L274,358.76290475212204L254.99999999999977,391.2350818517051L217.5,391.2350818517051L198.99999999999977,358.76290475212204Z"
+                    d="m217.5 326.25h37.5l19 32.515-19 32.472h-37.5l-18.5-32.472z"
                   ></path>
                   <path
                     state="COL"
                     fill={findColor('COL')}
                     state_code="6"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M217.5,260.52277432775475L254.99999999999977,260.52277432775475L274,293.6571739179954L254.99999999999977,326.2475419959468L217.5,326.2475419959468L198.99999999999977,293.6571739179954Z"
+                    d="m217.5 260.52h37.5l19 33.134-19 32.59h-37.5l-18.5-32.59z"
                   ></path>
                   <path
                     state="JAL"
                     fill={findColor('JAL')}
                     state_code="14"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M198.99999999999977,227.68321689360846L217.5,194.6698894283065L254.99999999999977,194.6698894283065L274,227.68321689360846L254.99999999999977,260.52277432775475L217.5,260.52277432775475Z"
+                    d="m199 227.68 18.5-33.013h37.5l19 33.013-19 32.84h-37.5z"
                   ></path>
                   <path
                     state="ZAC"
                     fill={findColor('ZAC')}
                     state_code="32"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M198.99999999999977,161.44849558071485L217.5,127.98367732257401L254.99999999999977,127.98367732257401L274,161.44849558071485L254.99999999999977,194.6698894283065L217.5,194.6698894283065Z"
+                    d="m199 161.45 18.5-33.465h37.5l19 33.465-19 33.221h-37.5z"
                   ></path>
                   <path
                     state="CHIH"
                     fill={findColor('CHIH')}
                     state_code="8"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M198.99999999999977,94.23881426017817L217.5,60.17580648776794L254.99999999999977,60.17580648776794L274,94.23881426017817L254.99999999999977,127.98367732257401L217.5,127.98367732257401Z"
+                    d="m199 94.239 18.5-34.063h37.5l19 34.063-19 33.745h-37.5z"
                   ></path>
                   <path
                     state="MOR"
                     fill={findColor('MOR')}
                     state_code="17"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M254.99999999999977,391.2350818517051L274,358.76290475212204L311.5,358.76290475212204L329.9999999999998,391.2350818517051L311.5,423.6956824072873L274,423.6956824072873Z"
+                    d="m255 391.24 19-32.472h37.5l18.5 32.472-18.5 32.461h-37.5z"
                   ></path>
                   <path
                     state="MEX"
                     fill={findColor('MEX')}
                     state_code="15"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M254.99999999999977,326.2475419959468L274,293.6571739179954L311.5,293.6571739179954L329.9999999999998,326.2475419959468L311.5,358.76290475212204L274,358.76290475212204Z"
+                    d="m255 326.25 19-32.59h37.5l18.5 32.59-18.5 32.515h-37.5z"
                   ></path>
                   <path
                     state="GTO"
                     fill={findColor('GTO')}
                     state_code="11"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M254.99999999999977,260.52277432775475L274,227.68321689360846L311.5,227.68321689360846L329.9999999999998,260.52277432775475L311.5,293.6571739179954L274,293.6571739179954Z"
+                    d="m255 260.52 19-32.84h37.5l18.5 32.84-18.5 33.134h-37.5z"
                   ></path>
                   <path
                     state="AGS"
                     fill={findColor('AGS')}
                     state_code="1"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M254.99999999999977,194.6698894283065L274,161.44849558071485L311.5,161.44849558071485L329.9999999999998,194.6698894283065L311.5,227.68321689360846L274,227.68321689360846Z"
+                    d="m255 194.67 19-33.221h37.5l18.5 33.221-18.5 33.013h-37.5z"
                   ></path>
                   <path
                     state="COAH"
                     fill={findColor('COAH')}
                     state_code="5"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M254.99999999999977,127.98367732257401L274,94.23881426017817L311.5,94.23881426017817L329.9999999999998,127.98367732257401L311.5,161.44849558071485L274,161.44849558071485Z"
+                    d="m255 127.98 19-33.745h37.5l18.5 33.745-18.5 33.465h-37.5z"
                   ></path>
                   <path
                     state="OAX"
                     fill={findColor('OAX')}
                     state_code="20"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M329.9999999999998,456.17625920403776L367.4999999999998,456.17625920403776L386.4999999999998,488.7084622547746L367.4999999999998,521.324193512232L329.9999999999998,521.324193512232L311.5,488.7084622547746Z"
+                    d="m330 456.18h37.5l19 32.532-19 32.616h-37.5l-18.5-32.616z"
                   ></path>
                   <path
                     state="PUE"
                     fill={findColor('PUE')}
                     state_code="21"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M311.5,423.6956824072873L329.9999999999998,391.2350818517051L367.4999999999998,391.2350818517051L386.4999999999998,423.6956824072873L367.4999999999998,456.17625920403776L329.9999999999998,456.17625920403776Z"
+                    d="m311.5 423.7 18.5-32.461h37.5l19 32.461-19 32.481h-37.5z"
                   ></path>
                   <path
                     state="CDMX"
                     fill={findColor('CDMX')}
                     state_code="9"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M311.5,358.76290475212204L329.9999999999998,326.2475419959468L367.4999999999998,326.2475419959468L386.4999999999998,358.76290475212204L367.4999999999998,391.2350818517051L329.9999999999998,391.2350818517051Z"
+                    d="m311.5 358.76 18.5-32.515h37.5l19 32.515-19 32.472h-37.5z"
                   ></path>
                   <path
                     state="QRO"
                     fill={findColor('QRO')}
                     state_code="22"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M311.5,293.6571739179954L329.9999999999998,260.52277432775475L367.4999999999998,260.52277432775475L386.4999999999998,293.6571739179954L367.4999999999998,326.2475419959468L329.9999999999998,326.2475419959468Z"
+                    d="m311.5 293.66 18.5-33.134h37.5l19 33.134-19 32.59h-37.5z"
                   ></path>
                   <path
                     state="SLP"
                     fill={findColor('SLP')}
                     state_code="24"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M311.5,227.68321689360846L329.9999999999998,194.6698894283065L367.4999999999998,194.6698894283065L386.4999999999998,227.68321689360846L367.4999999999998,260.52277432775475L329.9999999999998,260.52277432775475Z"
+                    d="m311.5 227.68 18.5-33.013h37.5l19 33.013-19 32.84h-37.5z"
                   ></path>
                   <path
                     state="NL"
                     fill={findColor('NL')}
                     state_code="19"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M311.5,161.44849558071485L329.9999999999998,127.98367732257401L367.4999999999998,127.98367732257401L386.4999999999998,161.44849558071485L367.4999999999998,194.6698894283065L329.9999999999998,194.6698894283065Z"
+                    d="m311.5 161.45 18.5-33.465h37.5l19 33.465-19 33.221h-37.5z"
                   ></path>
                   <path
                     state="CHPS"
                     fill={findColor('CHPS')}
                     state_code="7"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M367.4999999999998,456.17625920403776L386.4999999999998,423.6956824072873L424,423.6956824072873L442.5,456.17625920403776L424,488.7084622547746L386.4999999999998,488.7084622547746Z"
+                    d="m367.5 456.18 19-32.481h37.5l18.5 32.481-18.5 32.532h-37.5z"
                   ></path>
                   <path
                     state="TLAX"
                     fill={findColor('TLAX')}
                     state_code="29"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M367.4999999999998,391.2350818517051L386.4999999999998,358.76290475212204L424,358.76290475212204L442.5,391.2350818517051L424,423.6956824072873L386.4999999999998,423.6956824072873Z"
+                    d="m367.5 391.24 19-32.472h37.5l18.5 32.472-18.5 32.461h-37.5z"
                   ></path>
                   <path
                     state="HGO"
                     fill={findColor('HGO')}
                     state_code="13"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M367.4999999999998,326.2475419959468L386.4999999999998,293.6571739179954L424,293.6571739179954L442.5,326.2475419959468L424,358.76290475212204L386.4999999999998,358.76290475212204Z"
+                    d="m367.5 326.25 19-32.59h37.5l18.5 32.59-18.5 32.515h-37.5z"
                   ></path>
                   <path
                     state="VER"
                     fill={findColor('VER')}
                     state_code="30"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M367.4999999999998,260.52277432775475L386.4999999999998,227.68321689360846L424,227.68321689360846L442.5,260.52277432775475L424,293.6571739179954L386.4999999999998,293.6571739179954Z"
+                    d="m367.5 260.52 19-32.84h37.5l18.5 32.84-18.5 33.134h-37.5z"
                   ></path>
                   <path
                     state="TAM"
                     fill={findColor('TAM')}
                     state_code="28"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M367.4999999999998,194.6698894283065L386.4999999999998,161.44849558071485L424,161.44849558071485L442.5,194.6698894283065L424,227.68321689360846L386.4999999999998,227.68321689360846Z"
+                    d="m367.5 194.67 19-33.221h37.5l18.5 33.221-18.5 33.013h-37.5z"
                   ></path>
                   <path
                     state="TAB"
                     fill={findColor('TAB')}
                     state_code="27"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M424,423.6956824072873L442.5,391.2350818517051L480,391.2350818517051L498.9999999999998,423.6956824072873L480,456.17625920403776L442.5,456.17625920403776Z"
+                    d="m424 423.7 18.5-32.461h37.5l19 32.461-19 32.481h-37.5z"
                   ></path>
                   <path
                     state="CAMP"
                     fill={findColor('CAMP')}
                     state_code="4"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M480,391.2350818517051L498.9999999999998,358.76290475212204L536.4999999999998,358.76290475212204L554.9999999999995,391.2350818517051L536.4999999999998,423.6956824072873L498.9999999999998,423.6956824072873Z"
+                    d="m480 391.24 19-32.472h37.5l18.5 32.472-18.5 32.461h-37.5z"
                   ></path>
                   <path
                     state="QROO"
                     fill={findColor('QROO')}
                     state_code="23"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M536.4999999999998,423.6956824072873L554.9999999999995,391.2350818517051L592.4999999999998,391.2350818517051L611.4999999999998,423.6956824072873L592.4999999999998,456.17625920403776L554.9999999999995,456.17625920403776Z"
+                    d="m536.5 423.7 18.5-32.461h37.5l19 32.461-19 32.481h-37.5z"
                   ></path>
                   <path
                     state="YUC"
                     fill={findColor('YUC')}
                     state_code="31"
                     stroke="black"
-                    opacity="1"
                     strokeWidth="0.5"
-                    d="M536.4999999999998,358.76290475212204L554.9999999999995,326.2475419959468L592.4999999999998,326.2475419959468L611.4999999999998,358.76290475212204L592.4999999999998,391.2350818517051L554.9999999999995,391.2350818517051Z"
+                    d="m536.5 358.76 18.5-32.515h37.5l19 32.515-19 32.472h-37.5z"
                   ></path>
 
                   <text
@@ -924,12 +892,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('BCS')}
                     onClick={stateClick}
                     state="BCS"
                     state_code="3"
-                    d="M49,161.44849558071485L86.5,161.44849558071485L105,194.6698894283065L86.5,227.68321689360846L49,227.68321689360846L30,194.6698894283065Z"
+                    d="m49 161.45h37.5l18.5 33.221-18.5 33.013h-37.5l-19-33.013z"
                   >
                     <title>
                       {data ? (
@@ -957,12 +924,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('BC')}
                     onClick={stateClick}
                     state="BC"
                     state_code="2"
-                    d="M86.5,94.23881426017817L105,127.98367732257401L86.5,161.44849558071485L49,161.44849558071485L30,127.98367732257401L49,94.23881426017817Z"
+                    d="m86.5 94.239 18.5 33.745-18.5 33.465h-37.5l-19-33.465 19-33.745z"
                   >
                     <title>
                       {data ? (
@@ -990,12 +956,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('SIN')}
                     onClick={stateClick}
                     state="SIN"
                     state_code="25"
-                    d="M86.5,161.44849558071485L105,127.98367732257401L142.5,127.98367732257401L161.49999999999977,161.44849558071485L142.5,194.6698894283065L105,194.6698894283065Z"
+                    d="m86.5 161.45 18.5-33.465h37.5l19 33.465-19 33.221h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1024,12 +989,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('SON')}
                     onClick={stateClick}
                     state="SON"
                     state_code="26"
-                    d="M86.5,94.23881426017817L105,60.17580648776794L142.5,60.17580648776794L161.49999999999977,94.23881426017817L142.5,127.98367732257401L105,127.98367732257401Z"
+                    d="m86.5 94.239 18.5-34.063h37.5l19 34.063-19 33.745h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1058,12 +1022,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('NAY')}
                     onClick={stateClick}
                     state="NAY"
                     state_code="18"
-                    d="M142.5,194.6698894283065L161.49999999999977,161.44849558071485L198.99999999999977,161.44849558071485L217.5,194.6698894283065L198.99999999999977,227.68321689360846L161.49999999999977,227.68321689360846Z"
+                    d="m142.5 194.67 19-33.221h37.5l18.5 33.221-18.5 33.013h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1092,12 +1055,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('DGO')}
                     onClick={stateClick}
                     state="DGO"
                     state_code="10"
-                    d="M142.5,127.98367732257401L161.49999999999977,94.23881426017817L198.99999999999977,94.23881426017817L217.5,127.98367732257401L198.99999999999977,161.44849558071485L161.49999999999977,161.44849558071485Z"
+                    d="m142.5 127.98 19-33.745h37.5l18.5 33.745-18.5 33.465h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1126,12 +1088,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('GRO')}
                     onClick={stateClick}
                     state="GRO"
                     state_code="12"
-                    d="M217.5,391.2350818517051L254.99999999999977,391.2350818517051L274,423.6956824072873L254.99999999999977,456.17625920403776L217.5,456.17625920403776L198.99999999999977,423.6956824072873Z"
+                    d="m217.5 391.24h37.5l19 32.461-19 32.481h-37.5l-18.5-32.481z"
                   >
                     <title>
                       {data ? (
@@ -1160,12 +1121,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('MICH')}
                     onClick={stateClick}
                     state="MICH"
                     state_code="16"
-                    d="M217.5,326.2475419959468L254.99999999999977,326.2475419959468L274,358.76290475212204L254.99999999999977,391.2350818517051L217.5,391.2350818517051L198.99999999999977,358.76290475212204Z"
+                    d="m217.5 326.25h37.5l19 32.515-19 32.472h-37.5l-18.5-32.472z"
                   >
                     <title>
                       {data ? (
@@ -1194,12 +1154,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('COL')}
                     onClick={stateClick}
                     state="COL"
                     state_code="6"
-                    d="M217.5,260.52277432775475L254.99999999999977,260.52277432775475L274,293.6571739179954L254.99999999999977,326.2475419959468L217.5,326.2475419959468L198.99999999999977,293.6571739179954Z"
+                    d="m217.5 260.52h37.5l19 33.134-19 32.59h-37.5l-18.5-32.59z"
                   >
                     <title>
                       {data ? (
@@ -1227,12 +1186,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('JAL')}
                     onClick={stateClick}
                     state="JAL"
                     state_code="14"
-                    d="M198.99999999999977,227.68321689360846L217.5,194.6698894283065L254.99999999999977,194.6698894283065L274,227.68321689360846L254.99999999999977,260.52277432775475L217.5,260.52277432775475Z"
+                    d="m199 227.68 18.5-33.013h37.5l19 33.013-19 32.84h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1261,12 +1219,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('ZAC')}
                     onClick={stateClick}
                     state="ZAC"
                     state_code="32"
-                    d="M198.99999999999977,161.44849558071485L217.5,127.98367732257401L254.99999999999977,127.98367732257401L274,161.44849558071485L254.99999999999977,194.6698894283065L217.5,194.6698894283065Z"
+                    d="m199 161.45 18.5-33.465h37.5l19 33.465-19 33.221h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1295,12 +1252,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('CHIH')}
                     onClick={stateClick}
                     state="CHIH"
                     state_code="8"
-                    d="M198.99999999999977,94.23881426017817L217.5,60.17580648776794L254.99999999999977,60.17580648776794L274,94.23881426017817L254.99999999999977,127.98367732257401L217.5,127.98367732257401Z"
+                    d="m199 94.239 18.5-34.063h37.5l19 34.063-19 33.745h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1328,12 +1284,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('MOR')}
                     onClick={stateClick}
                     state="MOR"
                     state_code="17"
-                    d="M254.99999999999977,391.2350818517051L274,358.76290475212204L311.5,358.76290475212204L329.9999999999998,391.2350818517051L311.5,423.6956824072873L274,423.6956824072873Z"
+                    d="m255 391.24 19-32.472h37.5l18.5 32.472-18.5 32.461h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1362,12 +1317,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('MEX')}
                     onClick={stateClick}
                     state="MEX"
                     state_code="15"
-                    d="M254.99999999999977,326.2475419959468L274,293.6571739179954L311.5,293.6571739179954L329.9999999999998,326.2475419959468L311.5,358.76290475212204L274,358.76290475212204Z"
+                    d="m255 326.25 19-32.59h37.5l18.5 32.59-18.5 32.515h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1396,12 +1350,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('GTO')}
                     onClick={stateClick}
                     state="GTO"
                     state_code="11"
-                    d="M254.99999999999977,260.52277432775475L274,227.68321689360846L311.5,227.68321689360846L329.9999999999998,260.52277432775475L311.5,293.6571739179954L274,293.6571739179954Z"
+                    d="m255 260.52 19-32.84h37.5l18.5 32.84-18.5 33.134h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1430,12 +1383,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('AGS')}
                     onClick={stateClick}
                     state="AGS"
                     state_code="1"
-                    d="M254.99999999999977,194.6698894283065L274,161.44849558071485L311.5,161.44849558071485L329.9999999999998,194.6698894283065L311.5,227.68321689360846L274,227.68321689360846Z"
+                    d="m255 194.67 19-33.221h37.5l18.5 33.221-18.5 33.013h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1463,12 +1415,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('COAH')}
                     onClick={stateClick}
                     state="COAH"
                     state_code="5"
-                    d="M254.99999999999977,127.98367732257401L274,94.23881426017817L311.5,94.23881426017817L329.9999999999998,127.98367732257401L311.5,161.44849558071485L274,161.44849558071485Z"
+                    d="m255 127.98 19-33.745h37.5l18.5 33.745-18.5 33.465h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1496,12 +1447,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('OAX')}
                     onClick={stateClick}
                     state="OAX"
                     state_code="20"
-                    d="M329.9999999999998,456.17625920403776L367.4999999999998,456.17625920403776L386.4999999999998,488.7084622547746L367.4999999999998,521.324193512232L329.9999999999998,521.324193512232L311.5,488.7084622547746Z"
+                    d="m330 456.18h37.5l19 32.532-19 32.616h-37.5l-18.5-32.616z"
                   >
                     <title>
                       {data ? (
@@ -1530,12 +1480,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('PUE')}
                     onClick={stateClick}
                     state="PUE"
                     state_code="21"
-                    d="M311.5,423.6956824072873L329.9999999999998,391.2350818517051L367.4999999999998,391.2350818517051L386.4999999999998,423.6956824072873L367.4999999999998,456.17625920403776L329.9999999999998,456.17625920403776Z"
+                    d="m311.5 423.7 18.5-32.461h37.5l19 32.461-19 32.481h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1564,12 +1513,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('CDMX')}
                     onClick={stateClick}
                     state="CDMX"
                     state_code="9"
-                    d="M311.5,358.76290475212204L329.9999999999998,326.2475419959468L367.4999999999998,326.2475419959468L386.4999999999998,358.76290475212204L367.4999999999998,391.2350818517051L329.9999999999998,391.2350818517051Z"
+                    d="m311.5 358.76 18.5-32.515h37.5l19 32.515-19 32.472h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1597,12 +1545,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('QRO')}
                     onClick={stateClick}
                     state="QRO"
                     state_code="22"
-                    d="M311.5,293.6571739179954L329.9999999999998,260.52277432775475L367.4999999999998,260.52277432775475L386.4999999999998,293.6571739179954L367.4999999999998,326.2475419959468L329.9999999999998,326.2475419959468Z"
+                    d="m311.5 293.66 18.5-33.134h37.5l19 33.134-19 32.59h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1631,12 +1578,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('SLP')}
                     onClick={stateClick}
                     state="SLP"
                     state_code="24"
-                    d="M311.5,227.68321689360846L329.9999999999998,194.6698894283065L367.4999999999998,194.6698894283065L386.4999999999998,227.68321689360846L367.4999999999998,260.52277432775475L329.9999999999998,260.52277432775475Z"
+                    d="m311.5 227.68 18.5-33.013h37.5l19 33.013-19 32.84h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1665,12 +1611,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('NL')}
                     onClick={stateClick}
                     state="NL"
                     state_code="19"
-                    d="M311.5,161.44849558071485L329.9999999999998,127.98367732257401L367.4999999999998,127.98367732257401L386.4999999999998,161.44849558071485L367.4999999999998,194.6698894283065L329.9999999999998,194.6698894283065Z"
+                    d="m311.5 161.45 18.5-33.465h37.5l19 33.465-19 33.221h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1699,12 +1644,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('CHPS')}
                     onClick={stateClick}
                     state="CHPS"
                     state_code="7"
-                    d="M367.4999999999998,456.17625920403776L386.4999999999998,423.6956824072873L424,423.6956824072873L442.5,456.17625920403776L424,488.7084622547746L386.4999999999998,488.7084622547746Z"
+                    d="m367.5 456.18 19-32.481h37.5l18.5 32.481-18.5 32.532h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1732,12 +1676,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('TLAX')}
                     onClick={stateClick}
                     state="TLAX"
                     state_code="29"
-                    d="M367.4999999999998,391.2350818517051L386.4999999999998,358.76290475212204L424,358.76290475212204L442.5,391.2350818517051L424,423.6956824072873L386.4999999999998,423.6956824072873Z"
+                    d="m367.5 391.24 19-32.472h37.5l18.5 32.472-18.5 32.461h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1766,12 +1709,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('HGO')}
                     onClick={stateClick}
                     state="HGO"
                     state_code="13"
-                    d="M367.4999999999998,326.2475419959468L386.4999999999998,293.6571739179954L424,293.6571739179954L442.5,326.2475419959468L424,358.76290475212204L386.4999999999998,358.76290475212204Z"
+                    d="m367.5 326.25 19-32.59h37.5l18.5 32.59-18.5 32.515h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1800,12 +1742,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('VER')}
                     onClick={stateClick}
                     state="VER"
                     state_code="30"
-                    d="M367.4999999999998,260.52277432775475L386.4999999999998,227.68321689360846L424,227.68321689360846L442.5,260.52277432775475L424,293.6571739179954L386.4999999999998,293.6571739179954Z"
+                    d="m367.5 260.52 19-32.84h37.5l18.5 32.84-18.5 33.134h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1834,12 +1775,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('TAM')}
                     onClick={stateClick}
                     state="TAM"
                     state_code="28"
-                    d="M367.4999999999998,194.6698894283065L386.4999999999998,161.44849558071485L424,161.44849558071485L442.5,194.6698894283065L424,227.68321689360846L386.4999999999998,227.68321689360846Z"
+                    d="m367.5 194.67 19-33.221h37.5l18.5 33.221-18.5 33.013h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1868,12 +1808,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('TAB')}
                     onClick={stateClick}
                     state="TAB"
                     state_code="27"
-                    d="M424,423.6956824072873L442.5,391.2350818517051L480,391.2350818517051L498.9999999999998,423.6956824072873L480,456.17625920403776L442.5,456.17625920403776Z"
+                    d="m424 423.7 18.5-32.461h37.5l19 32.461-19 32.481h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1902,12 +1841,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('CAMP')}
                     onClick={stateClick}
                     state="CAMP"
                     state_code="4"
-                    d="M480,391.2350818517051L498.9999999999998,358.76290475212204L536.4999999999998,358.76290475212204L554.9999999999995,391.2350818517051L536.4999999999998,423.6956824072873L498.9999999999998,423.6956824072873Z"
+                    d="m480 391.24 19-32.472h37.5l18.5 32.472-18.5 32.461h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1935,12 +1873,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('QROO')}
                     onClick={stateClick}
                     state="QROO"
                     state_code="23"
-                    d="M536.4999999999998,423.6956824072873L554.9999999999995,391.2350818517051L592.4999999999998,391.2350818517051L611.4999999999998,423.6956824072873L592.4999999999998,456.17625920403776L554.9999999999995,456.17625920403776Z"
+                    d="m536.5 423.7 18.5-32.461h37.5l19 32.461-19 32.481h-37.5z"
                   >
                     <title>
                       {data ? (
@@ -1969,12 +1906,11 @@ function MxHexTileMap(props) {
                     //onMouseOut={hideTooltip}
                     fill="transparent"
                     stroke="black"
-                    opacity={1}
                     strokeWidth={getStrokeWidth('YUC')}
                     onClick={stateClick}
                     state="YUC"
                     state_code="31"
-                    d="M536.4999999999998,358.76290475212204L554.9999999999995,326.2475419959468L592.4999999999998,326.2475419959468L611.4999999999998,358.76290475212204L592.4999999999998,391.2350818517051L554.9999999999995,391.2350818517051Z"
+                    d="m536.5 358.76 18.5-32.515h37.5l19 32.515-19 32.472h-37.5z"
                   >
                     <title>
                       {data ? (
