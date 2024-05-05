@@ -8,7 +8,6 @@ import HistoricalChart from '../components/HistoricalChart';
 import {useStaticQuery, graphql} from 'gatsby';
 import SEO from '../components/SEO';
 import LLink from '../components/LLink';
-import AdSense from 'react-adsense';
 
 import {orderBy, filter} from 'lodash-es';
 
