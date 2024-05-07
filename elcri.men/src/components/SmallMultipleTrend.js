@@ -137,6 +137,7 @@ function SmallMultipleTrend(props) {
     ],
     series: [
       {
+        name: 'data points',
         emphasis: {
           itemStyle: {
             color: 'black',
@@ -151,7 +152,7 @@ function SmallMultipleTrend(props) {
         itemStyle: {
           color: 'white',
           borderColor: 'Black',
-          opacity: 1,
+          opacity: .8,
         },
         symbol: 'circle',
         symbolSize: 5,

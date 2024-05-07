@@ -70,26 +70,31 @@ states.inegi <- injury.intent %>%
   group_by(year_occur, month_occur, state_occur_death) %>%
   summarise(count = n()) %>%
   mutate(date = as.Date(str_c(year_occur, "-", month_occur, "-01"))) %>%
-  right_join(subset(vic,
+  full_join(subset(vic,
                    tipo == 'Homicidio Doloso')
             [,c("tipo", "date", "population", "state_code")],
             by = c("date" = "date", "state_occur_death" = "state_code")) %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / population) * 10^5) %>%
+  mutate(rate = ifelse(is.na(rate) & date <= last_inegi_date, 0, rate)) %>%
   mutate(rate = round(rate, 1)) %>%
   ungroup() %>%
   rename(state_code = state_occur_death) %>%
+  arrange(state_code, date) %>%
   dplyr::select(-year_occur, -month_occur)
 
 
 states <- list()
 states$hd <- list(
-  subset(vic, tipo == 'Homicidio Doloso')[,c("date", "rate", "count", "population", "state_code")] %>% rename_all(substr, 1, 1),
+  subset(vic, tipo == 'Homicidio Doloso')[,c("date", "rate", "count", "state_code")] %>% rename_all(substr, 1, 1),
   states.inegi[,c("date", "rate", "count", "population", "state_code")] %>% rename_all(substr, 1, 1)
 )
-states$ext <- subset(vic, tipo == 'Extorsión')[,c("date", "rate", "count", "population", "state_code")]  %>% rename_all(substr, 1, 1)
-states$sec <- subset(vic, tipo == 'Secuestro')[,c("date", "rate", "count", "population", "state_code")] %>% rename_all(substr, 1, 1)
-states$rvcv <- subset(vic, tipo == 'Robo de vehículo con violencia')[,c("date", "rate", "count", "population", "state_code")] %>% rename_all(substr, 1, 1)
-states$rvsv <- subset(vic, tipo == 'Robo de vehículo sin violencia')[,c("date", "rate", "count", "population", "state_code")] %>% rename_all(substr, 1, 1)
+states$ext <- subset(vic, tipo == 'Extorsión')[,c("date", "rate", "count", "state_code")]  %>% rename_all(substr, 1, 1)
+states$sec <- subset(vic, tipo == 'Secuestro')[,c("date", "rate", "count", "state_code")] %>% rename_all(substr, 1, 1)
+states$rvcv <- subset(vic, tipo == 'Robo de vehículo con violencia')[,c("date", "rate", "count", "state_code")] %>% rename_all(substr, 1, 1)
+states$rvsv <- subset(vic, tipo == 'Robo de vehículo sin violencia')[,c("date", "rate", "count", "state_code")] %>% rename_all(substr, 1, 1)
+
+exportJson <- toJSON(states, na = "null", dataframe = "columns")
+write(exportJson, "json/states2.json")
 
 ll.national <- list()
 ll.national$hd <- list(filter(national,
@@ -99,9 +104,9 @@ ll.national$ext <- filter(national, tipo == 'Extorsión')[,c("date", "rate", "co
 ll.national$sec <- filter(national, tipo == 'Secuestro')[,c("date", "rate", "count", "pop")] %>% rename_all(substr, 1, 1)
 ll.national$rvcv <- filter(national, tipo == 'Robo de vehículo con violencia')[,c("date", "rate", "count", "pop")] %>% rename_all(substr, 1, 1)
 ll.national$rvsv <- filter(national, tipo == 'Robo de vehículo sin violencia')[,c("date", "rate", "count", "pop")] %>% rename_all(substr, 1, 1)
-states$national <- ll.national
-exportJson <- toJSON(states, na = "null", dataframe = "columns")
-write(exportJson, "json/states2.json")
+
+exportJson_states <- toJSON(list(national = ll.national), na = "null", dataframe = "columns")
+write(exportJson_states, "json/states_national.json")
 
 vic %<>%
   mutate(name = state)
@@ -112,14 +117,16 @@ states.inegi.name <- injury.intent %>%
   group_by(year_occur, month_occur, state_occur_death) %>%
   summarise(count = n()) %>%
   mutate(date = as.Date(str_c(year_occur, "-", month_occur, "-01"))) %>%
-  right_join(subset(vic, 
+  full_join(subset(vic, 
                     tipo == 'Homicidio Doloso')
              [,c("tipo", "date", "population", "state_code", "name")], 
              by = c("date" = "date", "state_occur_death" = "state_code")) %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / population) * 10^5) %>%
+  mutate(rate = ifelse(is.na(rate) & date <= last_inegi_date, 0, rate)) %>%
   mutate(rate = round(rate, 1)) %>%
   ungroup() %>% 
   rename(state_code = state_occur_death) %>%
+  arrange(state_code, date) %>%
   dplyr::select(-year_occur, -month_occur)
 
 

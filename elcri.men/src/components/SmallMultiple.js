@@ -50,7 +50,7 @@ function SmallMultiple(props) {
     ...restProps
   } = props
   const intl = useIntl()
-  let l, title
+  let l, title, titleShortened
   intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
 
   if (props.title.length > 21) {
@@ -59,8 +59,10 @@ function SmallMultiple(props) {
       let before = props.title.substr(0, lastComma).substr(0, 16)
       let after = props.title.substr(lastComma).substr(0, 5)
       title = before + '…' + after
+      titleShortened = true
     } else {
       title = props.title.substr(0, lastComma).substr(0, 21)
+      titleShortened = true
     }
   } else title = props.title
 
@@ -233,6 +235,41 @@ function SmallMultiple(props) {
         showSymbol: false,
       },
     ],
+  }
+
+  if(titleShortened) {
+    chartOption.toolbox = {
+      show: true,
+      left: 'left',
+      showTitle: false,
+      itemSize: 13,
+      iconStyle: {
+        color: 'def3f3',
+        borderJoin: 'round',
+        borderWidth: 1.5,
+        borderColor: '#111',
+        borderCap: 'round',
+      },
+      tooltip: {
+        show: true,
+        padding: 2,
+        formatter: () => props.title,
+      },
+      feature: {
+        // saveAsImage: {
+        //   show: true,
+        //   },
+        myInfo: {
+          show: true,
+          title: 'robo',
+          icon:
+            'path://M12 11V16M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21ZM12.0498 8V8.1L11.9502 8.1002V8H12.0498Z',
+          onclick: function() {
+            return null
+          },
+        },
+      },
+    }
   }
 
   if (typeof props.max_rate != 'undefined') {

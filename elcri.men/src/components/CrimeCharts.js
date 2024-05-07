@@ -35,7 +35,6 @@ echarts.use([
   TooltipComponent,
   GridComponent,
   LineChart,
-  ScatterChart,
   CanvasRenderer,
   ToolboxComponent,
 ])
@@ -79,18 +78,15 @@ function CrimeChart(props) {
     '31': 'YUC',
     '32': 'ZAC',
   }
-  const [data, setData] = useState(null)
+  const [nationalData, setNationalData] = useState(null)
+  const [stateData, setStateData] = useState(null)
+  const [selectedData, setSelectedData] = useState(null)
 
   useEffect(() => {
-    fetch('/elcrimen-json/states2.json')
+    fetch('/elcrimen-json/states_national.json')
       .then(response => response.json())
       .then(responseJSON => {
         var ans = {
-          ext: zipObject(responseJSON.ext),
-          rvcv: zipObject(responseJSON.rvcv),
-          rvsv: zipObject(responseJSON.rvsv),
-          sec: zipObject(responseJSON.sec),
-          hd: [zipObject(responseJSON.hd[0]), zipObject(responseJSON.hd[1])],
           national: {
             ext: zipObject(responseJSON.national.ext),
             rvcv: zipObject(responseJSON.national.rvcv),
@@ -102,12 +98,87 @@ function CrimeChart(props) {
             ],
           },
         }
-        setData(ans)
+        setNationalData(ans)
+        setSelectedData({
+          hd: ans.national.hd,
+          sec: ans.national.sec,
+          ext: ans.national.ext,
+          rvcv: ans.national.rvcv,
+          rvsv: ans.national.rvsv,
+        })
       })
       .catch(error => {
         console.error(error)
       })
   }, [])
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(`/elcrimen-json/states2.json`)
+        const responseJSON = await response.json()
+        var ans = {
+          ext: zipObject(responseJSON.ext),
+          rvcv: zipObject(responseJSON.rvcv),
+          rvsv: zipObject(responseJSON.rvsv),
+          sec: zipObject(responseJSON.sec),
+          hd: [zipObject(responseJSON.hd[0]), zipObject(responseJSON.hd[1])],
+        }
+        setStateData(ans)
+        setSelectedData({
+          hd: [
+            filter(ans.hd[0], { s: parseInt(props.selected_state) }),
+            filter(ans.hd[1], { s: parseInt(props.selected_state) }),
+          ],
+          sec: filter(ans.sec, {
+            s: parseInt(props.selected_state),
+          }),
+          ext: filter(ans.ext, {
+            s: parseInt(props.selected_state),
+          }),
+          rvcv: filter(ans.rvcv, {
+            s: parseInt(props.selected_state),
+          }),
+          rvsv: filter(ans.rvsv, {
+            s: parseInt(props.selected_state),
+          }),
+        })
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    if (props.selected_state === '0') {
+      if (nationalData)
+        setSelectedData({
+          hd: nationalData.national.hd,
+          sec: nationalData.national.sec,
+          ext: nationalData.national.ext,
+          rvcv: nationalData.national.rvcv,
+          rvsv: nationalData.national.rvsv,
+        })
+    } else {
+      if (!stateData) fetchData()
+      else
+        setSelectedData({
+          hd: [
+            filter(stateData.hd[0], { s: parseInt(props.selected_state) }),
+            filter(stateData.hd[1], { s: parseInt(props.selected_state) }),
+          ],
+          sec: filter(stateData.sec, {
+            s: parseInt(props.selected_state),
+          }),
+          ext: filter(stateData.ext, {
+            s: parseInt(props.selected_state),
+          }),
+          rvcv: filter(stateData.rvcv, {
+            s: parseInt(props.selected_state),
+          }),
+          rvsv: filter(stateData.rvsv, {
+            s: parseInt(props.selected_state),
+          }),
+        })
+    }
+  }, [props.selected_state])
 
   const zipObject = obj => {
     let result = new Array(obj.d.length)
@@ -117,7 +188,7 @@ function CrimeChart(props) {
           d: obj.d[i],
           r: obj.r[i],
           c: obj.c[i],
-          p: obj.p[i],
+          // p: obj.p[i],
           s: obj.s[i],
         }
       }
@@ -127,52 +198,58 @@ function CrimeChart(props) {
           d: obj.d[i],
           r: obj.r[i],
           c: obj.c[i],
-          p: obj.p[i],
+          //  p: obj.p[i],
         }
       }
     return result
   }
 
   const singleChart = (title, toolboxTip) => {
-    if (!data) return <div />
-    let dataf,
-      selected_state = props.selected_state
+    if (!selectedData) return <div />
+    let dataFormatted
     switch (title) {
       case intl.formatMessage({ id: 'Homicidio Intencional' }):
-        if (selected_state === '0') dataf = data.national.hd
-        else
-          dataf = [
-            filter(data.hd[0], { s: parseInt(selected_state) }),
-            filter(data.hd[1], { s: parseInt(selected_state) }),
-          ]
+        dataFormatted = selectedData['hd']
         break
       case intl.formatMessage({ id: 'Secuestro' }):
-        if (selected_state === '0') dataf = data.national.sec
-        else dataf = filter(data.sec, { s: parseInt(selected_state) })
+        dataFormatted = selectedData['sec']
         break
       case intl.formatMessage({ id: 'Extorsión' }):
-        if (selected_state === '0') dataf = data.national.ext
-        else dataf = filter(data.ext, { s: parseInt(selected_state) })
+        dataFormatted = selectedData['ext']
         break
       case intl.formatMessage({ id: 'Robo de Coche c/v' }):
-        if (selected_state === '0') dataf = data.national.rvcv
-        else dataf = filter(data.rvcv, { s: parseInt(selected_state) })
+        dataFormatted = selectedData['rvcv']
         break
       case intl.formatMessage({ id: 'Robo de Coche s/v' }):
-        if (selected_state === '0') dataf = data.national.rvsv
-        else dataf = filter(data.rvsv, { s: parseInt(selected_state) })
+        dataFormatted = selectedData['rvsv']
         break
       default:
         throw new Error("Unknown crime. Don't know how to filter")
     }
 
-    dataf = formatData(dataf)
+    const formatData = crimeData => {
+      if (crimeData.length === 2) {
+        if (!(crimeData[0][0].d instanceof Date)) {
+          crimeData[0] = YYYYmmddCollectionToDate(crimeData[0], 'd')
+          crimeData[1] = YYYYmmddCollectionToDate(crimeData[1], 'd')
+        }
+      } else {
+        if (!(crimeData[0].d instanceof Date))
+          crimeData = YYYYmmddCollectionToDate(crimeData, 'd')
+      }
+
+      return crimeData
+    }
+
+    dataFormatted = formatData(dataFormatted)
+
     title =
       title +
       '\u0020-\u0020' +
       (stateNames[props.selected_state] === 'National'
         ? intl.formatMessage({ id: 'nacional' })
         : stateNames[props.selected_state])
+
     let chartOption = {
       animation: true,
       animationDuration: 0,
@@ -209,13 +286,13 @@ function CrimeChart(props) {
             let rate_snsp =
               typeof item[0].value === 'undefined' ? '-' : item[0].value
             let num_inegi =
-              dataf[1][item[0].dataIndex].c === null
+              dataFormatted[1][item[0].dataIndex].c === null
                 ? '-'
-                : comma(dataf[1][item[0].dataIndex].c)
+                : comma(dataFormatted[1][item[0].dataIndex].c)
             let num_snsp =
-              dataf[0][item[1].dataIndex].c === null
+              dataFormatted[0][item[1].dataIndex].c === null
                 ? '-'
-                : comma(dataf[0][item[1].dataIndex].c)
+                : comma(dataFormatted[0][item[1].dataIndex].c)
             return (
               `${datestr}<br/>${tasa} <span class="inegi-adjusted">INEGI</span>: <b>${rate_inegi}</b> (${num_inegi})` +
               `<br/>${tasa} <span class="snsp">SNSP</span>: <b>${rate_snsp}</b> (${num_snsp})`
@@ -228,7 +305,7 @@ function CrimeChart(props) {
             ].join(' ')
             let tasa = intl.formatMessage({ id: 'rate' })
             return `${datestr}<br/>${tasa}: <b>${item[0].value}</b> (${comma(
-              dataf[item[0].dataIndex].c
+              dataFormatted[item[0].dataIndex].c
             )})`
           }
         },
@@ -244,9 +321,9 @@ function CrimeChart(props) {
         animation: false,
         type: 'category',
         data:
-          dataf.length === 2
-            ? dataf[0].map(item => item.d)
-            : dataf.map(item => item.d),
+          dataFormatted.length === 2
+            ? dataFormatted[0].map(item => item.d)
+            : dataFormatted.map(item => item.d),
         axisLabel: {
           interval: 35,
           formatter: function(value, idx) {
@@ -293,12 +370,15 @@ function CrimeChart(props) {
           emphasis: {
             lineStyle: { width: 1.2 },
           },
-          name: 'crime',
+          name: 'snsp',
           type: 'line',
-          data:
-            dataf.length === 2
-              ? dataf[0].map(item => item.r)
-              : dataf.map(item => item.r),
+          data: (dataFormatted => {
+            if (dataFormatted.length === 2) {
+              return dataFormatted[0].map(item => item.r)
+            } else {
+              return dataFormatted.map(item => item.r)
+            }
+          })(dataFormatted),
           itemStyle: {
             color: '#333',
           },
@@ -312,9 +392,13 @@ function CrimeChart(props) {
           emphasis: {
             lineStyle: { width: 1.2 },
           },
-          name: 'snsp',
+          name: 'inegi',
           type: 'line',
-          data: dataf.length === 2 ? dataf[1].map(item => item.r) : null,
+          data: (dataFormatted => {
+            if (dataFormatted.length === 2) {
+              return dataFormatted[1].map(item => item.r)
+            } else return null
+          })(dataFormatted),
           itemStyle: {
             color: '#333',
           },
@@ -333,7 +417,13 @@ function CrimeChart(props) {
         left: 'left',
         showTitle: false,
         itemSize: 13,
-        iconStyle: { color: '#000', borderColor: '#eee' },
+        iconStyle: {
+          color: 'def3f3',
+          borderJoin: 'round',
+          borderWidth: 1.5,
+          borderColor: '#111',
+          borderCap: 'round',
+        },
         tooltip: {
           show: true,
           padding: 2,
@@ -347,7 +437,7 @@ function CrimeChart(props) {
             show: true,
             title: 'robo',
             icon:
-              'path://M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z',
+              'path://M12 11V16M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21ZM12.0498 8V8.1L11.9502 8.1002V8H12.0498Z',
             onclick: function() {
               return null
             },
@@ -372,19 +462,6 @@ function CrimeChart(props) {
     )
   }
 
-  const formatData = crimeData => {
-    if (crimeData.length === 2) {
-      if (!(crimeData[0][0].d instanceof Date)) {
-        crimeData[0] = YYYYmmddCollectionToDate(crimeData[0], 'd')
-        crimeData[1] = YYYYmmddCollectionToDate(crimeData[1], 'd')
-      }
-    } else {
-      if (!(crimeData[0].d instanceof Date))
-        crimeData = YYYYmmddCollectionToDate(crimeData, 'd')
-    }
-
-    return crimeData
-  }
   const intl = useIntl()
   let l
   intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
@@ -396,7 +473,7 @@ function CrimeChart(props) {
           <figure className="image is-3by1-tablet-only-3by2-mobile-3by2">
             <div
               id="nat_hd"
-              style={{height: '100%'}}
+              style={{ height: '100%' }}
               className={
                 props.selected_crime === 'hd'
                   ? 'line-chart-brown has-ratio'
@@ -414,7 +491,7 @@ function CrimeChart(props) {
           <figure className="image is-3by2-tablet-only-3by2-mobile-3by1">
             <div
               id="nat_sec"
-              style={{height: '100%'}}
+              style={{ height: '100%' }}
               className={
                 props.selected_crime === 'sec'
                   ? 'line-chart-brown has-ratio'
@@ -429,7 +506,7 @@ function CrimeChart(props) {
           <figure className="image is-3by2-tablet-only-3by2-mobile-3by1">
             <div
               id="nat_ext"
-              style={{height: '100%'}}
+              style={{ height: '100%' }}
               className={
                 props.selected_crime === 'ext'
                   ? 'line-chart-brown has-ratio'
@@ -446,7 +523,7 @@ function CrimeChart(props) {
           <figure className="image is-3by2-tablet-only-3by2-mobile-3by1">
             <div
               id="nat_rvcv"
-              style={{height: '100%'}}
+              style={{ height: '100%' }}
               className={
                 props.selected_crime === 'rvcv'
                   ? 'line-chart-brown has-ratio'
@@ -464,7 +541,7 @@ function CrimeChart(props) {
           <figure className="image is-3by2-tablet-only-3by2-mobile-3by1">
             <div
               id="nat_rvsv"
-              style={{height: '100%'}}
+              style={{ height: '100%' }}
               className={
                 props.selected_crime === 'rvsv'
                   ? 'line-chart-brown has-ratio'

@@ -27,13 +27,14 @@ muns <- muns %>%
   mutate(tipo = str_replace(tipo, "SECUESTRO", "Kidnapping")) %>%
   group_by(date, tipo, state, state_code, municipio, mun_code) %>%
   summarise(count = sum(count), population = population[1]) %>%
-  mutate(rate = ((count /  numberOfDays(date) * 30) * 12) / population * 10^5) #%>%
+  mutate(rate = ((count /  numberOfDays(date) * 30) * 12) / population * 10^5) %>%
+  mutate(rate = round(rate, 1))
 #   mutate(code = str_c(
 #     str_pad(state_code, width = 2, pad = "0"), 
 #     str_pad(mun_code, width = 3, pad = "0"))) 
 
 muns <- inner_join(muns, abbrev, by = "state_code") %>%
-  mutate(name = str_c(str_sub(municipio, 1, 21), ", ", state_abbrv))
+  mutate(name = str_c(municipio, ", ", state_abbrv))
 muns$date %<>% as.yearmon  %>% as.Date %>% as.character 
 
 
@@ -57,15 +58,21 @@ muns.inegi <- injury.intent %>%
   group_by(year_occur, month_occur, state_occur_death, mun_occur_death) %>%
   summarise(count = n()) %>%
   mutate(date = as.character(as.Date(str_c(year_occur, "-", month_occur, "-01")))) %>%
-  right_join(subset(muns, tipo == "Intentional Homicide")
+  # Full join to include months with zero (null) homicides
+  full_join(subset(muns, tipo == "Intentional Homicide")
              [,c('date', 'tipo', 'name', 'state_code', 'mun_code', 'population')], 
              by = c("date" = "date", 
                     "state_occur_death" = "state_code", 
                     "mun_occur_death" = "mun_code")) %>%
+  # remove municipios that aren't top 50 in violence
+  filter(!is.na(name)) %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / population) * 10^5) %>%
+  mutate(rate = ifelse(is.na(rate) & date <= last_inegi_date, 0, rate)) %>%
+  mutate(rate = round(rate, 1)) %>%
   ungroup() %>% 
   rename(state_code = state_occur_death,
          mun_code = mun_occur_death) %>%
+  arrange(state_code, mun_code, date) %>%
   dplyr::select(-year_occur, -month_occur)
 
 muns.inegi$rate[(is.na(muns.inegi$count) & muns.inegi$date < max(muns.inegi$date[!(is.na(muns.inegi$count))]))] <- 0

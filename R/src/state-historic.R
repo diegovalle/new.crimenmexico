@@ -43,9 +43,11 @@ inegi90 <- read.csv('data/INEGI_exporta.csv', skip = 6,
   arrange(date) %>%
   mutate(pop = na.spline(pop)) %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / pop) * 10^5  ) %>%
+  mutate(rate = ifelse(is.na(rate) & date <= last_inegi_date, 0, rate)) %>%
   mutate(rate = round(rate, 1)) %>%
   mutate(date = str_c(date, "-01")) %>%
   ungroup()%>%
+  arrange(state_code, date) %>%
   filter(date <= last_inegi_date)
 
 
@@ -72,3 +74,4 @@ for(i in unique(inegi90$s))
                             )
 
 write(toJSON(states_inegi , na = "null"), "json/national_1990.json")
+

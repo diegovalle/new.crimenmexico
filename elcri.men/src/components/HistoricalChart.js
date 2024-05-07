@@ -32,7 +32,6 @@ echarts.use([
   TooltipComponent,
   GridComponent,
   LineChart,
-  ScatterChart,
   CanvasRenderer,
   ToolboxComponent,
 ])
@@ -178,7 +177,7 @@ function HistoricalChart(props) {
           show: true,
           type: 'png',
           name: 'datos-historicos-homicidio.png',
-          },
+        },
       },
     },
     title: {
@@ -320,10 +319,9 @@ function HistoricalChart(props) {
         data:
           data === null
             ? null
-            : data === null
-            ? null
             : formatData(data)[0].flatMap((item, i) => {
-                if (i === 0) return Array(12 * (2015 - 1990) + 1).fill(null)
+              // Dont forget to add Array[0] (=Jan 2015)
+                if (i === 0) return [...Array(12 * (2015 - 1990)).fill(null), item.r]
                 else return item.r
               }),
         itemStyle: {
@@ -341,7 +339,10 @@ function HistoricalChart(props) {
         },
         name: 'INEGI',
         type: 'line',
-        data: data === null ? null : formatData(data)[1].map(item => item.r),
+        data:
+          data === null
+            ? null
+            : formatData(data)[1].map(item => (item.r === null ? 0 : item.r)),
         itemStyle: {
           color: '#333',
         },
