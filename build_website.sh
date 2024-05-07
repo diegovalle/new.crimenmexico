@@ -29,21 +29,33 @@ cp -n -v R/graphs/municipios_???_????.png elcri.men/static/en/images/infographic
 cp -n -v R/graphs/infographic_es_???_????.png elcri.men/static/es/images/infographics/fulls/
 cp -n -v R/graphs/municipios_es_???_????.png elcri.men/static/es/images/infographics/fulls/
 
-# Commit generated infographics
-if [[ $(git status --porcelain elcri.men/static/e*) ]]; then
-    git config --global user.email "$GH_EMAIL"
-    git config --global user.name "diego"
-    git status --porcelain elcri.men/static/e* | sed  "s/^?? //g" | xargs --max-args 1 git add
-    git commit -m "Add new png infographics [skip ci]"
-    git push -q https://"$GH_PAT":x-oauth-basic@github.com/diegovalle/new.crimenmexico.git master
+if [ "$CI" = true ] ; then
+  # Commit generated infographics
+  if [[ $(git status --porcelain elcri.men/static/e*) ]]; then
+      git config --global user.email "$GH_EMAIL"
+      git config --global user.name "diego"
+      git status --porcelain elcri.men/static/e* | sed  "s/^?? //g" | xargs --max-args 1 git add
+      git commit -m "Add new png infographics [skip ci]"
+      git push -q https://"$GH_PAT":x-oauth-basic@github.com/diegovalle/new.crimenmexico.git master
+  fi
 fi
 
-# Delete old infographics to keep the website size down
-rm -rf elcri.men/static/es/images/infographics/fulls/*201?.png
-rm -rf elcri.men/static/en/images/infographics/fulls/*201?.png
-rm -rf elcri.men/static/es/images/infographics/fulls/*202[01].png
-rm -rf elcri.men/static/en/images/infographics/fulls/*202[01].png
+# Copy the images to a backup server
+if [ "$CI" = true ] ; then
+  curl --retry 15 -O https://downloads.rclone.org/v1.57.0/rclone-v1.57.0-linux-amd64.zip
+  unzip rclone-v1.57.0-linux-amd64.zip
+  chmod 755 rclone-v1.57.0-linux-amd64/rclone
+  rclone-v1.57.0-linux-amd64/rclone -q --retries --fast-list --transfers=1 copy ~/new.crimenmexico/elcri.men/static/en/images/infographics/fulls/ :b2:"$B2_BUCKET"/infographics/en/ --b2-account="$B2_APPKEY_ID" --b2-key="$B2_APPKEY" --include "*.png"
+  rclone-v1.57.0-linux-amd64/rclone -q --retries --fast-list --transfers=1 copy ~/new.crimenmexico/elcri.men/static/es/images/infographics/fulls/ :b2:"$B2_BUCKET"/infographics/es/ --b2-account="$B2_APPKEY_ID" --b2-key="$B2_APPKEY" --include "*.png"
+fi
 
+if [ "$CI" = true ] ; then
+  # Delete old infographics to keep the website size down
+  rm -rf elcri.men/static/es/images/infographics/fulls/*201?.png
+  rm -rf elcri.men/static/en/images/infographics/fulls/*201?.png
+  rm -rf elcri.men/static/es/images/infographics/fulls/*202[01].png
+  rm -rf elcri.men/static/en/images/infographics/fulls/*202[01].png
+fi
 
 # Move the json files with the chart data to the website directory
 cp R/json/*.json elcri.men/static/elcrimen-json/

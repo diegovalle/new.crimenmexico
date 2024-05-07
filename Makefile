@@ -35,10 +35,7 @@ download_csv:
 	./download.sh
 
 .PHONY: download_inegi
-download_inegi: R/data/INEGI_exporta.csv
-
-
-R/data/INEGI_exporta.csv: R/data/inegi.sh
+download_inegi: R/data/inegi.sh
 	@echo "\n\n****************Downloading INEGI homicide data***********\n"
 	cd R/data && ./inegi.sh
 
