@@ -24,6 +24,9 @@ module.exports = {
       resolve: `gatsby-plugin-netlify`,
       options: {
         headers: {
+          // '/': [
+          //   'Link: </elcrimen-json/states_hexgrid.json>; rel=preload; as=fetch; crossorigin',
+          // ],
           '/elcrimen-json/*': [
             'cache-control: public',
             'cache-control: max-age=0',
@@ -56,61 +59,10 @@ module.exports = {
             'cache-control: public',
             'cache-control: max-age=2592000',
           ],
-          '/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/en/violence-map/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/en/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/municipios-mas-violentos/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/municipios/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/en/tourism/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/en/state-crime/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/estados/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/homicidios-mujeres/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/feminicidio/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/estados-diferencia/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/estados-ranking/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/mapa-de-delincuencia/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/mapa-clusters/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/envipe/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/tendencias/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
-          '/acerca/': [
-            'Link: </static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2>; rel=preload; as=font; crossorigin',
-          ],
           '/tendencias-estado/': [
             'Link: <https://trends.elcri.men/states_trends.json>; rel=preload; as=fetch; crossorigin',
           ],
-          '/trends-states/': [
+          '/en/trends-states/': [
             'Link: <https://trends.elcri.men/states_trends.json>; rel=preload; as=fetch; crossorigin',
           ],
         }, // option to add more headers. `Link` headers are transformed by the below criteria
