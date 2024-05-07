@@ -240,11 +240,11 @@ function SmallMultiple(props) {
   if(titleShortened) {
     chartOption.toolbox = {
       show: true,
-      left: 'left',
+      left: 'right',
       showTitle: false,
       itemSize: 13,
       iconStyle: {
-        color: 'def3f3',
+        color: '#ece8d7',
         borderJoin: 'round',
         borderWidth: 1.5,
         borderColor: '#111',
@@ -252,6 +252,7 @@ function SmallMultiple(props) {
       },
       tooltip: {
         show: true,
+        position: "left",
         padding: 2,
         formatter: () => props.title,
       },

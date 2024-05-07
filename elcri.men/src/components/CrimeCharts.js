@@ -414,11 +414,11 @@ function CrimeChart(props) {
     if (toolboxTip)
       chartOption.toolbox = {
         show: true,
-        left: 'left',
+        left: 'right',
         showTitle: false,
         itemSize: 13,
         iconStyle: {
-          color: 'def3f3',
+          color: '#def3f3',
           borderJoin: 'round',
           borderWidth: 1.5,
           borderColor: '#111',
@@ -426,6 +426,7 @@ function CrimeChart(props) {
         },
         tooltip: {
           show: true,
+          position: "left",
           padding: 2,
           formatter: () => toolboxTip,
         },
