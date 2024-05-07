@@ -285,35 +285,46 @@ function Anomalies(props) {
           ) : (
             <Tabs defaultIndex={0}>
               <TabList>
-                <Tab>
-                  <span className="has-background-skeleton" style={{ color: 'transparent' }}>
-                    {intl.formatMessage({ id: 'Homicidio Intencional' })}
-                  </span>
-                </Tab>
+                {[
+                  intl.formatMessage({ id: 'Homicidio Intencional' }),
+                  intl.formatMessage({ id: 'Robo de Coche c/v' }),
+                  intl.formatMessage({ id: 'Robo de Coche s/v' }),
+                  intl.formatMessage({ id: 'Lesiones' }),
+                  intl.formatMessage({ id: 'Extorsión' }),
+                ].map(item => (
+                  <Tab>
+                    <span
+                      className="has-background-skeleton"
+                      style={{ color: 'transparent' }}
+                    >
+                      {item}
+                    </span>
+                  </Tab>
+                ))}
               </TabList>
               <TabPanel key="tab1">
-              <div className="columns" style={{ paddingTop: '1rem' }}>
-                <div className="column is-three-fourths">
-                  <div className="columns is-multiline" id="small-multiples">
-                    <div className="column is-half-desktop is-full-tablet">
-                      <figure className="image is-2by1">
-                        <div className="has-background-skeleton has-ratio"></div>
-                      </figure>
-                    </div>
-                    <div className="column is-half-desktop is-full-tablet">
-                      <figure className="image is-2by1">
-                        <div className="has-background-skeleton has-ratio"></div>
-                      </figure>
+                <div className="columns" style={{ paddingTop: '1rem' }}>
+                  <div className="column is-three-fourths">
+                    <div className="columns is-multiline" id="small-multiples">
+                      <div className="column is-half-desktop is-full-tablet">
+                        <figure className="image is-2by1">
+                          <div className="has-background-skeleton has-ratio"></div>
+                        </figure>
+                      </div>
+                      <div className="column is-half-desktop is-full-tablet">
+                        <figure className="image is-2by1">
+                          <div className="has-background-skeleton has-ratio"></div>
+                        </figure>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="column is-one-fourth has-ratio">
-                  <figure className="image is-square">
-                    <div className=" has-ratio"> </div>
-                  </figure>
+                  <div className="column is-one-fourth has-ratio">
+                    <figure className="image is-square">
+                      <div className=" has-ratio"> </div>
+                    </figure>
+                  </div>
                 </div>
-              </div>
               </TabPanel>
             </Tabs>
           )}
