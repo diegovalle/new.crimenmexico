@@ -174,7 +174,7 @@ function TendenciaNacional(props) {
           ].join(' ')
         },
       },
-      axisLine: { lineStyle: { color: '#111', width: 2 } },
+      axisLine: { lineStyle: { color: '#4d4d4d', width: 2 } },
       splitNumber: 2,
     },
     yAxis: [
@@ -204,7 +204,7 @@ function TendenciaNacional(props) {
         axisLabel: {
           fontFamily: 'Arial',
           fontSize: 11,
-          color: '#222',
+          color: '#4d4d4d',
           margin: 0,
           padding: [0, 2, 0, 0],
         },
