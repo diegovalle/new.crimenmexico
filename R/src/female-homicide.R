@@ -46,15 +46,19 @@ states.females.inegi.name <- injury.intent %>%
   group_by(year_occur, month_occur, state_occur_death) %>%
   summarise(count = n()) %>%
   mutate(date = as.Date(str_c(year_occur, "-", month_occur, "-01"))) %>%
-  right_join(subset(fem, 
+  full_join(subset(fem, 
                     tipo == 'Homicidio Doloso')
              [,c("tipo", "date", "population", "state_code", "name")], 
              by = c("date" = "date", "state_occur_death" = "state_code")) %>%
+  # remove municipios that aren't top 50 in violence
+  filter(!is.na(name)) %>%
   mutate(count = ifelse(is.na(count) & year(date) <= max_year_occur, 0, count)) %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / population) * 10^5) %>%
+  mutate(rate = ifelse(is.na(rate) & date <= last_inegi_date, 0, rate)) %>%
   mutate(rate = round(rate, 1)) %>%
   ungroup() %>% 
   rename(state_code = state_occur_death) %>%
+  arrange(state_code, date) %>%
   dplyr::select(-year_occur, -month_occur)
 
 
