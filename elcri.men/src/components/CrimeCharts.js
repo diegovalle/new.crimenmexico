@@ -325,6 +325,9 @@ function CrimeChart(props) {
             ? dataFormatted[0].map(item => item.d)
             : dataFormatted.map(item => item.d),
         axisLabel: {
+          fontFamily: 'Arial',
+          fontSize: 11,
+          color: '#4d4d4d',
           interval: 35,
           formatter: function(value, idx) {
             var date = new Date(value)
@@ -343,7 +346,11 @@ function CrimeChart(props) {
           name: intl.formatMessage({ id: 'tasa anualizada' }),
           nameLocation: 'middle',
           nameGap: 25,
-          nameTextStyle: { fontFamily: 'Arial' },
+          nameTextStyle: {
+            fontFamily: 'Arial',
+            fontSize: 11,
+            color: '#222',
+          },
           type: 'value',
           scale: false,
           splitNumber: 2,
@@ -360,6 +367,9 @@ function CrimeChart(props) {
             },
           },
           axisLabel: {
+            fontFamily: 'Arial',
+            fontSize: 11,
+            color: '#4d4d4d',
             margin: 0,
             padding: [0, 2, 0, 0],
           },
@@ -426,7 +436,7 @@ function CrimeChart(props) {
         },
         tooltip: {
           show: true,
-          position: "left",
+          position: 'left',
           padding: 2,
           formatter: () => toolboxTip,
         },

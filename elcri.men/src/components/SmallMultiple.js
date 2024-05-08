@@ -135,7 +135,7 @@ function SmallMultiple(props) {
     },
     grid: {
       left: '45',
-      right: '2%',
+      right: '6%',
       bottom: '16%',
       top: '25%',
       containLabel: false,
@@ -148,13 +148,16 @@ function SmallMultiple(props) {
           ? null
           : props.formatData(props.data)[0].map(item => item.date),
       axisLabel: {
+        fontFamily: 'Arial',
+        fontSize: 11,
+        color: '#4d4d4d',
         interval: 35,
         formatter: function(value, idx) {
           var date = new Date(value)
           return [
             date.toLocaleString(intl.locale, { month: 'short' }),
-            date.getFullYear(),
-          ].join(' ')
+            date.getFullYear() - 2000,
+          ].join(' ')
         },
       },
       boundaryGap: false,
@@ -168,7 +171,7 @@ function SmallMultiple(props) {
         name: intl.formatMessage({ id: 'tasa anualizada' }),
         nameLocation: 'middle',
         nameGap: 25,
-        nameTextStyle: { fontFamily: 'Arial' },
+        nameTextStyle: { fontFamily: 'Arial', fontSize: 11, color: '#222' },
         type: 'value',
         scale: false,
         splitNumber: 2,
@@ -181,6 +184,10 @@ function SmallMultiple(props) {
           },
         },
         axisLabel: {
+          fontFamily: 'Arial',
+          fontSize: 11,
+          color: '#4d4d4d',
+          interval: 35,
           margin: 0,
           padding: [0, 2, 0, 0],
           formatter: function(value, index) {
@@ -237,7 +244,7 @@ function SmallMultiple(props) {
     ],
   }
 
-  if(titleShortened) {
+  if (titleShortened) {
     chartOption.toolbox = {
       show: true,
       left: 'right',
@@ -252,7 +259,7 @@ function SmallMultiple(props) {
       },
       tooltip: {
         show: true,
-        position: "left",
+        position: 'left',
         padding: 2,
         formatter: () => props.title,
       },

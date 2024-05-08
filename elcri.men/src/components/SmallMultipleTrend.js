@@ -94,6 +94,9 @@ function SmallMultipleTrend(props) {
         return item.date
       }),
       axisLabel: {
+        fontFamily: 'Arial',
+        fontSize: 11,
+        color: '#4d4d4d',
         interval: 35,
         formatter: function(value, idx) {
           var date = new Date(value)
@@ -111,7 +114,11 @@ function SmallMultipleTrend(props) {
         name: intl.formatMessage({ id: 'tasa anualizada' }),
         nameLocation: 'middle',
         nameGap: 25,
-        nameTextStyle: { fontFamily: 'Arial' },
+        nameTextStyle: {
+          fontFamily: 'Arial',
+          fontSize: 11,
+          color: '#222',
+        },
         type: 'value',
         scale: false,
         splitNumber: 3,
@@ -126,6 +133,9 @@ function SmallMultipleTrend(props) {
           },
         },
         axisLabel: {
+          fontFamily: 'Arial',
+          fontSize: 11,
+          color: '#4d4d4d',
           margin: 0,
           padding: [0, 5, 0, 0],
           formatter: (v, i) => (i < 4 ? v : ''),
@@ -152,7 +162,7 @@ function SmallMultipleTrend(props) {
         itemStyle: {
           color: 'white',
           borderColor: 'Black',
-          opacity: .8,
+          opacity: 0.8,
         },
         symbol: 'circle',
         symbolSize: 5,

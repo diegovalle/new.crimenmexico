@@ -190,6 +190,7 @@ function HistoricalChart(props) {
         fontFamily: 'Trebuchet MS',
         fontSize: 14,
         fontWeight: 'bold',
+        color: '#111',
       },
     },
     tooltip: {
@@ -250,8 +251,9 @@ function HistoricalChart(props) {
               }),
             ],
       axisLabel: {
-        //maxInterval: 11,
-        //minInterval: 11,
+        fontFamily: 'Arial',
+        fontSize: 11,
+        color: '#4d4d4d',
         interval: function(index, value) {
           var date = new Date(value)
           if ((date.getFullYear() % 10 === 0) & (date.getMonth() % 12 === 0))
@@ -287,7 +289,7 @@ function HistoricalChart(props) {
         name: intl.formatMessage({ id: 'tasa anualizada' }),
         nameLocation: 'middle',
         nameGap: 25,
-        nameTextStyle: { fontFamily: 'Arial' },
+        nameTextStyle: { fontFamily: 'Arial', fontSize: 11, color: '#222' },
         type: 'value',
         scale: false,
         splitNumber: 2,
@@ -300,6 +302,9 @@ function HistoricalChart(props) {
           },
         },
         axisLabel: {
+          fontFamily: 'Arial',
+          fontSize: 11,
+          color: '#4d4d4d',
           margin: 0,
           padding: [0, 5, 0, 0],
           formatter: (v, i) => (i < 3 ? v : ''),
@@ -320,8 +325,9 @@ function HistoricalChart(props) {
           data === null
             ? null
             : formatData(data)[0].flatMap((item, i) => {
-              // Dont forget to add Array[0] (=Jan 2015)
-                if (i === 0) return [...Array(12 * (2015 - 1990)).fill(null), item.r]
+                // Dont forget to add Array[0] (=Jan 2015)
+                if (i === 0)
+                  return [...Array(12 * (2015 - 1990)).fill(null), item.r]
                 else return item.r
               }),
         itemStyle: {

@@ -185,7 +185,7 @@ function TendenciaNacional(props) {
         }),
         nameLocation: 'middle',
         nameGap: 25,
-        nameTextStyle: { fontFamily: 'Arial' },
+        nameTextStyle: { fontFamily: 'Arial', fontSize: 11, color: '#222'  },
         type: 'value',
         scale: false,
         splitNumber: 2,
@@ -202,6 +202,9 @@ function TendenciaNacional(props) {
           },
         },
         axisLabel: {
+          fontFamily: 'Arial',
+          fontSize: 11,
+          color: '#222',
           margin: 0,
           padding: [0, 2, 0, 0],
         },

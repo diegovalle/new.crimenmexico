@@ -152,9 +152,8 @@ function HomicidiosMujeres(props) {
           <div className="columns is-multiline" id="national-chart">
             <div className="column is-full">
               <figure className="image is-3by1 is-big-national">
-                
-                  {total ? (
-                    <div className=" has-ratio">
+                {total ? (
+                  <div className=" has-ratio">
                     <SmallMultiple
                       data={total}
                       key={'national'}
@@ -187,9 +186,10 @@ function HomicidiosMujeres(props) {
                       }}
                       backgroundClass="line-chart-blue"
                     />
-                    </div>
-                  ) : <div className="has-background-skeleton has-ratio"/>}
-                
+                  </div>
+                ) : (
+                  <div className="has-background-skeleton has-ratio" />
+                )}
               </figure>
             </div>
           </div>
@@ -231,13 +231,18 @@ function HomicidiosMujeres(props) {
                   </div>
                 ))
               : [...Array(32)].map((e, i) => (
-                  <div className="column column is-3-desktop is-half-tablet" key={i}>
+                  <div
+                    className="column column is-3-desktop is-half-tablet"
+                    key={i}
+                  >
                     <figure className="image is-16by9" key={i}>
-                      <div className="has-background-skeleton has-ratio" key={i}></div>
+                      <div
+                        className="has-background-skeleton has-ratio"
+                        key={i}
+                      ></div>
                     </figure>
                   </div>
                 ))}
-            }
           </div>
         </section>
 
