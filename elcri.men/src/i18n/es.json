@@ -134,7 +134,7 @@
   "desc_clusters": "Mapa de clusters de homicidio en México a nivel municipio. Los municipios de México agrupados por tasa de homicidios para poder ver en que regiones se concentra la violencia.",
   "Map of homicide clusters in Mexico from": "Mapa de clusters de homicidio de",
   "Map of homicides in Mexico from": "Mapa de homicidios de",
-  "map_txt": "El color de los círculos representa la tasa de homicidios y el tamaño el número de averiguaciones previas en el municipio. Pueden filtrar los municipios según su tasa de homicidios usando el widget de la esquina superior derecha. Todas las tasas están anualizadas, pero algunos municipios no tienen datos disponibles para todo el período, también algunos municipios reportan como cero su número de homicidios cuando en realidad no han recolectado el dato. La tasa máxima que se muestra en el mapa es de 120 para que sea más fácil su interpretación aunque la tasa real sea mayor. No todos los municipios proporcionan información y algunos concentran la información de varios municipios. Los homicidios incluyen los feminicidios.",
+  "map_txt": "El color de los círculos representa la tasa de homicidios y el tamaño corresponde al número de averiguaciones previas en el municipio. Pueden filtrar los municipios según su tasa de homicidios usando el widget. Los homicidios incluyen los feminicidios.",
   "cluster_txt": "El color de los municipios representa la tasa de homicidios modelada con un GAM y suavizado con un Markov Random Field para remover la varianza que ocurre por que algunos municipios tienen poca población. Los homicidios incluyen los feminicidios y algunos municipios no remiten datos.",
   "modeled rate": "tasa modelada",
   "crimes": "crímenes",
@@ -198,5 +198,6 @@
   "rvsv": "robo de coche sin violencia",
   "vs": "vs",
   "Robo de Coche Sin Violencia": "Robo de Coche Sin Violencia",
-  "Robo de Coche Con Violencia": "Robo de Coche Con Violencia"
+  "Robo de Coche Con Violencia": "Robo de Coche Con Violencia",
+  "map_extra_text": " "
 }

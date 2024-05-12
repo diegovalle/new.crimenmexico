@@ -567,8 +567,9 @@ function HomicideMapPage(props) {
       </section>
 
       <hr />
-      <TextColumn>{intl.formatMessage({ id: 'map_txt' })}</TextColumn>
-      
+      <TextColumn><div class="card has-background-light"><div class="card-content">{intl.formatMessage({ id: 'map_txt' })}</div></div></TextColumn>
+      <hr />
+       <TextColumn><FormattedHTMLMessage id="map_extra_text" /></TextColumn>
       {/*  <AdSense.Google
           client="ca-pub-2949275046149330"
           slot="8649980552"
