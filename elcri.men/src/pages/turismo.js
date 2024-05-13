@@ -17,6 +17,7 @@ import { minBy, maxBy } from 'lodash-es'
 import LazyLoad from 'react-lazyload'
 import social_image from '../assets/images/social/social-turismo.png'
 import social_image_en from '../assets/images/social/social-turismo_en.png'
+import {YYYYmmddToDate15} from '../components/utils.js'
 
 function MostViolent(props) {
   const [data, setdata] = useState(null)
@@ -83,12 +84,12 @@ function MostViolent(props) {
           {props.pageContext.locale === 'es'
             ? last_date.month_long_es6
             : last_date.month_long_en6}{' '}
-          <FormattedDate value={new Date(last_date.iso_mid6)} year="numeric" />{' '}
+          <FormattedDate value={YYYYmmddToDate15(last_date.iso_mid6)} year="numeric" />{' '}
           {intl.formatMessage({ id: 'to' })}{' '}
           {props.pageContext.locale === 'es'
             ? last_date.month_long_es
             : last_date.month_long_en}{' '}
-          <FormattedDate value={new Date(last_date.iso_mid)} year="numeric" />
+          <FormattedDate value={YYYYmmddToDate15(last_date.iso_mid)} year="numeric" />
         </HeroTitle>
 
         {/* <AdSense.Google

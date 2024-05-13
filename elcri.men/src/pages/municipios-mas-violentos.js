@@ -13,6 +13,7 @@ import { FormattedHTMLMessage, FormattedDate } from 'react-intl'
 import useLastMonth from '../components/LastMonth'
 import social_image from '../assets/images/social/social-top50.png'
 import social_image_en from '../assets/images/social/social-top50_en.png'
+import { YYYYmmddToDate15 } from '../components/utils.js'
 
 function MostViolent(props) {
   const [data, setdata] = useState(null)
@@ -49,12 +50,18 @@ function MostViolent(props) {
           {props.pageContext.locale === 'es'
             ? last_date.month_long_es6
             : last_date.month_long_en6}{' '}
-          <FormattedDate value={new Date(last_date.iso_mid6)} year="numeric" />{' '}
+          <FormattedDate
+            value={YYYYmmddToDate15(last_date.iso_mid6)}
+            year="numeric"
+          />{' '}
           {intl.formatMessage({ id: 'to' })}{' '}
           {props.pageContext.locale === 'es'
             ? last_date.month_long_es
             : last_date.month_long_en}{' '}
-          <FormattedDate value={new Date(last_date.iso_mid)} year="numeric" />
+          <FormattedDate
+            value={YYYYmmddToDate15(last_date.iso_mid)}
+            year="numeric"
+          />
         </HeroTitle>
 
         {/* <AdSense.Google
@@ -75,11 +82,9 @@ function MostViolent(props) {
               ) : (
                 <div style={{ height: chartHeight + 80 }}>
                   <div className="is-hidden-desktop columns is-mobile is-centered">
-                  <div className="box">
-                    <div
-                      role="status"
-                      className="circle-spin-2"
-                    ></div></div>
+                    <div className="box">
+                      <div role="status" className="circle-spin-2"></div>
+                    </div>
                   </div>
                 </div>
               )}

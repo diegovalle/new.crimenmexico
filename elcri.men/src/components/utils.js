@@ -1,6 +1,10 @@
 export function YYYYmmddToDate15(str) {
   let date = new Date()
 
+  // if it's an array assume the first element is the date
+  if (Object.prototype.toString.call(str) === '[object Array]') {
+    str = str[0]
+  }
   let date_components = str.split('-')
   date.setFullYear(date_components[0])
   // js months start at 0

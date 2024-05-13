@@ -61,6 +61,7 @@ import { findIndex, countBy, filter, maxBy } from 'lodash-es'
 import { format as num_format } from 'd3-format'
 
 import dark_matter from '../components/DotMap/dot_map_style_gray'
+import { YYYYmmddToDate15 } from '../components/utils.js'
 
 const dataLayer = {
   id: 'data',
@@ -186,7 +187,7 @@ class DotMapGL extends React.Component {
     return (
       hoveredFeature &&
       hoveredFeature.properties.rate <= this.state.upper &&
-        hoveredFeature.properties.rate >= this.state.lower && (
+      hoveredFeature.properties.rate >= this.state.lower && (
         <div
           className="tooltip is-size-6"
           style={{
@@ -535,12 +536,18 @@ function HomicideMapPage(props) {
         {props.pageContext.locale === 'es'
           ? last_date.month_long_es6
           : last_date.month_long_en6}{' '}
-        <FormattedDate value={new Date(last_date.iso_mid6)} year="numeric" />{' '}
+        <FormattedDate
+          value={YYYYmmddToDate15(last_date.iso_mid6)}
+          year="numeric"
+        />{' '}
         {intl.formatMessage({ id: 'to' })}{' '}
         {props.pageContext.locale === 'es'
           ? last_date.month_long_es
           : last_date.month_long_en}{' '}
-        <FormattedDate value={new Date(last_date.iso_mid)} year="numeric" />
+        <FormattedDate
+          value={YYYYmmddToDate15(last_date.iso_mid)}
+          year="numeric"
+        />
       </HeroTitle>
 
       <section id="map_container">
@@ -567,9 +574,17 @@ function HomicideMapPage(props) {
       </section>
 
       <hr />
-      <TextColumn><div class="card has-background-light"><div class="card-content">{intl.formatMessage({ id: 'map_txt' })}</div></div></TextColumn>
+      <TextColumn>
+        <div class="card has-background-light">
+          <div class="card-content">
+            {intl.formatMessage({ id: 'map_txt' })}
+          </div>
+        </div>
+      </TextColumn>
       <hr />
-       <TextColumn><FormattedHTMLMessage id="map_extra_text" /></TextColumn>
+      <TextColumn>
+        <FormattedHTMLMessage id="map_extra_text" />
+      </TextColumn>
       {/*  <AdSense.Google
           client="ca-pub-2949275046149330"
           slot="8649980552"

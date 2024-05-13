@@ -169,26 +169,6 @@ function HomicidiosMujeres(props) {
                       max_rate={maxRate(total)}
                       col_class="col-12"
                       height="350"
-                      metrics={{
-                        yax_format: format('.1f'),
-                        colors: ['#008085'],
-                        x_mouseover: function(d) {
-                          let date = new Date(d.date)
-                          let df = date_format('%b %Y')
-                          return (
-                            df(d.date) +
-                            ', ' +
-                            intl.formatMessage({ id: 'num' }) +
-                            ': ' +
-                            comma(d.count) +
-                            ' ' +
-                            intl.formatMessage({ id: 'rate' }) +
-                            ': ' +
-                            round1(d.rate)
-                          )
-                        },
-                        y_mouseover: () => null,
-                      }}
                       backgroundClass="line-chart-blue"
                     />
                   </div>
@@ -214,25 +194,6 @@ function HomicidiosMujeres(props) {
                           y={'rate'}
                           title={state}
                           max_rate={max_rate}
-                          metrics={{
-                            colors: ['#008085'],
-                            x_mouseover: function(d) {
-                              let date = new Date(d.date)
-                              let df = date_format('%b %Y')
-                              return (
-                                df(d.date) +
-                                ', ' +
-                                intl.formatMessage({ id: 'num' }) +
-                                ': ' +
-                                comma(d.count) +
-                                ' ' +
-                                intl.formatMessage({ id: 'rate' }) +
-                                ': ' +
-                                round1(d.rate)
-                              )
-                            },
-                            y_mouseover: () => null,
-                          }}
                         />
                       </div>
                     </figure>

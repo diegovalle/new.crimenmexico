@@ -21,7 +21,7 @@ import {
   mapValues,
   size,
 } from 'lodash-es'
-import { YYYYmmddCollectionToDate } from '../components/utils.js'
+import { YYYYmmddCollectionToDate, YYYYmmddToDate15 } from '../components/utils.js'
 
 import { select, selectAll } from 'd3-selection'
 import { transition } from 'd3-transition'
@@ -188,25 +188,6 @@ function Anomalies(props) {
                             formatData={data => [data]}
                             y={'rate'}
                             title={mun}
-                            metrics={{
-                              colors: ['#008085'],
-                              x_mouseover: function(d) {
-                                let date = new Date(d.date)
-                                let df = date_format('%b %Y')
-                                return (
-                                  df(d.date) +
-                                  ', ' +
-                                  intl.formatMessage({ id: 'num' }) +
-                                  ': ' +
-                                  comma(d.count) +
-                                  ' ' +
-                                  intl.formatMessage({ id: 'rate' }) +
-                                  ': ' +
-                                  round1(d.rate)
-                                )
-                              },
-                              y_mouseover: () => null,
-                            }}
                           />
                         </div>
                       </figure>
@@ -264,7 +245,7 @@ function Anomalies(props) {
           {props.pageContext.locale === 'es'
             ? last_date.month_long_es
             : last_date.month_long_en}{' '}
-          <FormattedDate value={new Date(last_date.iso_mid)} year="numeric" />
+          <FormattedDate value={YYYYmmddToDate15(last_date.iso_mid)} year="numeric" />
         </HeroTitle>
 
         {/* <AdSense.Google

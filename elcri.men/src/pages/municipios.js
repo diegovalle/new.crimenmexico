@@ -190,24 +190,6 @@ function Municipios(props) {
                           y={'rate'}
                           title={state}
                           max_rate={state.max_rate}
-                          metrics={{
-                            x_mouseover: function(d) {
-                              let date = new Date(d.date)
-                              let df = date_format('%b %Y')
-                              return (
-                                df(d.date) +
-                                ', ' +
-                                intl.formatMessage({ id: 'num' }) +
-                                ': ' +
-                                comma(d.count) +
-                                ' ' +
-                                intl.formatMessage({ id: 'rate' }) +
-                                ': ' +
-                                round1(d.rate)
-                              )
-                            },
-                            y_mouseover: () => null,
-                          }}
                         />
                       </div>
                     </figure>
