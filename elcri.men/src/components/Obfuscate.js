@@ -124,7 +124,7 @@ export default class Obfuscate2 extends Component {
             href:
               humanInteraction === true || obfuscate === false
                 ? this.createContactLink(this.props)
-                : linkText || 'obfuscated',
+                : linkText || '',
             onClick: this.handleClick.bind(this),
           }
         : {}
