@@ -13,5 +13,6 @@ set -o pipefail # piping a failed process into a successful one is an error
 
 # Copy the data files to a backup server
 if [ "$CI" = true ] ; then
-  rclone-v1.57.0-linux-amd64/rclone --retries 3 --fast-list --transfers=1 copy ~/new.crimenmexico/data/ :b2:"$B2_BUCKET" --b2-account="$B2_APPKEY_ID" --b2-key="$B2_APPKEY" --include "*.gz"
+    VERSION="v1.66.0"
+    rclone-"$VERSION"-linux-amd64/rclone -vv --fast-list --transfers=1 copy ~/new.crimenmexico/data/ :b2:"$B2_BUCKET" --b2-account="$B2_APPKEY_ID" --b2-key="$B2_APPKEY" --include "*.gz"
 fi
