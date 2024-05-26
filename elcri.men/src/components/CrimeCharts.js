@@ -112,41 +112,73 @@ function CrimeChart(props) {
       })
   }, [])
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(`/elcrimen-json/states2.json`)
-        const responseJSON = await response.json()
-        var ans = {
-          ext: zipObject(responseJSON.ext),
-          rvcv: zipObject(responseJSON.rvcv),
-          rvsv: zipObject(responseJSON.rvsv),
-          sec: zipObject(responseJSON.sec),
-          hd: [zipObject(responseJSON.hd[0]), zipObject(responseJSON.hd[1])],
-        }
-        setStateData(ans)
-        setSelectedData({
-          hd: [
-            filter(ans.hd[0], { s: parseInt(props.selected_state) }),
-            filter(ans.hd[1], { s: parseInt(props.selected_state) }),
-          ],
-          sec: filter(ans.sec, {
-            s: parseInt(props.selected_state),
-          }),
-          ext: filter(ans.ext, {
-            s: parseInt(props.selected_state),
-          }),
-          rvcv: filter(ans.rvcv, {
-            s: parseInt(props.selected_state),
-          }),
-          rvsv: filter(ans.rvsv, {
-            s: parseInt(props.selected_state),
-          }),
+  async function fetchData() {
+    try {
+      fetch('/elcrimen-json/states2.json', {
+        method: 'GET',
+      })
+        .then(function(response) {
+          return response.json()
         })
-      } catch (e) {
-        console.error(e)
-      }
+        .then(function(responseJSON) {
+          var ans = {
+            ext: zipObject(responseJSON.ext),
+            rvcv: zipObject(responseJSON.rvcv),
+            rvsv: zipObject(responseJSON.rvsv),
+            sec: zipObject(responseJSON.sec),
+            hd: [zipObject(responseJSON.hd[0]), zipObject(responseJSON.hd[1])],
+          }
+          setStateData(ans)
+          setSelectedData({
+            hd: [
+              filter(ans.hd[0], { s: parseInt(props.selected_state) }),
+              filter(ans.hd[1], { s: parseInt(props.selected_state) }),
+            ],
+            sec: filter(ans.sec, {
+              s: parseInt(props.selected_state),
+            }),
+            ext: filter(ans.ext, {
+              s: parseInt(props.selected_state),
+            }),
+            rvcv: filter(ans.rvcv, {
+              s: parseInt(props.selected_state),
+            }),
+            rvsv: filter(ans.rvsv, {
+              s: parseInt(props.selected_state),
+            }),
+          })
+        })
+    } catch (e) {
+      console.error(e)
     }
+  }
+
+  useEffect(() => {
+    if (props.mouseOver)
+      if (!stateData) {
+        fetch('/elcrimen-json/states2.json', {
+          method: 'GET',
+        })
+          .then(function(response) {
+            return response.json()
+          })
+          .then(function(responseJSON) {
+            var ans = {
+              ext: zipObject(responseJSON.ext),
+              rvcv: zipObject(responseJSON.rvcv),
+              rvsv: zipObject(responseJSON.rvsv),
+              sec: zipObject(responseJSON.sec),
+              hd: [
+                zipObject(responseJSON.hd[0]),
+                zipObject(responseJSON.hd[1]),
+              ],
+            }
+            setStateData(ans)
+          })
+      }
+  }, [props.mouseOver])
+
+  useEffect(() => {
     if (props.selected_state === '0') {
       if (nationalData)
         setSelectedData({
@@ -251,7 +283,7 @@ function CrimeChart(props) {
         : stateNames[props.selected_state])
 
     let chartOption = {
-      animation: true,
+      animation: false,
       animationDuration: 0,
       title: {
         text: title,
@@ -274,7 +306,7 @@ function CrimeChart(props) {
           animation: false,
         },
         formatter: function(item) {
-          if (item.length == 2) {
+          if (item.length === 2) {
             let date = new Date(item[0].name)
             let datestr = [
               date.toLocaleString(intl.locale, { month: 'long' }),

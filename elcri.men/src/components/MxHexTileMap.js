@@ -205,7 +205,11 @@ function MxHexTileMap(props) {
     tooltipTop,
     tooltipOpen,
     hideTooltip,
+    setMouseOver,
   } = props
+
+
+
   return (
     <React.Fragment>
       <div className="select">
@@ -259,14 +263,10 @@ function MxHexTileMap(props) {
               style={{ height: '100%', width: '100%', position: 'relative' }}
             >
               <svg
+                onMouseOver={setMouseOver}
+                onTouchStart={setMouseOver}
                 preserveAspectRatio="xMinYMin"
                 viewBox="0 0 631.5 581.5"
-                // viewBox={
-                //   '0 0 ' +
-                //   canvasRef.current.clientWidth +
-                //   ' ' +
-                //   canvasRef.current.offsetHeight
-                // }
                 fill="transparent"
                 width="100%"
                 height="100%"

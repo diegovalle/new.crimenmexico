@@ -9,6 +9,7 @@ function FrontPageMap (props) {
   const intl = useIntl ();
   const [selected_state, setselected_state] = useState ('0');
   const [selected_crime, setselected_crime] = useState ('hd');
+  const [mouseOver, setMouseOver] = useState(false)
 
   const updateState = state => {
     setselected_state (state);
@@ -17,6 +18,10 @@ function FrontPageMap (props) {
   const updateCrime = crime => {
     setselected_crime (crime);
   };
+
+  const onHover = () => {
+    setMouseOver(true)
+  }
 
   return (
     <div className="columns">
@@ -27,6 +32,7 @@ function FrontPageMap (props) {
           updateState={updateState}
           selected_crime={selected_crime}
           updateCrime={updateCrime}
+          setMouseOver={setMouseOver}
         />
 
       </div>
@@ -43,6 +49,7 @@ function FrontPageMap (props) {
           updateState={updateState}
           selected_crime={selected_crime}
           updateCrime={updateCrime}
+          mouseOver={mouseOver}
         />
       </div>
     </div>
