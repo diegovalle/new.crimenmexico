@@ -158,7 +158,7 @@ function HistoricalChart(props) {
   intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
 
   let chartOption = {
-    animation: true,
+    animation: false,
     animationDuration: 0,
     toolbox: {
       show: true,
