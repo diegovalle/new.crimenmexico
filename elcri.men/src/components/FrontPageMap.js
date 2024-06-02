@@ -32,7 +32,7 @@ function FrontPageMap (props) {
           updateState={updateState}
           selected_crime={selected_crime}
           updateCrime={updateCrime}
-          setMouseOver={setMouseOver}
+          setMouseOver={onHover}
         />
 
       </div>
