@@ -10,6 +10,8 @@ import { filter } from 'lodash-es'
 import { dateLoc } from '../../src/i18n'
 import { format } from 'd3-format'
 
+import LazyLoad from 'react-lazyload'
+
 import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
 import * as echarts from 'echarts/core'
@@ -514,17 +516,21 @@ function CrimeChart(props) {
       <div className="columns">
         <div className="column is-full">
           <figure className="image is-3by1-tablet-only-3by2-mobile-3by2">
-            <div
-              id="nat_hd"
-              style={{ height: '100%' }}
-              className={
-                props.selected_crime === 'hd'
-                  ? 'line-chart-brown has-ratio'
-                  : 'line-chart-blue has-ratio'
-              }
-            >
-              {singleChart(intl.formatMessage({ id: 'Homicidio Intencional' }))}
-            </div>
+            <LazyLoad once offset={200}>
+              <div
+                id="nat_hd"
+                style={{ height: '100%' }}
+                className={
+                  props.selected_crime === 'hd'
+                    ? 'line-chart-brown has-ratio'
+                    : 'line-chart-blue has-ratio'
+                }
+              >
+                {singleChart(
+                  intl.formatMessage({ id: 'Homicidio Intencional' })
+                )}
+              </div>
+            </LazyLoad>
           </figure>
         </div>
       </div>
@@ -532,70 +538,78 @@ function CrimeChart(props) {
       <div className="columns is-desktop">
         <div className="column is-half-desktop">
           <figure className="image is-3by2-tablet-only-3by2-mobile-3by1">
-            <div
-              id="nat_sec"
-              style={{ height: '100%' }}
-              className={
-                props.selected_crime === 'sec'
-                  ? 'line-chart-brown has-ratio'
-                  : 'line-chart-blue has-ratio'
-              }
-            >
-              {singleChart(intl.formatMessage({ id: 'Secuestro' }))}
-            </div>
+            <LazyLoad once offset={200}>
+              <div
+                id="nat_sec"
+                style={{ height: '100%' }}
+                className={
+                  props.selected_crime === 'sec'
+                    ? 'line-chart-brown has-ratio'
+                    : 'line-chart-blue has-ratio'
+                }
+              >
+                {singleChart(intl.formatMessage({ id: 'Secuestro' }))}
+              </div>
+            </LazyLoad>
           </figure>
         </div>
         <div className="column is-half-desktop">
           <figure className="image is-3by2-tablet-only-3by2-mobile-3by1">
-            <div
-              id="nat_ext"
-              style={{ height: '100%' }}
-              className={
-                props.selected_crime === 'ext'
-                  ? 'line-chart-brown has-ratio'
-                  : 'line-chart-blue has-ratio'
-              }
-            >
-              {singleChart(intl.formatMessage({ id: 'Extorsión' }))}
-            </div>
+            <LazyLoad once offset={200}>
+              <div
+                id="nat_ext"
+                style={{ height: '100%' }}
+                className={
+                  props.selected_crime === 'ext'
+                    ? 'line-chart-brown has-ratio'
+                    : 'line-chart-blue has-ratio'
+                }
+              >
+                {singleChart(intl.formatMessage({ id: 'Extorsión' }))}
+              </div>
+            </LazyLoad>
           </figure>
         </div>
       </div>
       <div className="columns is-desktop">
         <div className="column is-half-desktop">
           <figure className="image is-3by2-tablet-only-3by2-mobile-3by1">
-            <div
-              id="nat_rvcv"
-              style={{ height: '100%' }}
-              className={
-                props.selected_crime === 'rvcv'
-                  ? 'line-chart-brown has-ratio'
-                  : 'line-chart-blue has-ratio'
-              }
-            >
-              {singleChart(
-                intl.formatMessage({ id: 'Robo de Coche c/v' }),
-                intl.formatMessage({ id: 'Robo de Coche Con Violencia' })
-              )}
-            </div>
+            <LazyLoad once offset={200}>
+              <div
+                id="nat_rvcv"
+                style={{ height: '100%' }}
+                className={
+                  props.selected_crime === 'rvcv'
+                    ? 'line-chart-brown has-ratio'
+                    : 'line-chart-blue has-ratio'
+                }
+              >
+                {singleChart(
+                  intl.formatMessage({ id: 'Robo de Coche c/v' }),
+                  intl.formatMessage({ id: 'Robo de Coche Con Violencia' })
+                )}
+              </div>
+            </LazyLoad>
           </figure>
         </div>
         <div className="column is-half-desktop">
           <figure className="image is-3by2-tablet-only-3by2-mobile-3by1">
-            <div
-              id="nat_rvsv"
-              style={{ height: '100%' }}
-              className={
-                props.selected_crime === 'rvsv'
-                  ? 'line-chart-brown has-ratio'
-                  : 'line-chart-blue has-ratio'
-              }
-            >
-              {singleChart(
-                intl.formatMessage({ id: 'Robo de Coche s/v' }),
-                intl.formatMessage({ id: 'Robo de Coche Sin Violencia' })
-              )}
-            </div>
+            <LazyLoad once offset={200}>
+              <div
+                id="nat_rvsv"
+                style={{ height: '100%' }}
+                className={
+                  props.selected_crime === 'rvsv'
+                    ? 'line-chart-brown has-ratio'
+                    : 'line-chart-blue has-ratio'
+                }
+              >
+                {singleChart(
+                  intl.formatMessage({ id: 'Robo de Coche s/v' }),
+                  intl.formatMessage({ id: 'Robo de Coche Sin Violencia' })
+                )}
+              </div>
+            </LazyLoad>
           </figure>
         </div>
       </div>
