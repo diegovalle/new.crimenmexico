@@ -6,10 +6,10 @@ export function YYYYmmddToDate15(str) {
     str = str[0]
   }
   let date_components = str.split('-')
+  date.setDate(15)
   date.setFullYear(date_components[0])
   // js months start at 0
   date.setMonth(date_components[1] - 1)
-  date.setDate(15)
   return date
 }
 
