@@ -309,11 +309,14 @@ const HomeIndex = props => {
         </div>
         <section className="section">
           <div className="has-text-centered">
-            <button className="button  is-link is-centered">
-              <LLink to="/infograficas/" locale={props.pageContext.locale}>
-                <FormattedMessage id="starship" />
-              </LLink>
-            </button>
+            <LLink
+              style={{ fontFamily: 'Arial, sans-serif' }}
+              className="button is-link is-centered"
+              to="/infograficas/"
+              locale={props.pageContext.locale}
+            >
+              <FormattedMessage id="starship" />
+            </LLink>
           </div>
         </section>
       </section>
@@ -348,14 +351,14 @@ const HomeIndex = props => {
                 <FormattedHTMLMessage id="map_description" />
               </p>
               <br />
-              <button className="button  is-link">
-                <LLink
-                  to="/mapa-de-delincuencia/"
-                  locale={props.pageContext.locale}
-                >
-                  <FormattedMessage id="crime_map" />
-                </LLink>
-              </button>
+              <LLink
+                style={{ fontFamily: 'Arial, sans-serif' }}
+                className="button is-link"
+                to="/mapa-de-delincuencia/"
+                locale={props.pageContext.locale}
+              >
+                <FormattedMessage id="crime_map" />
+              </LLink>
             </div>
             <div className="column">
               <h3 className="title is-5">
@@ -378,11 +381,14 @@ const HomeIndex = props => {
                 <FormattedHTMLMessage id="anomalies_description" />
               </p>
               <br />
-              <button className="button  is-link">
-                <LLink to="/anomalias/" locale={props.pageContext.locale}>
-                  <FormattedMessage id="anomalies" />
-                </LLink>
-              </button>
+              <LLink
+                style={{ fontFamily: 'Arial, sans-serif' }}
+                className="button is-link"
+                to="/anomalias/"
+                locale={props.pageContext.locale}
+              >
+                <FormattedMessage id="anomalies" />
+              </LLink>
             </div>
             <div className="column">
               <h3 className="title is-5">
@@ -410,11 +416,14 @@ const HomeIndex = props => {
                 <FormattedHTMLMessage id="trend_description" />
               </p>
               <br />
-              <button className="button  is-link">
-                <LLink to="/tendencias/" locale={props.pageContext.locale}>
-                  <FormattedMessage id="trends" />
-                </LLink>
-              </button>
+              <LLink
+                style={{ fontFamily: 'Arial, sans-serif' }}
+                className="button is-link"
+                to="/tendencias/"
+                locale={props.pageContext.locale}
+              >
+                <FormattedMessage id="trends" />
+              </LLink>
             </div>
           </div>
         </div>
