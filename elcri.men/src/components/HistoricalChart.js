@@ -369,7 +369,7 @@ function HistoricalChart(props) {
             ? null
             : formatData(data).length === 3
             ? [
-                ...Array(formatData(data)[1].length).fill(null),
+                ...Array(formatData(data)[1].length - 1).fill(null),
                 ...formatData(data)[2].map(item => item.r),
               ]
             : null,
