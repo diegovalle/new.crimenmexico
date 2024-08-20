@@ -43,12 +43,13 @@ inegi90 <- read.csv('data/INEGI_exporta.csv', skip = 6,
   arrange(date) %>%
   mutate(pop = na.spline(pop)) %>%
   mutate(rate = (((count /  numberOfDays(date) * 30) * 12) / pop) * 10^5  ) %>%
-  mutate(rate = ifelse(is.na(rate) & date <= last_inegi_date, 0, rate)) %>%
+  # The INEGI codes zeros as nulls and we have to correct them
+  mutate(rate = ifelse(is.na(rate), 0, rate)) %>%
+  mutate(count = ifelse(is.na(count), 0L, count)) %>%
   mutate(rate = round(rate, 1)) %>%
   mutate(date = str_c(date, "-01")) %>%
   ungroup()%>%
-  arrange(state_code, date) %>%
-  filter(date <= last_inegi_date)
+  arrange(state_code, date) 
 
 
 states_snsp <- subset(vic, tipo == 'Homicidio Doloso')[,c("date", 
