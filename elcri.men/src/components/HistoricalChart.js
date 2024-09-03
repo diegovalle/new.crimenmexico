@@ -5,9 +5,13 @@ import { curveLinear as linear } from 'd3-shape'
 import { format } from 'd3-format'
 import { timeFormatDefaultLocale } from 'd3-time-format'
 import { timeFormat as date_format } from 'd3-time-format'
+import { merge } from 'lodash-es'
 
 import { FormattedHTMLMessage, FormattedDate } from 'react-intl'
 import { useIntl, injectIntl, FormattedMessage } from 'react-intl'
+
+import './IndexTable/index_table_en.css'
+import './IndexTable/index_table_es.css'
 
 import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
@@ -91,6 +95,7 @@ function HistoricalChart(props) {
   `)
 
   const [data, setData] = useState(null)
+  const [homicideTable, setHomicideTable] = useState(null)
   const [state, setState] = useState(
     stateCodes[
       decodeURIComponent(props.hash.replace(/#historical#/, '').toLowerCase())
@@ -106,10 +111,38 @@ function HistoricalChart(props) {
   const comma = format(',')
 
   useEffect(() => {
+    const aggYear = (responseJSON, i) => {
+      responseJSON.national[i].forEach(
+        (x, i) => (x['year'] = x.d.substring(0, 4))
+      )
+      let yearly = Object.values(
+        responseJSON.national[i].reduce((agg, value, i) => {
+          if (agg[value.year] === undefined)
+            agg[value.year] = { year: value.year, c: 0, num_months: 0 }
+          agg[value.year].c += +value.c
+          agg[value.year].num_months = i + 1
+          return agg
+        }, {})
+      )
+      yearly = yearly.filter(year => !(year.num_months % 12))
+      for (let j = 0; j < yearly.length; j++) {
+        yearly[j].population =
+          responseJSON.national[i][yearly[j].num_months - 6].p
+      }
+      return yearly
+    }
     fetch('/elcrimen-json/national_1990.json')
       .then(response => response.json())
       .then(responseJSON => {
         setData(responseJSON)
+        let yearlySNSP = aggYear(responseJSON, 0)
+        let yearlyINEGI = aggYear(responseJSON, 1)
+        let maxYear = yearlySNSP[yearlySNSP.length - 1].year
+        yearlySNSP = yearlySNSP.filter(item => item.year >= maxYear - 5)
+        yearlyINEGI = yearlyINEGI.filter(item => item.year >= maxYear - 5)
+        yearlyINEGI.forEach(item => (item.inegi = item.c))
+        yearlySNSP.forEach(item => (item.snsp = item.c))
+        setHomicideTable(merge(yearlyINEGI, yearlySNSP))
       })
       .catch(error => {
         console.error(error)
@@ -385,91 +418,159 @@ function HistoricalChart(props) {
       },
     ],
   }
+
+  const rows = homicideTable
+    ? homicideTable.map(element => (
+        <tr key={element.year}>
+          <td className={intl.locale}>{element.year}</td>
+          <td className={intl.locale}>
+            {element.hasOwnProperty('inegi') ? comma(element.inegi) : 'NA'}
+          </td>
+          <td className={intl.locale}>{comma(element.snsp)}</td>
+          <td className={intl.locale}>{comma(element.population)}</td>
+
+          <td className={intl.locale}>
+            {element.hasOwnProperty('inegi')
+              ? round1((element.inegi / element.population) * 100000)
+              : 'NA'}
+          </td>
+          <td className={intl.locale}>
+            {round1((element.snsp / element.population) * 100000)}
+          </td>
+        </tr>
+      ))
+    : null
+
   return (
-    <div className="columns is-multiline" id="national90">
-      <div className="column is-half">
-        <div className="select is-pulled-right">
-          <select
-            className="is-hovered"
-            id="state_select"
-            onChange={handleSelect}
-            aria-label="Select State"
-            value={state}
-          >
-            <option value="national">
-              {intl.formatMessage({ id: 'All of Mexico' })}
-            </option>
-            <option value="1">Aguascalientes</option>
-            <option value="2">Baja California</option>
-            <option value="3">Baja California Sur</option>
-            <option value="4">Campeche</option>
-            <option value="5">Coahuila</option>
-            <option value="6">Colima</option>
-            <option value="7">Chiapas</option>
-            <option value="8">Chihuahua</option>
-            <option value="9">Ciudad de México</option>
-            <option value="10">Durango</option>
-            <option value="11">Guanajuato</option>
-            <option value="12">Guerrero</option>
-            <option value="13">Hidalgo</option>
-            <option value="14">Jalisco</option>
-            <option value="15">México</option>
-            <option value="16">Michoacán</option>
-            <option value="17">Morelos</option>
-            <option value="18">Nayarit</option>
-            <option value="19">Nuevo León</option>
-            <option value="20">Oaxaca</option>
-            <option value="21">Puebla</option>
-            <option value="22">Querétaro</option>
-            <option value="23">Quintana Roo</option>
-            <option value="24">San Luis Potosí</option>
-            <option value="25">Sinaloa</option>
-            <option value="26">Sonora</option>
-            <option value="27">Tabasco</option>
-            <option value="28">Tamaulipas</option>
-            <option value="29">Tlaxcala</option>
-            <option value="30">Veracruz</option>
-            <option value="31">Yucatán</option>
-            <option value="32">Zacatecas</option>
-          </select>
+    <>
+      <div className="columns is-multiline" id="national90">
+        <div className="column is-half">
+          <div className="select is-pulled-right">
+            <select
+              className="is-hovered"
+              id="state_select"
+              onChange={handleSelect}
+              aria-label="Select State"
+              value={state}
+            >
+              <option value="national">
+                {intl.formatMessage({ id: 'All of Mexico' })}
+              </option>
+              <option value="1">Aguascalientes</option>
+              <option value="2">Baja California</option>
+              <option value="3">Baja California Sur</option>
+              <option value="4">Campeche</option>
+              <option value="5">Coahuila</option>
+              <option value="6">Colima</option>
+              <option value="7">Chiapas</option>
+              <option value="8">Chihuahua</option>
+              <option value="9">Ciudad de México</option>
+              <option value="10">Durango</option>
+              <option value="11">Guanajuato</option>
+              <option value="12">Guerrero</option>
+              <option value="13">Hidalgo</option>
+              <option value="14">Jalisco</option>
+              <option value="15">México</option>
+              <option value="16">Michoacán</option>
+              <option value="17">Morelos</option>
+              <option value="18">Nayarit</option>
+              <option value="19">Nuevo León</option>
+              <option value="20">Oaxaca</option>
+              <option value="21">Puebla</option>
+              <option value="22">Querétaro</option>
+              <option value="23">Quintana Roo</option>
+              <option value="24">San Luis Potosí</option>
+              <option value="25">Sinaloa</option>
+              <option value="26">Sonora</option>
+              <option value="27">Tabasco</option>
+              <option value="28">Tamaulipas</option>
+              <option value="29">Tlaxcala</option>
+              <option value="30">Veracruz</option>
+              <option value="31">Yucatán</option>
+              <option value="32">Zacatecas</option>
+            </select>
+          </div>
         </div>
-      </div>
-      <div className="column is-half">
-        <p style={{ lineHeight: '1.2rem' }}>
-          <FormattedHTMLMessage id="inegi-legend" />
-          <br />
-          <FormattedHTMLMessage id="snsp-victims" />
-        </p>
-      </div>
-
-      <div className="column is-full">
-        <a name="historical" id="historical" />
-        <div id="national90">
-          <figure className="image is-2by1">
-            <div className="has-ratio">
-              {data ? (
-                <ReactEChartsCore
-                  echarts={echarts}
-                  option={chartOption}
-                  style={{ height: '100%', width: '100%' }}
-                  opts={{ locale: echarts.registerLocale('ES') }}
-                />
-              ) : (
-                <div />
-              )}
-            </div>
-          </figure>
-        </div>
-
-        {preliminary.site.siteMetadata.preliminaryINEGI ? (
-          <p>
-            <FormattedHTMLMessage id="prelim1" />
-            {preliminary.site.siteMetadata.monthsPreliminaryINEGI}
-            <FormattedHTMLMessage id="prelim2" />
+        <div className="column is-half">
+          <p style={{ lineHeight: '1.2rem' }}>
+            <FormattedHTMLMessage id="inegi-legend" />
+            <br />
+            <FormattedHTMLMessage id="snsp-victims" />
           </p>
-        ) : null}
+        </div>
+
+        <div className="column is-full">
+          <a name="historical" id="historical" />
+          <div id="national90">
+            <figure className="image is-2by1">
+              <div className="has-ratio">
+                {data ? (
+                  <ReactEChartsCore
+                    echarts={echarts}
+                    option={chartOption}
+                    style={{ height: '100%', width: '100%' }}
+                    opts={{ locale: echarts.registerLocale('ES') }}
+                  />
+                ) : (
+                  <div />
+                )}
+              </div>
+            </figure>
+          </div>
+
+          {preliminary.site.siteMetadata.preliminaryINEGI ? (
+            <p>
+              <FormattedHTMLMessage id="prelim1" />
+              {preliminary.site.siteMetadata.monthsPreliminaryINEGI}
+              <FormattedHTMLMessage id="prelim2" />
+            </p>
+          ) : null}
+        </div>
       </div>
-    </div>
+
+      <div className="columns is-centered">
+        <div className="column is-full">
+          {homicideTable ? (
+            <h4 className="has-text-centered title is-4">
+              {intl.formatMessage({
+                id: 'La tasa de homicido en México fue de',
+              })}{' '}
+              {round1(
+                (homicideTable[homicideTable.length - 1].snsp /
+                  homicideTable[homicideTable.length - 1].population) *
+                  100000
+              )}{' '}
+              en el {homicideTable[homicideTable.length - 1].year}{' '}
+              {intl.formatMessage({ id: 'según el SNSP' })}
+            </h4>
+          ) : (
+            <h4 className="title is-4">⠀⠀⠀</h4>
+          )}
+
+          <div className="columns">
+            <div className="column is-offset-3 is-half-desktop is-two-third-fullhd">
+              <div className="content is-medium">
+                {intl.formatMessage({ id: 'homicide_rate' })}
+              </div>
+            </div>
+          </div>
+
+          <table className="table is-bordered is-stripped">
+            <thead>
+              <tr>
+                <th> {intl.formatMessage({ id: 'Year' })}</th>
+                <th> {intl.formatMessage({ id: 'INEGI Homicides' })}</th>
+                <th> {intl.formatMessage({ id: 'SNSP Homicides' })}</th>
+                <th> {intl.formatMessage({ id: 'Population' })}</th>
+                <th> {intl.formatMessage({ id: 'INEGI Rate' })}</th>
+                <th> {intl.formatMessage({ id: 'SNSP Rate' })}</th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </table>
+        </div>
+      </div>
+    </>
   )
 }
 

@@ -188,7 +188,7 @@ const HomeIndex = props => {
             // responsive="true"
           /> */}
           <a name="#historical" id="historical" />
-          <LazyLoad height={440} once offset={200}>
+          <LazyLoad height={1240} once offset={200}>
             <HistoricalChart hash={props.location.hash} />
           </LazyLoad>
         </div>
