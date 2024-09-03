@@ -18,7 +18,7 @@
   tr {
     border: 1px solid #ccc;
   }
-  td.es {
+  td.es_hom {
     font-family: 'ui-monospace';
     border: none;
     border-bottom: 1px solid #eee;
@@ -26,7 +26,7 @@
     padding-left: 50%;
     text-align: right;
   }
-  td.es:before {
+  td.es_hom:before {
     position: absolute;
     top: 12px;
     left: 6px;
@@ -34,37 +34,37 @@
     padding-right: 10px;
     white-space: nowrap;
   }
-  td.es:nth-of-type(1):before {
+  td.es_hom:nth-of-type(1):before {
     font-family: 'ui-monospace';
     font-weight: bold;
     text-align: left;
     content: 'Año:';
   }
-  td.es:nth-of-type(2):before {
+  td.es_hom:nth-of-type(2):before {
     font-family: 'ui-monospace';
     font-weight: bold;
     text-align: left;
     content: '# INEGI:';
   }
-  td.es:nth-of-type(3):before {
+  td.es_hom:nth-of-type(3):before {
     font-family: 'ui-monospace';
     font-weight: bold;
     text-align: left;
     content: '# SNSP:';
   }
-  td.es:nth-of-type(4):before {
+  td.es_hom:nth-of-type(4):before {
     font-family: 'ui-monospace';
     font-weight: bold;
     text-align: left;
     content: 'Población:';
   }
-  td.es:nth-of-type(5):before {
+  td.es_hom:nth-of-type(5):before {
     font-family: 'ui-monospace';
     font-weight: bold;
     text-align: left;
     content: 'Tasa INEGI:';
   }
-  td.es:nth-of-type(6):before {
+  td.es_hom:nth-of-type(6):before {
     font-family: 'ui-monospace';
     font-weight: bold;
     text-align: left;

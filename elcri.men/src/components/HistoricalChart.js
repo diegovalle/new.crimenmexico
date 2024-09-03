@@ -422,19 +422,19 @@ function HistoricalChart(props) {
   const rows = homicideTable
     ? homicideTable.map(element => (
         <tr key={element.year}>
-          <td className={intl.locale}>{element.year}</td>
-          <td className={intl.locale}>
+          <td className={intl.locale === "es" ? "es_hom" : "en_hom"}>{element.year}</td>
+          <td className={intl.locale === "es" ? "es_hom" : "en_hom"}>
             {element.hasOwnProperty('inegi') ? comma(element.inegi) : 'NA'}
           </td>
-          <td className={intl.locale}>{comma(element.snsp)}</td>
-          <td className={intl.locale}>{comma(element.population)}</td>
+          <td className={intl.locale === "es" ? "es_hom" : "en_hom"}>{comma(element.snsp)}</td>
+          <td className={intl.locale === "es" ? "es_hom" : "en_hom"}>{comma(element.population)}</td>
 
-          <td className={intl.locale}>
+          <td className={intl.locale === "es" ? "es_hom" : "en_hom"}>
             {element.hasOwnProperty('inegi')
               ? round1((element.inegi / element.population) * 100000)
               : 'NA'}
           </td>
-          <td className={intl.locale}>
+          <td className={intl.locale === "es" ? "es_hom" : "en_hom"}>
             {round1((element.snsp / element.population) * 100000)}
           </td>
         </tr>
@@ -442,7 +442,7 @@ function HistoricalChart(props) {
     : null
 
   return (
-    <>
+    <React.Fragment>
       <div className="columns is-multiline" id="national90">
         <div className="column is-half">
           <div className="select is-pulled-right">
@@ -554,23 +554,27 @@ function HistoricalChart(props) {
               </div>
             </div>
           </div>
+          <div className="columns is-centered">
+          <div className="column is-8">
+          <div className="table-container">
+            <table className="table is-bordered is-stripped">
+              <thead>
+                <tr>
+                  <th> {intl.formatMessage({ id: 'Year' })}</th>
+                  <th> {intl.formatMessage({ id: 'INEGI Homicides' })}</th>
+                  <th> {intl.formatMessage({ id: 'SNSP Homicides' })}</th>
+                  <th> {intl.formatMessage({ id: 'Population' })}</th>
+                  <th> {intl.formatMessage({ id: 'INEGI Rate' })}</th>
+                  <th> {intl.formatMessage({ id: 'SNSP Rate' })}</th>
+                </tr>
+              </thead>
+              <tbody>{rows}</tbody>
+            </table>
+          </div></div></div>
 
-          <table className="table is-bordered is-stripped">
-            <thead>
-              <tr>
-                <th> {intl.formatMessage({ id: 'Year' })}</th>
-                <th> {intl.formatMessage({ id: 'INEGI Homicides' })}</th>
-                <th> {intl.formatMessage({ id: 'SNSP Homicides' })}</th>
-                <th> {intl.formatMessage({ id: 'Population' })}</th>
-                <th> {intl.formatMessage({ id: 'INEGI Rate' })}</th>
-                <th> {intl.formatMessage({ id: 'SNSP Rate' })}</th>
-              </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-          </table>
         </div>
       </div>
-    </>
+    </React.Fragment>
   )
 }
 
