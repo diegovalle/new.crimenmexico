@@ -118,7 +118,7 @@
   "How can I contact you?": "How can I contact you?",
   "How can I send you bitcoin?": "Where can I send you Bitcoin?",
   "bitcoin_ans": "You can send your Bitcoins to 1D9o9JeZbsWvHhQMnhphab85i97S5e24Pj",
-  "data_ans": "The data comes from the <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva\">SESNSP</a> (both victims and 'carpetas delictivas') and from the <a href=\"https://www.inegi.org.mx/sistemas/olap/proyectos/bd/continuas/mortalidad/defuncioneshom.asp?s=est\">INEGI</a>. The population data comes from the <a href=\"https://datos.gob.mx/busca/dataset/proyecciones-de-la-poblacion-de-mexico-y-de-las-entidades-federativas-2020-2070/resource/1d3a38bd-3282-4c96-bc67-45cf14e14acb\">CONAPO</a> projections (2015-2030)",
+  "data_ans": "The data comes from the <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva\">SESNSP</a> (both victims and 'carpetas delictivas') and from the <a href=\"https://www.inegi.org.mx/sistemas/olap/proyectos/bd/continuas/mortalidad/defuncioneshom.asp?s=est\">INEGI</a>. The population data comes from the <a href=\"https://datos.gob.mx/busca/dataset/proyecciones-de-la-poblacion-de-mexico-y-de-las-entidades-federativas-2020-2070/resource/fcd9b442-c09d-4e4d-a761-3e628d939c38\">CONAPO</a> projections (Indicadores demográficos, 1950-2070) at the state and national levels, and for the muncipios from <a href=\"https://www.gob.mx/conapo/documentos/reconstruccion-y-proyecciones-de-la-poblacion-de-los-municipios-de-mexico-1990-2040\">reconstrucción y proyecciones de la población de los municipios de México 1990-2040</a>",
   "github_ans": "Yes, it's available from <a href=\"https://github.com/diegovalle/new.crimenmexico\">GitHub</a>",
   "mxmaps_ans": "You can use the <a href=\"https://www.diegovalle.net/mxmaps/index.html\">mxmaps</a> R package to create hexbin maps of Mexico (and also lots of other kinds of maps)",
   "mxmortalitydb_ans": "Yes, you can use the <a href=\"https://github.com/diegovalle/mxmortalitydb\">mxmortalitydb</a> package",
@@ -186,7 +186,7 @@
   "desc_ranking": "Most violent states during the last 12 months",
   "Most violent states during the last 12 months (": "Most violent states during the last 12 months (",
   "None": "None",
-  "prelim1":"This data visualization presents <b>provisional counts</b> for homicides during the last ",
+  "prelim1":"The INEGI homicide data is <b>provisional</b> for the last ",
   "prelim2": " months",
   "Save as": "Save as",
   "loading": "loading",
@@ -207,5 +207,7 @@
   "SNSP Rate": "SNSP Rate",
   "La tasa de homicido en México fue de":"The homicide rate in Mexico was",
   "según el SNSP": "according to the SNSP (Mexican Police)",
-  "homicide_rate": "The crime rate in Mexico has been a topic of great concern in recent decades. According to official data, the country has experienced a significant increase in violence since the 2008, mainly due to the drug war and conflicts between cartels. Although this figure has fluctuated in the following years, Mexico continues to face significant challenges in public security. The causes of this high homicide rate are complex and include factors such as organized crime, corruption, impunity, and failures in public prosecution offices."
+  "en el": "in",
+  "homicide_rate": "The crime situation in Mexico has been a pressing issue for many years, with official statistics often failing to capture the full extent of the problem due to underreporting and lack of investigation. A more accurate picture emerges from the National Victimization Survey (ENVIPE), which reported a <b>crime rate of 27.4% in Mexico</b>, indicating that over a quarter of households had at least one member fall victim to a crime. This alarming figure underscores the widespread nature of criminal activity in the country. Among various crime statistics, homicide rates are considered the most reliably recorded, as they are harder to conceal or misreport. These rates have seen a notable surge since 2008, largely attributed to the ongoing drug war and conflicts between cartels. The root causes of Mexico's high crime rates are multifaceted, encompassing issues such as entrenched organized crime, systemic corruption, a culture of impunity, and inadequacies in the public prosecution system.",
+  "crime_rate": "The Mexico crime rate was 27.4%, according to the National Crime Victimization Survey (ENVIPE). This percentage represents households where at least one member was the victim of a crime."
 }

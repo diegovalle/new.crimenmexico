@@ -96,6 +96,8 @@ function HistoricalChart(props) {
 
   const [data, setData] = useState(null)
   const [homicideTable, setHomicideTable] = useState(null)
+  const [homRateInegi, setHomRateInegi] = useState(null)
+  const [homRateSnsp, setHomRateSnsp] = useState(null)
   const [state, setState] = useState(
     stateCodes[
       decodeURIComponent(props.hash.replace(/#historical#/, '').toLowerCase())
@@ -142,6 +144,16 @@ function HistoricalChart(props) {
         yearlyINEGI = yearlyINEGI.filter(item => item.year >= maxYear - 5)
         yearlyINEGI.forEach(item => (item.inegi = item.c))
         yearlySNSP.forEach(item => (item.snsp = item.c))
+        setHomRateInegi(
+          (yearlyINEGI[yearlyINEGI.length - 1].inegi /
+            yearlyINEGI[yearlyINEGI.length - 1].population) *
+            1e5
+        )
+        setHomRateSnsp(
+          (yearlySNSP[yearlyINEGI.length - 1].snsp /
+            yearlySNSP[yearlyINEGI.length - 1].population) *
+            1e5
+        )
         setHomicideTable(merge(yearlyINEGI, yearlySNSP))
       })
       .catch(error => {
@@ -422,19 +434,25 @@ function HistoricalChart(props) {
   const rows = homicideTable
     ? homicideTable.map(element => (
         <tr key={element.year}>
-          <td className={intl.locale === "es" ? "es_hom" : "en_hom"}>{element.year}</td>
-          <td className={intl.locale === "es" ? "es_hom" : "en_hom"}>
+          <td className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}>
+            {element.year}
+          </td>
+          <td className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}>
             {element.hasOwnProperty('inegi') ? comma(element.inegi) : 'NA'}
           </td>
-          <td className={intl.locale === "es" ? "es_hom" : "en_hom"}>{comma(element.snsp)}</td>
-          <td className={intl.locale === "es" ? "es_hom" : "en_hom"}>{comma(element.population)}</td>
+          <td className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}>
+            {comma(element.snsp)}
+          </td>
+          <td className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}>
+            {comma(element.population)}
+          </td>
 
-          <td className={intl.locale === "es" ? "es_hom" : "en_hom"}>
+          <td className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}>
             {element.hasOwnProperty('inegi')
               ? round1((element.inegi / element.population) * 100000)
               : 'NA'}
           </td>
-          <td className={intl.locale === "es" ? "es_hom" : "en_hom"}>
+          <td className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}>
             {round1((element.snsp / element.population) * 100000)}
           </td>
         </tr>
@@ -536,11 +554,9 @@ function HistoricalChart(props) {
                 id: 'La tasa de homicido en México fue de',
               })}{' '}
               {round1(
-                (homicideTable[homicideTable.length - 1].snsp /
-                  homicideTable[homicideTable.length - 1].population) *
-                  100000
+                homRateSnsp
               )}{' '}
-              en el {homicideTable[homicideTable.length - 1].year}{' '}
+              {intl.formatMessage({id: "en el"})}{' '} {homicideTable[homicideTable.length - 1].year}{' '}
               {intl.formatMessage({ id: 'según el SNSP' })}
             </h4>
           ) : (
@@ -550,28 +566,32 @@ function HistoricalChart(props) {
           <div className="columns">
             <div className="column is-offset-3 is-half-desktop is-two-third-fullhd">
               <div className="content is-medium">
-                {intl.formatMessage({ id: 'homicide_rate' })}
+              <FormattedHTMLMessage id="homicide_rate" />
               </div>
             </div>
           </div>
-          <div className="columns is-centered">
-          <div className="column is-8">
-          <div className="table-container">
-            <table className="table is-bordered is-stripped">
-              <thead>
-                <tr>
-                  <th> {intl.formatMessage({ id: 'Year' })}</th>
-                  <th> {intl.formatMessage({ id: 'INEGI Homicides' })}</th>
-                  <th> {intl.formatMessage({ id: 'SNSP Homicides' })}</th>
-                  <th> {intl.formatMessage({ id: 'Population' })}</th>
-                  <th> {intl.formatMessage({ id: 'INEGI Rate' })}</th>
-                  <th> {intl.formatMessage({ id: 'SNSP Rate' })}</th>
-                </tr>
-              </thead>
-              <tbody>{rows}</tbody>
-            </table>
-          </div></div></div>
 
+          <h4 className="title is-4">{intl.formatMessage({ id: 'crime_rate' })}</h4>
+
+          <div className="columns is-centered">
+            <div className="column is-8">
+              <div className="table-container">
+                <table className="table is-bordered is-stripped">
+                  <thead>
+                    <tr>
+                      <th> {intl.formatMessage({ id: 'Year' })}</th>
+                      <th> {intl.formatMessage({ id: 'INEGI Homicides' })}</th>
+                      <th> {intl.formatMessage({ id: 'SNSP Homicides' })}</th>
+                      <th> {intl.formatMessage({ id: 'Population' })}</th>
+                      <th> {intl.formatMessage({ id: 'INEGI Rate' })}</th>
+                      <th> {intl.formatMessage({ id: 'SNSP Rate' })}</th>
+                    </tr>
+                  </thead>
+                  <tbody>{rows}</tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </React.Fragment>

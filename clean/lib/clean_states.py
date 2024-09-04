@@ -494,7 +494,15 @@ class CrimeMunicipios(CrimeStates):
 
         #import pdb;pdb.set_trace()
         # Temporary fix because of new municipios with no matching population
-        #crime_municipios.data = crime_municipios.data[(crime_municipios.data['state_code'] != 2) & (crime_municipios.data['mun_code'] != 6)]
+        #snsp = df[["state_code", "mun_code"]].drop_duplicates()
+        #snsp["id"] = snsp["state_code"].astype(str).str.pad(2, side="left", fillchar="0") + snsp["mun_code"].astype(str).str.pad(3, side="left", fillchar="0")
+
+        #pop1 = self.population[["state_code", "mun_code"]].drop_duplicates()
+        #pop1["id"] = pop1["state_code"].astype(str).str.pad(2, side="left", fillchar="0") + pop1["mun_code"].astype(str).str.pad(3, side="left", fillchar="0")
+        #pd.set_option('display.max_rows', None)
+        #df_all = pop1.merge(snsp, on=['state_code','mun_code', 'id'], how='left', indicator=True)
+        #len(df_all[df_all['_merge']=="right_only"])
+        #df = df[~df[["state_code", "mun_code"]].isin(self.population[["state_code", "mun_code"]])]
         return df
 		
 
