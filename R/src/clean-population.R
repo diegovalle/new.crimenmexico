@@ -67,3 +67,43 @@ df2 <- df2  |>
   ungroup() |>
   dplyr::select(state_code, age_group, sex, date, population)
 write.csv(df2, "../clean/data/pop_states_age_sex.csv", row.names = FALSE)
+
+
+### Muncipios
+## https://conapo.segob.gob.mx/work/models/CONAPO/pry23/DBMun/00_Republica_mexicana.zip
+# https://www.gob.mx/conapo/documentos/reconstruccion-y-proyecciones-de-la-poblacion-de-los-municipios-de-mexico-1990-2040
+
+df <- readxl::read_xlsx("~/Downloads/3_Indicadores_Dem_00_RM.xlsx") |>
+  dplyr::rename(state_code = CLAVE_ENT, date = AÑO, population = POB_MIT_MUN,
+         mun_code = CLAVE) |>
+  dplyr::select(date, mun_code, state_code, population) |>
+  dplyr::filter(date >= 2015) #|>
+  #dplyr::mutate(state_code2 = floor(mun_code / 1000)) |>
+  #dplyr::mutate(mun_code2 = mun_code - floor(mun_code / 1000) * 1000)
+
+df$date <- as.Date(paste0(df$date, "-07-01"))
+df_full_dates <- expand.grid(date = seq(from = as.Date("2015-01-01"),
+                                        to = as.Date("2040-12-01"),
+                                        by = "month"),
+                             mun_code = unique(df$mun_code)
+)
+
+
+df2 <- dplyr::full_join(df, df_full_dates, by = dplyr::join_by(date, mun_code)) |>
+  dplyr::arrange(mun_code, date)
+
+df2 <- df2  |>
+  dplyr::arrange(mun_code) |>
+  dplyr::group_by(mun_code) |>
+  dplyr::mutate(population = as.integer(zoo::na.spline(population))) |>
+  dplyr::ungroup() |>
+  dplyr::mutate(state_code = floor(mun_code / 1000)) |>
+  dplyr::mutate(mun_code = mun_code - floor(mun_code / 1000) * 1000)
+write.csv(df2, "../clean/data/pop_muns.csv", row.names = FALSE)
+
+
+names <- read.csv("../clean/data/municipio_names.csv", fileEncoding = "windows-1252")
+setdiff(names$mun_code, df2$mun_code)
+setdiff(names$state_code, df2$state_code)
+
+dplyr::anti_join(names, df2)
