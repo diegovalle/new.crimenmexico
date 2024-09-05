@@ -79,7 +79,7 @@ const SEO = props => {
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           name: props.lang === 'es' ? 'El Crimen' : 'Mexico Crime Report',
-          inLanguage: props.lang === 'es' ? 'en' : 'es',
+          inLanguage: props.lang === 'es' ? 'es' : 'en',
           url:
             props.lang === 'es' ? 'https://elcri.men/' : 'https//elcri.men/en/',
           author: [
