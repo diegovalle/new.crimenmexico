@@ -20,7 +20,8 @@ module.exports = {
     '/404/': '/404/',
     '/404.html': '/404.html',
     '/politica-privacidad/': '/privacy-policy/',
-    '/turismo/': '/tourism/'
+    '/turismo/': '/tourism/',
+    '/tasa-crimen/': '/crime-rate/',
   },
   routes_inverted: {
     '/en/': '/',
@@ -43,6 +44,7 @@ module.exports = {
     '/en/404/': '/404/',
     '/en/404.html': '/404.html',
     '/en/privacy-policy/': '/politica-privacidad/',
-    '/en/tourism/': '/turismo/'
+    '/en/tourism/': '/turismo/',
+    '/en/crime-rate/': '/tasa-crimen/',
   },
-};
+}

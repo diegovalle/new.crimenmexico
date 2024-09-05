@@ -236,7 +236,7 @@ const Navbar = ({ locale, path }) => {
                 !activeMenu
                   ? 'navbar-link ' +
                     colorMenu(
-                      /tendencias|trends|envipe|underreporting-crime|anomalias|anomalies|infograficas|infographics|tendencias_estado|trends_state/g,
+                      /tendencias|trends|envipe|underreporting-crime|anomalias|anomalies|infograficas|infographics|tendencias_estado|trends_state|tasa-crime|crime-rate/g,
                       path
                     )
                   : 'navbar-link '
@@ -281,6 +281,15 @@ const Navbar = ({ locale, path }) => {
                 activeClassName="has-background-grey-dark has-text-white-ter has-text-weight-bold active"
               >
                 {intl.formatMessage({ id: 'underreporting' })}
+              </LLink>
+              <LLink
+                locale={locale}
+                className="navbar-item"
+                to="/tasa-crimen/"
+                partiallyActive={true}
+                activeClassName="has-background-grey-dark has-text-white-ter has-text-weight-bold active"
+              >
+                {intl.formatMessage({ id: 'crime-rate' })}
               </LLink>
               <hr className="navbar-divider" />
               <LLink

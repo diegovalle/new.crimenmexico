@@ -44,6 +44,34 @@ echarts.use([
   ToolboxComponent,
 ])
 
+const prevalencia_hogares = [
+  { year: 2012, per: 32.4 },
+  { year: 2013, per: 33.9 },
+  { year: 2014, per: 33.2 },
+  { year: 2015, per: 34.0 },
+  { year: 2016, per: 34.2 },
+  { year: 2017, per: 35.6 },
+  { year: 2018, per: 33.9 },
+  { year: 2019, per: 29.2 },
+  { year: 2020, per: 28.4 },
+  { year: 2021, per: 29.0 },
+  { year: 2022, per: 27.4 },
+];
+
+const prevalencia_personas = [
+  { year: 2012, per: 27337 },
+  { year: 2013, per: 28224 },
+  { year: 2014, per: 28200 },
+  { year: 2015, per: 28202 },
+  { year: 2016, per: 28788 },
+  { year: 2017, per: 29746 },
+  { year: 2018, per: 28269 },
+  { year: 2019, per: 24849 },
+  { year: 2020, per: 23520 },
+  { year: 2021, per: 24207 },
+  { year: 2022, per: 22587 },
+];
+
 var lesiones_data = [
   [
     { date: 2015, value: 1072610, sup: 1169170, inf: 976050 },

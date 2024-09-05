@@ -571,7 +571,7 @@ function HistoricalChart(props) {
             </div>
           </div>
 
-          <h4 className="title is-4">{intl.formatMessage({ id: 'crime_rate' })}</h4>
+          {/* <h4 className="title is-4">{intl.formatMessage({ id: 'crime_rate' })}</h4> */}
 
           <div className="columns is-centered">
             <div className="column is-8">
