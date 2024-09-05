@@ -12,17 +12,17 @@ import { IoIosArrowDroprightCircle } from 'react-icons/io'
 import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
 import * as echarts from 'echarts/core'
-import { LineChart, ScatterChart } from 'echarts/charts'
+import { BarChart } from 'echarts/charts'
 import {
   GridComponent,
   TooltipComponent,
   TitleComponent,
-  ToolboxComponent,
-} from 'echarts/components'
+  LegendComponent,
+} from "echarts/components";
 import {
   CanvasRenderer,
   // SVGRenderer,
-} from 'echarts/renderers'
+} from "echarts/renderers";
 
 import social_image from '../assets/images/social/social-crimen-tasas.png'
 import social_image_en from '../assets/images/social/social-crimen-tasas_en.png'
@@ -31,11 +31,10 @@ echarts.use([
   TitleComponent,
   TooltipComponent,
   GridComponent,
-  LineChart,
-  ScatterChart,
+  BarChart,
   CanvasRenderer,
-  ToolboxComponent,
-])
+  LegendComponent,
+]);
 
 const prevalencia_hogares = [
   { year: 2012, per: 32.4 },
