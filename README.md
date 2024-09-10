@@ -50,11 +50,11 @@ make download_csv download_inegi clean_data analysis website
 
 ## Project Structure
 
-/elcri.men: Gatsby website for elcri.men
-/clean: Python scripts for downloading data and processing or it
-/data: Raw and processed data files
-/db: SQLite database with the processed data
-/R: R scripts for data analysis and processing
+- /elcri.men: Gatsby website for elcri.men
+- /clean: Python scripts for downloading data and processing or it
+- /data: Raw and processed data files
+- /db: SQLite database with the processed data
+- /R: R scripts for data analysis and processing
 
 ## Data Sources
 
