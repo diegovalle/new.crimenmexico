@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { scaleQuantize } from '@vx/scale'
 import { schemeYlOrRd } from 'd3-scale-chromatic'
 import { format } from 'd3-format'
 import { useIntl } from 'react-intl'
 import { find } from 'lodash-es'
+
+import responseJSON from '/static/elcrimen-json/states_hexgrid'
 
 const mexico = {
   features: [
@@ -102,33 +104,53 @@ function MxHexTileMap(props) {
   const [mapData, setMapData] = useState(null)
 
   useEffect(() => {
-    fetch('/elcrimen-json/states_hexgrid.json')
-      .then((response) => response.json())
-      .then((responseJSON) => {
-        let mapColors = mexico.features.map(function (f) {
-          let colors = {}
-          Object.keys(responseJSON).map(function (crime) {
-            let index = responseJSON[crime].findIndex(function (e) {
-              return e.state_abbrv === f.properties.state_abbr
-            })
-
-            let ratecolor = color(
-              responseJSON,
-              crime
-            )(responseJSON[crime][index].rate)
-            colors[crime] = ratecolor
-          })
-          return {
-            ...f.properties,
-            ...colors,
-          }
+    let mapColors = mexico.features.map(function (f) {
+      let colors = {}
+      Object.keys(responseJSON).map(function (crime) {
+        let index = responseJSON[crime].findIndex(function (e) {
+          return e.state_abbrv === f.properties.state_abbr
         })
-        setMapData(mapColors)
-        setData(responseJSON)
+
+        let ratecolor = color(
+          responseJSON,
+          crime
+        )(responseJSON[crime][index].rate)
+        colors[crime] = ratecolor
       })
-      .catch((error) => {
-        console.error(error)
-      })
+      return {
+        ...f.properties,
+        ...colors,
+      }
+    })
+    setMapData(mapColors)
+    setData(responseJSON)
+    // fetch('/elcrimen-json/states_hexgrid.json')
+    //   .then((response) => response.json())
+    //   .then((responseJSON) => {
+    //     let mapColors = mexico.features.map(function (f) {
+    //       let colors = {}
+    //       Object.keys(responseJSON).map(function (crime) {
+    //         let index = responseJSON[crime].findIndex(function (e) {
+    //           return e.state_abbrv === f.properties.state_abbr
+    //         })
+
+    //         let ratecolor = color(
+    //           responseJSON,
+    //           crime
+    //         )(responseJSON[crime][index].rate)
+    //         colors[crime] = ratecolor
+    //       })
+    //       return {
+    //         ...f.properties,
+    //         ...colors,
+    //       }
+    //     })
+    //     setMapData(mapColors)
+    //     setData(responseJSON)
+    //   })
+    //   .catch((error) => {
+    //     console.error(error)
+    //   })
   }, [])
 
   const color = function (data, crime) {
@@ -177,7 +199,7 @@ function MxHexTileMap(props) {
     } else return 'transparent'
   }
 
-  let strokeWidth = 0;
+  let strokeWidth = 0
   const getStrokeWidth = (state) => {
     if (selected_state === state) {
       return (strokeWidth = '4px')
