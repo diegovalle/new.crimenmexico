@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Helmet from 'react-helmet'
 
 import Layout from '../components/layout'
 import SmallMultiple from '../components/SmallMultiple'
@@ -8,15 +7,9 @@ import HeroTitlewithLegend from '../components/HeroTitlewithLegend'
 import LegendLine from '../components/LegendLine'
 import { groupBy, map, reduce, sortBy, filter, max, maxBy } from 'lodash-es'
 
-import { useIntl, injectIntl, FormattedMessage } from 'react-intl'
-import { FormattedHTMLMessage, FormattedDate } from 'react-intl'
-import { timeFormat as date_format } from 'd3-time-format'
-import { format } from 'd3-format'
-import { dateLoc } from '../../src/i18n'
-import { timeFormatDefaultLocale, timeFormatLocale } from 'd3-time-format'
+import { useIntl } from 'react-intl'
+import { FormattedHTMLMessage } from 'react-intl'
 
-import { select, selectAll } from 'd3-selection'
-import { transition } from 'd3-transition'
 import { YYYYmmddCollectionToDate } from '../components/utils.js'
 
 import social_image from '../assets/images/social/social-municipios.png'
@@ -25,11 +18,9 @@ import social_image_en from '../assets/images/social/social-municipios_en.png'
 function Municipios(props) {
   const [data, setdata] = useState(null)
   const [ordered_states, setordered_states] = useState(null)
-  const [max_rate, setmax_rate] = useState(() => null)
   const [crime, setcrime] = useState('hd')
-  const [total, settotal] = useState(null)
 
-  const handleSelect = e => {
+  const handleSelect = (e) => {
     let ordered
     const { value } = e.target
 
@@ -41,10 +32,9 @@ function Municipios(props) {
 
     setcrime(value)
     setordered_states(ordered)
-    setmax_rate(max_rate2)
   }
 
-  const maxRate = data => {
+  const maxRate = (data) => {
     let max_rate2
     if (data.length === 2) {
       max_rate2 = max([
@@ -57,16 +47,16 @@ function Municipios(props) {
     return max_rate2
   }
 
-  const orderStates = data => {
-    const groups = groupBy(data, function(x) {
+  const orderStates = (data) => {
+    const groups = groupBy(data, function (x) {
       return x.name
     })
-    const byrate = map(groups, function(g, key) {
+    const byrate = map(groups, function (g, key) {
       return {
         name: key,
         rate: reduce(
           g,
-          function(m, x) {
+          function (m, x) {
             return x.rate === null ? m : x.rate
           },
           0
@@ -96,25 +86,20 @@ function Municipios(props) {
 
   useEffect(() => {
     fetch('/elcrimen-json/municipios.json')
-      .then(response => response.json())
-      .then(responseJSON => {
+      .then((response) => response.json())
+      .then((responseJSON) => {
         const ordered = orderStates(responseJSON[crime][0])
         const max_rate2 = maxRate(responseJSON[crime])
 
         setdata(responseJSON)
         setordered_states(ordered)
-        setmax_rate(max_rate2)
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
   }, [])
   const intl = useIntl()
-  let l
-  intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
 
-  const round1 = format('.1f')
-  const comma = format(',')
 
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
@@ -180,13 +165,16 @@ function Municipios(props) {
           <div className="columns is-multiline" id="small-multiples">
             {ordered_states
               ? ordered_states.map((state, i) => (
-                  <div className="column column is-3-desktop is-half-tablet" key={i}>
+                  <div
+                    className="column column is-3-desktop is-half-tablet"
+                    key={i}
+                  >
                     <figure className="image is-16by9" key={i}>
                       <div className=" has-ratio" key={i}>
                         <SmallMultiple
                           data={filterCrime(data[crime], state)}
                           key={i}
-                          formatData={data => data}
+                          formatData={(data) => data}
                           y={'rate'}
                           title={state}
                           max_rate={state.max_rate}
@@ -198,7 +186,10 @@ function Municipios(props) {
               : [...Array(50)].map((e, i) => (
                   <div className="column is-3-desktop is-half-tablet" key={i}>
                     <figure className="image is-16by9" key={i}>
-                      <div className="has-background-skeleton has-ratio" key={i}></div>
+                      <div
+                        className="has-background-skeleton has-ratio"
+                        key={i}
+                      ></div>
                     </figure>
                   </div>
                 ))}

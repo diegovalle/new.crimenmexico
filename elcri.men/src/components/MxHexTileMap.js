@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { feature } from 'topojson-client'
 import { scaleQuantize } from '@vx/scale'
 import { schemeYlOrRd } from 'd3-scale-chromatic'
 import { format } from 'd3-format'
-import { useIntl, FormattedMessage } from 'react-intl'
-import { keyBy, find } from 'lodash-es'
+import { useIntl } from 'react-intl'
+import { find } from 'lodash-es'
 
 const mexico = {
   features: [
@@ -104,12 +103,12 @@ function MxHexTileMap(props) {
 
   useEffect(() => {
     fetch('/elcrimen-json/states_hexgrid.json')
-      .then(response => response.json())
-      .then(responseJSON => {
-        let mapColors = mexico.features.map(function(f) {
+      .then((response) => response.json())
+      .then((responseJSON) => {
+        let mapColors = mexico.features.map(function (f) {
           let colors = {}
-          Object.keys(responseJSON).map(function(crime) {
-            let index = responseJSON[crime].findIndex(function(e) {
+          Object.keys(responseJSON).map(function (crime) {
+            let index = responseJSON[crime].findIndex(function (e) {
               return e.state_abbrv === f.properties.state_abbr
             })
 
@@ -127,23 +126,23 @@ function MxHexTileMap(props) {
         setMapData(mapColors)
         setData(responseJSON)
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
   }, [])
 
-  const color = function(data, crime) {
+  const color = function (data, crime) {
     return scaleQuantize({
       domain: [
         Math.min.apply(
           Math,
-          data[crime].map(function(o) {
+          data[crime].map(function (o) {
             return o.rate
           })
         ),
         Math.max.apply(
           Math,
-          data[crime].map(function(o) {
+          data[crime].map(function (o) {
             return o.rate
           })
         ),
@@ -152,63 +151,41 @@ function MxHexTileMap(props) {
     })
   }
 
-  const handleMouseOver = (event, datum) => {
-    const coords = localPoint(event.target.ownerSVGElement, event)
-    props.showTooltip({
-      tooltipLeft: coords.x,
-      tooltipTop: coords.y,
-      tooltipData: datum,
-    })
-  }
-
-  const rectClick = e => {
+  const rectClick = (e) => {
     props.updateState('0')
     setselected_state('0')
   }
 
-  const handleSelect = e => {
+  const handleSelect = (e) => {
     const { value } = e.target
 
     props.updateCrime(value)
     setCrime(value)
   }
 
-  const stateClick = e => {
+  const stateClick = (e) => {
     props.updateState(e.target.attributes.state_code.value)
     setselected_state(e.target.attributes.state.value)
   }
 
-  const [width, setWidth] = useState()
-  const [height, setHeight] = useState()
-
-  const findColor = state_abbr => {
+  const findColor = (state_abbr) => {
     if (mapData) {
-      let c = find(mapData, function(item) {
+      let c = find(mapData, function (item) {
         return item.state_abbr === state_abbr
       })
       return c[crime]
     } else return 'transparent'
   }
 
-  let opacity,
-    strokeWidth = 0
-  const getStrokeWidth = state => {
+  let strokeWidth = 0;
+  const getStrokeWidth = (state) => {
     if (selected_state === state) {
       return (strokeWidth = '4px')
     } else {
       return (strokeWidth = 0)
     }
   }
-  const {
-    tooltipData,
-    tooltipLeft,
-    tooltipTop,
-    tooltipOpen,
-    hideTooltip,
-    setMouseOver,
-  } = props
-
-
+  const { setMouseOver } = props
 
   return (
     <React.Fragment>
@@ -906,14 +883,15 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 3).rate}
+                          : {data[crime].find((o) => o.state_code === 3).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 3).count}
+                          {data[crime].find((o) => o.state_code === 3).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 3).population
+                            data[crime].find((o) => o.state_code === 3)
+                              .population
                           )}{' '}
                         </React.Fragment>
                       ) : null}
@@ -938,14 +916,15 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 2).rate}
+                          : {data[crime].find((o) => o.state_code === 2).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 2).count}
+                          {data[crime].find((o) => o.state_code === 2).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 2).population
+                            data[crime].find((o) => o.state_code === 2)
+                              .population
                           )}{' '}
                         </React.Fragment>
                       ) : null}
@@ -970,14 +949,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 25).rate}
+                          : {data[crime].find((o) => o.state_code === 25).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 25).count}
+                          {data[crime].find((o) => o.state_code === 25).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 25)
+                            data[crime].find((o) => o.state_code === 25)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1003,14 +982,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 26).rate}
+                          : {data[crime].find((o) => o.state_code === 26).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 26).count}
+                          {data[crime].find((o) => o.state_code === 26).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 26)
+                            data[crime].find((o) => o.state_code === 26)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1036,14 +1015,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 18).rate}
+                          : {data[crime].find((o) => o.state_code === 18).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 18).count}
+                          {data[crime].find((o) => o.state_code === 18).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 18)
+                            data[crime].find((o) => o.state_code === 18)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1069,14 +1048,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 10).rate}
+                          : {data[crime].find((o) => o.state_code === 10).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 10).count}
+                          {data[crime].find((o) => o.state_code === 10).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 10)
+                            data[crime].find((o) => o.state_code === 10)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1102,14 +1081,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 12).rate}
+                          : {data[crime].find((o) => o.state_code === 12).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 12).count}
+                          {data[crime].find((o) => o.state_code === 12).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 12)
+                            data[crime].find((o) => o.state_code === 12)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1135,14 +1114,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 16).rate}
+                          : {data[crime].find((o) => o.state_code === 16).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 16).count}
+                          {data[crime].find((o) => o.state_code === 16).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 16)
+                            data[crime].find((o) => o.state_code === 16)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1168,14 +1147,15 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 6).rate}
+                          : {data[crime].find((o) => o.state_code === 6).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 6).count}
+                          {data[crime].find((o) => o.state_code === 6).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 6).population
+                            data[crime].find((o) => o.state_code === 6)
+                              .population
                           )}{' '}
                         </React.Fragment>
                       ) : null}
@@ -1200,14 +1180,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 14).rate}
+                          : {data[crime].find((o) => o.state_code === 14).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 14).count}
+                          {data[crime].find((o) => o.state_code === 14).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 14)
+                            data[crime].find((o) => o.state_code === 14)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1233,14 +1213,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 32).rate}
+                          : {data[crime].find((o) => o.state_code === 32).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 32).count}
+                          {data[crime].find((o) => o.state_code === 32).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 32)
+                            data[crime].find((o) => o.state_code === 32)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1266,14 +1246,15 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 8).rate}
+                          : {data[crime].find((o) => o.state_code === 8).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 8).count}
+                          {data[crime].find((o) => o.state_code === 8).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 8).population
+                            data[crime].find((o) => o.state_code === 8)
+                              .population
                           )}{' '}
                         </React.Fragment>
                       ) : null}
@@ -1298,14 +1279,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 17).rate}
+                          : {data[crime].find((o) => o.state_code === 17).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 17).count}
+                          {data[crime].find((o) => o.state_code === 17).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 17)
+                            data[crime].find((o) => o.state_code === 17)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1331,14 +1312,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 15).rate}
+                          : {data[crime].find((o) => o.state_code === 15).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 15).count}
+                          {data[crime].find((o) => o.state_code === 15).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 15)
+                            data[crime].find((o) => o.state_code === 15)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1364,14 +1345,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 11).rate}
+                          : {data[crime].find((o) => o.state_code === 11).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 11).count}
+                          {data[crime].find((o) => o.state_code === 11).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 11)
+                            data[crime].find((o) => o.state_code === 11)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1397,14 +1378,15 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 1).rate}
+                          : {data[crime].find((o) => o.state_code === 1).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 1).count}
+                          {data[crime].find((o) => o.state_code === 1).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 1).population
+                            data[crime].find((o) => o.state_code === 1)
+                              .population
                           )}{' '}
                         </React.Fragment>
                       ) : null}
@@ -1429,14 +1411,15 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 5).rate}
+                          : {data[crime].find((o) => o.state_code === 5).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 5).count}
+                          {data[crime].find((o) => o.state_code === 5).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 5).population
+                            data[crime].find((o) => o.state_code === 5)
+                              .population
                           )}{' '}
                         </React.Fragment>
                       ) : null}
@@ -1461,14 +1444,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 20).rate}
+                          : {data[crime].find((o) => o.state_code === 20).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 20).count}
+                          {data[crime].find((o) => o.state_code === 20).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 20)
+                            data[crime].find((o) => o.state_code === 20)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1494,14 +1477,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 21).rate}
+                          : {data[crime].find((o) => o.state_code === 21).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 21).count}
+                          {data[crime].find((o) => o.state_code === 21).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 21)
+                            data[crime].find((o) => o.state_code === 21)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1527,14 +1510,15 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 9).rate}
+                          : {data[crime].find((o) => o.state_code === 9).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 9).count}
+                          {data[crime].find((o) => o.state_code === 9).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 9).population
+                            data[crime].find((o) => o.state_code === 9)
+                              .population
                           )}{' '}
                         </React.Fragment>
                       ) : null}
@@ -1559,14 +1543,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 22).rate}
+                          : {data[crime].find((o) => o.state_code === 22).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 22).count}
+                          {data[crime].find((o) => o.state_code === 22).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 22)
+                            data[crime].find((o) => o.state_code === 22)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1592,14 +1576,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 24).rate}
+                          : {data[crime].find((o) => o.state_code === 24).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 24).count}
+                          {data[crime].find((o) => o.state_code === 24).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 24)
+                            data[crime].find((o) => o.state_code === 24)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1625,14 +1609,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 19).rate}
+                          : {data[crime].find((o) => o.state_code === 19).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 19).count}
+                          {data[crime].find((o) => o.state_code === 19).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 19)
+                            data[crime].find((o) => o.state_code === 19)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1658,14 +1642,15 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 7).rate}
+                          : {data[crime].find((o) => o.state_code === 7).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 7).count}
+                          {data[crime].find((o) => o.state_code === 7).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 7).population
+                            data[crime].find((o) => o.state_code === 7)
+                              .population
                           )}{' '}
                         </React.Fragment>
                       ) : null}
@@ -1690,14 +1675,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 29).rate}
+                          : {data[crime].find((o) => o.state_code === 29).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 29).count}
+                          {data[crime].find((o) => o.state_code === 29).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 29)
+                            data[crime].find((o) => o.state_code === 29)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1723,14 +1708,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 13).rate}
+                          : {data[crime].find((o) => o.state_code === 13).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 13).count}
+                          {data[crime].find((o) => o.state_code === 13).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 13)
+                            data[crime].find((o) => o.state_code === 13)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1756,14 +1741,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 30).rate}
+                          : {data[crime].find((o) => o.state_code === 30).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 30).count}
+                          {data[crime].find((o) => o.state_code === 30).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 30)
+                            data[crime].find((o) => o.state_code === 30)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1789,14 +1774,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 28).rate}
+                          : {data[crime].find((o) => o.state_code === 28).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 28).count}
+                          {data[crime].find((o) => o.state_code === 28).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 28)
+                            data[crime].find((o) => o.state_code === 28)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1822,14 +1807,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 27).rate}
+                          : {data[crime].find((o) => o.state_code === 27).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 27).count}
+                          {data[crime].find((o) => o.state_code === 27).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 27)
+                            data[crime].find((o) => o.state_code === 27)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1855,14 +1840,15 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 4).rate}
+                          : {data[crime].find((o) => o.state_code === 4).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 4).count}
+                          {data[crime].find((o) => o.state_code === 4).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 4).population
+                            data[crime].find((o) => o.state_code === 4)
+                              .population
                           )}{' '}
                         </React.Fragment>
                       ) : null}
@@ -1887,14 +1873,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 23).rate}
+                          : {data[crime].find((o) => o.state_code === 23).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 23).count}
+                          {data[crime].find((o) => o.state_code === 23).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 23)
+                            data[crime].find((o) => o.state_code === 23)
                               .population
                           )}{' '}
                         </React.Fragment>
@@ -1920,14 +1906,14 @@ function MxHexTileMap(props) {
                           {intl.formatMessage({
                             id: 'tasa anualizada',
                           })}
-                          : {data[crime].find(o => o.state_code === 31).rate}
+                          : {data[crime].find((o) => o.state_code === 31).rate}
                           {'\n'}
                           {intl.formatMessage({ id: crime })}:{' '}
-                          {data[crime].find(o => o.state_code === 31).count}
+                          {data[crime].find((o) => o.state_code === 31).count}
                           {'\n'}
                           {intl.formatMessage({ id: 'population' })}:{' '}
                           {comma(
-                            data[crime].find(o => o.state_code === 31)
+                            data[crime].find((o) => o.state_code === 31)
                               .population
                           )}{' '}
                         </React.Fragment>

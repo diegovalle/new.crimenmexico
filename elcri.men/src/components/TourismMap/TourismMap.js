@@ -1,15 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {feature} from 'topojson-client';
 import {scalePower, scaleLinear} from '@vx/scale';
-import {schemeRdYlBu} from 'd3-scale-chromatic';
 import {format} from 'd3-format';
 import {Mercator} from '@vx/geo';
 import {ParentSize} from '@vx/responsive';
-import {withTooltip, TooltipWithBounds} from '@vx/tooltip';
+import {TooltipWithBounds} from '@vx/tooltip';
 import {localPoint} from '@vx/event';
 import {Circle} from '@vx/shape';
 import {minBy, maxBy} from 'lodash-es';
-import {useIntl, FormattedMessage} from 'react-intl';
+import {useIntl} from 'react-intl';
 
 import LegendNumber from '../../components/TourismMap/LegendNumber';
 import LegendRate from '../../components/TourismMap/LegendRate';
@@ -17,17 +16,13 @@ import LegendRate from '../../components/TourismMap/LegendRate';
 import topology from '../../assets/json/mexico_estatal.json';
 
 const mexico = feature (topology, topology.objects.mexico_estatal);
-const noDecimal = format ('.0f');
-var round1 = format ('.1f');
 const commaNoDecimal = format (',.0f');
 
 function TourismMap (props) {
   const [data, setdata] = useState (null);
-  const [color, setcolor] = useState (null);
   const [min_count, set_min_count] = useState (null);
   const [max_count, set_max_count] = useState (null);
   const [selected_state, setselected_state] = useState (null);
-  const [radiusScale, setradiusScale] = useState (() => null);
   const [colorScale, setcolorScale] = useState (() => null);
 
   useEffect (() => {
@@ -61,15 +56,6 @@ function TourismMap (props) {
       tooltipTop: coords.y,
       tooltipData: datum,
     });
-  };
-
-  const rectClick = e => {
-    props.updateState ('0');
-    setselected_state ('0');
-  };
-
-  const handleSelect = e => {
-    const {value} = e.target;
   };
 
   let opacity, strokeWidth;
@@ -206,19 +192,6 @@ function TourismMap (props) {
           </ParentSize>
         : <div />}
 
-    </div>
-  );
-}
-
-function LegendDemo({title, children}) {
-  return (
-    <div className="legend">
-      {/* <h5 className="title  is-5">{title}</h5> */}
-      <span className="is-size-6">{title}</span>
-      <div style={{display: 'flex', flexDirection: 'row'}}>
-
-        {children}
-      </div>
     </div>
   );
 }

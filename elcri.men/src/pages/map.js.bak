@@ -239,12 +239,12 @@ class ClusterMap extends React.Component {
             <meta name="description" content={siteDescription} />
           </Helmet>
           <hr />
-          <section class="hero">
-            <div class="hero-body">
-              <div class="container">
+          <section className="hero">
+            <div className="hero-body">
+              <div className="container">
                 <div className="columns is-centered">
                   <div className="column  is-full ">
-                    <h1 class="title">
+                    <h1 className="title">
                       MAPA DE HOMICIDIOS DE MAYO 2019 A OCTUBRE 2019
                     </h1>
 
@@ -256,7 +256,7 @@ class ClusterMap extends React.Component {
           </section>
 
           <div
-            class="container is-fluid"
+            className="container is-fluid"
             style={{paddingLeft: '0', paddingRight: '0'}}
           >
             <div id="map" style={{overflow: 'hidden'}}>

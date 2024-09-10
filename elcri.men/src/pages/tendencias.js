@@ -1,8 +1,6 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 
 import Layout from '../components/layout';
-import TrendChart from '../components/TrendChart';
 import SEO from '../components/SEO';
 import TextColumn from '../components/TextColumn';
 import HeroTitlewithLegend from '../components/HeroTitlewithLegend';

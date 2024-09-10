@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { curveLinear as linear } from 'd3-shape'
-import { format as num_format } from 'd3-format'
-import { timeFormat as date_format } from 'd3-time-format'
 import { timeFormatDefaultLocale } from 'd3-time-format'
-import SmallMultiple from '../components/SmallMultiple'
 import { useIntl, FormattedMessage } from 'react-intl'
 
 import { filter } from 'lodash-es'
@@ -15,12 +11,11 @@ import LazyLoad from 'react-lazyload'
 import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
 import * as echarts from 'echarts/core'
-import { LineChart, ScatterChart } from 'echarts/charts'
+import { LineChart } from 'echarts/charts'
 import {
   GridComponent,
   TooltipComponent,
   TitleComponent,
-  DatasetComponent,
   ToolboxComponent,
 } from 'echarts/components'
 import {
@@ -328,8 +323,8 @@ function CrimeChart(props) {
                 ? '-'
                 : comma(dataFormatted[0][item[1].dataIndex].c)
             return (
-              `${datestr}<br/>${tasa} <span class="inegi-adjusted">INEGI</span>: <b>${rate_inegi}</b> (${num_inegi})` +
-              `<br/>${tasa} <span class="snsp">SNSP</span>: <b>${rate_snsp}</b> (${num_snsp})`
+              `${datestr}<br/>${tasa} <span className="inegi-adjusted">INEGI</span>: <b>${rate_inegi}</b> (${num_inegi})` +
+              `<br/>${tasa} <span className="snsp">SNSP</span>: <b>${rate_snsp}</b> (${num_snsp})`
             )
           } else {
             let date = new Date(item[0].name)

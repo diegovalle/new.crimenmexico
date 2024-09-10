@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import '../assets/scss/style.scss'
-import { Link } from 'gatsby'
 import LLink from '../components/LLink'
-import { useIntl, injectIntl, FormattedMessage } from 'react-intl'
-import NoPrefetchLink from '../components/NoPrefetchLink'
+import { useIntl} from 'react-intl'
 
 import Language from '../components/Language'
 

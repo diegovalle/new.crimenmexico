@@ -1,7 +1,6 @@
 import React from 'react'
 import { curveLinear as linear } from 'd3-shape'
 import { format } from 'd3-format'
-import { timeFormat as date_format } from 'd3-time-format'
 import { timeFormatDefaultLocale } from 'd3-time-format'
 import LazyLoad from 'react-lazyload'
 
@@ -19,7 +18,6 @@ import {
   GridComponent,
   TooltipComponent,
   TitleComponent,
-  DatasetComponent,
   ToolboxComponent,
 } from 'echarts/components'
 import {
@@ -116,9 +114,9 @@ function SmallMultiple(props) {
               : comma(d[0][item[1].dataIndex].count)
           return (
             `${datestr}<br/>` +
-            `<b><span class="inegi-adjusted">INEGI</span></b>: ${rate_inegi}` +
+            `<b><span className="inegi-adjusted">INEGI</span></b>: ${rate_inegi}` +
             (num_inegi === '-' ? '-<br/>' : `: (${num_inegi})<br/>`) +
-            `<b><span class="snsp">SNSP</span></b>: ${rate_snsp}: (${num_snsp})<br/>`
+            `<b><span className="snsp">SNSP</span></b>: ${rate_snsp}: (${num_snsp})<br/>`
           )
         } else {
           // array (just SNSP)
@@ -128,7 +126,7 @@ function SmallMultiple(props) {
               : comma(d[0][item[0].dataIndex].count)
           return (
             `${datestr}<br/>` +
-            `<b><span class="snsp">SNSP</span></b>: ${rate_snsp}: (${num_snsp})<br/>`
+            `<b><span className="snsp">SNSP</span></b>: ${rate_snsp}: (${num_snsp})<br/>`
           )
         }
       },

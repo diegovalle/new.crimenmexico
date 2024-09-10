@@ -5,33 +5,17 @@ import Layout from '../components/layout'
 import SmallMultiple from '../components/SmallMultiple'
 import HeroTitle from '../components/HeroTitle'
 import SEO from '../components/SEO'
-import AdSense from 'react-adsense'
+// import AdSense from 'react-adsense'
 import TextColumn from '../components/TextColumn'
-import { useIntl, injectIntl, FormattedMessage } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { FormattedHTMLMessage, FormattedDate } from 'react-intl'
 import useLastMonth from '../components/LastMonth'
+import { groupBy, map, reduce, sortBy, filter, mapValues } from 'lodash-es'
 import {
-  groupBy,
-  map,
-  reduce,
-  sortBy,
-  filter,
-  max,
-  maxBy,
-  mapValues,
-  size,
-} from 'lodash-es'
-import { YYYYmmddCollectionToDate, YYYYmmddToDate15 } from '../components/utils.js'
+  YYYYmmddCollectionToDate,
+  YYYYmmddToDate15,
+} from '../components/utils.js'
 
-import { select, selectAll } from 'd3-selection'
-import { transition } from 'd3-transition'
-
-import { format } from 'd3-format'
-import { dateLoc } from '../../src/i18n'
-import { timeFormatDefaultLocale, timeFormatLocale } from 'd3-time-format'
-import { timeFormat as date_format } from 'd3-time-format'
-
-import { graphql } from 'gatsby'
 import MxAnomalyMapTooltip from '../components/MxAnomalyMapTooltip'
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
@@ -41,52 +25,17 @@ import social_image_en from '../assets/images/social/social-anomalias_en.png'
 
 function Anomalies(props) {
   const [data, setdata] = useState(null)
-  const [ordered_states, setordered_states] = useState(null)
-  const [max_rate, setmax_rate] = useState(null)
-  const [crime, setcrime] = useState('hom')
-  const [total, settotal] = useState(null)
 
-  const round1 = format('.1f')
-  const comma = format(',')
-
-  const handleSelect = e => {
-    let ordered
-    const { value } = e.target
-
-    if (data[value].length === 2) {
-      ordered = orderStates(data[value][0])
-    } else ordered = orderStates(data[value])
-
-    const max_rate2 = maxRate(data[value])
-
-    setcrime(value)
-    setordered_states(ordered)
-    setmax_rate(max_rate2)
-  }
-
-  const maxRate = data => {
-    let max_rate
-    if (data.length === 2) {
-      max_rate = max([
-        maxBy(data[0], 'rate')['rate'],
-        maxBy(data[1], 'rate')['rate'],
-      ])
-    } else {
-      max_rate = maxBy(data, 'rate')['rate']
-    }
-    return max_rate
-  }
-
-  const orderStates = data => {
-    const groups = groupBy(data, function(x) {
+  const orderStates = (data) => {
+    const groups = groupBy(data, function (x) {
       return x.name
     })
-    const byrate = map(groups, function(g, key) {
+    const byrate = map(groups, function (g, key) {
       return {
         name: key,
         rate: reduce(
           g,
-          function(m, x) {
+          function (m, x) {
             return x.rate === null ? m : x.rate
           },
           0
@@ -115,47 +64,42 @@ function Anomalies(props) {
 
   useEffect(() => {
     fetch('/elcrimen-json/anomalies.json')
-      .then(response => response.json())
-      .then(responseJSON => {
-        responseJSON = mapValues(responseJSON, function(x) {
-          return filter(x, function(o) {
+      .then((response) => response.json())
+      .then((responseJSON) => {
+        responseJSON = mapValues(responseJSON, function (x) {
+          return filter(x, function (o) {
             return typeof o.rate !== 'undefined'
           })
         })
         setdata(responseJSON)
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
   }, [])
 
-  const formatCrime = crime => {
+  const formatCrime = (crime) => {
     switch (crime) {
       case 'hom':
         return intl.formatMessage({ id: 'Homicidio Intencional' })
-        break
       case 'rvcv':
         return intl.formatMessage({ id: 'Robo de Coche c/v' })
-        break
       case 'rvsv':
         return intl.formatMessage({ id: 'Robo de Coche s/v' })
-        break
       case 'ext':
         return intl.formatMessage({ id: 'Extorsión' })
-        break
       case 'reos':
         return intl.formatMessage({ id: 'Fuga de Reos' })
-        break
       case 'lesions':
         return intl.formatMessage({ id: 'Lesiones' })
-        break
       case 'kidnapping':
         return intl.formatMessage({ id: 'Secuestro' })
+      default:
         break
     }
   }
 
-  const tab = data => {
+  const tab = (data) => {
     return map(data, (muns, crime) => {
       if (muns.length) {
         return <Tab key={crime}>{formatCrime(crime)}</Tab>
@@ -163,7 +107,7 @@ function Anomalies(props) {
     })
   }
 
-  const tabPanel = data => {
+  const tabPanel = (data) => {
     return map(data, (muns, crime) => {
       if (muns.length) {
         return (
@@ -185,7 +129,7 @@ function Anomalies(props) {
                           <SmallMultiple
                             data={filterCrime(data[crime], mun)}
                             key={i}
-                            formatData={data => [data]}
+                            formatData={(data) => [data]}
                             y={'rate'}
                             title={mun}
                           />
@@ -210,23 +154,12 @@ function Anomalies(props) {
     })
   }
   const intl = useIntl()
-  intl.locale === 'es' ? timeFormatDefaultLocale(dateLoc.es_MX) : null
+  //intl.locale === 'es' ? timeFormatDefaultLocale(dateLoc.es_MX) : null
   const last_date = useLastMonth()
 
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
-      <Helmet
-        link={[
-          {
-            rel: 'preload',
-            href:
-              '/static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2',
-            as: 'font',
-            type: 'font/woff2',
-            crossorigin: 'anonymous',
-          },
-        ]}
-      />
+      <Helmet />
       <SEO
         title={intl.formatMessage({ id: 'title_anomalies' })}
         description={intl.formatMessage({ id: 'desc_anomalies' })}
@@ -239,13 +172,15 @@ function Anomalies(props) {
       <div className="container is-fullhd">
         <HeroTitle>
           {intl.formatMessage({
-            id:
-              'All municipios with a crime rate spike or a sharp decrease during',
+            id: 'All municipios with a crime rate spike or a sharp decrease during',
           })}{' '}
           {props.pageContext.locale === 'es'
             ? last_date.month_long_es
             : last_date.month_long_en}{' '}
-          <FormattedDate value={YYYYmmddToDate15(last_date.iso_mid)} year="numeric" />
+          <FormattedDate
+            value={YYYYmmddToDate15(last_date.iso_mid)}
+            year="numeric"
+          />
         </HeroTitle>
 
         {/* <AdSense.Google
@@ -260,7 +195,6 @@ function Anomalies(props) {
           {data ? (
             <Tabs defaultIndex={0}>
               <TabList>{tab(data)}</TabList>
-
               {tabPanel(data)}
             </Tabs>
           ) : (
@@ -272,8 +206,8 @@ function Anomalies(props) {
                   intl.formatMessage({ id: 'Robo de Coche s/v' }),
                   intl.formatMessage({ id: 'Lesiones' }),
                   intl.formatMessage({ id: 'Extorsión' }),
-                ].map(item => (
-                  <Tab>
+                ].map((item, i) => (
+                  <Tab key={i}>
                     <span
                       className="has-background-skeleton"
                       style={{ color: 'transparent' }}
@@ -307,6 +241,10 @@ function Anomalies(props) {
                   </div>
                 </div>
               </TabPanel>
+              <TabPanel key="tab2"></TabPanel>
+              <TabPanel key="tab3"></TabPanel>
+              <TabPanel key="tab4"></TabPanel>
+              <TabPanel key="tab5"></TabPanel>
             </Tabs>
           )}
         </section>

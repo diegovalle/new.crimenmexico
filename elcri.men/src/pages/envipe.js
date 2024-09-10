@@ -1,13 +1,10 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 
-import { curveLinear as linear } from 'd3-shape'
 import { format as num_format } from 'd3-format'
 import Layout from '../components/layout'
-import SmallMultiple from '../components/SmallMultiple'
 import HeroTitlewithLegend from '../components/HeroTitlewithLegend'
 import LegendLine from '../components/LegendLine'
-import { flatten, maxBy } from 'lodash-es'
 import SEO from '../components/SEO'
 import TextColumn from '../components/TextColumn'
 import { useIntl, FormattedHTMLMessage } from 'react-intl'
@@ -20,16 +17,12 @@ import {
   GridComponent,
   TooltipComponent,
   TitleComponent,
-  DatasetComponent,
   ToolboxComponent,
 } from 'echarts/components'
 import {
   CanvasRenderer,
   // SVGRenderer,
 } from 'echarts/renderers'
-
-import { select, selectAll } from 'd3-selection'
-import { transition } from 'd3-transition'
 
 import social_image from '../assets/images/social/social-envipe.png'
 import social_image_en from '../assets/images/social/social-envipe_en.png'
@@ -287,16 +280,16 @@ function Envipe(props) {
         },
         formatter: function(item) {
           return `${item[0].name}<br/>` +
-            `<b><span class="envipe">ENVIPE</span></b>: ${comma(
+            `<b><span className="envipe">ENVIPE</span></b>: ${comma(
               item[0].value
             )}<br/>` +
-            `<b><span class="snsp">SNSP</span></b>: ${comma(
+            `<b><span className="snsp">SNSP</span></b>: ${comma(
               item[3].value
             )}<br/>` +
             (typeof item[4] ===
             'undefined'
             ? ''
-            : `<b><span class="amis">AMIS</span></b>: ${comma(item[4].value)}`)
+            : `<b><span className="amis">AMIS</span></b>: ${comma(item[4].value)}`)
         },
       },
       grid: {
@@ -428,16 +421,6 @@ function Envipe(props) {
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
       <Helmet
-        link={[
-          {
-            rel: 'preload',
-            href:
-              '/static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2',
-            as: 'font',
-            type: 'font/woff2',
-            crossorigin: 'anonymous',
-          },
-        ]}
       />
       <SEO
         title={intl.formatMessage({ id: 'title_envipe' })}

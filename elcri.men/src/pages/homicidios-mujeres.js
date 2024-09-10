@@ -8,16 +8,11 @@ import LegendLine from '../components/LegendLine'
 import { groupBy, map, reduce, sortBy, filter, max, maxBy } from 'lodash-es'
 
 import SEO from '../components/SEO'
-import { useIntl, injectIntl, FormattedMessage } from 'react-intl'
-import { FormattedHTMLMessage, FormattedDate } from 'react-intl'
-import { timeFormat as date_format } from 'd3-time-format'
-import { format } from 'd3-format'
+import { useIntl } from 'react-intl'
+import { FormattedHTMLMessage } from 'react-intl'
 import { dateLoc } from '../../src/i18n'
 import { timeFormatDefaultLocale } from 'd3-time-format'
 import { YYYYmmddCollectionToDate } from '../components/utils.js'
-
-import { select, selectAll } from 'd3-selection'
-import { transition } from 'd3-transition'
 
 import social_image from '../assets/images/social/social-homicidios-mujeres.png'
 import social_image_en from '../assets/images/social/social-homicidios-mujeres_en.png'
@@ -26,13 +21,10 @@ function HomicidiosMujeres(props) {
   const [data, setdata] = useState(null)
   const [ordered_states, setordered_states] = useState(null)
   const [max_rate, setmax_rate] = useState(null)
-  const [crime, setcrime] = useState('hd')
+  const [crime] = useState('hd')
   const [total, settotal] = useState(null)
 
-  const round1 = format('.1f')
-  const comma = format(',')
-
-  const maxRate = data => {
+  const maxRate = (data) => {
     let max_rate
     if (data.length === 2) {
       max_rate = max([
@@ -45,16 +37,16 @@ function HomicidiosMujeres(props) {
     return max_rate
   }
 
-  const orderStates = data => {
-    const groups = groupBy(data, function(x) {
+  const orderStates = (data) => {
+    const groups = groupBy(data, function (x) {
       return x.name
     })
-    const byrate = map(groups, function(g, key) {
+    const byrate = map(groups, function (g, key) {
       return {
         name: key,
         rate: reduce(
           g,
-          function(m, x) {
+          function (m, x) {
             return x.rate === null ? m : x.rate
           },
           0
@@ -83,46 +75,35 @@ function HomicidiosMujeres(props) {
 
   useEffect(() => {
     fetch('/elcrimen-json/states_females_sm.json')
-      .then(response => response.json())
-      .then(responseJSON => {
+      .then((response) => response.json())
+      .then((responseJSON) => {
         const ordered = orderStates(responseJSON[crime][0])
         const max_rate2 = maxRate(responseJSON[crime])
         setdata(responseJSON)
         setordered_states(ordered)
         setmax_rate(max_rate2)
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
     fetch('/elcrimen-json/states_females_total.json')
-      .then(response => response.json())
-      .then(responseJSON => {
+      .then((response) => response.json())
+      .then((responseJSON) => {
         responseJSON[0] = YYYYmmddCollectionToDate(responseJSON[0], 'date')
         responseJSON[1] = YYYYmmddCollectionToDate(responseJSON[1], 'date')
         settotal(responseJSON)
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
   }, [])
   const intl = useIntl()
-  let l
-  intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
+  //let l
+  //intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
 
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
-      <Helmet
-        link={[
-          {
-            rel: 'preload',
-            href:
-              '/static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2',
-            as: 'font',
-            type: 'font/woff2',
-            crossorigin: 'anonymous',
-          },
-        ]}
-      />
+      <Helmet />
       <SEO
         title={intl.formatMessage({ id: 'title_hom_mujeres' })}
         description={intl.formatMessage({ id: 'desc_hom_mujeres' })}
@@ -157,7 +138,7 @@ function HomicidiosMujeres(props) {
                     <SmallMultiple
                       data={total}
                       key={'national'}
-                      formatData={data => data}
+                      formatData={(data) => data}
                       y={'rate'}
                       title={intl.formatMessage({
                         id: 'nacional',
@@ -182,7 +163,7 @@ function HomicidiosMujeres(props) {
                         <SmallMultiple
                           data={filterCrime(data[crime], state)}
                           key={i}
-                          formatData={data => data}
+                          formatData={(data) => data}
                           y={'rate'}
                           title={state}
                           max_rate={max_rate}

@@ -1,7 +1,7 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
-import { routes, routes_inverted } from '../../src/i18n'
+import { routes } from '../../src/i18n'
 
 const SEO = props => {
   const data = useStaticQuery(graphql`
@@ -124,10 +124,15 @@ const SEO = props => {
       />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:width" content="1200" />
-
+      <link
+        rel="canonical"
+        href={`${defaults.siteUrl}${props.path}${
+          props.lang === "en" && props.path !== "/" ? "/" : ""
+        }`.replace(/\/\/$/, "/")}
+      />
       <link
         rel="alternate"
-        hreflang={props.lang === 'es' ? 'en' : 'es'}
+        hrefLang={props.lang === 'es' ? 'en' : 'es'}
         href={
           defaults.siteUrl.replace(/\/$/, '') +
           (props.lang === 'es'

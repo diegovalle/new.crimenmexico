@@ -154,7 +154,7 @@
   "Infographic of crime in Mexico": "Infographic of crime in Mexico",
   "infograph_alt": "{date} Infographic of Crime in Mexico",
   "NOT FOUND": "404 Error - Page not Found",
-  "You just hit a route that doesn't exist... the sadness.": "You just hit a route that doesn't exist... maybe if you were to visit the TAPO",
+  "You just hit a route that doesn't exist... the sadness.": "You just hit a route that doesn't exist...",
   "map_count": "count",
   "trends_text": "Homicide counts as measured by the old methodology were used for Oaxaca during 2015 and 2016 as the state did not submit homicide information",
   "privacy_policy": "Privacy Policy",
@@ -212,7 +212,7 @@
   "crime_rate": "The Mexico crime rate was 27.4%, according to the National Crime Victimization Survey (ENVIPE). This percentage represents households where at least one member was the victim of a crime.",
   "crime-rate": "Crime rate",
   "% households": "% households",
-  "percentage": "percentage",
+  "percentage of households": "percentage of households",
   "crime-rate-title": "Mexico Crime Rate",
   "title_hogar": "Percentage of households where at least one member was the victim of crime",
   "title_100k": "Crime rate per 100,000",
@@ -223,5 +223,8 @@
   "title_crimen_tasa": "Crime Rate in Mexico - El Crimen",
   "desc_crimen_tasas": "Mexico Crime rate according to the National Crime Victimization Survey (ENVIPE)",
   "tasa por 100,000": "rate per 100,000",
-  "in": "in"
+  "in": "in",
+  "# personas": "rate per 100,000",
+  "homicide_hist": "Histogram of Homicides",
+  "tasa de homicidios seleccionada": "selected homicide homicide rate"
 }

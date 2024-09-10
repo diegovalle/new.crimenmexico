@@ -4,11 +4,10 @@ import ReactDOM from 'react-dom'
 import { curveLinear as linear } from 'd3-shape'
 import { format } from 'd3-format'
 import { timeFormatDefaultLocale } from 'd3-time-format'
-import { timeFormat as date_format } from 'd3-time-format'
 import { merge } from 'lodash-es'
 
-import { FormattedHTMLMessage, FormattedDate } from 'react-intl'
-import { useIntl, injectIntl, FormattedMessage } from 'react-intl'
+import { FormattedHTMLMessage } from 'react-intl'
+import { useIntl } from 'react-intl'
 
 import './IndexTable/index_table_en.css'
 import './IndexTable/index_table_es.css'
@@ -16,12 +15,11 @@ import './IndexTable/index_table_es.css'
 import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
 import * as echarts from 'echarts/core'
-import { LineChart, ScatterChart } from 'echarts/charts'
+import { LineChart } from 'echarts/charts'
 import {
   GridComponent,
   TooltipComponent,
   TitleComponent,
-  DatasetComponent,
   ToolboxComponent,
 } from 'echarts/components'
 import {
@@ -268,8 +266,8 @@ function HistoricalChart(props) {
         let snsp_rate =
           typeof item[0].value === 'undefined' ? '-' : round1(item[0].value)
         return (
-          `${datestr}<br/>${tasa} <span class="inegi">INEGI</span>: <b>${inegi_rate}</b> ` +
-          `<br/>${tasa} <span class="snsp">SNSP</span>: <b>${snsp_rate}</b>`
+          `${datestr}<br/>${tasa} <span className="inegi">INEGI</span>: <b>${inegi_rate}</b> ` +
+          `<br/>${tasa} <span className="snsp">SNSP</span>: <b>${snsp_rate}</b>`
         )
       },
     },

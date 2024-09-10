@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { curveLinear as linear } from 'd3-shape'
 import { format as num_format } from 'd3-format'
 import {
   timeFormat as date_format,
-  timeFormatDefaultLocale,
 } from 'd3-time-format'
 
 import {
@@ -17,22 +15,28 @@ import '../assets/css/trends.css'
 import './TendenciaNacional/tendencia_es.css'
 import './TendenciaNacional/tendencia_en.css'
 import { useIntl } from 'react-intl'
-import { dateLoc } from '../../src/i18n'
 
 import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
 import * as echarts from 'echarts/core'
-import { LineChart, ScatterChart } from 'echarts/charts'
+import { LineChart } from 'echarts/charts'
 import {
   GridComponent,
   TooltipComponent,
   TitleComponent,
-  DatasetComponent,
 } from 'echarts/components'
 import {
   CanvasRenderer,
   // SVGRenderer,
 } from 'echarts/renderers'
+
+echarts.use([
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  LineChart,
+  CanvasRenderer,
+])
 
 function TendenciaNacional(props) {
   const [data, setData] = useState(null)
@@ -96,10 +100,8 @@ function TendenciaNacional(props) {
     return a
   }
   const intl = useIntl()
-  let l
   const comma = num_format(',.0f')
   const round1 = num_format('.1f')
-  intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
   // intl.locale === 'es'
   //   ? require('./TendenciaNacional/tendencia_es.css')
   //   : require('./TendenciaNacional/tendencia_en.css')
@@ -156,7 +158,7 @@ function TendenciaNacional(props) {
       left: '45',
       right: '2%',
       bottom: '15%',
-      top: '25%',
+      top: '10%',
       containLabel: false,
     },
     xAxis: {
@@ -255,7 +257,7 @@ function TendenciaNacional(props) {
   return (
     <div className="columns">
       <div className="column is-full">
-        <figure className="image is-5by3">
+        <figure className="image is-3by1">
           {data ? (
             <div className=" has-ratio" id="tendencias">
               <ReactEChartsCore

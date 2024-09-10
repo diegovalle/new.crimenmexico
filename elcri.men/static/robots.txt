@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://elcri.men/sitemap/sitemap-index.xml
+Host: https://elcri.men

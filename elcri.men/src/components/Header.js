@@ -1,6 +1,5 @@
 import React from 'react'
 
-import Footer from './Footer'
 import usflag from '../assets/images/us.png'
 
 class Header extends React.Component {

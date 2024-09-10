@@ -35,30 +35,42 @@
 //     })
 // }
 //const locales = require ('./src/constants/locales');
-const {locales, routes} = require ('./src/i18n');
-const files = require('./src/data/infographics_filenames.json');
+const { locales, routes } = require('./src/i18n')
+const files = require('./src/data/infographics_filenames.json')
 
-exports.onCreatePage = ({page, actions}) => {
-  const {createPage, deletePage} = actions;
+exports.onCreatePage = ({ page, actions }) => {
+  const { createPage, deletePage } = actions
 
-  return new Promise (resolve => {
-    deletePage (page);
+  return new Promise((resolve) => {
+    let localizedPath
 
-    Object.keys (locales).map (lang => {
-      const localizedPath = locales[lang].default
-        ? page.path
-        : locales[lang].path + routes.routes[page.path];
-      return createPage ({
+    deletePage(page)
+    if (!page.path.match(/^\/404\/$/) || !page.path.startsWith('/es/')) {
+      if (locales[page.context.language]?.default) {
+        localizedPath = page.path
+      } else {
+        if (routes.routes.hasOwnProperty(page.context.intl.originalPath)) {
+          localizedPath = '/en' + routes.routes[page.context.intl.originalPath]
+        } else {
+          throw new Error('Bad localized Path')
+        }
+      }
+
+      createPage({
         ...page,
         path: localizedPath,
         context: {
-          locale: lang,
-          fname_infographic: lang == "es" ? files.ies[0] : files.ien[0],
-          fname_mun: lang == "es" ? files.mes[0] : files.men[0],
+          ...page.context,
+          locale: page.context.language,
+          fname_infographic:
+            page.context.language === 'es' ? files.ies[0] : files.ien[0],
+          fname_mun:
+            page.context.language === 'es' ? files.mes[0] : files.men[0],
         },
-      });
-    });
+      })
+    }
+    //});
 
-    resolve ();
-  });
-};
+    resolve()
+  })
+}

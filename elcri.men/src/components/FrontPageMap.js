@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
 
-import MxHexTileMap from '../components/MxHexTileMap';
 import CrimeChart from '../components/CrimeCharts';
 import MxHexTileMapTooltip from '../components/MxHexTileMapTooltip';
 import {useIntl, FormattedHTMLMessage} from 'react-intl';
 
 function FrontPageMap (props) {
-  const intl = useIntl ();
   const [selected_state, setselected_state] = useState ('0');
   const [selected_crime, setselected_crime] = useState ('hd');
   const [mouseOver, setMouseOver] = useState(false)

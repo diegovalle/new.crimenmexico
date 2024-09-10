@@ -1,46 +1,27 @@
-import React from 'react';
-import Helmet from 'react-helmet';
+import React from 'react'
+import Helmet from 'react-helmet'
 
-import Layout from '../components/layout';
-import TrendChart from '../components/TrendChart';
-import SEO from '../components/SEO';
-import {
-  useIntl,
-  injectIntl,
-  FormattedMessage,
-  FormattedHTMLMessage,
-} from 'react-intl';
-import {timeFormatDefaultLocale, timeFormatLocale} from 'd3-time-format';
+import Layout from '../components/layout'
+import TrendChart from '../components/TrendChart'
+import SEO from '../components/SEO'
+import { useIntl, FormattedHTMLMessage } from 'react-intl'
+import { timeFormatDefaultLocale } from 'd3-time-format'
 
-import {dateLoc} from '../../src/i18n';
-import social_image from '../assets/images/social/social-trends-states.png';
-import social_image_en
-  from '../assets/images/social/social-trends-states_en.png';
+import { dateLoc } from '../../src/i18n'
+import social_image from '../assets/images/social/social-trends-states.png'
+import social_image_en from '../assets/images/social/social-trends-states_en.png'
 
-function TrendsDeriv (props) {
-  const siteTitle = 'Gatsby Starter - Strata';
-  const siteDescription = 'Site description';
-
-  const intl = useIntl ();
-  let l;
-  intl.locale === 'es' ? (l = timeFormatDefaultLocale (dateLoc.es_MX)) : null;
+function TrendsDeriv(props) {
+  const intl = useIntl()
+  //let l
+  //intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
 
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
-      <Helmet
-        link={[
-          {
-            rel: 'preload',
-            href:
-              'https://trends.elcri.men/states_trends.json',
-            as: 'fetch',
-            crossorigin: 'anonymous',
-          },
-        ]}
-      />
+      <Helmet />
       <SEO
-        title={intl.formatMessage ({id: 'title_trends_states'})}
-        description={intl.formatMessage ({id: 'desc_trends_states'})}
+        title={intl.formatMessage({ id: 'title_trends_states' })}
+        description={intl.formatMessage({ id: 'desc_trends_states' })}
         socialImage={
           props.pageContext.locale === 'es' ? social_image : social_image_en
         }
@@ -50,21 +31,20 @@ function TrendsDeriv (props) {
 
       <div className="container is-fullhd" id="trends">
         <article id="content">
-
           <TrendChart />
 
           <br />
           <br />
           <br />
-          <p style={{lineHeight: '1.2rem'}}>
+          <p style={{ lineHeight: '1.2rem' }}>
             <FormattedHTMLMessage id="trend_text" />
           </p>
-          <p style={{textAlign: 'left'}} />
+          <p style={{ textAlign: 'left' }} />
           <br />
         </article>
       </div>
     </Layout>
-  );
+  )
 }
 
-export default TrendsDeriv;
+export default TrendsDeriv

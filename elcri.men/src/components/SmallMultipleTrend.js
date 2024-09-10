@@ -12,7 +12,6 @@ import {
   GridComponent,
   TooltipComponent,
   TitleComponent,
-  DatasetComponent,
 } from 'echarts/components'
 import {
   CanvasRenderer,
@@ -32,16 +31,11 @@ echarts.use([
 
 function SmallMultipleTrend(props) {
   const {
-    min_y = 0,
-    col_class = 'col-3',
     height = 170,
-    backgroundClass = 'line-chart-brown',
     ...restProps
   } = props
 
   const intl = useIntl()
-  let l
-  intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
   let data = props.formatData(props.data)
 
   let chartOption = {

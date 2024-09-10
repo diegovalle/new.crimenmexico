@@ -154,7 +154,7 @@
   "Infographic of crime in Mexico": "Infográfica del Crimen en México",
   "infograph_alt": "Infográfica del Crimen en México - {date}",
   "NOT FOUND": "Error 404 - Página No Encontrada",
-  "You just hit a route that doesn't exist... the sadness.": "Lo sentimos, la página que solicitaste no se encuentra en el servidor, a la mejor si te vas a la TAPO...",
+  "You just hit a route that doesn't exist... the sadness.": "Lo sentimos, la página que solicitaste no se encuentra en el servidor...",
   "map_count": "homicidios",
   "num": "num",
   "trends_text": "Como Oaxaca no remitió información durante varios meses del 2015 y 2016 se substituyeron los datos de la vieja metodología",
@@ -213,7 +213,7 @@
   "crime_rate": " ",
   "crime-rate": "Tasas de crimen",
   "% households": "% hogares",
-  "percentage": "porcentaje",
+  "percentage of households": "porcentaje de hogares",
   "crime-rate-title": "Tasas de Crimen en México",
   "title_hogar": "Tasa de Crimen por Hogar",
   "title_100k": "Tasa de Crimen por 100,000 habitantes",
@@ -221,8 +221,11 @@
   "What is the crime rate in Mexico": "¿Cuál es el índice de criminalidad en México?",
   "per": "por",
   "The crime rate in Mexico is": "La tasa de criminalidad en México fue de",
-  "title_crimen_tasa":"Tasas de Criminalidad en México",
-  "desc_crimen_tasas":"Índice de criminalidad en México según la Encuesta Nacional de Victimización y Percepción del Delito (ENVIPE)",
-  "tasa por 100,000":"tasa por 100,000",
-  "in": "en el"
+  "title_crimen_tasa": "Tasas de Criminalidad en México",
+  "desc_crimen_tasas": "Índice de criminalidad en México según la Encuesta Nacional de Victimización y Percepción del Delito (ENVIPE)",
+  "tasa por 100,000": "tasa por 100,000",
+  "in": "en el",
+  "# personas": "tasa por 100,000",
+  "homicide_hist": "Histograma de Homicidios",
+  "tasa de homicidios seleccionada": "tasa de homicidios seleccionada"
 }

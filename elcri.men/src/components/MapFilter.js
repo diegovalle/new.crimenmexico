@@ -1,5 +1,5 @@
 /* global window */
-import React, {PureComponent} from 'react';
+import React from 'react';
 import {BaseControl} from 'react-map-gl';
 import OrdinalFrame from 'semiotic/lib/OrdinalFrame';
 import {maxBy} from 'lodash-es';

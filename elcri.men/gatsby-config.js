@@ -1,5 +1,4 @@
-SITENAME = 'https://elcri.men/'
-SITENAME_NO_SLASH = 'https://elcri.men'
+let SITENAME = 'https://elcri.men/'
 
 module.exports = {
   siteMetadata: {
@@ -13,24 +12,43 @@ module.exports = {
     preliminaryINEGI: true,
     monthsPreliminaryINEGI: 12,
   },
+  flags: {
+    DEV_SSR: false,
+  },
   plugins: [
     {
-      resolve: `gatsby-plugin-react-helmet-canonical-urls`,
+      resolve: `gatsby-plugin-sharp`,
       options: {
-        siteUrl: `${SITENAME_NO_SLASH}`,
+        defaults: {
+          formats: [`webp`],
+          quality: 80,
+        },
       },
     },
+    'gatsby-plugin-image',
+    `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-netlify`,
       options: {
         headers: {
-          // '/': [
-          //   'Link: </elcrimen-json/states_hexgrid.json>; rel=preload; as=fetch; crossorigin',
-          // ],
           '/elcrimen-json/*': [
             'cache-control: public',
             'cache-control: max-age=0',
             'cache-control: must-revalidate',
+          ],
+          '/': [
+            'Link: <https://elcri.men/elcrimen-json/states_hexgrid.json>; rel=preload; as=fetch; crossorigin',
+            'Link: <https://elcri.men/elcrimen-json/states_national.json>; rel=preload; as=fetch; crossorigin',
+          ],
+          '/en/': [
+            'Link: <https://elcri.men/elcrimen-json/states_hexgrid.json>; rel=preload; as=fetch; crossorigin',
+            'Link: <https://elcri.men/elcrimen-json/states_national.json>; rel=preload; as=fetch; crossorigin',
+          ],
+          '/mapa-de-delincuencia//': [
+            'Link: <https://elcri.men/elcrimen-json/municipios-centroids.json>; rel=preload; as=fetch; crossorigin',
+          ],
+          '/en/violence-map/': [
+            'Link: <https://elcri.men/elcrimen-json/municipios-centroids.json>; rel=preload; as=fetch; crossorigin',
           ],
           '/*': [
             'Strict-Transport-Security: max-age=31536000',
@@ -65,69 +83,28 @@ module.exports = {
           '/en/trends-states/': [
             'Link: <https://trends.elcri.men/states_trends.json>; rel=preload; as=fetch; crossorigin',
           ],
-        }, // option to add more headers. `Link` headers are transformed by the below criteria
+        },
       },
     },
     {
-      resolve: `gatsby-plugin-sitemap`,
+      resolve: `gatsby-plugin-purgecss`,
       options: {
-        // Exclude specific pages or groups of pages using glob parameters
-        // See: https://github.com/isaacs/minimatch
-        // The example below will exclude the single `path/to/page` and all routes beginning with `category`
-        exclude: ['/category/*', `/en`],
-        query: `
-        {
-          site {
-            siteMetadata {
-              siteUrl
-            }
-          }
-
-          allSitePage {
-            edges {
-              node {
-                path
-              }
-            }
-          }
-      }`,
-        serialize: ({ site, allSitePage }) =>
-          allSitePage.edges.map(edge => {
-            return {
-              url: site.siteMetadata.siteUrl + edge.node.path,
-              changefreq: `monthly`,
-              priority: 0.7,
-            }
-          }),
+        //printRejected: true, // Print removed selectors and processed file names
+        whitelistPatterns: [
+          /.*mg-.*/,
+          /metricsGraphicsCon/,
+          /metrics.*/,
+          /inegi/,
+        ],
+        //ignore: ['metricsgraphics.css', 'react-tabs.css'],
+        purgeOnly: [
+          'scss/style.scss',
+          '_datepicker.css',
+          'top50.css',
+          'mapbox-gl.css',
+        ],
       },
     },
-    `gatsby-plugin-layout`,
-    //`gatsby-plugin-preload-fonts`,
-    // {
-    //   resolve: 'gatsby-plugin-webpack-bundle-analyzer',
-    //   options: {
-    //     production: true,
-    //     analyzerPort: "9001",
-    //   },
-    // },
-    // {
-    //   resolve: "gatsby-plugin-guess-js",
-    //   options: {
-    //     // Find the view id in the GA admin in a section labeled "views"
-    //     GAViewID: ``,
-    //     // Add a JWT to get data from GA
-    //     jwt: {
-    //       client_email: `GOOGLE_SERVICE_ACCOUNT_EMAIL`,
-    //       private_key: `GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY`,
-    //     },
-    //     minimumThreshold: 0.03,
-    //     // The "period" for fetching analytic data.
-    //     period: {
-    //       startDate: new Date("2018-1-1"),
-    //       endDate: new Date(),
-    //     },
-    //   },
-    // },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -157,8 +134,8 @@ module.exports = {
       },
     },
     `gatsby-transformer-json`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    'gatsby-plugin-sass',
+
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-plugin-manifest`,
@@ -172,53 +149,24 @@ module.exports = {
         icon: `src/favicon.png`,
       },
     },
-    'gatsby-plugin-sass',
+    {
+      resolve: 'gatsby-plugin-intl',
+      options: {
+        // language JSON resource path
+        path: `${__dirname}/src/i18n`,
+        // supported language
+        languages: [`en`, `es`],
+        // language file path
+        defaultLanguage: `es`,
+        // option to redirect to `/es` when connecting `/`
+        redirect: false,
+      },
+    },
     {
       resolve: `gatsby-plugin-sitemap`,
+      resolveSiteUrl: `https://elcri.men`,
       options: {
-        exclude: [`/admin`, `/tags/links`],
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-robots-txt',
-      options: {
-        policy: [{ userAgent: '*', allow: '/' }],
-      },
-    },
-    {
-      resolve: `gatsby-plugin-google-gtag`,
-      options: {
-        // selfHostedOrigin: "YOUR_SELF_HOSTED_ORIGIN",
-        // You can add multiple tracking ids and a pageview event will be fired for all of them.
-        trackingIds: [
-          'G-SMLSV8EVFV', // Google Analytics / GA
-        ],
-      },
-    },
-    `gatsby-plugin-favicon`,
-    /* 'gatsby-plugin-offline',*/
-    {
-      resolve: `gatsby-plugin-purgecss`,
-      options: {
-        //printRejected: true, // Print removed selectors and processed file names
-        whitelistPatterns: [
-          /.*mg-.*/,
-          /metricsGraphicsCon/,
-          /metrics.*/,
-          /inegi/,
-        ],
-        //ignore: ['metricsgraphics.css', 'react-tabs.css'],
-        purgeOnly: [
-          'scss/style.scss',
-          '_datepicker.css',
-          'top50.css',
-          'mapbox-gl.css',
-        ],
-        //develop: true, // Enable while using `gatsby develop`
-        // tailwind: true, // Enable tailwindcss support
-        // whitelist: ['whitelist'], // Don't remove this selector
-        // ignore: ['/ignored.css', 'prismjs/', 'docsearch.js/'], // Ignore files/folders
-        // purgeOnly : ['components/', '/main.css', 'bootstrap/'], // Purge only these files/folders
+        exclude: [`/es`, `/tags/links`],
       },
     },
   ],

@@ -171,16 +171,6 @@ function CrimeRate(props) {
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
       <Helmet
-        link={[
-          {
-            rel: 'preload',
-            href:
-              '/static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2',
-            as: 'font',
-            type: 'font/woff2',
-            crossorigin: 'anonymous',
-          },
-        ]}
       />
       <SEO
         title={intl.formatMessage({ id: 'title_crimen_tasa' })}
@@ -243,7 +233,7 @@ function CrimeRate(props) {
                   genChartOptions(
                     prevalencia_hogares,
                     intl.formatMessage({ id: '% households' }),
-                    intl.formatMessage({ id: 'percentage' })
+                    intl.formatMessage({ id: 'percentage of households' })
                   ))()}
                 style={{ height: 400, width: '100%' }}
               />
@@ -255,7 +245,7 @@ function CrimeRate(props) {
                   genChartOptions(
                     prevalencia_personas,
                     intl.formatMessage({ id: 'tasa por 100,000' }),
-                    intl.formatMessage({ id: '# personas' })
+                    intl.formatMessage({ id: 'tasa por 100,000' })
                   ))()}
                 style={{ height: 400, width: '100%' }}
               />

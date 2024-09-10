@@ -11,7 +11,6 @@ import {
   GridComponent,
   TooltipComponent,
   TitleComponent,
-  DatasetComponent,
 } from 'echarts/components'
 import {
   CanvasRenderer,
@@ -21,11 +20,10 @@ import {
 import Layout from '../components/layout'
 import HeroTitle from '../components/HeroTitle'
 import SEO from '../components/SEO'
-import TextColumn from '../components/TextColumn'
-import AdSense from 'react-adsense'
+// import AdSense from 'react-adsense'
 import { mapValues } from 'lodash-es'
-import { useIntl, injectIntl, FormattedMessage } from 'react-intl'
-import { FormattedHTMLMessage, FormattedDate } from 'react-intl'
+import { useIntl } from 'react-intl'
+import { FormattedDate } from 'react-intl'
 import useLastMonth from '../components/LastMonth'
 import social_image from '../assets/images/social/social-estados-diff.png'
 import social_image_en from '../assets/images/social/social-estados-diff_en.png'
@@ -159,16 +157,6 @@ function MostViolent(props) {
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
       <Helmet
-        link={[
-          {
-            rel: 'preload',
-            href:
-              '/static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2',
-            as: 'font',
-            type: 'font/woff2',
-            crossorigin: 'anonymous',
-          },
-        ]}
       />
       <SEO
         title={intl.formatMessage({ id: 'title_state_diff' })}

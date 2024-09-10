@@ -1,20 +1,16 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 
 import Layout from '../components/layout';
 import SEO from '../components/SEO';
 
-import {graphql} from 'gatsby';
-import Img from 'gatsby-image';
+import { GatsbyImage } from "gatsby-plugin-image"
 import useInfographics from '../components/InfographicsQuery';
 
 import {orderBy, filter} from 'lodash-es';
 import {useIntl} from 'react-intl';
-import {Link} from 'gatsby';
 import social_image from '../assets/images/social/social-infographics.png';
 import social_image_en
   from '../assets/images/social/social-infographics_en.png';
-const files = require('../data/infographics_filenames.json');
 
 const Infographics = ({data, location, pageContext}) => {
   const regex_es = /^infographic_es|^municipios_es/;
@@ -122,7 +118,7 @@ const Infographics = ({data, location, pageContext}) => {
                     </div>
                   : <div key={i + 'null'} />}
                 <div
-                  key={edge.node.childImageSharp.originalName + 'b'}
+                  key={edge.node.base + 'b'}
                   className="column is-offset-1 is-4"
                 >
                   <a
@@ -132,15 +128,16 @@ const Infographics = ({data, location, pageContext}) => {
                       (pageContext.locale === 'es'
                         ? '/es/images/infographics/fulls/'
                         : '/en/images/infographics/fulls/') +
-                            edge.node.childImageSharp.fluid.originalName
+                            edge.node.base
                     }
                   >
                     <figure className="image is-3x5" key={i + 'figure'}>
-                      <Img
+                      <GatsbyImage
+                       image={edge.node.childImageSharp.gatsbyImageData}
                         loading="lazy"
                         backgroundColor="#c7b470"
-                        key={edge.node.childImageSharp.originalName}
-                        fluid={edge.node.childImageSharp.fluid}
+                        key={edge.node.childImageSharp.base}
+                        // fluid={edge.node.childImageSharp.fluid}
                         title={intl.formatMessage (
                           {id: 'infograph_alt'},
                           {
@@ -165,7 +162,7 @@ const Infographics = ({data, location, pageContext}) => {
                               .replace (/^\w/, c => c.toUpperCase ()),
                           }
                         )}
-                        sizes={edge.node.childImageSharp.sizes}
+                        //sizes={edge.node.childImageSharp.sizes}
                       />
                     </figure>
                   </a>

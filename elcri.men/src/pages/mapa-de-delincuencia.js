@@ -1,20 +1,7 @@
-// import {
-//   BarChart,
-//   Bar,
-//   Brush,
-//   ReferenceLine,
-//   XAxis,
-//   YAxis,
-//   CartesianGrid,
-//   Tooltip,
-//   Legend,
-// } from 'recharts';
 import React from 'react'
 import Helmet from 'react-helmet'
-import AdSense from 'react-adsense'
 
 import Layout from '../components/layout'
-import Footer from '../components/Footer'
 import HeroTitle from '../components/HeroTitle'
 import SEO from '../components/SEO'
 import {
@@ -29,39 +16,133 @@ import TextColumn from '../components/TextColumn'
 import social_image from '../assets/images/social/social-mapa.png'
 import social_image_en from '../assets/images/social/social-mapa_en.png'
 
-import 'react-dates/initialize'
-import 'rheostat/css/rheostat.css'
-import 'react-dates/lib/css/_datepicker.css'
-import ThemedStyleSheet from 'react-with-styles/lib/ThemedStyleSheet'
-import cssInterface from 'react-with-styles-interface-css'
-import RheostatDefaultTheme from 'rheostat/lib/themes/DefaultTheme'
-import ReactDatesDefaultTheme from 'react-dates/lib/theme/DefaultTheme'
-
-ThemedStyleSheet.registerInterface(cssInterface)
-ThemedStyleSheet.registerTheme({
-  ...RheostatDefaultTheme,
-  ...ReactDatesDefaultTheme,
-})
-import Rheostat from 'rheostat'
-
-import MetricsGraphics from 'react-metrics-graphics'
-import 'metrics-graphics/dist/metricsgraphics.css'
-
 import MapGL, {
   Source,
   Layer,
   FullscreenControl,
   NavigationControl,
-  Marker,
 } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import '../components/ClusterMap/ClusterMap.css'
 
-import { findIndex, countBy, filter, maxBy } from 'lodash-es'
+import { countBy, filter, maxBy } from 'lodash-es'
 import { format as num_format } from 'd3-format'
 
 import dark_matter from '../components/DotMap/dot_map_style_gray'
 import { YYYYmmddToDate15 } from '../components/utils.js'
+
+import ReactEChartsCore from 'echarts-for-react/lib/core'
+// Import the echarts core module, which provides the necessary interfaces for using echarts.
+import * as echarts from 'echarts/core'
+import { BarChart } from 'echarts/charts'
+import {
+  GridComponent,
+  TooltipComponent,
+  TitleComponent,
+} from 'echarts/components'
+import {
+  CanvasRenderer,
+  // SVGRenderer,
+} from 'echarts/renderers'
+
+import TooltipSlider from '../components/TooltipSlider'
+import 'rc-slider/assets/index.css'
+
+echarts.use([
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  BarChart,
+  CanvasRenderer,
+])
+
+let chartOption = {
+  animation: false,
+  title: {
+    text: '',
+    left: 'center',
+    textStyle: {
+      fontFamily: 'Roboto Condensed, Ubuntu, system-ui, sans-serif',
+      fontSize: 14,
+      fontWeight: 'bold',
+    },
+  },
+  tooltip: {
+    show: false,
+    trigger: 'axis',
+    axisPointer: {
+      animation: false,
+      label: {
+        backgroundColor: '#ccc',
+        borderColor: '#aaa',
+        borderWidth: 0.1,
+        shadowBlur: 0,
+        shadowOffsetX: 0,
+        shadowOffsetY: 0,
+        color: '#111',
+        fontFamily: 'Roboto Condensed, Ubuntu, system-ui, sans-serif',
+      },
+    },
+  },
+  grid: {
+    left: '0%',
+    right: '0%',
+    bottom: '0%',
+    top: '0%',
+    containLabel: false,
+  },
+  xAxis: {
+    show: false,
+    name: 'homicide rate',
+    type: 'category',
+    nameLocation: 'middle',
+    nameTextStyle: {
+      fontFamily: 'Roboto Condensed, Ubuntu, system-ui, sans-serif',
+      color: '#111',
+    },
+    // data: data.map(function(item) {
+    //   return item.year
+    // }),
+    axisLabel: {
+      interval: 2,
+    },
+    boundaryGap: ['20%', '0%'],
+    splitNumber: 6,
+  },
+  yAxis: [
+    {
+      show: false,
+      name: 'municipio count',
+      nameLocation: 'middle',
+      nameGap: 50,
+      nameTextStyle: {
+        fontFamily: 'Roboto Condensed, Ubuntu, system-ui, sans-serif',
+        color: '#111',
+      },
+      type: 'value',
+      scale: false,
+      splitNumber: 2,
+      splitLine: {
+        show: true,
+        lineStyle: {
+          type: 'solid',
+        },
+      },
+    },
+  ],
+  series: [
+    {
+      name: 'Homicide Histogram',
+      type: 'bar',
+      color: '#5C4033',
+      barWidth: '95%',
+      itemStyle: { borderWidth: 10 },
+      // data: data.map(function(item) {
+      //   return item.per
+      // }),
+    },
+  ],
+}
 
 const dataLayer = {
   id: 'data',
@@ -123,6 +204,7 @@ class DotMapGL extends React.Component {
     super()
 
     this.state = {
+      chartOptions: { ...chartOption },
       lightboxIsOpen: false,
       currentImage: 0,
       data: null,
@@ -133,6 +215,7 @@ class DotMapGL extends React.Component {
       paint: dataLayer.paint,
       dataLayer: dataLayer,
       dark_matter: dark_matter,
+      sparkLine: null,
       map: null,
       values: null,
       lower: null,
@@ -171,12 +254,13 @@ class DotMapGL extends React.Component {
     )
   }
 
-  _onHover = event => {
+  _onHover = (event) => {
     const {
       features,
       srcEvent: { offsetX, offsetY },
     } = event
-    const hoveredFeature = features && features.find(f => f.layer.id === 'data')
+    const hoveredFeature =
+      features && features.find((f) => f.layer.id === 'data')
 
     this.setState({ hoveredFeature, x: offsetX, y: offsetY })
   }
@@ -216,43 +300,52 @@ class DotMapGL extends React.Component {
   componentDidMount() {
     this.setState({ mounted: true })
     fetch('/elcrimen-json/municipios-centroids.json')
-      .then(response => response.json())
-      .then(responseJSON => {
-        responseJSON.features = responseJSON.features.map(d => {
+      .then((response) => response.json())
+      .then((responseJSON) => {
+        responseJSON.features = responseJSON.features.map((d) => {
           d.properties.rate = parseFloat(d.properties.rate)
           d.properties.count = parseInt(d.properties.count)
           return d
         })
-        let hist = countBy(responseJSON.features, function(x) {
+        let hist = countBy(responseJSON.features, function (x) {
           return Math.floor(x.properties.rate)
         })
         let histogram = []
-        Object.keys(hist).forEach(function(key) {
+        Object.keys(hist).forEach(function (key) {
           histogram.push({
             name: parseInt(key),
-            count: hist[key] !== 0 ? Math.log(hist[key]) : Math.log(hist[key]),
+            count: hist[key] !== 0 ? Math.log(hist[key]) : 0,
           })
         })
-        let values = responseJSON.features.map(x => {
+        let values = responseJSON.features.map((x) => {
           return { value: x.properties.rate }
         })
+        let chartOption = { ...this.state.chartOptions }
+        let max = Math.ceil(
+          maxBy(values, function (o) {
+            return o.value
+          }).value
+        )
+        let sparkLine = Array(max + 1).fill(0)
+        for (let i = 0; i <= max; i++)
+          if (histogram.hasOwnProperty(i))
+            sparkLine[i] = Math.round(histogram[i].count)
+
+        chartOption.xAxis['data'] = [...Array(max).keys()]
+        chartOption.series[0]['data'] = sparkLine
+
         this.setState({
           data: responseJSON,
+          sparkLine: sparkLine,
           histogram: histogram,
+          chartOptions: { ...chartOption },
           values: values,
           lower: 0,
-          sValues: [
-            0,
-            maxBy(values, function(o) {
-              return o.value
-            }).value,
-          ],
-          upper: maxBy(values, function(o) {
-            return o.value
-          }).value,
+          sValues: [0, max],
+          upper: max,
         })
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
   }
@@ -261,9 +354,16 @@ class DotMapGL extends React.Component {
     this.setState({ sValues: v })
   }
 
+  updateValue(sliderState) {
+    console.log(sliderState)
+    this.setState({
+      sValues: sliderState.values,
+    })
+  }
+
   onBrush(d) {
     let hist = this.state.histogram
-    let filtered = filter(this.state.data.features, function(o) {
+    let filtered = filter(this.state.data.features, function (o) {
       return o.properties.rate > parseInt(hist[d.startIndex].name)
     })
     let geojson = this.state.data
@@ -322,22 +422,22 @@ class DotMapGL extends React.Component {
     let opacity = this.state.dataLayer.paint
     opacity['circle-opacity'].stops = [
       [0, 0],
-      [e.values[0], 0.8],
-      [e.values[1], 0],
+      [e[0], 0.8],
+      [e[1], 0],
       [10000000, 0],
     ]
     opacity['circle-opacity'].stops =
-      e.values[0] === 0
+      e[0] === 0
         ? opacity['circle-opacity'].stops.slice(1)
         : opacity['circle-opacity'].stops
     opacity['circle-stroke-width'].stops = [
       [0, 0],
-      [e.values[0], 1],
-      [e.values[1], 0],
+      [e[0], 1],
+      [e[1], 0],
       [10000000, 0],
     ]
     opacity['circle-stroke-width'].stops =
-      e.values[0] === 0
+      e[0] === 0
         ? opacity['circle-stroke-width'].stops.slice(1)
         : opacity['circle-stroke-width'].stops
     //opacity.paint['circle-opacity'].type = "error"
@@ -353,27 +453,19 @@ class DotMapGL extends React.Component {
     )
 
     this.setState({
-      //lower: e.values[0],
-      //upper: e.values[1],
-      sValues: e.values,
-    })
-  }
-
-  updateValue(sliderState) {
-    this.setState({
-      sValues: sliderState.values,
+      //lower: e[0],
+      //upper: e[1],
+      sValues: e,
     })
   }
 
   render() {
-    //const VectorGrid = withLeaflet (VectorGridDefault);
-    //const engine = new Styletron ();
     const options = {
       //data: geojson,
       type: 'slicer',
       idField: 'id',
       tooltip: 'n',
-      popup: layer => `<div>${layer.properties.NAME}</div>`,
+      popup: (layer) => `<div>${layer.properties.NAME}</div>`,
       style: {
         weight: 0.1,
         opacity: 0.8,
@@ -399,7 +491,7 @@ class DotMapGL extends React.Component {
           <MapGL
             {...this.state.viewport}
             onViewportChange={this._onViewportChange}
-            onResize={v => {
+            onResize={(v) => {
               //console.log (v);
             }}
             onHover={this._onHover}
@@ -408,7 +500,7 @@ class DotMapGL extends React.Component {
               customAttribution:
                 '© MapTiler <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>',
             }}
-            ref={ref => {
+            ref={(ref) => {
               if (ref && ref.getMap()) {
                 this._map = ref.getMap()
               }
@@ -427,67 +519,69 @@ class DotMapGL extends React.Component {
             </div>
             {this._renderTooltip()}
           </MapGL>
-          <div className="columns is-centered">
+          <div className="container" style={{ paddingTop: '10px' }}>
+            <h2 className="title is-6 has-text-centered">
+              <FormattedMessage id="homicide_hist" />
+            </h2>
+          </div>
+          <div className="columns is-centered" style={{ marginBottom: 0 }}>
             <div className="column is-half is-offset-1-mobile is-9-mobile">
               {this.state.histogram !== null ? (
-                <MetricsGraphics
-                  title={''}
-                  // description="This graphic shows a time-series of downloads."
-                  data={this.state.histogram}
-                  height={100}
-                  // colors={[this.props.data.trend[0] === "positive" ? "#e41a1c" : this.props.data.trend[0] === "negative" ? "#377eb8" : "#e5d8bd", "#888888"]}
-
-                  //full_width={true}
-                  width={600}
-                  //interpolate={linear}
-                  chart_type="histogram"
-                  binned={true}
-                  bar_margin={0}
-                  //xax_format={date_format ('%b')}
-                  //yax_format={num_format ('.0f')}
-                  //max_y={this.props.max_rate}
-                  //min_y={this.props.min_y}
-                  x_accessor="name"
-                  y_accessor="count"
-                  x_axis={false}
-                  y_axis={false}
-                  left={0}
-                  buffer={0}
-                  top={0}
-                  bottom={0}
-                  color="gray"
+                <ReactEChartsCore
+                  echarts={echarts}
+                  option={this.state.chartOptions}
+                  style={{ height: 200, width: '100%' }}
                 />
-              ) : null}
+              ) : (
+                <div
+                  className="has-background-skeleton has-ratio"
+                  style={{ height: 200 }}
+                ></div>
+              )}
             </div>
           </div>
+
           <div className="columns is-centered">
-            <div className="column is-half is-offset-1-mobile is-9-mobile">
-              {this.state.sValues !== null ? (
+            <div
+              className="column is-half is-offset-1-mobile is-9-mobile"
+              style={{ paddingTop: 0 }}
+            >
+              {this.state.sValues &&
+              this.state.lower !== null &&
+              this.state.upper ? (
                 <div>
-                  <Rheostat
-                    min={this.state.lower}
-                    max={this.state.upper}
-                    onValuesUpdated={this.updateValue}
-                    // snap={true}
-                    // snapPoints={[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
-                    values={this.state.sValues}
-                    onChange={this.changeExtent}
-                    pitComponent={this.PitComponents}
-                    pitPoints={Array.apply(
-                      undefined,
-                      Array(Math.floor(this.state.upper / 50))
-                    ).map(function(x, y) {
-                      return y * 50 + 50
-                    })}
-                  />
-                  <div className="columns is-mobile">
-                    <div className="column is-half">
-                      <span className="has-text-left">
-                        {this.state.sValues[0]}
-                      </span>
-                    </div>
-                    <div className="column is-half has-text-right">
-                      <span className="">{this.state.sValues[1]}</span>
+                  <div style={{ height: '25px' }}>
+                    <TooltipSlider
+                      range
+                      trackStyle={{ backgroundColor: '#619cff', height: 20 }}
+                      railStyle={{ backgroundColor: '#ccc', height: 20 }}
+                      handleStyle={{
+                        borderColor: '#000',
+                        borderWidth: '1px',
+                        borderRadius: '40%',
+                        height: 20,
+                        width: 25,
+                        marginLeft: 0,
+                        marginTop: 0,
+                        backgroundColor: '#222',
+                        opacity: '90%',
+                      }}
+                      onChangeComplete={this.changeExtent}
+                      min={0}
+                      max={this.state.upper + 1}
+                      defaultValue={[0, this.state.upper + 1]}
+                    />
+                  </div>
+                  <div className="columns is-mobile pt-0">
+                    <div
+                      className="column has-text-centered is-full"
+                      style={{ fontFamily: 'Roboto Condensed, sans-serif' }}
+                    >
+                      <b>
+                        <FormattedMessage id="tasa de homicidios seleccionada" />
+                      </b>
+                      : <span>{this.state.sValues[0]}</span> -{' '}
+                      <span>{this.state.sValues[1]}</span>
                     </div>
                   </div>
                 </div>
@@ -527,7 +621,7 @@ function HomicideMapPage(props) {
         <link
           href="https://tilesmexico.netlify.app"
           rel="preconnect"
-          crossorigin
+          crossOrigin
         />
       </Helmet>
 
@@ -559,7 +653,7 @@ function HomicideMapPage(props) {
               format="auto"
               responsive="true"
             /> */}
-          <div style={{ height: '900px', overflow: 'hidden' }}>
+          <div style={{ height: '930px', overflow: 'hidden' }}>
             <DotMapGL />
           </div>
 
@@ -575,8 +669,8 @@ function HomicideMapPage(props) {
 
       <hr />
       <TextColumn>
-        <div class="card has-background-light">
-          <div class="card-content">
+        <div className="card has-background-light">
+          <div className="card-content">
             {intl.formatMessage({ id: 'map_txt' })}
           </div>
         </div>

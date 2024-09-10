@@ -1,6 +1,6 @@
 import React from 'react';
-import {useIntl, injectIntl, FormattedMessage} from 'react-intl';
-import {routes, routes_inverted} from '../../src/i18n';
+import {useIntl, injectIntl} from 'react-intl';
+import {routes} from '../../src/i18n';
 import us_flag from '../assets/images/us.png';
 import mx_flag from '../assets/images/mx.png';
 

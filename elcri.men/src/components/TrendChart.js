@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { groupBy, map, reduce, sortBy, filter, max, maxBy } from 'lodash-es'
+import { filter, max, maxBy } from 'lodash-es'
 import { FormattedDate } from 'react-intl'
 import HeroTitle from '../components/HeroTitle'
-import { useIntl, injectIntl, FormattedMessage } from 'react-intl'
+import { useIntl } from 'react-intl'
 import SmallMultipleTrend from '../components/SmallMultipleTrend'
-import { timeFormatDefaultLocale, timeFormatLocale } from 'd3-time-format'
+import { timeFormatDefaultLocale } from 'd3-time-format'
 import { dateLoc } from '../../src/i18n'
 import '../assets/css/trends.css'
 
@@ -17,6 +17,10 @@ function TrendChart(props) {
       .then(response => response.json())
       .then(responseJSON => {
         setData(responseJSON)
+        let state = Object.keys(responseJSON[0])[0]
+        let len = responseJSON[0][state][0].length
+        // Substract one from the length of the array since js months are zero indexed
+        setMonth((len - 1) % 12)
       })
       .catch(error => {
         console.error(error)
@@ -35,9 +39,8 @@ function TrendChart(props) {
     const start_year = data["start_year"][0]
     let state = Object.keys(data)[0]
     let len = data[state][0].length
-    // Substract one from the length of the array since js months are zero indexed
-    setMonth((len - 1) % 12)
     let state_tidy = [[], []]
+
     for (let i = 0; i < len; i++) {
       let d = new Date(start_year, 0, 15)
       state_tidy[0].push({
@@ -57,8 +60,6 @@ function TrendChart(props) {
   }
 
   const intl = useIntl()
-  let l
-  intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
 
   let pos = filter(data, function(o) {
     return o.trend[0] === 'positive'

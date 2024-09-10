@@ -12,13 +12,11 @@ import React from 'react'
 import Helmet from 'react-helmet'
 
 import Layout from '../components/layout'
-import Footer from '../components/Footer'
 import HeroTitle from '../components/HeroTitle'
 import SEO from '../components/SEO'
-import AdSense from 'react-adsense'
+// import AdSense from 'react-adsense'
 import {
   useIntl,
-  FormattedHTMLMessage,
   FormattedDate,
   FormattedMessage,
 } from 'react-intl'
@@ -32,11 +30,8 @@ import social_image_en from '../assets/images/social/social-clusters_en.png'
 //import VectorGrid from 'react-leaflet-vectorgrid';
 //import VectorGridDefault from 'react-leaflet-vectorgrid';
 import MapGL, {
-  Source,
-  Layer,
   FullscreenControl,
   NavigationControl,
-  Marker,
 } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import '../components/ClusterMap/ClusterMap.css'
@@ -44,7 +39,6 @@ import '../components/ClusterMap/ClusterMap.css'
 import { findIndex, zip } from 'lodash-es'
 import { format as num_format } from 'd3-format'
 
-import { feature } from 'topojson-client'
 import { YYYYmmddToDate15 } from '../components/utils.js'
 //import 'react-leaflet-fullscreen/dist/styles.css'
 //import FullscreenControl from 'react-leaflet-fullscreen';
@@ -303,7 +297,7 @@ function ClusterMapPage(props) {
         <link
           href="https://tilesmexico.netlify.app"
           rel="preconnect"
-          crossorigin
+          crossOrigin
         />
       </Helmet>
 

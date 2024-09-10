@@ -5,7 +5,7 @@ import Layout from '../components/layout'
 
 import FrontPageMap from '../components/FrontPageMap'
 import HistoricalChart from '../components/HistoricalChart'
-import { useStaticQuery, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import SEO from '../components/SEO'
 import LLink from '../components/LLink'
 
@@ -13,11 +13,10 @@ import { orderBy, filter } from 'lodash-es'
 import { YYYYmmddToDate15 } from '../components/utils.js'
 
 import LazyLoad from 'react-lazyload'
-import Img from 'gatsby-image'
-import { Link } from 'gatsby'
+import { GatsbyImage } from 'gatsby-plugin-image'
 import '../assets/scss/style.scss'
 
-import { useIntl, injectIntl, FormattedMessage } from 'react-intl'
+import { injectIntl, FormattedMessage } from 'react-intl'
 import { FormattedHTMLMessage, FormattedDate } from 'react-intl'
 import useLastMonth from '../components/LastMonth'
 import useBestImages from '../components/BestImages'
@@ -37,11 +36,12 @@ export const data_query = graphql`
       edges {
         node {
           childImageSharp {
-            fluid(maxWidth: 432, srcSetBreakpoints: [216, 432, 648]) {
-              ...GatsbyImageSharpFluid_withWebp_noBase64
-              originalName
-              originalImg
-            }
+            gatsbyImageData(
+              width: 432
+              breakpoints: [216, 432, 648]
+              placeholder: NONE
+              layout: CONSTRAINED
+            )
           }
           base
           id
@@ -51,8 +51,8 @@ export const data_query = graphql`
   }
 `
 
-const HomeIndex = props => {
-  const intl = useIntl()
+const HomeIndex = (props) => {
+  const { intl } = props
   const bestImages = useBestImages()
   const last_date = useLastMonth()
   const regex_es = /^infographic_es|^municipios_es/
@@ -216,13 +216,13 @@ const HomeIndex = props => {
         <div className="container  is-widescreen">
           <div className="columns">
             {orderBy(
-              filter(props.data.allFile.edges, obj =>
+              filter(props.data.allFile.edges, (obj) =>
                 props.pageContext.locale === 'es'
                   ? regex_es.test(obj.node.base)
                   : regex_en.test(obj.node.base)
               ),
               [
-                function(o) {
+                function (o) {
                   let months = {
                     jan: '01',
                     feb: '02',
@@ -260,33 +260,28 @@ const HomeIndex = props => {
               ['desc']
             )
               .slice(0, 2)
-              .map(edge => (
-                <React.Fragment
-                  key={edge.node.childImageSharp.fluid.originalName}
-                >
+              .map((edge) => (
+                <React.Fragment key={edge.node.base}>
                   <div
-                    key={edge.node.childImageSharp.fluid.originalName + 'div'}
+                    key={edge.node.base + 'div'}
                     className="column is-offset-1 is-4"
                   >
                     <a
-                      key={edge.node.childImageSharp.fluid.originalName}
+                      key={edge.node.base}
                       href={
                         (props.pageContext.locale === 'es' ? '/es' : '/en') +
                         '/images/infographics/fulls/' +
-                        edge.node.childImageSharp.fluid.originalName
+                        edge.node.base
                       }
                     >
                       <figure
                         className="image is-3x5"
-                        key={
-                          edge.node.childImageSharp.fluid.originalName + 'fluid'
-                        }
+                        key={edge.node.base + 'fluid'}
                       >
-                        <Img
-                          key={
-                            edge.node.childImageSharp.fluid.originalName + 'img'
-                          }
-                          fluid={edge.node.childImageSharp.fluid}
+                        <GatsbyImage
+                          format={['webp']}
+                          image={edge.node.childImageSharp.gatsbyImageData}
+                          key={edge.node.base + 'img'}
                           title={intl.formatMessage({
                             id: 'Infographic of crime in Mexico',
                           })}
@@ -299,10 +294,7 @@ const HomeIndex = props => {
                       </figure>
                     </a>
                   </div>
-                  <div
-                    className="column"
-                    key={edge.node.childImageSharp.fluid.originalName}
-                  />
+                  <div className="column" key={edge.node.base} />
                 </React.Fragment>
               ))}
           </div>
@@ -337,10 +329,11 @@ const HomeIndex = props => {
               <div className="level">
                 <div className="level-item">
                   <figure className="image is-128x128">
-                    <Img
+                    <GatsbyImage
+                      format={['webp']}
+                      image={bestImages.mapa.childImageSharp.gatsbyImageData}
                       className="is-rounded"
-                      key={bestImages.mapa.childImageSharp.fixed}
-                      fixed={bestImages.mapa.childImageSharp.fixed}
+                      key={bestImages.mapa.childImageSharp.gatsbyImageData}
                       title={intl.formatMessage({ id: 'Crime map of Mexico' })}
                       alt={intl.formatMessage({ id: 'Crime map of Mexico' })}
                     />
@@ -367,10 +360,13 @@ const HomeIndex = props => {
               <div className="level">
                 <div className="level-item">
                   <figure className="image is-128x128">
-                    <Img
+                    <GatsbyImage
+                      format={['webp']}
+                      image={
+                        bestImages.anomalies.childImageSharp.gatsbyImageData
+                      }
                       className="is-rounded"
-                      key={bestImages.anomalies.childImageSharp.fixed}
-                      fixed={bestImages.anomalies.childImageSharp.fixed}
+                      key={bestImages.anomalies.childImageSharp.gatsbyImageData}
                       title={intl.formatMessage({ id: 'Crime anomalies' })}
                       alt={intl.formatMessage({ id: 'Crime anomalies' })}
                     />
@@ -398,10 +394,11 @@ const HomeIndex = props => {
               <div className="level">
                 <div className="level-item">
                   <figure className="image is-128x128">
-                    <Img
+                    <GatsbyImage
+                      format={['webp']}
+                      image={bestImages.trend.childImageSharp.gatsbyImageData}
                       className="is-rounded"
-                      key={bestImages.trend.childImageSharp.fixed}
-                      fixed={bestImages.trend.childImageSharp.fixed}
+                      key={bestImages.trend.childImageSharp.gatsbyImageData}
                       title={intl.formatMessage({
                         id: 'Homicide trends in Mexico',
                       })}

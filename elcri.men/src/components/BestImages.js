@@ -1,44 +1,46 @@
-import {useStaticQuery, graphql} from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby'
 
 const useBestImages = () => {
-  const data = useStaticQuery (graphql`
-query indexQuery {
-  
-  anomalies:file(relativePath: {eq: "anomalies.png"}) {
-    childImageSharp {
-      fixed(width: 128, height: 128, quality: 80) {
-        ...GatsbyImageSharpFixed_withWebp_noBase64
-        originalName
-        width
+  const data = useStaticQuery(graphql`
+    query indexQuery {
+      anomalies: file(relativePath: { eq: "anomalies.png" }) {
+        childImageSharp {
+          gatsbyImageData(
+            width: 128
+            height: 128
+            quality: 80
+            placeholder: NONE
+            layout: CONSTRAINED
+          )
+        }
       }
-    }
-  }
 
-  trend:file(relativePath: {eq: "trend.png"}) {
-    childImageSharp {
-      fixed(width: 128, height: 128, quality: 80) {
-        ...GatsbyImageSharpFixed_withWebp_noBase64
-        originalName
-        width
+      trend: file(relativePath: { eq: "trend.png" }) {
+        childImageSharp {
+          gatsbyImageData(
+            width: 128
+            height: 128
+            quality: 80
+            placeholder: NONE
+            layout: CONSTRAINED
+          )
+        }
       }
-    }
-  }
 
-  mapa:file(relativePath: {eq: "mapa.png"}) {
-    childImageSharp {
-      fixed(width: 128, height: 128, quality: 80) {
-        ...GatsbyImageSharpFixed_withWebp_noBase64
-        originalName
-        width
+      mapa: file(relativePath: { eq: "mapa.png" }) {
+        childImageSharp {
+          gatsbyImageData(
+            width: 128
+            height: 128
+            quality: 80
+            placeholder: NONE
+            layout: CONSTRAINED
+          )
+        }
       }
     }
-  }
-   
-   
-  
+  `)
+  return data
 }
-`);
-  return data;
-};
 
-export default useBestImages;
+export default useBestImages

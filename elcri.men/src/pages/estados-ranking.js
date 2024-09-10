@@ -11,7 +11,6 @@ import {
   GridComponent,
   TooltipComponent,
   TitleComponent,
-  DatasetComponent,
 } from 'echarts/components'
 import {
   CanvasRenderer,
@@ -21,11 +20,10 @@ import {
 import Layout from '../components/layout'
 import HeroTitle from '../components/HeroTitle'
 import SEO from '../components/SEO'
-import TextColumn from '../components/TextColumn'
-import AdSense from 'react-adsense'
+// import AdSense from 'react-adsense'
 import { mapValues } from 'lodash-es'
-import { useIntl, injectIntl, FormattedMessage } from 'react-intl'
-import { FormattedHTMLMessage, FormattedDate } from 'react-intl'
+import { useIntl } from 'react-intl'
+import { FormattedDate } from 'react-intl'
 import useLastMonth from '../components/LastMonth'
 import social_image from '../assets/images/social/social-estados-ranking.png'
 import social_image_en from '../assets/images/social/social-estados-ranking_en.png'
@@ -41,9 +39,6 @@ echarts.use([
 function MostViolent(props) {
   const chartHeight = 1020
   const intl = useIntl()
-  const labelRight = {
-    position: 'right',
-  }
   var option = {
     autoPlay: true,
     animation: false,
@@ -148,22 +143,10 @@ function MostViolent(props) {
   }, [])
 
   const last_date = useLastMonth()
-  const last_year2 = new Date(last_date.year - 1, last_date.month6 - 1, 1)
-  const last_year1 = new Date(last_date.year6 - 1, last_date.month - 1, 1)
 
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
       <Helmet
-        link={[
-          {
-            rel: 'preload',
-            href:
-              '/static/source-sans-pro-v13-latin-regular.subset-6b67f4639bb02f388b7e72e34e180d7f.woff2',
-            as: 'font',
-            type: 'font/woff2',
-            crossorigin: 'anonymous',
-          },
-        ]}
       />
       <SEO
         title={intl.formatMessage({ id: 'title_ranking' })}

@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import Helmet from 'react-helmet'
 
 import Layout from '../components/layout'
-import SmallMultiple from '../components/SmallMultiple'
 import HeroTitle from '../components/HeroTitle'
 import BarToolTip from '../components/BarToolTip'
 import SEO from '../components/SEO'
 import TextColumn from '../components/TextColumn'
-import AdSense from 'react-adsense'
-import { useIntl, injectIntl, FormattedMessage } from 'react-intl'
+// import AdSense from 'react-adsense'
+import { useIntl } from 'react-intl'
 import { FormattedHTMLMessage, FormattedDate } from 'react-intl'
 import useLastMonth from '../components/LastMonth'
 import social_image from '../assets/images/social/social-top50.png'
@@ -20,11 +18,11 @@ function MostViolent(props) {
 
   useEffect(() => {
     fetch('/elcrimen-json/top-municipios.json')
-      .then(response => response.json())
-      .then(responseJSON => {
+      .then((response) => response.json())
+      .then((responseJSON) => {
         setdata(responseJSON)
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
   }, [])
