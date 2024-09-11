@@ -62,6 +62,7 @@ def write_mun_db(conn, CSV_MUNICIPIOS):
     print("Writing municipio data to db")
     for i in crime_municipios.years:
         print("Writing year: " + i)
+        import pdb; pdb.set_trace()
         pd_sql.to_sql(crime_municipios.get_filtered_data(i, os.path.join('snsp-data', CSV_MUNICIPIOS)), 'municipios_fuero_comun', conn, if_exists='append', index=False, chunksize=1000000)
     print("End writing municipio data to db")
 
