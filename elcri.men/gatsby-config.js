@@ -1,5 +1,8 @@
 let SITENAME = 'https://elcri.men/'
 
+const osmTilesUrl = 'https://tilesmexico.netlify.app'
+const mapboxUrl = 'https://api.tiles.mapbox.com'
+
 module.exports = {
   siteMetadata: {
     title: 'Delincuencia en México - El Crimen',
@@ -37,18 +40,22 @@ module.exports = {
             'cache-control: must-revalidate',
           ],
           '/': [
-            'Link: <https://elcri.men/elcrimen-json/states_hexgrid.json>; rel=preload; as=fetch; crossorigin',
             'Link: <https://elcri.men/elcrimen-json/states_national.json>; rel=preload; as=fetch; crossorigin',
           ],
           '/en/': [
-            'Link: <https://elcri.men/elcrimen-json/states_hexgrid.json>; rel=preload; as=fetch; crossorigin',
             'Link: <https://elcri.men/elcrimen-json/states_national.json>; rel=preload; as=fetch; crossorigin',
           ],
-          '/mapa-de-delincuencia//': [
-            'Link: <https://elcri.men/elcrimen-json/municipios-centroids.json>; rel=preload; as=fetch; crossorigin',
+          '/mapa-de-delincuencia/': [
+            `Link: <https://elcri.men/elcrimen-json/municipios-centroids.json>; rel=preload; as=fetch; crossorigin; <${osmTilesUrl}>; rel=preconnect, <${mapboxUrl}>; rel=preconnect`,
+          ],
+          '/mapa-clusters/': [
+            `Link: <${osmTilesUrl}>; rel=preconnect, <${mapboxUrl}>; rel=preconnect`,
           ],
           '/en/violence-map/': [
-            'Link: <https://elcri.men/elcrimen-json/municipios-centroids.json>; rel=preload; as=fetch; crossorigin',
+            `Link: <https://elcri.men/elcrimen-json/municipios-centroids.json>; rel=preload; as=fetch; crossorigin; <${osmTilesUrl}>; rel=preconnect, <${mapboxUrl}>; rel=preconnect`,
+          ],
+          '/en/cluster-map/': [
+            `Link: <${osmTilesUrl}>; rel=preconnect, <${mapboxUrl}>; rel=preconnect`,
           ],
           '/*': [
             'Strict-Transport-Security: max-age=31536000',
@@ -63,6 +70,11 @@ module.exports = {
             'cache-control: public',
             'cache-control: max-age=0',
             'cache-control: must-revalidate',
+          ],
+          '/static/*': [
+            'cache-control: public',
+            'cache-control: max-age=2592000',
+            'cache-control: immutable',
           ],
           '/en/images/infographics/fulls/*': [
             'cache-control: public',
@@ -82,6 +94,16 @@ module.exports = {
           ],
           '/en/trends-states/': [
             'Link: <https://trends.elcri.men/states_trends.json>; rel=preload; as=fetch; crossorigin',
+          ],
+          '/sw.js': [
+            'cache-control: public',
+            'cache-control: max-age=0',
+            'cache-control: must-revalidate',
+          ],
+          '/*.js': [
+            'cache-control: public',
+            'cache-control: max-age=2592000',
+            'cache-control: immutable',
           ],
         },
       },
@@ -167,6 +189,18 @@ module.exports = {
       resolveSiteUrl: `https://elcri.men`,
       options: {
         exclude: [`/es`, `/tags/links`],
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-rollbar',
+      options: {
+        accessToken: '86e02448bb5c40e7b79d735a9ed1282c',
+        // For all configuration options, see https://docs.rollbar.com/docs/rollbarjs-configuration-reference
+        captureUncaught: true,
+        captureUnhandledRejections: true,
+        payload: {
+          environment: 'production',
+        },
       },
     },
   ],
