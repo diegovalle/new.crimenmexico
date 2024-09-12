@@ -197,6 +197,16 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        // selfHostedOrigin: "YOUR_SELF_HOSTED_ORIGIN",
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: [
+          'G-SMLSV8EVFV', // Google Analytics / GA
+        ],
+      },
+    },
+    {
       resolve: 'gatsby-plugin-rollbar',
       options: {
         accessToken: '86e02448bb5c40e7b79d735a9ed1282c',
