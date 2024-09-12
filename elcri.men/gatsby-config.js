@@ -105,6 +105,11 @@ module.exports = {
             'cache-control: max-age=2592000',
             'cache-control: immutable',
           ],
+          '/*.css': [
+            'cache-control: public',
+            'cache-control: max-age=2592000',
+            'cache-control: immutable',
+          ],
         },
       },
     },
@@ -188,7 +193,7 @@ module.exports = {
       resolve: `gatsby-plugin-sitemap`,
       resolveSiteUrl: `https://elcri.men`,
       options: {
-        exclude: [`/es`, `/tags/links`],
+        exclude: [`/es/*`, '/es/'],
       },
     },
     {
@@ -197,6 +202,8 @@ module.exports = {
         accessToken: '86e02448bb5c40e7b79d735a9ed1282c',
         // For all configuration options, see https://docs.rollbar.com/docs/rollbarjs-configuration-reference
         captureUncaught: true,
+        maxItems: 10,
+        itemsPerMinute: 5,
         captureUnhandledRejections: true,
         payload: {
           environment: 'production',
