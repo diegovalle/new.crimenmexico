@@ -190,9 +190,28 @@ function MxHexTileMap(props) {
     setselected_state(e.target.attributes.state.value)
   }
 
+  let mapColors = mexico.features.map(function (f) {
+    let colors = {}
+    Object.keys(responseJSON).map(function (crime) {
+      let index = responseJSON[crime].findIndex(function (e) {
+        return e.state_abbrv === f.properties.state_abbr
+      })
+
+      let ratecolor = color(
+        responseJSON,
+        crime
+      )(responseJSON[crime][index].rate)
+      colors[crime] = ratecolor
+    })
+    return {
+      ...f.properties,
+      ...colors,
+    }
+  })
+
   const findColor = (state_abbr) => {
-    if (mapData) {
-      let c = find(mapData, function (item) {
+    if (mapColors) {
+      let c = find(mapColors, function (item) {
         return item.state_abbr === state_abbr
       })
       return c[crime]
@@ -245,11 +264,7 @@ function MxHexTileMap(props) {
                   className="key is-size-6 is-size-7-mobile"
                   style={{ borderTopColor: feature }}
                 >
-                  {data ? (
-                    round1(color(data, crime).invertExtent(feature)[0])
-                  ) : (
-                    <span style={{ color: 'transparent' }}>1</span>
-                  )}
+                  {round1(color(responseJSON, crime).invertExtent(feature)[0])}
                 </li>
               )
             })}
