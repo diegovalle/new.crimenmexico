@@ -577,11 +577,14 @@ class DotMapGL extends React.Component {
                       className="column has-text-centered is-full"
                       style={{ fontFamily: 'Roboto Condensed, sans-serif' }}
                     >
+                      <FormattedMessage id="tasa de homicidios seleccionada" />:{' '}
+                      <div className="is-hidden-tablet">
+                        <br />
+                      </div>
                       <b>
-                        <FormattedMessage id="tasa de homicidios seleccionada" />
+                        <span>{this.state.sValues[0]}</span> -{' '}
+                        <span>{this.state.sValues[1]}</span>{' '}
                       </b>
-                      : <span>{this.state.sValues[0]}</span> -{' '}
-                      <span>{this.state.sValues[1]}</span>
                     </div>
                   </div>
                 </div>
@@ -653,7 +656,7 @@ function HomicideMapPage(props) {
               format="auto"
               responsive="true"
             /> */}
-          <div style={{ height: '930px', overflow: 'hidden' }}>
+          <div style={{ height: '990px', overflow: 'hidden' }}>
             <DotMapGL />
           </div>
 
