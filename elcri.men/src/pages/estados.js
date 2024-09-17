@@ -19,7 +19,7 @@ import social_image_en from '../assets/images/social/social-estados_en.png'
 
 function Estados(props) {
   const [data, setdata] = useState(null)
-  const [setcolors] = useState(['#00BFC4', '#F8766D'])
+  //const [setcolors] = useState(['#00BFC4', '#F8766D'])
   const [ordered_states, setordered_states] = useState(null)
   const [max_rate, setmax_rate] = useState(() => null)
   const [crime, setcrime] = useState('hd')
@@ -91,15 +91,15 @@ function Estados(props) {
   }, [])
 
   const handleSelect = (e) => {
-    let ordered, colors
+    let ordered
     const { value } = e.target
 
     if (data[value].length === 2) {
       ordered = orderStates(data[value][0])
-      colors = ['#00BFC4', '#F8766D']
+      //colors = ['#00BFC4', '#F8766D']
     } else {
       ordered = orderStates(data[value])
-      colors = ['#00BFC4', 'transparent']
+      //colors = ['#00BFC4', 'transparent']
     }
 
     const max_rate2 = maxRate(data[value])
@@ -107,7 +107,7 @@ function Estados(props) {
     setcrime(value)
     setordered_states(ordered)
     setmax_rate(max_rate2)
-    setcolors(colors)
+    //setcolors(colors)
   }
 
   const intl = useIntl()
