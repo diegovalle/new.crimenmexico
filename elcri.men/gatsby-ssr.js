@@ -9,12 +9,12 @@ import React from 'react'
 
 export const onRenderBody = ({ setHeadComponents, setPostBodyComponents }) => {
   setHeadComponents([
-        <script
-          async
-          key="adsense-script"
-          src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2949275046149330"
-          crossOrigin="anonymous"
-        ></script>
+    <script
+      async
+      key="adsense-script"
+      src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2949275046149330"
+      crossOrigin="anonymous"
+    ></script>,
   ])
 }
 
