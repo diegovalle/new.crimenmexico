@@ -110,6 +110,7 @@ module.exports = {
             'cache-control: max-age=2592000',
             'cache-control: immutable',
           ],
+          '/__third-party-proxy*': ['Access-Control-Allow-Origin: *'],
         },
       },
     },
@@ -223,5 +224,6 @@ module.exports = {
   ],
   partytownProxiedURLs: [
     `https://www.googletagmanager.com/gtag/js?id=G-SMLSV8EVFV`,
+    `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2949275046149330`,
   ],
 }

@@ -53,3 +53,8 @@
 
 # Custom 404 English page
 /en/*                                  /en/404.html                                            404
+
+
+# adsense reverse proxy
+/abg/*                                 https://pagead2.googlesyndication.com/pagead/js/:splat  200
+/__third-party-proxy                   https://www.googletagmanager.com/gtag/js?id=G-SMLSV8EVFV       200
