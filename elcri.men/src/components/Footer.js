@@ -113,18 +113,6 @@ function Footer(props) {
             {intl.formatMessage({ id: '© All rights reserved' })}
           </p>
         </div>
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=G-SMLSV8EVFV`}
-          strategy="off-main-thread"
-        />
-        <Script id="gtag-config" strategy="off-main-thread" forward={[`gtag`]}>
-          {`window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-SMLSV8EVFV');
-        `}
-        </Script>
       </footer>
     </IconContext.Provider>
   )
