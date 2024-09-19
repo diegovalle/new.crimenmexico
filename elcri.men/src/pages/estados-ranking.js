@@ -17,6 +17,7 @@ import {
   // SVGRenderer,
 } from 'echarts/renderers'
 
+import { IoIosArrowDroprightCircle } from 'react-icons/io'
 import Layout from '../components/layout'
 import HeroTitle from '../components/HeroTitle'
 import SEO from '../components/SEO'
@@ -50,7 +51,7 @@ function MostViolent(props) {
       textStyle: {
         fontFamily: 'Source Sans Pro',
       },
-      formatter: params => {
+      formatter: (params) => {
         return (
           '<b>' +
           params[0].data.state +
@@ -98,7 +99,7 @@ function MostViolent(props) {
         fontSize: 15,
         lineHeight: 14,
         color: '#111',
-        formatter: params => {
+        formatter: (params) => {
           return params.replace(' ', '\n')
         },
       },
@@ -120,10 +121,10 @@ function MostViolent(props) {
 
   useEffect(() => {
     fetch('/elcrimen-json/states_yearly_rates.json')
-      .then(response => response.json())
-      .then(responseJSON => {
-        let states = responseJSON.map(s => titleCasePlaces(s.state))
-        mapValues(responseJSON, function(val, key) {
+      .then((response) => response.json())
+      .then((responseJSON) => {
+        let states = responseJSON.map((s) => titleCasePlaces(s.state))
+        mapValues(responseJSON, function (val, key) {
           val.itemStyle = {
             color: '#fc4e2a',
           }
@@ -137,7 +138,7 @@ function MostViolent(props) {
         setStates(states)
         setdata(responseJSON)
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
   }, [])
@@ -146,8 +147,7 @@ function MostViolent(props) {
 
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
-      <Helmet
-      />
+      <Helmet />
       <SEO
         title={intl.formatMessage({ id: 'title_ranking' })}
         description={intl.formatMessage({ id: 'desc_ranking' })}
@@ -194,19 +194,140 @@ function MostViolent(props) {
                 </div>
               ) : (
                 <div style={{ height: chartHeight + 80 }}>
-                <div className="is-hidden-desktop columns is-mobile is-centered">
-                <div className="box">
-                  <div
-                    role="status"
-                    className="circle-spin-2"
-                  ></div></div>
+                  <div className="is-hidden-desktop columns is-mobile is-centered">
+                    <div className="box">
+                      <div role="status" className="circle-spin-2"></div>
+                    </div>
+                  </div>
                 </div>
-              </div>
               )}
             </div>
           </div>
         </div>
       </div>
+
+      <hr />
+      {states ? (
+        <div className="columns is-centered">
+          <div className="column is-6-fullhd is-8-widescreen is-10-desktop is-12-tablet">
+            <div className="content is-medium">
+              <h2 className="title has-text-centered" data-config-id="header">
+                {intl.formatMessage({ id: 'Frequently Asked Questions' })}
+              </h2>
+              <div className="block" data-config-id="faq">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div className="media-content">
+                        <h3 className="title is-4">
+                          {intl.formatMessage({
+                            id: 'What is the most dangerous state in Mexico?',
+                          })}
+                        </h3>
+                        <p>
+                          {intl.formatMessage({
+                            id: 'The most dangerous state in Mexico is',
+                          })}{' '}
+                          {states[states.length - 1]}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="block" data-config-id="faq">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div className="media-content">
+                        <h3 className="title is-4">
+                          {intl.formatMessage({
+                            id: 'Is Mexico Safe?',
+                          })}
+                        </h3>
+                        <p>
+                          {intl.formatMessage({
+                            id: 'The safety of Mexico varies significantly depending on the specific location and circumstances. ',
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="block" data-config-id="faq">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div className="media-content">
+                        <h3 className="title is-4">
+                          {intl.formatMessage({
+                            id: 'What are the most dangerous states in México?',
+                          })}
+                        </h3>
+                        <p>
+                          {intl.formatMessage({
+                            id: 'The most dangerous states in Mexico are ',
+                          })}{' '}
+                          {states[states.length - 1]}
+                          {', '}
+                          {states[states.length - 2]}
+                          {', '}
+                          {states[states.length - 3]}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="block" data-config-id="faq">
+                <div className="card block">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <span className="icon is-medium mdi mdi-24px">
+                          <IoIosArrowDroprightCircle />
+                        </span>
+                      </div>
+                      <div className="media-content">
+                        <h3 className="title is-4">
+                          {intl.formatMessage({
+                            id: 'What is the safest part of mexico?',
+                          })}
+                        </h3>
+                        <p>
+                          {intl.formatMessage({
+                            id: 'The safest part of Mexico is ',
+                          })}{' '}
+                          {states[0]}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </Layout>
   )
 }
