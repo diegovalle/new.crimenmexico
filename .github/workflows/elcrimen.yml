@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: diegovalle/elcrimen-docker
-      options:  --workdir /home/rstudio/new.crimenmexico --user rstudio
+      options:  --workdir /home/rstudio/new.crimenmexico --user 1000:1000
       credentials:
         username: diegovalle
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
