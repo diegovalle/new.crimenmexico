@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: diegovalle/elcrimen-docker
-      options:  --workdir /home/rstudio/new.crimenmexico --user 1000:1000
+      options:  --workdir /home/rstudio/new.crimenmexico --user rstudio
       credentials:
         username: diegovalle
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -47,6 +47,9 @@ jobs:
           curl  --retry 15 -i -H "Authorization: Token $SEMAPHORE_API_TOKEN"
           -d "project_id=$SEMAPHORE_PROJECT_ID&reference=$SEMAPHORE_REF"
           -X POST  "https://diegovalle.semaphoreci.com/api/v1alpha/plumber-workflows"
+      - name: Change permissions
+        run: >
+          chmod -R o+rwx  /home/rstudio/new.crimenmexico/
       - name: Upload build artifacts
         if: always()
         uses: actions/upload-artifact@v3
