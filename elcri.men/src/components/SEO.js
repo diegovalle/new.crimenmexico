@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
 import { routes } from '../../src/i18n'
 
-const SEO = props => {
+const SEO = (props) => {
   const data = useStaticQuery(graphql`
     {
       site {
@@ -79,6 +79,7 @@ const SEO = props => {
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           name: props.lang === 'es' ? 'El Crimen' : 'Mexico Crime Report',
+          alternateName: 'ElCri.men',
           inLanguage: props.lang === 'es' ? 'es' : 'en',
           url:
             props.lang === 'es' ? 'https://elcri.men/' : 'https//elcri.men/en/',
@@ -127,8 +128,8 @@ const SEO = props => {
       <link
         rel="canonical"
         href={`${defaults.siteUrl}${props.path}${
-          props.lang === "en" && props.path !== "/" ? "/" : ""
-        }`.replace(/\/\/$/, "/")}
+          props.lang === 'en' && props.path !== '/' ? '/' : ''
+        }`.replace(/\/\/$/, '/')}
       />
       <link
         rel="alternate"
