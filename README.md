@@ -20,11 +20,13 @@ docker run -it diegovalle/elcrimen-docker
 Once inside the Docker container:
 
 1. Change to the project directory:
+
    ```bash
    cd /home/rstudio/new.crimenmexico
    ```
 
 2. Get the latest version:
+
    ```bash
    git pull
    ```
@@ -64,7 +66,6 @@ make download_csv download_inegi clean_data analysis website
 
 [ENVIPE](https://www.inegi.org.mx/programas/envipe/)
 
-
 ## License
 
 MIT License
@@ -72,3 +73,11 @@ MIT License
 ## Contact
 
 [Contact Form](https://www.diegovalle.net/contact/)
+
+## How to update when a new ENVIPE comes out
+
+- Open the pdf presentation and copy the crime rate to /tasa-crimen/
+- Open the Excel files with the 'estimaciones' and standard errors and copy table 1.20 to /envipe/
+- Sometimes the 'secustro' data is only found in the main presentation pdf
+- Open the [SNSP](https://www.gob.mx/sesnsp/acciones-y-programas/victimas-nueva-metodologia?state=published) and Unidades robadas pdf report and copy them to /envipe/
+- Look up the car robbery data at the AMIS site and copy them to /envipe/

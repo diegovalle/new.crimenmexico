@@ -18,11 +18,11 @@ import {
   TooltipComponent,
   TitleComponent,
   LegendComponent,
-} from "echarts/components";
+} from 'echarts/components'
 import {
   CanvasRenderer,
   // SVGRenderer,
-} from "echarts/renderers";
+} from 'echarts/renderers'
 
 import social_image from '../assets/images/social/social-crimen-tasas.png'
 import social_image_en from '../assets/images/social/social-crimen-tasas_en.png'
@@ -34,7 +34,7 @@ echarts.use([
   BarChart,
   CanvasRenderer,
   LegendComponent,
-]);
+])
 
 const prevalencia_hogares = [
   { year: 2012, per: 32.4 },
@@ -48,6 +48,7 @@ const prevalencia_hogares = [
   { year: 2020, per: 28.4 },
   { year: 2021, per: 29.0 },
   { year: 2022, per: 27.4 },
+  { year: 2023, per: 27.5 },
 ]
 
 const prevalencia_personas = [
@@ -62,13 +63,14 @@ const prevalencia_personas = [
   { year: 2020, per: 23520 },
   { year: 2021, per: 24207 },
   { year: 2022, per: 22587 },
+  { year: 2023, per: 23323 },
 ]
 
 function CrimeRate(props) {
   const intl = useIntl()
   const comma = num_format(',.0f')
 
-  const genChartOptions = function(data, yAxis, tooltip) {
+  const genChartOptions = function (data, yAxis, tooltip) {
     return {
       animation: false,
       title: {
@@ -124,7 +126,7 @@ function CrimeRate(props) {
           fontFamily: 'Roboto Condensed, Ubuntu, system-ui, sans-serif',
           color: '#111',
         },
-        data: data.map(function(item) {
+        data: data.map(function (item) {
           return item.year
         }),
         axisLabel: {
@@ -160,7 +162,7 @@ function CrimeRate(props) {
           color: '#542600',
           barWidth: '85%',
           itemStyle: { borderWidth: 10 },
-          data: data.map(function(item) {
+          data: data.map(function (item) {
             return item.per
           }),
         },
@@ -170,8 +172,7 @@ function CrimeRate(props) {
 
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
-      <Helmet
-      />
+      <Helmet />
       <SEO
         title={intl.formatMessage({ id: 'title_crimen_tasa' })}
         description={intl.formatMessage({ id: 'desc_crimen_tasas' })}
@@ -289,11 +290,15 @@ function CrimeRate(props) {
                               prevalencia_personas.length - 1
                             ].per
                           )}{' '}
-                          {intl.formatMessage({ id: 'per' })} 100,000 {' '}{intl.formatMessage({
+                          {intl.formatMessage({ id: 'per' })} 100,000{' '}
+                          {intl.formatMessage({
                             id: 'in',
-                          })}{' '} {prevalencia_personas[
+                          })}{' '}
+                          {
+                            prevalencia_personas[
                               prevalencia_personas.length - 1
-                            ].year}
+                            ].year
+                          }
                         </p>
                       </div>
                     </div>

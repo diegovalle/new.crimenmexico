@@ -37,34 +37,6 @@ echarts.use([
   ToolboxComponent,
 ])
 
-const prevalencia_hogares = [
-  { year: 2012, per: 32.4 },
-  { year: 2013, per: 33.9 },
-  { year: 2014, per: 33.2 },
-  { year: 2015, per: 34.0 },
-  { year: 2016, per: 34.2 },
-  { year: 2017, per: 35.6 },
-  { year: 2018, per: 33.9 },
-  { year: 2019, per: 29.2 },
-  { year: 2020, per: 28.4 },
-  { year: 2021, per: 29.0 },
-  { year: 2022, per: 27.4 },
-];
-
-const prevalencia_personas = [
-  { year: 2012, per: 27337 },
-  { year: 2013, per: 28224 },
-  { year: 2014, per: 28200 },
-  { year: 2015, per: 28202 },
-  { year: 2016, per: 28788 },
-  { year: 2017, per: 29746 },
-  { year: 2018, per: 28269 },
-  { year: 2019, per: 24849 },
-  { year: 2020, per: 23520 },
-  { year: 2021, per: 24207 },
-  { year: 2022, per: 22587 },
-];
-
 var lesiones_data = [
   [
     { date: 2015, value: 1072610, sup: 1169170, inf: 976050 },
@@ -100,6 +72,12 @@ var lesiones_data = [
       sup: 1017768 + 58608.0764495694,
       inf: 1017768 - 58608.0764495694,
     },
+    {
+      date: 2023,
+      value: 1508588,
+      sup: 1508588 + 112222,
+      inf: 1508588 - 112222,
+    },
   ],
   [
     { date: 2015, value: 153458 },
@@ -110,6 +88,7 @@ var lesiones_data = [
     { date: 2020, value: 161071 },
     { date: 2021, value: 170460 },
     { date: 2022, value: 180683 },
+    { date: 2023, value: 184274 },
   ],
 ]
 var secuestro_data = [
@@ -119,9 +98,30 @@ var secuestro_data = [
     { date: 2017, value: 80319, sup: 80319 * 1.21, inf: 80319 * 0.79 },
     { date: 2018, value: 79315, sup: 92998, inf: 65632 },
     { date: 2019, value: 105189, sup: 129706, inf: 80672 },
-    { date: 2020, value: 74393, sup: 89015, inf: 59771 },
-    { date: 2021, value: 56994, inf: 46533, sup: 67455 },
-    { date: 2022, value: 69829, inf: 57430, sup: 82228 },
+    {
+      date: 2020,
+      value: 80954,
+      inf: 80954 - 80954 * 0.19,
+      sup: 80954 + 80954 * 0.19,
+    },
+    {
+      date: 2021,
+      value: 60716,
+      inf: 60716 - 60716 * 0.183,
+      sup: 60716 + 60716 * 0.183,
+    },
+    {
+      date: 2022,
+      value: 77825,
+      inf: 77825 - 77825 * 0.201,
+      sup: 77825 + 77825 * 0.201,
+    },
+    {
+      date: 2023,
+      value: 85931,
+      inf: 85931 - 85931 * 0.172,
+      sup: 85931 + 85931 * 0.172,
+    },
   ],
   [
     { date: 2015, value: 1312 },
@@ -132,6 +132,7 @@ var secuestro_data = [
     { date: 2020, value: 1047 },
     { date: 2021, value: 815 },
     { date: 2022, value: 724 },
+    { date: 2023, value: 844 },
   ],
 ]
 var extorsion_data = [
@@ -174,6 +175,12 @@ var extorsion_data = [
       sup: 4726724 + 142299.702778443,
       inf: 4726724 - 142299.702778443,
     },
+    {
+      date: 2023,
+      value: 4902122,
+      sup: 4902122 + 155921.464499242,
+      inf: 4902122 - 155921.464499242,
+    },
   ],
   [
     { date: 2015, value: 6223 },
@@ -184,6 +191,7 @@ var extorsion_data = [
     { date: 2020, value: 8380 },
     { date: 2021, value: 9408 },
     { date: 2022, value: 11039 },
+    { date: 2023, value: 10946 },
   ],
 ]
 // ENVIPE: Robo total de vehículo (automóvil, camioneta, camión).
@@ -226,6 +234,12 @@ var robocoche_data = [
       sup: 446905 + 20684.1464980831,
       inf: 446905 - 20684.1464980831,
     },
+    {
+      date: 2023,
+      value: 532701,
+      sup: 532701 + 23021.9416208074,
+      inf: 532701 - 23021.9416208074,
+    },
   ],
   // SNSP
   [
@@ -237,6 +251,7 @@ var robocoche_data = [
     { date: 2020, value: 115325 + 30804 - 30804 },
     { date: 2021, value: 108680 + 32568 - 32568 },
     { date: 2022, value: 101809 + 36901 - 36901 },
+    { date: 2023, value: 95414 + 41632 - 41632 },
   ],
   // AMIS
   [
@@ -248,6 +263,7 @@ var robocoche_data = [
     { date: 2020, value: 68254 },
     { date: 2021, value: 62142 },
     { date: 2022, value: 60523 },
+    { date: 2023, value: 61222 },
   ],
 ]
 
@@ -255,7 +271,7 @@ function Envipe(props) {
   const intl = useIntl()
   const comma = num_format(',.0f')
 
-  const genChartOptions = function(data, title) {
+  const genChartOptions = function (data, title) {
     return {
       animation: false,
       title: {
@@ -266,7 +282,7 @@ function Envipe(props) {
           fontFamily: 'Trebuchet MS',
           fontSize: 14,
           fontWeight: 'bold',
-          color: "#111"
+          color: '#111',
         },
       },
       tooltip: {
@@ -278,18 +294,21 @@ function Envipe(props) {
         axisPointer: {
           animation: false,
         },
-        formatter: function(item) {
-          return `${item[0].name}<br/>` +
+        formatter: function (item) {
+          return (
+            `${item[0].name}<br/>` +
             `<b><span className="envipe">ENVIPE</span></b>: ${comma(
               item[0].value
             )}<br/>` +
             `<b><span className="snsp">SNSP</span></b>: ${comma(
               item[3].value
             )}<br/>` +
-            (typeof item[4] ===
-            'undefined'
-            ? ''
-            : `<b><span className="amis">AMIS</span></b>: ${comma(item[4].value)}`)
+            (typeof item[4] === 'undefined'
+              ? ''
+              : `<b><span className="amis">AMIS</span></b>: ${comma(
+                  item[4].value
+                )}`)
+          )
         },
       },
       grid: {
@@ -301,7 +320,7 @@ function Envipe(props) {
       },
       xAxis: {
         type: 'category',
-        data: data[0].map(function(item) {
+        data: data[0].map(function (item) {
           return item.date
         }),
         boundaryGap: false,
@@ -346,7 +365,7 @@ function Envipe(props) {
         {
           name: 'ENVIPE',
           type: 'line',
-          data: data[0].map(function(item) {
+          data: data[0].map(function (item) {
             return item.value
           }),
           itemStyle: {
@@ -359,7 +378,7 @@ function Envipe(props) {
         {
           name: 'ENVIPE Lower',
           type: 'line',
-          data: data[0].map(function(item) {
+          data: data[0].map(function (item) {
             return item.inf
           }),
           lineStyle: {
@@ -371,7 +390,7 @@ function Envipe(props) {
         {
           name: 'ENVIPE Upper',
           type: 'line',
-          data: data[0].map(function(item) {
+          data: data[0].map(function (item) {
             return item.sup - item.inf
           }),
           lineStyle: {
@@ -386,7 +405,7 @@ function Envipe(props) {
         {
           name: 'SESNSP',
           type: 'line',
-          data: data[1].map(function(item) {
+          data: data[1].map(function (item) {
             return item.value
           }),
           itemStyle: {
@@ -403,7 +422,7 @@ function Envipe(props) {
           data:
             typeof data[2] === 'undefined'
               ? null
-              : data[2].map(function(item) {
+              : data[2].map(function (item) {
                   return item.value
                 }),
           itemStyle: {
@@ -420,8 +439,7 @@ function Envipe(props) {
 
   return (
     <Layout locale={props.pageContext.locale} path={props.location.pathname}>
-      <Helmet
-      />
+      <Helmet />
       <SEO
         title={intl.formatMessage({ id: 'title_envipe' })}
         description={intl.formatMessage({ id: 'desc_envipe' })}
