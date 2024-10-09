@@ -48,6 +48,7 @@ const SEO = (props) => {
           url: 'https://elcri.men',
           '@id': 'https://elcri.men/#Organization',
           name: 'El Crimen',
+          alternateName : "ElCri.men",
           description: 'Mexico Crime Report',
           logo: {
             '@type': 'ImageObject',
