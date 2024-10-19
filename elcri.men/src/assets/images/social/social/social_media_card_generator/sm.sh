@@ -17,7 +17,8 @@ IMAGES=(acerca
         turismo
         estados-diff
         estados-ranking
-        crimen-tasas)
+        crimen-tasas
+        daily-report)
         
 TITLES=("Datos\nabiertos"
         "Patrones\nanormales\nde\ndelitos"
@@ -37,6 +38,7 @@ TITLES=("Datos\nabiertos"
         "Diferencias\nen\nhomicidios"
         "Ranking\npor\nestado"
         "Índice de\nCriminalidad\nen\nMéxico"
+        "Reporte\nDiario\nde\nHomicidios"
        )
 
 TITLES_EN=("Open\ncrime\ndata"
@@ -57,6 +59,7 @@ TITLES_EN=("Open\ncrime\ndata"
            "Changes\nin\nhomicide\nrates"
            "Crime\nrank\nby\nstate"
            "Crime\nRates\nin\nMexico"
+           "Daily\nHomicide\nReport"
           )
 WW=1200
 HH=630

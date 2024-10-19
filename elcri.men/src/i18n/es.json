@@ -248,5 +248,13 @@
   "The homicide rate in Leon is ": "La tasa de homicidios en León es ",
   "Is Guadalajara Mexico safe?": "¿Es seguro Guadalajara?",
   "The homicide rate in Guadalajara is ": "La tasa de homicidios en Guadalajara es ",
-  "Is Mexico dangerous to live in?": "¿Es seguro vivir en México?"
+  "Is Mexico dangerous to live in?": "¿Es seguro vivir en México?",
+  "title_daily": "Homicidios Diarios - El Crimen",
+  "desc_daily": "Datos Diarios de homicidio en México",
+  "Daily Homicides in Mexico": "Homicidios diarios (no oficiales) en México hasta el",
+  "Number of homicides and 30 day rolling mean": "Número de homicidios y promedio de 30 días",
+  "30 day average": "Promedio de 30 días",
+  "number of homicides": "número de homicidios",
+  "daily_text": "Los <a href=\"http://www.informeseguridad.cns.gob.mx/\">datos diarios</a> de homicidios son estimaciones iniciales que pueden cambiar, ya que las autoridades estatales aún deben confirmar si cada caso es realmente un crimen. La información sobre homicidios que se publica cada día es provisional y está sujeta a revisión por parte de las fiscalías de cada estado. Estos datos se comparten para ayudar a las autoridades a tomar decisiones rápidas, pero no son los números oficiales finales.",
+  "daily-report": "Reporte diario"
 }

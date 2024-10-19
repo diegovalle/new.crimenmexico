@@ -22,6 +22,7 @@ module.exports = {
     '/politica-privacidad/': '/privacy-policy/',
     '/turismo/': '/tourism/',
     '/tasa-crimen/': '/crime-rate/',
+    '/reporte-diario/': '/daily-report/',
   },
   routes_inverted: {
     '/en/': '/',
@@ -46,5 +47,6 @@ module.exports = {
     '/en/privacy-policy/': '/politica-privacidad/',
     '/en/tourism/': '/turismo/',
     '/en/crime-rate/': '/tasa-crimen/',
+    '/en/daily-report/': '/reporte-diario/',
   },
 }

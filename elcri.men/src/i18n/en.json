@@ -247,5 +247,13 @@
   "The homicide rate in Leon is ": "The homicide rate in Leon is ",
   "Is Guadalajara Mexico safe?": "Is Guadalajara Mexico safe?",
   "The homicide rate in Guadalajara is ": "The homicide rate in Guadalajara is ",
-  "Is Mexico dangerous to live in?": "Is Mexico dangerous to live in?"
+  "Is Mexico dangerous to live in?": "Is Mexico dangerous to live in?",
+  "title_daily": "Daily Homicides - El Crimen",
+  "desc_daily": "Daily number of homicides in Mexico",
+  "Daily Homicides in Mexico": "Daily Homicides in Mexico (preliminary data)",
+  "Number of homicides and 30 day rolling mean": "Number of homicides and 30 day rolling mean",
+  "30 day average": "30 day average",
+  "number of homicides": "number of homicides",
+  "daily_text": "Daily <a href=\"http://www.informeseguridad.cns.gob.mx/\">homicide data</a> are preliminary estimates that may change, as state authorities must still confirm whether each case is actually a crime. The homicide information published daily is provisional and subject to review by the prosecutors of each state. This data is shared to help authorities make quick decisions, but it is not the final official count.",
+  "daily-report": "Daily report"
 }

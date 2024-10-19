@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import '../assets/scss/style.scss'
 import LLink from '../components/LLink'
-import { useIntl} from 'react-intl'
+import { useIntl } from 'react-intl'
 
 import Language from '../components/Language'
 
-const NavbarBurger = props => (
+const NavbarBurger = (props) => (
   <a
     role="button"
     className={`burger navbar-burger ${props.active ? 'is-active' : ''}`}
@@ -233,7 +233,7 @@ const Navbar = ({ locale, path }) => {
                 !activeMenu
                   ? 'navbar-link ' +
                     colorMenu(
-                      /tendencias|trends|envipe|underreporting-crime|anomalias|anomalies|infograficas|infographics|tendencias_estado|trends_state|tasa-crime|crime-rate/g,
+                      /tendencias|trends|envipe|underreporting-crime|anomalias|anomalies|infograficas|infographics|tendencias_estado|trends_state|tasa-crime|crime-rate|reporte-diario|daily-report/g,
                       path
                     )
                   : 'navbar-link '
@@ -287,6 +287,15 @@ const Navbar = ({ locale, path }) => {
                 activeClassName="has-background-grey-dark has-text-white-ter has-text-weight-bold active"
               >
                 {intl.formatMessage({ id: 'crime-rate' })}
+              </LLink>
+              <LLink
+                locale={locale}
+                className="navbar-item"
+                to="/reporte-diario/"
+                partiallyActive={true}
+                activeClassName="has-background-grey-dark has-text-white-ter has-text-weight-bold active"
+              >
+                {intl.formatMessage({ id: 'daily-report' })}
               </LLink>
               <hr className="navbar-divider" />
               <LLink
