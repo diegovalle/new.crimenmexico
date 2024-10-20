@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Helmet from 'react-helmet'
 
+import { format as num_format } from 'd3-format'
 import Layout from '../components/layout'
 import { FormattedDate } from 'react-intl'
 import SEO from '../components/SEO'
 import { useIntl, FormattedHTMLMessage } from 'react-intl'
 import { YYYYmmddToDate15 } from '../components/utils'
 import HeroTitle from '../components/HeroTitle'
+import TextColumn from '../components/TextColumn'
 
 import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
@@ -22,7 +24,10 @@ import {
   // SVGRenderer,
 } from 'echarts/renderers'
 
-import '../assets/css/trends.css'
+//import '../assets/css/trends.css'
+
+import '../components/TendenciaNacional/diario_es.css'
+import '../components/TendenciaNacional/diario_en.css'
 
 import social_image from '../assets/images/social/social-daily-report.png'
 import social_image_en from '../assets/images/social/social-daily-report_en.png'
@@ -39,14 +44,26 @@ echarts.use([
 function ReporteDiario(props) {
   const intl = useIntl()
   const [data, setData] = useState(null)
+  const [table, setTable] = useState(null)
   const [maxDate, setMaxDate] = useState(null)
+
+  const comma = num_format(',.0f')
 
   useEffect(() => {
     fetch('https://elcrimen-diario.web.app/informe_diario.json')
       .then((response) => response.json())
       .then((responseJSON) => {
+        responseJSON = responseJSON.filter((item) => item[0] > '2023-01-01')
         setData(responseJSON)
         setMaxDate(responseJSON[responseJSON.length - 1][0])
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+    fetch('https://elcrimen-diario.web.app/por_dia.json')
+      .then((response) => response.json())
+      .then((responseJSON) => {
+        setTable(responseJSON)
       })
       .catch((error) => {
         console.error(error)
@@ -76,7 +93,7 @@ function ReporteDiario(props) {
       },
     },
     tooltip: {
-      trigger: 'axis',
+      trigger: 'item',
       textStyle: {
         color: '#111',
         fontFamily: 'Roboto Condensed',
@@ -84,25 +101,29 @@ function ReporteDiario(props) {
       axisPointer: {
         animation: false,
       },
-      //   formatter: function (item) {
-      //     let date = new Date(item[0].name)
-      //     let datestr = [
-      //       date.toLocaleString(intl.locale, { month: 'long' }),
-      //       date.getFullYear(),
-      //     ].join(' ')
-      //     let rate_diff = intl.formatMessage({ id: 'rate_diff' })
-      //     let count_diff = intl.formatMessage({ id: 'count_diff' })
-      //     let num = data[item[0].dataIndex].diff_count
-      //     return (
-      //       `${datestr}<br/>` +
-      //       `<b>${rate_diff}</b>: ${round1(item[0].value)}<br/>` +
-      //       `<b>${count_diff}</b>: ${comma(num)}<br/>`
-      //     )
-      //   },
+      formatter: function (item) {
+        let date = new Date(item.name + 'T00:00:00.000-06:00')
+        let datestr = [
+          date.toLocaleString(intl.locale, {
+            month: 'long',
+            day: 'numeric',
+            timezone: 'America/Mexico_City',
+          }),
+          date.getFullYear(),
+        ].join(' ')
+        let numHom = intl.formatMessage({ id: 'number of homicides' })
+        let rollmean = intl.formatMessage({ id: '30 day average' })
+        let num = item.value
+        return (
+          `${datestr}<br/>` +
+          `<b>${numHom}</b>: ${item.value}<br/>` +
+          `<b>${rollmean}</b>: ${data[item.dataIndex][2]}<br/>`
+        )
+      },
     },
     grid: {
       left: '45',
-      right: '2%',
+      right: '3%',
       bottom: '15%',
       top: '10%',
       containLabel: false,
@@ -162,7 +183,8 @@ function ReporteDiario(props) {
       {
         type: 'scatter',
         emphasis: {
-          lineStyle: { width: 2.2, color: 'black' },
+          symbolSize: 10,
+          itemStyle: { width: 4.2, color: 'red' },
         },
         name: intl.formatMessage({
           id: 'number of homicides',
@@ -198,6 +220,51 @@ function ReporteDiario(props) {
         symbol: 'none',
       },
     ],
+  }
+
+  const trbody = (data, locale) => {
+    return data.map(function (item, index) {
+      return (
+        <tr key={index}>
+          <td
+            className={locale === 'es' ? 'es_diario' : 'en_diario'}
+            key={index + '1'}
+          >
+            <FormattedDate
+              value={new Date(YYYYmmddToDate15(item[0]))}
+              month="long"
+              year="numeric"
+              timeZone="America/Mexico_City"
+            />
+          </td>
+          <td
+            className={locale === 'es' ? 'es_diario' : 'en_diario'}
+            key={index + '2'}
+            style={{ textAlign: 'right', fontFamily: 'monospace' }}
+          >
+            {Math.round(item[2] * 10) / 10} (
+            {comma(Math.round(item[2] * item[1]))})
+          </td>
+          <td
+            className={locale === 'es' ? 'es_diario' : 'en_diario'}
+            key={index + '3'}
+            style={{ textAlign: 'right', fontFamily: 'monospace' }}
+            bgcolor={item[3] ? 'white' : '#F8766D'}
+          >
+            {item[3]
+              ? Math.round(item[3] * 10) / 10 +
+                ' (' +
+                comma(Math.round(item[3] * item[1])) +
+                ')'
+              : Math.round((((item[2] + 11.73) * item[1]) / item[1]) * 10) /
+                  10 +
+                ' (' +
+                comma(Math.round((item[2] + 11.73) * item[1])) +
+                ')'}
+          </td>
+        </tr>
+      )
+    })
   }
 
   return (
@@ -246,15 +313,48 @@ function ReporteDiario(props) {
           </div>
         </article>
 
-        <div className="container is-fullhd" id="trends">
-          <article id="content">
-            <p style={{ lineHeight: '1.2rem' }}>
-              <FormattedHTMLMessage id="daily_text" />
-            </p>
-            <p style={{ textAlign: 'left' }} />
-            <br />
-          </article>
+        <h3 class="title is-3">
+          <FormattedHTMLMessage id="daily_in_red_title" />
+        </h3>
+        <TextColumn>
+          <FormattedHTMLMessage id="daily_in_red" />
+        </TextColumn>
+
+        <hr style={{ backgroundColor: '#fff' }} />
+        <div className="columns is-centered">
+          <div className="column is-6">
+            <div className="table-container">
+              <table className="table is-striped is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>
+                      {intl.formatMessage({
+                        id: 'Date',
+                      })}
+                    </th>
+                    <th>
+                      {intl.formatMessage({
+                        id: 'Preliminary',
+                      })}
+                    </th>
+                    <th>
+                      {intl.formatMessage({
+                        id: 'SNSP (oficial data)',
+                      })}
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>{table ? trbody(table, intl.locale) : null}</tbody>
+              </table>
+            </div>
+          </div>
         </div>
+
+        <hr style={{ backgroundColor: '#fff' }} />
+        <TextColumn>
+          <FormattedHTMLMessage id="daily_text" />
+        </TextColumn>
       </div>
     </Layout>
   )

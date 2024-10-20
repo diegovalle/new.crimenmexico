@@ -256,5 +256,9 @@
   "30 day average": "Promedio de 30 días",
   "number of homicides": "número de homicidios",
   "daily_text": "Los <a href=\"http://www.informeseguridad.cns.gob.mx/\">datos diarios</a> de homicidios son estimaciones iniciales que pueden cambiar, ya que las autoridades estatales aún deben confirmar si cada caso es realmente un crimen. La información sobre homicidios que se publica cada día es provisional y está sujeta a revisión por parte de las fiscalías de cada estado. Estos datos se comparten para ayudar a las autoridades a tomar decisiones rápidas, pero no son los números oficiales finales.",
-  "daily-report": "Reporte diario"
+  "daily-report": "Reporte diario",
+  "Preliminary": "Preliminar",
+  "SNSP (oficial data)": "SNSP (datos oficiales)",
+  "daily_in_red_title": "Comparasión de los datos diarios y oficiales del SNSP",
+  "daily_in_red": "Homicidios por día (y el total mensual en parentesis), y una predicción del próximo mes en rojo"
 }

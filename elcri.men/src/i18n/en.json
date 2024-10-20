@@ -255,5 +255,9 @@
   "30 day average": "30 day average",
   "number of homicides": "number of homicides",
   "daily_text": "Daily <a href=\"http://www.informeseguridad.cns.gob.mx/\">homicide data</a> are preliminary estimates that may change, as state authorities must still confirm whether each case is actually a crime. The homicide information published daily is provisional and subject to review by the prosecutors of each state. This data is shared to help authorities make quick decisions, but it is not the final official count.",
-  "daily-report": "Daily report"
+  "daily-report": "Daily report",
+  "Preliminary": "Preliminary",
+  "SNSP (oficial data)": "SNSP (oficial data)",
+  "daily_in_red_title": "Comparison of preliminary data and oficial data",
+  "daily_in_red": "Homicides per day (and monthly totals in parenthesis), and a forecast one month in advance in red"
 }

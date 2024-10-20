@@ -1,0 +1,52 @@
+@media only screen and (max-width: 1024px) {
+  table td:not([align]) {
+    text-align: right;
+  }
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  tr {
+    border: 1px solid #ccc;
+  }
+  td.en_diario {
+    font-family: 'ui-monospace';
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    text-align: right;
+  }
+  td.en_diario:before {
+    position: absolute;
+    top: 12px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+  td.en_diario:nth-of-type(1):before {
+    font-family: 'ui-monospace';
+    text-align: left;
+    content: 'Date:';
+  }
+  td.en_diario:nth-of-type(2):before {
+    font-family: 'ui-monospace';
+    text-align: left;
+    content: 'Preliminary';
+  }
+  td.en_diario:nth-of-type(3):before {
+    font-family: 'ui-monospace';
+    text-align: left;
+    content: 'Homicides SNSP';
+  }
+}
