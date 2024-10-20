@@ -249,7 +249,7 @@ function ReporteDiario(props) {
             className={locale === 'es' ? 'es_diario' : 'en_diario'}
             key={index + '3'}
             style={{ textAlign: 'right', fontFamily: 'monospace' }}
-            bgcolor={item[3] ? 'white' : '#F8766D'}
+            bgcolor={item[3] ? 'white' : '#05ffda'}
           >
             {item[3]
               ? Math.round(item[3] * 10) / 10 +
