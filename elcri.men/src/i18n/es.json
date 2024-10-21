@@ -260,5 +260,8 @@
   "Preliminary": "Preliminar",
   "SNSP (oficial data)": "SNSP (datos oficiales)",
   "daily_in_red_title": "Comparasión de los datos diarios y los oficiales del SNSP",
-  "daily_in_red": "Homicidios por día (y el total mensual en parentesis), y una predicción del próximo mes en azul"
+  "daily_in_red": "Homicidios por día (y el total mensual en parentesis), y una predicción del próximo mes en rojo",
+  "Predicted": "Predicción",
+  "number of homicides per day": "número de homicidios por día",
+  "Number of homicides per day": "Número de homicidios por día"
 }

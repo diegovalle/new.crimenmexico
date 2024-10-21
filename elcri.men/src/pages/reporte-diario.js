@@ -48,6 +48,7 @@ function ReporteDiario(props) {
   const [maxDate, setMaxDate] = useState(null)
 
   const comma = num_format(',.0f')
+  const round1 = num_format('.1f')
 
   useEffect(() => {
     fetch('https://elcrimen-diario.web.app/informe_diario.json')
@@ -125,7 +126,7 @@ function ReporteDiario(props) {
       left: '45',
       right: '3%',
       bottom: '15%',
-      top: '10%',
+      top: '19%',
       containLabel: false,
     },
     xAxis: {
@@ -222,6 +223,198 @@ function ReporteDiario(props) {
     ],
   }
 
+  let monthlyChartOption = {
+    animation: true,
+    animationDuration: 0,
+    // toolbox: {
+    //   show: true,
+    //   feature: {
+    //     saveAsImage: { show: true },
+    //   },
+    // },
+    title: {
+      text: intl.formatMessage({
+        id: 'Number of homicides per day',
+      }),
+      top: '3%',
+      left: 'center',
+      textStyle: {
+        fontFamily: 'Trebuchet MS',
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: '#111',
+      },
+    },
+    tooltip: {
+      trigger: 'axis',
+      textStyle: {
+        color: '#111',
+        fontFamily: 'Roboto Condensed',
+      },
+      axisPointer: {
+        animation: false,
+      },
+      formatter: function (item) {
+        let date = new Date(YYYYmmddToDate15(item[0].name))
+        let datestr = [
+          date.toLocaleString(intl.locale, {
+            month: 'long',
+            timezone: 'America/Mexico_City',
+          }),
+          date.getFullYear(),
+        ].join(' ')
+        let numHom = intl.formatMessage({ id: 'number of homicides' })
+        let rollmean = intl.formatMessage({ id: '30 day average' })
+        let num = item[2].value
+        return (
+          `${datestr}<br/>` +
+          `<b style="color:#377eb8">SNSP</b>: ${
+            isNaN(round1(item[0].value)) ? '-' : round1(item[0].value)
+          }<br/>` +
+          `<b style="color:#4daf4a">${intl.formatMessage({
+            id: 'Preliminary',
+          })}</b>: ${round1(item[1].value)}<br/>` +
+          `<b style="color:#e41a1c">${intl.formatMessage({
+            id: 'Predicted',
+          })}</b>: ${
+            typeof item[2].value !== 'undefined'
+              ? item[2].value !== item[0].value
+                ? round1(item[2].value)
+                : '-'
+              : '-'
+          }<br/>`
+        )
+      },
+    },
+    grid: {
+      left: '45',
+      right: '3%',
+      bottom: '15%',
+      top: '19%',
+      containLabel: false,
+    },
+    xAxis: {
+      animation: false,
+      type: 'category',
+      boundaryGap: true,
+      data: table === null ? null : table.map((item) => item[0]),
+      axisLabel: {
+        interval: 11,
+        formatter: function (value, idx) {
+          var date = new Date(YYYYmmddToDate15(value))
+          return [
+            date.toLocaleString(intl.locale, { month: 'short' }),
+            date.getFullYear(),
+          ].join(' ')
+        },
+      },
+      axisLine: { lineStyle: { color: '#4d4d4d', width: 2 } },
+      splitNumber: 2,
+    },
+    yAxis: [
+      {
+        animation: false,
+        name: intl.formatMessage({
+          id: 'number of homicides per day',
+        }),
+        nameLocation: 'middle',
+        nameGap: 25,
+        nameTextStyle: { fontFamily: 'Arial', fontSize: 11, color: '#222' },
+        type: 'value',
+        scale: false,
+        splitNumber: 4,
+        // interval:
+        //   Math.round(Math.round((((props.max_y + 5) / 10) * 10) / 3) / 10) *
+        //   10,
+        // max: Math.round((props.max_y + 5) / 10) * 10,
+        splitLine: {
+          show: true,
+          lineStyle: {
+            type: 'solid',
+            color: '#333',
+            width: 0.4,
+          },
+        },
+        axisLabel: {
+          fontFamily: 'Arial',
+          fontSize: 11,
+          color: '#4d4d4d',
+          margin: 0,
+          padding: [0, 2, 0, 0],
+        },
+      },
+    ],
+    series: [
+      {
+        type: 'line',
+        name: intl.formatMessage({
+          id: 'SNSP',
+        }),
+        data: table === null ? null : table.map((item) => item[3]),
+        itemStyle: {
+          color: '#377eb8',
+        },
+        showSymbol: false,
+
+        symbol: 'circle',
+        symbolSize: 4,
+        showSymbol: false,
+        lineStyle: {
+          width: 2,
+          color: '#377eb8', //red
+        },
+      },
+      {
+        type: 'line',
+        name: intl.formatMessage({
+          id: 'preliminary',
+        }),
+        data: table === null ? null : table.map((item) => item[2]),
+        itemStyle: {
+          color: '#4daf4a',
+        },
+        symbol: 'circle',
+        symbolSize: 4,
+        showSymbol: false,
+        lineStyle: {
+          color: '#4daf4a',
+          width: 2,
+        },
+      },
+      {
+        type: 'line',
+
+        name: intl.formatMessage({
+          id: 'prediction',
+        }),
+        data:
+          table === null
+            ? null
+            : table.map((item, i) => {
+                if (i === table.length - 2) return item[3]
+                if (item[3] === null)
+                  return (
+                    Math.round((((item[2] + 11.73) * item[1]) / item[1]) * 10) /
+                    10
+                  )
+                else return null
+              }),
+
+        symbol: 'circle',
+        itemStyle: {
+          color: '#e41a1c',
+        },
+        symbolSize: 4,
+        showSymbol: false,
+        lineStyle: {
+          color: '#e41a1c',
+          type: 'dashed',
+          width: 2,
+        },
+      },
+    ],
+  }
+
   const trbody = (data, locale) => {
     return data.map(function (item, index) {
       return (
@@ -248,8 +441,11 @@ function ReporteDiario(props) {
           <td
             className={locale === 'es' ? 'es_diario' : 'en_diario'}
             key={index + '3'}
-            style={{ textAlign: 'right', fontFamily: 'monospace' }}
-            bgcolor={item[3] ? 'white' : '#05ffda'}
+            style={{
+              textAlign: 'right',
+              fontFamily: 'monospace',
+              backgroundColor: item[3] ? '' : '#f8766d',
+            }}
           >
             {item[3]
               ? Math.round(item[3] * 10) / 10 +
@@ -320,6 +516,22 @@ function ReporteDiario(props) {
           <FormattedHTMLMessage id="daily_in_red" />
         </TextColumn>
 
+        <article id="content_chart2">
+          <div className="columns">
+            <div className="column is-10 is-offset-1">
+              <figure className="image is-2by1">
+                <div className=" has-ratio">
+                  <ReactEChartsCore
+                    echarts={echarts}
+                    option={monthlyChartOption}
+                    style={{ height: '100%', width: '100%' }}
+                    opts={{ locale: echarts.registerLocale('ES') }}
+                  />
+                </div>
+              </figure>
+            </div>
+          </div>
+        </article>
         <hr style={{ backgroundColor: '#fff' }} />
         <div className="columns is-centered">
           <div className="column is-6">
