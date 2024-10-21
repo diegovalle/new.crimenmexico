@@ -46,9 +46,14 @@ function ReporteDiario(props) {
   const [data, setData] = useState(null)
   const [table, setTable] = useState(null)
   const [maxDate, setMaxDate] = useState(null)
+  const [snspData, setSNSPData] = useState(null)
 
   const comma = num_format(',.0f')
   const round1 = num_format('.1f')
+
+  function daysInMonth(month, year) {
+    return new Date(year, month, 0).getDate()
+  }
 
   useEffect(() => {
     fetch('https://elcrimen-diario.web.app/informe_diario.json')
@@ -118,7 +123,7 @@ function ReporteDiario(props) {
         return (
           `${datestr}<br/>` +
           `<b>${numHom}</b>: ${item.value}<br/>` +
-          `<b>${rollmean}</b>: ${data[item.dataIndex][2]}<br/>`
+          `<b>${rollmean}</b>: ${data[item.dataIndex][3]}<br/>`
         )
       },
     },
@@ -209,7 +214,7 @@ function ReporteDiario(props) {
         name: intl.formatMessage({
           id: '30 day average',
         }),
-        data: data === null ? null : data.map((item) => item[2]),
+        data: data === null ? null : data.map((item) => item[3]),
         itemStyle: {
           color: '#333',
         },
@@ -509,7 +514,7 @@ function ReporteDiario(props) {
           </div>
         </article>
 
-        <h3 class="title is-3">
+        <h3 className="title is-3">
           <FormattedHTMLMessage id="daily_in_red_title" />
         </h3>
         <TextColumn>
