@@ -51,29 +51,68 @@ function ReporteDiario(props) {
   const comma = num_format(',.0f')
   const round1 = num_format('.1f')
 
-  function daysInMonth(month, year) {
+  function daysInMonth(year, month) {
     return new Date(year, month, 0).getDate()
   }
 
   useEffect(() => {
-    fetch('https://elcrimen-diario.web.app/informe_diario.json')
-      .then((response) => response.json())
-      .then((responseJSON) => {
-        responseJSON = responseJSON.filter((item) => item[0] > '2023-01-01')
-        setData(responseJSON)
-        setMaxDate(responseJSON[responseJSON.length - 1][0])
+    const informeDiario = fetch(
+      'https://elcrimen-diario.web.app/informe_diario.json'
+    ).then((response) => response.json())
+    const statesNational = fetch(
+      'https://elcri.men/elcrimen-json/states_national.json'
+    ).then((response) => response.json())
+    const porDia = fetch('https://elcrimen-diario.web.app/por_dia2.json').then(
+      (response) => response.json()
+    )
+    Promise.all([informeDiario, statesNational, porDia])
+      .then((values) => {
+        values[0] = values[0].filter((item) => item[0] > '2023-01-01')
+        setData(values[0])
+        setMaxDate(values[0][values[0].length - 1][0])
+
+        let j = {
+          date: values[1]['national']['hd'][0]['d'],
+          count: values[1]['national']['hd'][0]['c'],
+        }
+        let snsp = {}
+        for (let i = 0; i < j.date.length; i++) {
+          if (j.date[i] >= '2023-01-01') {
+            snsp[j.date[i]] = j.count[i]
+          }
+        }
+        setSNSPData(snsp)
+
+        for (let i = 0; i < values[2].length; i++) {
+          values[2][i][3] =
+            snsp[values[2][i][0]] /
+            daysInMonth(
+              values[2][i][0].slice(0, 4),
+              values[2][i][0].slice(5, 7)
+            )
+        }
+        if (values[2][1] < 10) values[2].pop()
+        setTable(values[2])
       })
       .catch((error) => {
         console.error(error)
       })
-    fetch('https://elcrimen-diario.web.app/por_dia.json')
-      .then((response) => response.json())
+
+    /*  .then((response) => response.json())
       .then((responseJSON) => {
-        setTable(responseJSON)
+        let j = {
+          date: responseJSON['national']['hd'][0]['d'],
+          count: responseJSON['national']['hd'][0]['c'],
+        }
+        let snsp = {}
+        for (let i = 1; i < j.date.length; i++) {
+          if (j.date[i] >= '2023-01-01') snsp[j.date[i]] = j.count[i]
+        }
+        setSNSPData(snsp)
       })
       .catch((error) => {
         console.error(error)
-      })
+      }) */
   }, [])
 
   let chartOption = {
@@ -397,7 +436,7 @@ function ReporteDiario(props) {
             ? null
             : table.map((item, i) => {
                 if (i === table.length - 2) return item[3]
-                if (item[3] === null)
+                if (!item[3])
                   return (
                     Math.round((((item[2] + 11.73) * item[1]) / item[1]) * 10) /
                     10
@@ -441,7 +480,12 @@ function ReporteDiario(props) {
             style={{ textAlign: 'right', fontFamily: 'monospace' }}
           >
             {Math.round(item[2] * 10) / 10} (
-            {comma(Math.round(item[2] * item[1]))})
+            {comma(
+              Math.round(
+                item[2] * daysInMonth(item[0].slice(0, 4), item[0].slice(5, 7))
+              )
+            )}
+            )
           </td>
           <td
             className={locale === 'es' ? 'es_diario' : 'en_diario'}
@@ -460,7 +504,12 @@ function ReporteDiario(props) {
               : Math.round((((item[2] + 11.73) * item[1]) / item[1]) * 10) /
                   10 +
                 ' (' +
-                comma(Math.round((item[2] + 11.73) * item[1])) +
+                comma(
+                  Math.round(
+                    (item[2] + 11.73) *
+                      daysInMonth(item[0].slice(0, 4), item[0].slice(5, 7))
+                  )
+                ) +
                 ')'}
           </td>
         </tr>
