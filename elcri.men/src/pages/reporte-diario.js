@@ -179,7 +179,7 @@ function ReporteDiario(props) {
       boundaryGap: true,
       data: data === null ? null : data.map((item) => item[0]),
       axisLabel: {
-        interval: 368,
+        interval: 185,
         formatter: function (value, idx) {
           var date = new Date(YYYYmmddToDate15(value))
           return [
@@ -399,7 +399,12 @@ function ReporteDiario(props) {
           color: '#377eb8',
         },
         showSymbol: false,
-
+        emphasis: {
+          lineStyle: {
+            width: 2,
+            color: '#377eb8', //red
+          },
+        },
         symbol: 'circle',
         symbolSize: 4,
         showSymbol: false,
@@ -420,6 +425,12 @@ function ReporteDiario(props) {
         symbol: 'circle',
         symbolSize: 4,
         showSymbol: false,
+        emphasis: {
+          lineStyle: {
+            color: '#4daf4a',
+            width: 2,
+          },
+        },
         lineStyle: {
           color: '#4daf4a',
           width: 2,
@@ -546,22 +557,24 @@ function ReporteDiario(props) {
         )}
       </HeroTitle>
       <div className="container is-fullhd" id="trends">
-        <article id="content">
-          <div className="columns">
-            <div className="column is-10 is-offset-1">
-              <figure className="image is-2by1">
-                <div className=" has-ratio">
-                  <ReactEChartsCore
-                    echarts={echarts}
-                    option={chartOption}
-                    style={{ height: '100%', width: '100%' }}
-                    opts={{ locale: echarts.registerLocale('ES') }}
-                  />
-                </div>
-              </figure>
+        <div id="daily-trends">
+          <article id="content">
+            <div className="columns">
+              <div className="column is-10 is-offset-1">
+                <figure className="image is-2by1">
+                  <div className=" has-ratio">
+                    <ReactEChartsCore
+                      echarts={echarts}
+                      option={chartOption}
+                      style={{ height: '100%', width: '100%' }}
+                      opts={{ locale: echarts.registerLocale('ES') }}
+                    />
+                  </div>
+                </figure>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </div>
 
         <h3 className="title is-3">
           <FormattedHTMLMessage id="daily_in_red_title" />
