@@ -582,7 +582,15 @@ function ReporteDiario(props) {
         <TextColumn>
           <FormattedHTMLMessage id="daily_in_red" />
         </TextColumn>
-
+        <div className="columns">
+          <div className="column is-half is-offset-5">
+            <p style={{ lineHeight: '1.2rem' }}>
+              <FormattedHTMLMessage id="snsp-victims" />
+              <br />
+              <FormattedHTMLMessage id="preliminary_homicides" />
+            </p>
+          </div>
+        </div>
         <article id="content_chart2">
           <div className="columns">
             <div className="column is-10 is-offset-1">

@@ -266,5 +266,6 @@
   "preliminary": "preliminar",
   "number of homicides per day": "número de homicidios por día",
   "Number of homicides per day": "Número de homicidios por día",
-  "SNSP": "SNSP"
+  "SNSP": "SNSP",
+  "preliminary_homicides": "<span class=\"preliminary_homicides\"><span class=\"has-text-weight-bold\">— </span><abbr title=\"datos no oficiales de homicidios\">Datos preliminares</abbr></span>"
 }
