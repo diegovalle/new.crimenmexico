@@ -18,6 +18,7 @@ import {
   GridComponent,
   TooltipComponent,
   TitleComponent,
+  MarkLineComponent,
 } from 'echarts/components'
 import {
   CanvasRenderer,
@@ -39,6 +40,7 @@ echarts.use([
   LineChart,
   ScatterChart,
   CanvasRenderer,
+  MarkLineComponent,
 ])
 
 function ReporteDiario(props) {
@@ -47,6 +49,7 @@ function ReporteDiario(props) {
   const [table, setTable] = useState(null)
   const [maxDate, setMaxDate] = useState(null)
   const [snspData, setSNSPData] = useState(null)
+  const [maxSNSPDate, setMaxSNSPDate] = useState('2023-01-01')
 
   const comma = num_format(',.0f')
   const round1 = num_format('.1f')
@@ -55,13 +58,15 @@ function ReporteDiario(props) {
     return new Date(year, month, 0).getDate()
   }
 
+  const DAYS_TO_FILTER = 10
+
   useEffect(() => {
     const informeDiario = fetch(
       'https://elcrimen-diario.web.app/informe_diario.json'
     ).then((response) => response.json())
-    const statesNational = fetch(
-      'https://elcri.men/elcrimen-json/states_national.json'
-    ).then((response) => response.json())
+    const statesNational = fetch('/states_national.json').then((response) =>
+      response.json()
+    )
     const porDia = fetch('https://elcrimen-diario.web.app/por_dia2.json').then(
       (response) => response.json()
     )
@@ -82,6 +87,15 @@ function ReporteDiario(props) {
           }
         }
         setSNSPData(snsp)
+        let lastDateSNSP =
+          values[1].national.hd[0].d[values[1].national.hd[0].d.length - 1]
+        setMaxSNSPDate(
+          lastDateSNSP.substring(0, 8) +
+            daysInMonth(
+              lastDateSNSP.substring(0, 4),
+              lastDateSNSP.substring(5, 7)
+            )
+        )
 
         for (let i = 0; i < values[2].length; i++) {
           values[2][i][3] =
@@ -91,7 +105,7 @@ function ReporteDiario(props) {
               values[2][i][0].slice(5, 7)
             )
         }
-        if (values[2][1] < 10) values[2].pop()
+        if (values[2][values[2].length - 1][1] < DAYS_TO_FILTER) values[2].pop()
         setTable(values[2])
       })
       .catch((error) => {
@@ -189,7 +203,21 @@ function ReporteDiario(props) {
         },
       },
       axisLine: { lineStyle: { color: '#4d4d4d', width: 2 } },
-      splitNumber: 2,
+      splitLine: {
+        interval: (index, value) => {
+          if (
+            parseInt(value.slice(8, 10)) ===
+            daysInMonth(value.slice(0, 4), value.slice(5, 7))
+          )
+            return true
+        },
+        show: true,
+        lineStyle: {
+          type: 'solid',
+          color: '#ccc',
+          width: 0.4,
+        },
+      },
     },
     yAxis: [
       {
@@ -263,6 +291,15 @@ function ReporteDiario(props) {
         },
         showSymbol: false,
         symbol: 'none',
+        markLine: {
+          animation: false,
+          silent: true,
+          symbolSize: 0,
+          lineStyle: { color: '#555', type: 'solid', width: 1 },
+          data: [{ xAxis: maxSNSPDate }],
+          label: { show: false },
+          lineStyle: { type: 'dashed' },
+        },
       },
     ],
   }
@@ -416,13 +453,12 @@ function ReporteDiario(props) {
       {
         type: 'line',
         name: intl.formatMessage({
-          id: 'preliminary',
+          id: 'snsp',
         }),
         data: table === null ? null : table.map((item) => item[2]),
         itemStyle: {
           color: '#4daf4a',
         },
-        symbol: 'circle',
         symbolSize: 4,
         showSymbol: false,
         emphasis: {
@@ -446,13 +482,14 @@ function ReporteDiario(props) {
           table === null
             ? null
             : table.map((item, i) => {
-                if (i === table.length - 2) return item[3]
                 if (!item[3])
                   return (
                     Math.round((((item[2] + 11.73) * item[1]) / item[1]) * 10) /
                     10
                   )
-                else return null
+                if (i < table.length - 1 && isNaN(table[i + 1][3])) {
+                  return item[3]
+                } else return null
               }),
 
         symbol: 'circle',
@@ -588,6 +625,8 @@ function ReporteDiario(props) {
               <FormattedHTMLMessage id="snsp-victims" />
               <br />
               <FormattedHTMLMessage id="preliminary_homicides" />
+              <br />
+              <FormattedHTMLMessage id="prediction_homicides" />
             </p>
           </div>
         </div>
