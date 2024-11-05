@@ -266,6 +266,8 @@
   "Number of homicides per day": "Number of homicides per day",
   "Predicted": "Predicted",
   "SNSP": "SNSP",
+  "snsp": "SNSP",
   "preliminary_homicides": "<span class=\"preliminary_homicides\"><span class=\"has-text-weight-bold\">— </span><abbr title=\"non-official homicide data\">Preliminary homicide data</abbr> </span>",
-  "prediction_homicides": "<span class=\"prediction_homicides\"><span class=\"has-text-weight-bold\">— </span>Prediction</span>"
+  "prediction_homicides": "<span class=\"prediction_homicides\"><span class=\"has-text-weight-bold\">— </span>Prediction</span>",
+  "states_daily_report": "Homicides per day (non-official data)"
 }

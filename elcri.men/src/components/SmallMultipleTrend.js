@@ -30,10 +30,7 @@ echarts.use([
 ])
 
 function SmallMultipleTrend(props) {
-  const {
-    height = 170,
-    ...restProps
-  } = props
+  const { height = 170, ...restProps } = props
 
   const intl = useIntl()
   let data = props.formatData(props.data)
@@ -65,7 +62,7 @@ function SmallMultipleTrend(props) {
           fontFamily: 'Roboto Condensed',
         },
       },
-      formatter: function(item) {
+      formatter: function (item) {
         let date = new Date(item[0].name)
         let datestr = [
           date.toLocaleString(intl.locale, { month: 'long' }),
@@ -84,7 +81,7 @@ function SmallMultipleTrend(props) {
     },
     xAxis: {
       type: 'category',
-      data: data[0].map(function(item) {
+      data: data[0].map(function (item) {
         return item.date
       }),
       axisLabel: {
@@ -92,7 +89,7 @@ function SmallMultipleTrend(props) {
         fontSize: 11,
         color: '#4d4d4d',
         interval: 35,
-        formatter: function(value, idx) {
+        formatter: function (value, idx) {
           var date = new Date(value)
           return [
             date.toLocaleString(intl.locale, { month: 'short' }),
@@ -150,7 +147,7 @@ function SmallMultipleTrend(props) {
           },
         },
         type: 'scatter',
-        data: data[1].map(function(item) {
+        data: data[1].map(function (item) {
           return item.value
         }),
         itemStyle: {
@@ -169,7 +166,7 @@ function SmallMultipleTrend(props) {
         },
         name: 'L',
         type: 'line',
-        data: data[0].map(function(item) {
+        data: data[0].map(function (item) {
           return item.l
         }),
         lineStyle: {
@@ -184,7 +181,7 @@ function SmallMultipleTrend(props) {
         },
         name: 'U',
         type: 'line',
-        data: data[0].map(function(item) {
+        data: data[0].map(function (item) {
           return item.u - item.l
         }),
         lineStyle: {
@@ -202,11 +199,16 @@ function SmallMultipleTrend(props) {
         },
         name: 'median',
         type: 'line',
-        data: data[0].map(function(item) {
+        data: data[0].map(function (item) {
           return item.value
         }),
         itemStyle: {
           color: '#333',
+        },
+        emphasis: {
+          itemStyle: {
+            color: 'black',
+          },
         },
         lineStyle: {
           width: 2.5,

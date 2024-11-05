@@ -9,6 +9,7 @@ import { useIntl, FormattedHTMLMessage } from 'react-intl'
 import { YYYYmmddToDate15 } from '../components/utils'
 import HeroTitle from '../components/HeroTitle'
 import TextColumn from '../components/TextColumn'
+import SMDiario from '../components/SMDiario'
 
 import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
@@ -64,8 +65,8 @@ function ReporteDiario(props) {
     const informeDiario = fetch(
       'https://elcrimen-diario.web.app/informe_diario.json'
     ).then((response) => response.json())
-    const statesNational = fetch('/states_national.json').then((response) =>
-      response.json()
+    const statesNational = fetch('/elcrimen-json/states_national.json').then(
+      (response) => response.json()
     )
     const porDia = fetch('https://elcrimen-diario.web.app/por_dia2.json').then(
       (response) => response.json()
@@ -595,7 +596,7 @@ function ReporteDiario(props) {
       </HeroTitle>
       <div className="container is-fullhd" id="trends">
         <div id="daily-trends">
-          <article id="content">
+          <article id="daily_homicides">
             <div className="columns">
               <div className="column is-10 is-offset-1">
                 <figure className="image is-2by1">
@@ -630,7 +631,7 @@ function ReporteDiario(props) {
             </p>
           </div>
         </div>
-        <article id="content_chart2">
+        <article id="homicide_prediction">
           <div className="columns">
             <div className="column is-10 is-offset-1">
               <figure className="image is-2by1">
@@ -650,7 +651,10 @@ function ReporteDiario(props) {
         <div className="columns is-centered">
           <div className="column is-6">
             <div className="table-container">
-              <table className="table is-striped is-fullwidth">
+              <table
+                className="table is-striped is-fullwidth"
+                style={{ border: '0px solid #cbcbcb' }}
+              >
                 <thead>
                   <tr>
                     <th>
@@ -658,12 +662,12 @@ function ReporteDiario(props) {
                         id: 'Date',
                       })}
                     </th>
-                    <th>
+                    <th align="right">
                       {intl.formatMessage({
                         id: 'Preliminary',
                       })}
                     </th>
-                    <th>
+                    <th align="right">
                       {intl.formatMessage({
                         id: 'SNSP (oficial data)',
                       })}
@@ -675,6 +679,14 @@ function ReporteDiario(props) {
               </table>
             </div>
           </div>
+        </div>
+
+        <hr style={{ backgroundColor: '#fff' }} />
+        <div id="states">
+          <h3 className="title is-3">
+            <FormattedHTMLMessage id="states_daily_report" />
+          </h3>
+          <SMDiario />
         </div>
 
         <hr style={{ backgroundColor: '#fff' }} />

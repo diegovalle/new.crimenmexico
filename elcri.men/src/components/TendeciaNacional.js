@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { format as num_format } from 'd3-format'
-import {
-  timeFormat as date_format,
-} from 'd3-time-format'
+import { timeFormat as date_format } from 'd3-time-format'
 
 import {
   YYYYmmddCollectionToDate,
@@ -43,28 +41,28 @@ function TendenciaNacional(props) {
 
   useEffect(() => {
     fetch('/elcrimen-json/national_diff.json')
-      .then(response => response.json())
-      .then(responseJSON => {
+      .then((response) => response.json())
+      .then((responseJSON) => {
         setData(responseJSON)
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
   }, [])
 
-  const formatData = data => {
+  const formatData = (data) => {
     if (typeof data[0].date !== 'object')
       data = YYYYmmddCollectionToDate(data, 'date')
     let diffs = cloneDeepWith(data)
     let gam = cloneDeepWith(data)
     let zero = cloneDeepWith(data)
-    diffs.forEach(function(d) {
+    diffs.forEach(function (d) {
       d['value'] = d['diff']
     })
-    gam.forEach(function(d) {
+    gam.forEach(function (d) {
       d['value'] = d['gam']
     })
-    zero.forEach(function(d) {
+    zero.forEach(function (d) {
       d['value'] = 0
     })
     return [diffs, gam, zero]
@@ -72,15 +70,17 @@ function TendenciaNacional(props) {
 
   const trbody = (data, l) => {
     let df = date_format(`%b\u00A0%Y`)
-    let a = Object.keys(data).map(function(key, index) {
+    let a = Object.keys(data).map(function (key, index) {
       let date = YYYYmmddToDate15(data[key].date)
+      let td_color = data[key].diff_count >= 0 ? '#e41a1c' : '#4daf4a'
+      console.log(td_color)
       return (
         <tr key={index}>
           <td
             className={l}
             key={index + '1'}
             style={{
-              fontFamily: 'monospace',
+              fontFamily: 'Source Sans Pro',
             }}
           >
             {df(date) +
@@ -88,10 +88,26 @@ function TendenciaNacional(props) {
               date_format(`%b\u00A0`)(date) +
               (parseInt(date_format('%Y')(date)) - 1)}
           </td>
-          <td className={l} key={index + '2'} style={{ textAlign: 'right' }}>
-            {Math.round(data[key].diff * 10) / 10}
+          <td
+            className={l}
+            key={index + '2'}
+            style={{ fontFamily: 'monospace', textAlign: 'right' }}
+          >
+            {(round1(Math.round(data[key].diff * 10) / 10) + '').split(
+              '.'
+            )[1] !== '0'
+              ? round1(Math.round(data[key].diff * 10) / 10)
+              : Math.round(data[key].diff * 10) / 10 + '  '}
           </td>
-          <td className={l} key={index + '3'} style={{ textAlign: 'right' }}>
+          <td
+            className={l}
+            key={index + '3'}
+            style={{
+              fontFamily: 'monospace',
+              textAlign: 'right',
+              color: td_color,
+            }}
+          >
             {data[key].diff_count}
           </td>
         </tr>
@@ -102,6 +118,7 @@ function TendenciaNacional(props) {
   const intl = useIntl()
   const comma = num_format(',.0f')
   const round1 = num_format('.1f')
+
   // intl.locale === 'es'
   //   ? require('./TendenciaNacional/tendencia_es.css')
   //   : require('./TendenciaNacional/tendencia_en.css')
@@ -138,7 +155,7 @@ function TendenciaNacional(props) {
       axisPointer: {
         animation: false,
       },
-      formatter: function(item) {
+      formatter: function (item) {
         let date = new Date(item[0].name)
         let datestr = [
           date.toLocaleString(intl.locale, { month: 'long' }),
@@ -165,10 +182,10 @@ function TendenciaNacional(props) {
       animation: false,
       type: 'category',
       boundaryGap: true,
-      data: data === null ? null : formatData(data)[0].map(item => item.date),
+      data: data === null ? null : formatData(data)[0].map((item) => item.date),
       axisLabel: {
         interval: 35,
-        formatter: function(value, idx) {
+        formatter: function (value, idx) {
           var date = new Date(value)
           return [
             date.toLocaleString(intl.locale, { month: 'short' }),
@@ -187,7 +204,7 @@ function TendenciaNacional(props) {
         }),
         nameLocation: 'middle',
         nameGap: 25,
-        nameTextStyle: { fontFamily: 'Arial', fontSize: 11, color: '#222'  },
+        nameTextStyle: { fontFamily: 'Arial', fontSize: 11, color: '#222' },
         type: 'value',
         scale: false,
         splitNumber: 2,
@@ -220,7 +237,7 @@ function TendenciaNacional(props) {
         name: 'crime',
         type: 'line',
         data:
-          data === null ? null : formatData(data)[0].map(item => item.value),
+          data === null ? null : formatData(data)[0].map((item) => item.value),
         itemStyle: {
           color: '#333',
         },
@@ -240,7 +257,7 @@ function TendenciaNacional(props) {
         name: 'GAM',
         type: 'line',
         data:
-          data === null ? null : formatData(data)[1].map(item => item.value),
+          data === null ? null : formatData(data)[1].map((item) => item.value),
         itemStyle: {
           color: '#333',
         },
@@ -278,7 +295,10 @@ function TendenciaNacional(props) {
         <div className="columns is-centered">
           <div className="column is-6">
             <div className="table-container">
-              <table className="table is-striped is-fullwidth">
+              <table
+                className="table is-striped is-fullwidth"
+                style={{ border: '0px solid #cbcbcb' }}
+              >
                 <thead>
                   <tr>
                     <th>
@@ -286,12 +306,12 @@ function TendenciaNacional(props) {
                         id: 'Date',
                       })}
                     </th>
-                    <th>
+                    <th align="right">
                       {intl.formatMessage({
                         id: 'trate',
                       })}
                     </th>
-                    <th>
+                    <th align="right">
                       {intl.formatMessage({
                         id: 'tcount',
                       })}

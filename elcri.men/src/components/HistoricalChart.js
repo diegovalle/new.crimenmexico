@@ -124,7 +124,7 @@ function HistoricalChart(props) {
           return agg
         }, {})
       )
-      yearly = yearly.filter(year => !(year.num_months % 12))
+      yearly = yearly.filter((year) => !(year.num_months % 12))
       for (let j = 0; j < yearly.length; j++) {
         yearly[j].population =
           responseJSON.national[i][yearly[j].num_months - 6].p
@@ -132,16 +132,16 @@ function HistoricalChart(props) {
       return yearly
     }
     fetch('/elcrimen-json/national_1990.json')
-      .then(response => response.json())
-      .then(responseJSON => {
+      .then((response) => response.json())
+      .then((responseJSON) => {
         setData(responseJSON)
         let yearlySNSP = aggYear(responseJSON, 0)
         let yearlyINEGI = aggYear(responseJSON, 1)
         let maxYear = yearlySNSP[yearlySNSP.length - 1].year
-        yearlySNSP = yearlySNSP.filter(item => item.year >= maxYear - 5)
-        yearlyINEGI = yearlyINEGI.filter(item => item.year >= maxYear - 5)
-        yearlyINEGI.forEach(item => (item.inegi = item.c))
-        yearlySNSP.forEach(item => (item.snsp = item.c))
+        yearlySNSP = yearlySNSP.filter((item) => item.year >= maxYear - 5)
+        yearlyINEGI = yearlyINEGI.filter((item) => item.year >= maxYear - 5)
+        yearlyINEGI.forEach((item) => (item.inegi = item.c))
+        yearlySNSP.forEach((item) => (item.snsp = item.c))
         setHomRateInegi(
           (yearlyINEGI[yearlyINEGI.length - 1].inegi /
             yearlyINEGI[yearlyINEGI.length - 1].population) *
@@ -154,12 +154,12 @@ function HistoricalChart(props) {
         )
         setHomicideTable(merge(yearlyINEGI, yearlySNSP))
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
   }, [])
 
-  const formatData = data => {
+  const formatData = (data) => {
     // This is needed to show preliminary INEGI data as a dotted line
     let data2
 
@@ -192,7 +192,7 @@ function HistoricalChart(props) {
     ReactDOM.render(element, document.getElementById('national-caption'))
   }
 
-  const handleSelect = e => {
+  const handleSelect = (e) => {
     const { value } = e.target
     setState(value)
   }
@@ -245,7 +245,7 @@ function HistoricalChart(props) {
       axisPointer: {
         animation: false,
       },
-      formatter: function(item) {
+      formatter: function (item) {
         function YYYYmmddToDate15(str) {
           let date = new Date()
           let date_components = str.split('-')
@@ -286,7 +286,7 @@ function HistoricalChart(props) {
         data === null
           ? null
           : [
-              ...formatData(data)[1].map(item => item.d),
+              ...formatData(data)[1].map((item) => item.d),
               ...formatData(data)[0].flatMap((item, i) => {
                 if (i <= formatData(data)[1].length - (12 * (2015 - 1990) + 1))
                   return []
@@ -297,12 +297,12 @@ function HistoricalChart(props) {
         fontFamily: 'Arial',
         fontSize: 11,
         color: '#4d4d4d',
-        interval: function(index, value) {
+        interval: function (index, value) {
           var date = new Date(value)
           if ((date.getFullYear() % 10 === 0) & (date.getMonth() % 12 === 0))
             return true
         },
-        formatter: function(value, idx) {
+        formatter: function (value, idx) {
           var date = new Date(value)
           return [
             date.toLocaleString(intl.locale, { month: 'short' }),
@@ -321,8 +321,8 @@ function HistoricalChart(props) {
             : Math.round(
                 Math.max(
                   ...[
-                    ...formatData(data)[1].map(item => item.r),
-                    ...formatData(data)[0].map(item => item.r),
+                    ...formatData(data)[1].map((item) => item.r),
+                    ...formatData(data)[0].map((item) => item.r),
                   ]
                 ) / 10
               ) *
@@ -391,7 +391,7 @@ function HistoricalChart(props) {
         data:
           data === null
             ? null
-            : formatData(data)[1].map(item => (item.r === null ? 0 : item.r)),
+            : formatData(data)[1].map((item) => (item.r === null ? 0 : item.r)),
         itemStyle: {
           color: '#333',
         },
@@ -413,7 +413,7 @@ function HistoricalChart(props) {
             : formatData(data).length === 3
             ? [
                 ...Array(formatData(data)[1].length - 1).fill(null),
-                ...formatData(data)[2].map(item => item.r),
+                ...formatData(data)[2].map((item) => item.r),
               ]
             : null,
         itemStyle: {
@@ -430,27 +430,42 @@ function HistoricalChart(props) {
   }
 
   const rows = homicideTable
-    ? homicideTable.map(element => (
+    ? homicideTable.map((element) => (
         <tr key={element.year}>
           <td className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}>
             {element.year}
           </td>
-          <td className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}>
+          <td
+            align="right"
+            className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}
+          >
             {element.hasOwnProperty('inegi') ? comma(element.inegi) : 'NA'}
           </td>
-          <td className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}>
+          <td
+            align="right"
+            className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}
+          >
             {comma(element.snsp)}
           </td>
-          <td className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}>
+          <td
+            align="right"
+            className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}
+          >
             {comma(element.population)}
           </td>
 
-          <td className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}>
+          <td
+            align="right"
+            className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}
+          >
             {element.hasOwnProperty('inegi')
               ? round1((element.inegi / element.population) * 100000)
               : 'NA'}
           </td>
-          <td className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}>
+          <td
+            align="right"
+            className={intl.locale === 'es' ? 'es_hom' : 'en_hom'}
+          >
             {round1((element.snsp / element.population) * 100000)}
           </td>
         </tr>
@@ -551,10 +566,8 @@ function HistoricalChart(props) {
               {intl.formatMessage({
                 id: 'La tasa de homicido en México fue de',
               })}{' '}
-              {round1(
-                homRateSnsp
-              )}{' '}
-              {intl.formatMessage({id: "en el"})}{' '} {homicideTable[homicideTable.length - 1].year}{' '}
+              {round1(homRateSnsp)} {intl.formatMessage({ id: 'en el' })}{' '}
+              {homicideTable[homicideTable.length - 1].year}{' '}
               {intl.formatMessage({ id: 'según el SNSP' })}
             </h4>
           ) : (
@@ -564,7 +577,7 @@ function HistoricalChart(props) {
           <div className="columns">
             <div className="column is-offset-3 is-half-desktop is-two-third-fullhd">
               <div className="content is-medium">
-              <FormattedHTMLMessage id="homicide_rate" />
+                <FormattedHTMLMessage id="homicide_rate" />
               </div>
             </div>
           </div>
@@ -574,15 +587,36 @@ function HistoricalChart(props) {
           <div className="columns is-centered">
             <div className="column is-8">
               <div className="table-container">
-                <table className="table is-bordered is-stripped">
+                <table
+                  className="table is-striped"
+                  style={{ border: '0px solid #cbcbcb' }}
+                >
                   <thead>
-                    <tr>
+                    <tr
+                      className="is-primary is-white"
+                      style={{ 'border-bottom': '3px #555 solid' }}
+                    >
                       <th> {intl.formatMessage({ id: 'Year' })}</th>
-                      <th> {intl.formatMessage({ id: 'INEGI Homicides' })}</th>
-                      <th> {intl.formatMessage({ id: 'SNSP Homicides' })}</th>
-                      <th> {intl.formatMessage({ id: 'Population' })}</th>
-                      <th> {intl.formatMessage({ id: 'INEGI Rate' })}</th>
-                      <th> {intl.formatMessage({ id: 'SNSP Rate' })}</th>
+                      <th align="right">
+                        {' '}
+                        {intl.formatMessage({ id: 'INEGI Homicides' })}
+                      </th>
+                      <th align="right">
+                        {' '}
+                        {intl.formatMessage({ id: 'SNSP Homicides' })}
+                      </th>
+                      <th align="right">
+                        {' '}
+                        {intl.formatMessage({ id: 'Population' })}
+                      </th>
+                      <th align="right">
+                        {' '}
+                        {intl.formatMessage({ id: 'INEGI Rate' })}
+                      </th>
+                      <th align="right">
+                        {' '}
+                        {intl.formatMessage({ id: 'SNSP Rate' })}
+                      </th>
                     </tr>
                   </thead>
                   <tbody>{rows}</tbody>
