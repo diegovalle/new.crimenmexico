@@ -578,25 +578,26 @@ function ReporteDiario(props) {
         path={props.location.pathname}
         lang={props.pageContext.locale}
       />
-      <HeroTitle>
-        {intl.formatMessage({ id: 'Daily Homicides in Mexico' })}{' '}
-        {maxDate !== null ? (
-          <i>
-            <FormattedDate
-              value={new Date(maxDate + 'T00:00:00.000-06:00')}
-              day="2-digit"
-              month="long"
-              year="numeric"
-              timeZone="America/Mexico_City"
-            />
-          </i>
-        ) : (
-          '⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀'
-        )}
-      </HeroTitle>
+
       <div className="container is-fullhd" id="trends">
         <div id="daily-trends">
-          <article id="daily_homicides">
+          <HeroTitle>
+            {intl.formatMessage({ id: 'Daily Homicides in Mexico' })}{' '}
+            {maxDate !== null ? (
+              <i>
+                <FormattedDate
+                  value={new Date(maxDate + 'T00:00:00.000-06:00')}
+                  day="2-digit"
+                  month="long"
+                  year="numeric"
+                  timeZone="America/Mexico_City"
+                />
+              </i>
+            ) : (
+              '⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀'
+            )}
+          </HeroTitle>
+          <article>
             <div className="columns">
               <div className="column is-10 is-offset-1">
                 <figure className="image is-2by1">
@@ -682,7 +683,7 @@ function ReporteDiario(props) {
         </div>
 
         <hr style={{ backgroundColor: '#fff' }} />
-        <div id="states">
+        <div id="daily-states">
           <h3 className="title is-3">
             <FormattedHTMLMessage id="states_daily_report" />
           </h3>
