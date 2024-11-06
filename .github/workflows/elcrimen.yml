@@ -51,22 +51,25 @@ jobs:
       - name: Change permissions
         run: >
           chmod -R o+rwx  /home/rstudio/new.crimenmexico/
+          cp -r /home/rstudio/new.crimenmexico/ /tmp
       - name: Upload build artifacts
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
+          if-no-files-found: "warn"
           name: elcrimen-sqlite-db
           path: |
-            /home/rstudio/new.crimenmexico/db/crimenmexico.db
-            /home/rstudio/new.crimenmexico/R/graphs/*.png
-            /home/rstudio/new.crimenmexico/elcrimen/static/smooth-latest.png 
+            /tmp/new.crimenmexico/db/crimenmexico.db
+            /tmp/new.crimenmexico/R/graphs/*.png
+            /tmp/new.crimenmexico/elcrimen/static/smooth-latest.png 
           retention-days: 2
       - name: Upload crime data artifacts
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
+          if-no-files-found: warn
           name: data-files
           path: |
-            /home/rstudio/new.crimenmexico/data/*.gz
+            /tmp/new.crimenmexico/data/*.gz
           retention-days: 30
       - run: echo "🍏 This job's status is ${{ job.status }}."
