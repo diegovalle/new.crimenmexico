@@ -12,7 +12,7 @@ module.exports = {
     baseUrl: `${SITENAME}`,
     siteUrl: `${SITENAME}`,
     twitterHandle: '@diegovalle',
-    preliminaryINEGI: true,
+    preliminaryINEGI: false,
     monthsPreliminaryINEGI: 12,
   },
   flags: {
