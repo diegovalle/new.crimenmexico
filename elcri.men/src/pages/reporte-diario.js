@@ -528,28 +528,57 @@ function ReporteDiario(props) {
             key={index + '2'}
             style={{ textAlign: 'right', fontFamily: 'monospace' }}
           >
-            {Math.round(item[2] * 10) / 10} (
+            {Math.round(item[2] * 10) / 10}
+            {(round1(Math.round(item[2] * 10) / 10) + '').split('.')[1] !== '0'
+              ? ''
+              : '  '}
+          </td>
+          <td
+            className={locale === 'es' ? 'es_diario' : 'en_diario'}
+            key={index + '4'}
+            style={{
+              textAlign: 'right',
+              fontFamily: 'monospace',
+            }}
+          >
+            {item[3] ? Math.round(item[3] * 10) / 10 : '–'}
+            {(round1(Math.round(item[3] * 10) / 10) + '').split('.')[1] !== '0'
+              ? ''
+              : '  '}
+          </td>
+          <td
+            className={locale === 'es' ? 'es_diario' : 'en_diario'}
+            key={index + '3'}
+            style={{ textAlign: 'right', fontFamily: 'monospace' }}
+          >
             {comma(
               Math.round(
                 item[2] * daysInMonth(item[0].slice(0, 4), item[0].slice(5, 7))
               )
             )}
-            )
+            <span className="is-hidden-desktop">  </span>
           </td>
           <td
             className={locale === 'es' ? 'es_diario' : 'en_diario'}
-            key={index + '3'}
+            key={index + '5'}
             style={{
               textAlign: 'right',
               fontFamily: 'monospace',
-              backgroundColor: item[3] ? '' : '#f8766d',
+            }}
+          >
+            {item[3] ? comma(Math.round(item[3] * item[1])) : '–'}
+            <span className="is-hidden-desktop">  </span>
+          </td>
+          <td
+            className={locale === 'es' ? 'es_diario' : 'en_diario'}
+            key={index + '6'}
+            style={{
+              textAlign: 'right',
+              fontFamily: 'monospace',
             }}
           >
             {item[3]
-              ? Math.round(item[3] * 10) / 10 +
-                ' (' +
-                comma(Math.round(item[3] * item[1])) +
-                ')'
+              ? '–'
               : Math.round((((item[2] + 11.73) * item[1]) / item[1]) * 10) /
                   10 +
                 ' (' +
@@ -618,9 +647,7 @@ function ReporteDiario(props) {
         <h3 className="title is-3">
           <FormattedHTMLMessage id="daily_in_red_title" />
         </h3>
-        <TextColumn>
-          <FormattedHTMLMessage id="daily_in_red" />
-        </TextColumn>
+
         <div className="columns">
           <div className="column is-half is-offset-5">
             <p style={{ lineHeight: '1.2rem' }}>
@@ -650,7 +677,12 @@ function ReporteDiario(props) {
         </article>
         <hr style={{ backgroundColor: '#fff' }} />
         <div className="columns is-centered">
-          <div className="column is-6">
+          <div className="column is-8">
+            <section className="section">
+              <TextColumn>
+                <FormattedHTMLMessage id="daily_in_red" />
+              </TextColumn>
+            </section>
             <div className="table-container">
               <table
                 className="table is-striped is-fullwidth"
@@ -665,12 +697,27 @@ function ReporteDiario(props) {
                     </th>
                     <th align="right">
                       {intl.formatMessage({
-                        id: 'Preliminary',
+                        id: 'Preliminary (per day)',
                       })}
                     </th>
                     <th align="right">
                       {intl.formatMessage({
-                        id: 'SNSP (oficial data)',
+                        id: 'SNSP (oficial data, per day)',
+                      })}
+                    </th>
+                    <th align="right">
+                      {intl.formatMessage({
+                        id: 'Preliminary (monthly)',
+                      })}
+                    </th>
+                    <th align="right">
+                      {intl.formatMessage({
+                        id: 'SNSP (monthly)',
+                      })}
+                    </th>
+                    <th align="right" style={{ textTransform: 'capitalize' }}>
+                      {intl.formatMessage({
+                        id: 'prediction',
                       })}
                     </th>
                   </tr>

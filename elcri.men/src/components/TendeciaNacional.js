@@ -73,6 +73,7 @@ function TendenciaNacional(props) {
     let a = Object.keys(data).map(function (key, index) {
       let date = YYYYmmddToDate15(data[key].date)
       let td_color = data[key].diff_count >= 0 ? '#e41a1c' : '#4daf4a'
+      if (data[key].diff_count === 0) td_color = '#111'
       console.log(td_color)
       return (
         <tr key={index}>
@@ -93,6 +94,7 @@ function TendenciaNacional(props) {
             key={index + '2'}
             style={{ fontFamily: 'monospace', textAlign: 'right' }}
           >
+            {Math.round(data[key].diff * 10) / 10 > 0 ? '+' : ''}
             {(round1(Math.round(data[key].diff * 10) / 10) + '').split(
               '.'
             )[1] !== '0'
@@ -108,6 +110,7 @@ function TendenciaNacional(props) {
               color: td_color,
             }}
           >
+            {data[key].diff_count > 0 ? '+' : ''}
             {data[key].diff_count}
           </td>
         </tr>
