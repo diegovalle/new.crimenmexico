@@ -1,5 +1,5 @@
 {
-  "crimen_mexico": "Crimen en México",
+  "crimen_mexico": "Delincuencia en México",
   "home": "Inicio",
   "states": "Estados",
   "time_series": "Series de Tiempo",
@@ -23,7 +23,7 @@
   "name": "Diego Valle Jones",
   "Please visit": "Si necesitan información delincuencial de la CDMX no se olviden de visitar <a href=\"https://hoyodecrimen.com/\">HoyoDeCrimen</a>",
   "© All rights reserved": "© Todos los derechos reservados",
-  "Delincuencia en México - El Crimen": "El Crimen - Delincuencia en México, Inseguridad y Tasas de Crimen",
+  "Delincuencia en México - El Crimen": "El Crimen - Delincuencia en México",
   "desc_index": "Explora las estadísticas de la inseguridad en México con este mapa interactivo y un informe mensual de homicidios, secuestros, robo de autos y otros delitos",
   "tasas de criminalidad": "tasas de criminalidad",
   "inegi-adjusted": "<span class=\"inegi-adjusted\"><span class=\"has-text-weight-bold\">— </span><abbr title=\"datos de certificados de defunción\">INEGI</abbr> ajustados estadísticamente</span>",
@@ -274,5 +274,8 @@
   "Preliminary (per day)": "Preliminar (por día)",
   "Preliminary (monthly)": "Preliminar (mensual)",
   "SNSP (oficial data, per day)": "SNSP (por día)",
-  "SNSP (monthly)": "SNSP (mensual)"
+  "SNSP (monthly)": "SNSP (mensual)",
+  "Difference": "Diferencia",
+  "to2": "al",
+  "difference_20": "Comparasión de los últimos 30 días con los anteriores 30"
 }

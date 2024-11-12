@@ -1,0 +1,67 @@
+@media only screen and (max-width: 1024px) {
+  table td:not([align]) {
+    text-align: right;
+  }
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  tr {
+    border: 1px solid #ccc;
+  }
+  td.en_diff {
+    font-family: 'ui-monospace';
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    text-align: right;
+  }
+  td.en_diff:before {
+    position: absolute;
+    top: 12px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+  td.en_diff:nth-of-type(1):before {
+    font-family: 'ui-monospace';
+    text-align: left;
+    content: 'Date:';
+  }
+  td.en_diff:nth-of-type(2):before {
+    font-family: 'ui-monospace';
+    text-align: left;
+    content: 'Preliminary (per day)';
+  }
+  td.en_diff:nth-of-type(4):before {
+    font-family: 'ui-monospace';
+    text-align: left;
+    content: 'Preliminary (monthly)';
+  }
+  td.en_diff:nth-of-type(3):before {
+    font-family: 'ui-monospace';
+    text-align: left;
+    content: 'SNSP (oficial data, per day)';
+  }
+  td.en_diff:nth-of-type(5):before {
+    font-family: 'ui-monospace';
+    text-align: left;
+    content: 'SNSP (monthly)';
+  }
+  td.en_diff:nth-of-type(6):before {
+    font-family: 'ui-monospace';
+    text-align: left;
+    content: 'Prediction';
+  }
+}

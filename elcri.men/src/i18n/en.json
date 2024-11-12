@@ -273,5 +273,8 @@
   "Preliminary (per day)": "Preliminary (per day)",
   "Preliminary (monthly)": "Preliminary (monthly)",
   "SNSP (oficial data, per day)": "SNSP (oficial data, per day)",
-  "SNSP (monthly)": "SNSP (monthly)"
+  "SNSP (monthly)": "SNSP (monthly)",
+  "Difference": "Difference",
+  "to2": "al",
+  "difference_20": "Comparison of the last 30 days to the previous 30 day period"
 }

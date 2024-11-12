@@ -519,6 +519,11 @@ function ReporteDiario(props) {
             <FormattedDate
               value={new Date(YYYYmmddToDate15(item[0]))}
               month="long"
+              timeZone="America/Mexico_City"
+            />
+            {`\u00A0`}
+            <FormattedDate
+              value={new Date(YYYYmmddToDate15(item[0]))}
               year="numeric"
               timeZone="America/Mexico_City"
             />

@@ -8,6 +8,7 @@ import { useIntl } from 'react-intl'
 
 import { titleCasePlaces } from './utils.js'
 import { groupBy, map, reduce, sortBy, max, maxBy } from 'lodash-es'
+import { FormattedDate } from 'react-intl'
 
 import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
@@ -23,6 +24,9 @@ import {
   CanvasRenderer,
   // SVGRenderer,
 } from 'echarts/renderers'
+
+import '../components/TendenciaNacional/diff_es.css'
+import '../components/TendenciaNacional/diff_en.css'
 
 echarts.use([
   TitleComponent,
@@ -50,21 +54,69 @@ function SMDiario(props) {
   //const [setcolors] = useState(['#00BFC4', '#F8766D'])
   const [orderedStates, setOrderedStates] = useState(null)
   const [maxCount, setMaxCount] = useState(0)
-
+  const [compare30, setCompare30] = useState(null)
   const [groupedStates, setGroupedStates] = useState(null)
+  const [maxDate, setMaxDate] = useState(null)
+  const [date30, setDate30] = useState(null)
+  const [date30_2, setDate30_2] = useState(null)
+  const [date60, setDate60] = useState(null)
 
-  // if (props.title.length > 21) {
-  //   let lastComma = props.title.lastIndexOf(',')
-  //   if (lastComma) {
-  //     let before = props.title.substr(0, lastComma).substr(0, 16)
-  //     let after = props.title.substr(lastComma).substr(0, 5)
-  //     title = before + '…' + after
-  //     titleShortened = true
-  //   } else {
-  //     title = props.title.substr(0, lastComma).substr(0, 21)
-  //     titleShortened = true
-  //   }
-  // } else title = props.title
+  const comparison30Days = function (arr, maxDate) {
+    maxDate = maxDate + ' 00:00:00 GMT-0600'
+    const offset = new Date(maxDate).getTimezoneOffset()
+    let maxMinus30Days = new Date(
+      new Date().setTime(
+        new Date(maxDate).getTime() -
+          30 * 24 * 60 * 60 * 1000 -
+          offset * 60 * 1000
+      )
+    ).toISOString()
+    let d = new Date(maxMinus30Days)
+    d.setDate(d.getDate() + 1)
+    setDate30(d)
+    setDate30_2(maxMinus30Days)
+    let maxMinus60Days = new Date(
+      new Date().setTime(
+        new Date(maxDate).getTime() -
+          60 * 24 * 60 * 60 * 1000 -
+          offset * 60 * 1000
+      )
+    ).toISOString()
+    let d2 = new Date(maxMinus60Days)
+    d2.setDate(d2.getDate() + 1)
+    setDate60(d2)
+    let result30 = [],
+      result60 = []
+    arr.reduce(function (res, value, idx) {
+      if (value[3] <= maxMinus30Days) {
+        return res
+      }
+      if (!res[value[0]]) {
+        res[value[0]] = { state: value[0], qty30: 0 }
+        result30.push(res[value[0]])
+      }
+
+      res[value[0]].qty30 += value[2]
+      return res
+    }, {})
+
+    arr.reduce(function (res, value, idx) {
+      if (value[3] <= maxMinus60Days || value[3] > maxMinus30Days) {
+        return res
+      }
+      if (!res[value[0]]) {
+        res[value[0]] = { state: value[0], qty60: 0 }
+        result60.push(res[value[0]])
+      }
+
+      res[value[0]].qty60 += value[2]
+      return res
+    }, {})
+
+    let arrRes = result30.map((item, i) => Object.assign({}, item, result60[i]))
+    arrRes.map((item) => (item.diff = item.qty30 - item.qty60))
+    return arrRes.sort((a, b) => (a.diff < b.diff ? 1 : -1))
+  }
 
   useEffect(() => {
     fetch('https://elcrimen-diario.web.app/states.json')
@@ -82,11 +134,16 @@ function SMDiario(props) {
             states.push(responseJSON[i][0])
 
         let max = 0
-        for (let i = 0; i < l; i++)
+        let maxDate2 = '1900-01-01'
+        for (let i = 0; i < l; i++) {
           if (responseJSON[i][2] > max) max = responseJSON[i][2]
+          if (responseJSON[i][3] > maxDate2) maxDate2 = responseJSON[i][3]
+        }
 
+        setMaxDate(maxDate2 + ' 00:00:00 GMT-0600')
         setMaxCount(max)
         setOrderedStates(states)
+        setCompare30(comparison30Days(responseJSON, maxDate2))
       })
       .catch((error) => {
         console.error(error)
@@ -274,6 +331,129 @@ function SMDiario(props) {
                 </figure>
               </div>
             ))}
+      </div>
+      <div>
+        <hr />
+        <div className="box">
+          <h3 className="title is-3">
+            {' '}
+            {intl.formatMessage({
+              id: 'difference_20',
+            })}
+          </h3>
+        </div>
+        <hr />
+        <div className="columns is-centered">
+          <div className="column is-6">
+            <div className="table-container">
+              <table
+                id="diff"
+                className="table is-striped  is-fullwidth"
+                style={{ border: '0px solid #cbcbcb' }}
+              >
+                <thead>
+                  <tr>
+                    <th>
+                      {intl.formatMessage({
+                        id: 'Estado',
+                      })}
+                    </th>
+                    <th align="right">
+                      <FormattedDate
+                        value={new Date(date30)}
+                        year="numeric"
+                        month="long"
+                        day="numeric"
+                        timeZone="UTC"
+                      />{' '}
+                      {intl.formatMessage({
+                        id: 'to2',
+                      })}{' '}
+                      <FormattedDate
+                        value={new Date(maxDate)}
+                        year="numeric"
+                        month="long"
+                        day="numeric"
+                        timeZone="UTC"
+                        format="YYYY-MM-DD"
+                      />
+                    </th>
+                    <th align="right">
+                      <FormattedDate
+                        value={new Date(date60)}
+                        year="numeric"
+                        month="long"
+                        day="numeric"
+                        timeZone="UTC"
+                      />{' '}
+                      {intl.formatMessage({
+                        id: 'to2',
+                      })}{' '}
+                      <FormattedDate
+                        value={new Date(date30_2)}
+                        year="numeric"
+                        month="long"
+                        day="numeric"
+                        timeZone="UTC"
+                      />
+                    </th>
+                    <th align="right">
+                      {intl.formatMessage({
+                        id: 'Difference',
+                      })}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {compare30
+                    ? compare30.map((el, index) => {
+                        return (
+                          <tr key={index}>
+                            <td
+                              className={
+                                intl.locale === 'es' ? 'es_diff' : 'en_diff'
+                              }
+                              key={index + '1'}
+                              style={{ textTransform: 'capitalize' }}
+                            >
+                              {el.state}
+                            </td>
+                            <td
+                              align="right"
+                              className={
+                                intl.locale === 'es' ? 'es_diff' : 'en_diff'
+                              }
+                              key={index + '1'}
+                            >
+                              {el.qty30}
+                            </td>
+                            <td
+                              align="right"
+                              className={
+                                intl.locale === 'es' ? 'es_diff' : 'en_diff'
+                              }
+                              key={index + '1'}
+                            >
+                              {el.qty60}
+                            </td>
+                            <td
+                              align="right"
+                              className={
+                                intl.locale === 'es' ? 'es_diff' : 'en_diff'
+                              }
+                              key={index + '1'}
+                            >
+                              {el.diff > 0 ? '+' + el.diff : el.diff}
+                            </td>
+                          </tr>
+                        )
+                      })
+                    : null}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
