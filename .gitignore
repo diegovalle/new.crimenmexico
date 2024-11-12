@@ -33,5 +33,5 @@ elcri.men/yarn-error.log
 R/interactive-map/municipios-centroids.csv
 R/interactive-map/municipios-centroids.json
 elcri.men/static/smooth-latest.png
-
+elcri.men/src/assets/images/social/social/*.png
 !crimenmexico.diegovalle.net/assets/json/municipios-centroids.csv

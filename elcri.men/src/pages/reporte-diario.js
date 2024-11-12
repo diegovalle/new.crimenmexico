@@ -652,34 +652,35 @@ function ReporteDiario(props) {
         <h3 className="title is-3">
           <FormattedHTMLMessage id="daily_in_red_title" />
         </h3>
-
-        <div className="columns">
-          <div className="column is-half is-offset-5">
-            <p style={{ lineHeight: '1.2rem' }}>
-              <FormattedHTMLMessage id="snsp-victims" />
-              <br />
-              <FormattedHTMLMessage id="preliminary_homicides" />
-              <br />
-              <FormattedHTMLMessage id="prediction_homicides" />
-            </p>
-          </div>
-        </div>
-        <article id="homicide_prediction">
+        <div id="homicide_prediction">
           <div className="columns">
-            <div className="column is-10 is-offset-1">
-              <figure className="image is-2by1">
-                <div className=" has-ratio">
-                  <ReactEChartsCore
-                    echarts={echarts}
-                    option={monthlyChartOption}
-                    style={{ height: '100%', width: '100%' }}
-                    opts={{ locale: echarts.registerLocale('ES') }}
-                  />
-                </div>
-              </figure>
+            <div className="column is-half is-offset-5">
+              <p style={{ lineHeight: '1.2rem' }}>
+                <FormattedHTMLMessage id="snsp-victims" />
+                <br />
+                <FormattedHTMLMessage id="preliminary_homicides" />
+                <br />
+                <FormattedHTMLMessage id="prediction_homicides" />
+              </p>
             </div>
           </div>
-        </article>
+          <article>
+            <div className="columns">
+              <div className="column is-10 is-offset-1">
+                <figure className="image is-2by1">
+                  <div className=" has-ratio">
+                    <ReactEChartsCore
+                      echarts={echarts}
+                      option={monthlyChartOption}
+                      style={{ height: '100%', width: '100%' }}
+                      opts={{ locale: echarts.registerLocale('ES') }}
+                    />
+                  </div>
+                </figure>
+              </div>
+            </div>
+          </article>
+        </div>
         <hr style={{ backgroundColor: '#fff' }} />
         <div className="columns is-centered">
           <div className="column is-8">
