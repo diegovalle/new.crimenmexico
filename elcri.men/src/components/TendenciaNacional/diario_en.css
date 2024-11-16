@@ -37,22 +37,22 @@
   td.en_diario:nth-of-type(1):before {
     font-family: 'ui-monospace';
     text-align: left;
-    content: 'Date:';
+    content: 'Date';
   }
   td.en_diario:nth-of-type(2):before {
     font-family: 'ui-monospace';
     text-align: left;
     content: 'Preliminary (per day)';
   }
+  td.en_diario:nth-of-type(3):before {
+    font-family: 'ui-monospace';
+    text-align: left;
+    content: 'SNSP (per day)';
+  }
   td.en_diario:nth-of-type(4):before {
     font-family: 'ui-monospace';
     text-align: left;
     content: 'Preliminary (monthly)';
-  }
-  td.en_diario:nth-of-type(3):before {
-    font-family: 'ui-monospace';
-    text-align: left;
-    content: 'SNSP (oficial data, per day)';
   }
   td.en_diario:nth-of-type(5):before {
     font-family: 'ui-monospace';
