@@ -49,7 +49,9 @@ jobs:
           -d "project_id=$SEMAPHORE_PROJECT_ID&reference=$SEMAPHORE_REF"
           -X POST  "https://diegovalle.semaphoreci.com/api/v1alpha/plumber-workflows"
       - name: Change permissions
-        run: >
+        run: |
+          id -a
+          echo "runner ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers.d/runner
           sudo chmod -R o+rwx  /home/rstudio/new.crimenmexico/
           cp -r /home/rstudio/new.crimenmexico/ /tmp
       - name: Upload build artifacts
