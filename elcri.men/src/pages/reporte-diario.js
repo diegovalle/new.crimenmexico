@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Helmet from 'react-helmet'
 
+import LazyLoad from 'react-lazyload'
 import { format as num_format } from 'd3-format'
 import Layout from '../components/layout'
 import { FormattedDate } from 'react-intl'
@@ -43,6 +44,9 @@ echarts.use([
   CanvasRenderer,
   MarkLineComponent,
 ])
+
+let BETA = 0.9789
+let ALPHA = 13.2187
 
 function ReporteDiario(props) {
   const intl = useIntl()
@@ -485,8 +489,9 @@ function ReporteDiario(props) {
             : table.map((item, i) => {
                 if (!item[3])
                   return (
-                    Math.round((((item[2] + 11.73) * item[1]) / item[1]) * 10) /
-                    10
+                    Math.round(
+                      (((item[2] * BETA + ALPHA) * item[1]) / item[1]) * 10
+                    ) / 10
                   )
                 if (i < table.length - 1 && isNaN(table[i + 1][3])) {
                   return item[3]
@@ -584,12 +589,14 @@ function ReporteDiario(props) {
           >
             {item[3]
               ? '–'
-              : Math.round((((item[2] + 11.73) * item[1]) / item[1]) * 10) /
+              : Math.round(
+                  (((item[2] * BETA + ALPHA) * item[1]) / item[1]) * 10
+                ) /
                   10 +
                 ' (' +
                 comma(
                   Math.round(
-                    (item[2] + 11.73) *
+                    (item[2] * BETA + ALPHA) *
                       daysInMonth(item[0].slice(0, 4), item[0].slice(5, 7))
                   )
                 ) +
@@ -740,7 +747,10 @@ function ReporteDiario(props) {
           <h3 className="title is-3">
             <FormattedHTMLMessage id="states_daily_report" />
           </h3>
-          <SMDiario />
+
+          <LazyLoad once offset={700}>
+            <SMDiario />
+          </LazyLoad>
         </div>
 
         <hr style={{ backgroundColor: '#fff' }} />
