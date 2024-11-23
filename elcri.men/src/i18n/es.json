@@ -265,10 +265,12 @@
   "prediction": "predicción",
   "preliminary": "preliminar",
   "number of homicides per day": "número de homicidios por día",
+  "number of homicides per month": "promedio diario de homicidios por mes",
   "Number of homicides per day": "Número de homicidios por día",
+  "Number of homicides per month": "Promedio diario de homicidios por mes",
   "SNSP": "SNSP",
   "snsp": "SNSP",
-  "preliminary_homicides": "<span class=\"preliminary_homicides\"><span class=\"has-text-weight-bold\">— </span><abbr title=\"datos no oficiales de homicidios\">Datos preliminares</abbr></span>",
+  "preliminary_homicides": "<span class=\"preliminary_homicides\"><span class=\"has-text-weight-bold\">— </span><abbr title=\"datos no oficiales de homicidios\">Datos preliminares del informe diario</abbr></span>",
   "prediction_homicides": "<span class=\"prediction_homicides\"><span class=\"has-text-weight-bold\">— </span>Predicción</span>",
   "states_daily_report": "Homicidios diarios (no oficiales) por estado",
   "Preliminary (per day)": "Preliminar (por día)",
@@ -277,5 +279,6 @@
   "SNSP (monthly)": "SNSP (mensual)",
   "Difference": "Diferencia",
   "to2": "al",
+  "Estado": "Estado",
   "difference_20": "Comparación de los últimos 30 días con los anteriores 30"
 }

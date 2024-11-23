@@ -308,7 +308,7 @@ function SMDiario(props) {
           ? orderedStates.map((state, i) => (
               <div className="column is-3-desktop is-half-tablet" key={i}>
                 <figure className="image is-16by9" key={i}>
-                  <div className=" has-ratio" key={i}>
+                  <div className=" has-ratio" key={i+'div'}>
                     <LazyLoad height={height} once offset={200}>
                       <ReactEChartsCore
                         echarts={echarts}
@@ -323,10 +323,10 @@ function SMDiario(props) {
             ))
           : [...Array(32)].map((e, i) => (
               <div className="column is-3-desktop is-half-tablet" key={i}>
-                <figure className="image is-16by9" key={i}>
+                <figure className="image is-16by9" key={i+'figure'}>
                   <div
                     className="has-background-skeleton has-ratio"
-                    key={i}
+                    key={ i + 'div'}
                   ></div>
                 </figure>
               </div>
@@ -375,7 +375,6 @@ function SMDiario(props) {
                         month="long"
                         day="numeric"
                         timeZone="UTC"
-                        format="YYYY-MM-DD"
                       />
                     </th>
                     <th align="right">
@@ -423,7 +422,7 @@ function SMDiario(props) {
                               className={
                                 intl.locale === 'es' ? 'es_diff' : 'en_diff'
                               }
-                              key={index + '1'}
+                              key={index + '2'}
                             >
                               {el.qty30}
                             </td>
@@ -432,7 +431,7 @@ function SMDiario(props) {
                               className={
                                 intl.locale === 'es' ? 'es_diff' : 'en_diff'
                               }
-                              key={index + '1'}
+                              key={index + '3'}
                             >
                               {el.qty60}
                             </td>
@@ -441,7 +440,7 @@ function SMDiario(props) {
                               className={
                                 intl.locale === 'es' ? 'es_diff' : 'en_diff'
                               }
-                              key={index + '1'}
+                              key={index + '4 '}
                             >
                               {el.diff > 0 ? '+' + el.diff : el.diff}
                             </td>

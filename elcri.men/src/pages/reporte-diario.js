@@ -219,7 +219,7 @@ function ReporteDiario(props) {
         show: true,
         lineStyle: {
           type: 'solid',
-          color: '#ccc',
+          color: '#ddd',
           width: 0.4,
         },
       },
@@ -300,10 +300,23 @@ function ReporteDiario(props) {
           animation: false,
           silent: true,
           symbolSize: 0,
-          lineStyle: { color: '#555', type: 'solid', width: 1 },
+          lineStyle: { color: '#555', width: 1, type: 'dashed' },
           data: [{ xAxis: maxSNSPDate }],
-          label: { show: false },
-          lineStyle: { type: 'dashed' },
+          label: {
+            show: true,
+            position: "insideStartBottom",
+            formatter: (item) => {
+              let date = new Date(item.value + 'T00:00:00.000-06:00')
+              let dateStr = [
+                date.toLocaleString(intl.locale, {
+                  month: 'short',
+                  day: 'numeric',
+                  timezone: 'America/Mexico_City',
+                }),
+              ].join(' ')
+              return dateStr
+            },
+          },
         },
       },
     ],
@@ -320,7 +333,7 @@ function ReporteDiario(props) {
     // },
     title: {
       text: intl.formatMessage({
-        id: 'Number of homicides per day',
+        id: 'Number of homicides per month',
       }),
       top: '3%',
       left: 'center',
@@ -401,7 +414,7 @@ function ReporteDiario(props) {
       {
         animation: false,
         name: intl.formatMessage({
-          id: 'number of homicides per day',
+          id: 'number of homicides per month',
         }),
         nameLocation: 'middle',
         nameGap: 25,
