@@ -301,7 +301,7 @@ function ReporteDiario(props) {
           silent: true,
           symbolSize: 0,
           lineStyle: { color: '#555', width: 1, type: 'dashed' },
-          data: [{ xAxis: maxSNSPDate }],
+          data: [{ xAxis: '2024-10-01' }],
           label: {
             show: true,
             position: "insideStartBottom",
@@ -313,6 +313,7 @@ function ReporteDiario(props) {
                   day: 'numeric',
                   timezone: 'America/Mexico_City',
                 }),
+                date.getFullYear()
               ].join(' ')
               return dateStr
             },
