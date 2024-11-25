@@ -119,7 +119,7 @@ function SMDiario(props) {
   }
 
   useEffect(() => {
-    fetch('https://elcrimen-diario.web.app/states.json')
+    fetch('https://diario.elcri.men/states.json')
       .then((response) => response.json())
       .then((responseJSON) => {
         let groups = groupBy(responseJSON, function (x) {
@@ -308,7 +308,7 @@ function SMDiario(props) {
           ? orderedStates.map((state, i) => (
               <div className="column is-3-desktop is-half-tablet" key={i}>
                 <figure className="image is-16by9" key={i}>
-                  <div className=" has-ratio" key={i+'div'}>
+                  <div className=" has-ratio" key={i + 'div'}>
                     <LazyLoad height={height} once offset={200}>
                       <ReactEChartsCore
                         echarts={echarts}
@@ -323,10 +323,10 @@ function SMDiario(props) {
             ))
           : [...Array(32)].map((e, i) => (
               <div className="column is-3-desktop is-half-tablet" key={i}>
-                <figure className="image is-16by9" key={i+'figure'}>
+                <figure className="image is-16by9" key={i + 'figure'}>
                   <div
                     className="has-background-skeleton has-ratio"
-                    key={ i + 'div'}
+                    key={i + 'div'}
                   ></div>
                 </figure>
               </div>

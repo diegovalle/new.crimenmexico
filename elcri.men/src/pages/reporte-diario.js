@@ -67,12 +67,12 @@ function ReporteDiario(props) {
 
   useEffect(() => {
     const informeDiario = fetch(
-      'https://elcrimen-diario.web.app/informe_diario.json'
+      'https://diario.elcri.men/informe_diario.json'
     ).then((response) => response.json())
     const statesNational = fetch('/elcrimen-json/states_national.json').then(
       (response) => response.json()
     )
-    const porDia = fetch('https://elcrimen-diario.web.app/por_dia2.json').then(
+    const porDia = fetch('https://diario.elcri.men/por_dia2.json').then(
       (response) => response.json()
     )
     Promise.all([informeDiario, statesNational, porDia])
@@ -304,7 +304,7 @@ function ReporteDiario(props) {
           data: [{ xAxis: '2024-10-01' }],
           label: {
             show: true,
-            position: "insideStartBottom",
+            position: 'insideStartBottom',
             formatter: (item) => {
               let date = new Date(item.value + 'T00:00:00.000-06:00')
               let dateStr = [
@@ -313,7 +313,7 @@ function ReporteDiario(props) {
                   day: 'numeric',
                   timezone: 'America/Mexico_City',
                 }),
-                date.getFullYear()
+                date.getFullYear(),
               ].join(' ')
               return dateStr
             },

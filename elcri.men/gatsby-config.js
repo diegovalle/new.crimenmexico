@@ -57,6 +57,12 @@ module.exports = {
           '/en/cluster-map/': [
             `Link: <${osmTilesUrl}>; rel=preconnect, <${mapboxUrl}>; rel=preconnect`,
           ],
+          '/reporte-diario/': [
+            `Link: <https://diario.elcri.men/informe_diario.json>; rel=preload; as=fetch; crossorigin; <https://diario.elcri.men/por_dia2.json>; rel=preload; as=fetch; crossorigin;`,
+          ],
+          '/en/daily-report/': [
+            `Link: <https://diario.elcri.men/informe_diario.json>; rel=preload; as=fetch; crossorigin; <https://diario.elcri.men/por_dia2.json>; rel=preload; as=fetch; crossorigin;`,
+          ],
           '/*': [
             'Strict-Transport-Security: max-age=31536000',
             'Permissions-Policy: geolocation=(self), fullscreen=(self)',
