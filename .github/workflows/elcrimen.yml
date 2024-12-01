@@ -55,6 +55,7 @@ jobs:
           cp -r /home/rstudio/new.crimenmexico/ /tmp
       - name: Upload build artifacts
         if: always()
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           if-no-files-found: "warn"
@@ -66,6 +67,7 @@ jobs:
           retention-days: 2
       - name: Upload crime data artifacts
         if: always()
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           if-no-files-found: warn
