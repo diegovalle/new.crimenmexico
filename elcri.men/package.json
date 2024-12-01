@@ -29,6 +29,7 @@
     "echarts-for-react": "^3.0.2",
     "eslint-config-react-app": "^7.0.1",
     "gatsby": "^4.5.4",
+    "gatsby-plugin-clarity": "^1.0.1",
     "gatsby-plugin-gatsby-cloud": "^4.5.2",
     "gatsby-plugin-google-gtag": "^5.13.1",
     "gatsby-plugin-image": "^2.5.2",
