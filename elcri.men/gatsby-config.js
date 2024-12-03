@@ -203,16 +203,16 @@ module.exports = {
         exclude: [`/es/*`, '/es/'],
       },
     },
-    {
-      resolve: `gatsby-plugin-google-gtag`,
-      options: {
-        // selfHostedOrigin: "YOUR_SELF_HOSTED_ORIGIN",
-        // You can add multiple tracking ids and a pageview event will be fired for all of them.
-        trackingIds: [
-          'G-SMLSV8EVFV', // Google Analytics / GA
-        ],
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-google-gtag`,
+    //   options: {
+    //     // pluginConfig: { origin: 'https://elcri.men/__third-party-proxy' },
+    //     // You can add multiple tracking ids and a pageview event will be fired for all of them.
+    //     trackingIds: [
+    //       'G-SMLSV8EVFV', // Google Analytics / GA
+    //     ],
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-clarity`,
       options: {
@@ -240,5 +240,9 @@ module.exports = {
     //     },
     //   },
     // },
+  ],
+  partytownProxiedURLs: [
+    `https://www.googletagmanager.com/gtag/js?id=G-SMLSV8EVFV`,
+    //`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2949275046149330`,
   ],
 }

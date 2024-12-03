@@ -3,7 +3,13 @@
   "ignorePaths": [],
   "dictionaryDefinitions": [],
   "dictionaries": [],
-  "words": ["anualizadas", "Infográficas", "procuradurías"],
+  "words": [
+    "anualizadas",
+    "Infográficas",
+    "partytown",
+    "Partytown",
+    "procuradurías"
+  ],
   "ignoreWords": [],
   "import": [],
   "cSpell.language": "en,es"
