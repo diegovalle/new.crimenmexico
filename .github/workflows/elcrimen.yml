@@ -51,7 +51,6 @@ jobs:
       - name: Change permissions
         run: |
           id -a 
-          ls -la /home/rstudio/new.crimenmexico/
           cp -r /home/rstudio/new.crimenmexico/ /tmp
       - name: Upload build artifacts
         if: always()
@@ -74,5 +73,15 @@ jobs:
           name: data-files
           path: |
             /tmp/new.crimenmexico/data/*.gz
-          retention-days: 30
+          retention-days: 5
+      - name: Upload website html
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          if-no-files-found: warn
+          name: elcrimen_html
+          path: |
+            /tmp/new.crimenmexico/elcri.men/public
+          retention-days: 7
       - run: echo "🍏 This job's status is ${{ job.status }}."
