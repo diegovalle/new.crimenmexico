@@ -46,7 +46,7 @@ echarts.use([
 ])
 
 const reg = (x1, x2) => {
-  let ALPHA =  13.82244 
+  let ALPHA = 13.82244
   let BETA1 = 0.96974
   // let BETA2 = -0.03147
   // let BETA3 = -0.01984
@@ -484,6 +484,7 @@ function ReporteDiario(props) {
         itemStyle: {
           color: '#4daf4a',
         },
+        symbol: 'circle',
         symbolSize: 4,
         showSymbol: false,
         emphasis: {
@@ -529,7 +530,7 @@ function ReporteDiario(props) {
   }
 
   const trbody = (data, locale) => {
-    return data.map(function (item, index) {
+    return data.reverse().map(function (item, index) {
       return (
         <tr key={index}>
           <td
@@ -602,7 +603,6 @@ function ReporteDiario(props) {
               fontFamily: 'monospace',
             }}
           >
-            {console.log(index + 37)}
             {item[3]
               ? '–'
               : (reg(item[2], index + 37) * item[1]) / item[1] +
