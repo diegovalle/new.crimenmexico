@@ -45,8 +45,14 @@ echarts.use([
   MarkLineComponent,
 ])
 
-let BETA = 0.9789
-let ALPHA = 13.2187
+const reg = (x1, x2) => {
+  let ALPHA = 13.82244
+  let BETA1 = 0.96974
+  // let BETA2 = -0.03147
+  // let BETA3 = -0.01984
+  let value = ALPHA + BETA1 * x1 // + BETA2 * x2 + BETA3 * x1 * x2
+  return Math.round(value * 10) / 10
+}
 
 function ReporteDiario(props) {
   const intl = useIntl()
@@ -478,6 +484,7 @@ function ReporteDiario(props) {
         itemStyle: {
           color: '#4daf4a',
         },
+        symbol: 'circle',
         symbolSize: 4,
         showSymbol: false,
         emphasis: {
@@ -501,12 +508,7 @@ function ReporteDiario(props) {
           table === null
             ? null
             : table.map((item, i) => {
-                if (!item[3])
-                  return (
-                    Math.round(
-                      (((item[2] * BETA + ALPHA) * item[1]) / item[1]) * 10
-                    ) / 10
-                  )
+                if (!item[3]) return (reg(item[2], i + 37) * item[1]) / item[1]
                 if (i < table.length - 1 && isNaN(table[i + 1][3])) {
                   return item[3]
                 } else return null
@@ -528,7 +530,7 @@ function ReporteDiario(props) {
   }
 
   const trbody = (data, locale) => {
-    return data.map(function (item, index) {
+    return data.reverse().map(function (item, index) {
       return (
         <tr key={index}>
           <td
@@ -603,14 +605,11 @@ function ReporteDiario(props) {
           >
             {item[3]
               ? '–'
-              : Math.round(
-                  (((item[2] * BETA + ALPHA) * item[1]) / item[1]) * 10
-                ) /
-                  10 +
+              : (reg(item[2], index + 37) * item[1]) / item[1] +
                 ' (' +
                 comma(
                   Math.round(
-                    (item[2] * BETA + ALPHA) *
+                    reg(item[2], index + 37) *
                       daysInMonth(item[0].slice(0, 4), item[0].slice(5, 7))
                   )
                 ) +
@@ -744,7 +743,7 @@ function ReporteDiario(props) {
                     </th>
                     <th align="right" style={{ textTransform: 'capitalize' }}>
                       {intl.formatMessage({
-                        id: 'prediction',
+                        id: 'prediction_snsp',
                       })}
                     </th>
                   </tr>
