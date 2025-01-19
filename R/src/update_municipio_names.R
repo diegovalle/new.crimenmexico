@@ -4,8 +4,8 @@ library(tidyverse)
 df <- read.csv("../clean/snsp-data/municipios.csv", 
                fileEncoding = "windows-1252")
 
-df20 <- subset(df, Año == 2022)
-df21 <- subset(df, Año == 2023)
+df20 <- subset(df, Año == 2023)
+df21 <- subset(df, Año == 2024)
 new_muns <- setdiff(unique(df21$Cve..Municipio), unique(df20$Cve..Municipio))
 #names of the new municipios
 unique(df[which(df$Cve..Municipio %in% new_muns), ]$Municipio)
@@ -31,3 +31,4 @@ df_population$id <- as.numeric(str_mxmunicipio(df_population$state_code, df_popu
 
 # municipios that are in the latest crime data but not in the  conapo population
 setdiff(df_population$id, df_mun_names$id)
+
