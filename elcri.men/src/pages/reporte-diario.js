@@ -46,8 +46,8 @@ echarts.use([
 ])
 
 const reg = (x1, x2) => {
-  let ALPHA = 13.82244
-  let BETA1 = 0.96974
+  let ALPHA = -14.168110931182667
+  let BETA1 = 1.3821427096274106
   // let BETA2 = -0.03147
   // let BETA3 = -0.01984
   let value = ALPHA + BETA1 * x1 // + BETA2 * x2 + BETA3 * x1 * x2
@@ -508,7 +508,7 @@ function ReporteDiario(props) {
           table === null
             ? null
             : table.map((item, i) => {
-                if (!item[3]) return (reg(item[2], i + 37) * item[1]) / item[1]
+                if (!item[3]) return item[4]
                 if (i < table.length - 1 && isNaN(table[i + 1][3])) {
                   return item[3]
                 } else return null
@@ -605,11 +605,11 @@ function ReporteDiario(props) {
           >
             {item[3]
               ? '–'
-              : (reg(item[2], index + 37) * item[1]) / item[1] +
+              : round1(item[4]) +
                 ' (' +
                 comma(
                   Math.round(
-                    reg(item[2], index + 37) *
+                    item[4] *
                       daysInMonth(item[0].slice(0, 4), item[0].slice(5, 7))
                   )
                 ) +
