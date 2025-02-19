@@ -38,6 +38,101 @@ echarts.use([
   ToolboxComponent,
 ])
 
+const mexicanStates = {
+  aguascalientes: 1434635,
+  'baja california': 3769020,
+  'baja california sur': 798447,
+  campeche: 928363,
+  chiapas: 5543828,
+  chihuahua: 3741869,
+  coahuila: 3146771,
+  colima: 731391,
+  'ciudad de mexico': 9209944,
+  durango: 1832650,
+  guanajuato: 6166934,
+  guerrero: 3540685,
+  hidalgo: 3082841,
+  jalisco: 8348151,
+  mexico: 16992418,
+  michoacan: 4748846,
+  morelos: 1971520,
+  nayarit: 1235456,
+  'nuevo leon': 5784442,
+  oaxaca: 4132148,
+  puebla: 6583278,
+  queretaro: 2368467,
+  'quintana roo': 1857985,
+  'san luis potosi': 2822255,
+  sinaloa: 3026943,
+  sonora: 2944840,
+  tabasco: 2402598,
+  tamaulipas: 3527735,
+  tlaxcala: 1342977,
+  veracruz: 8062579,
+  yucatan: 2320898,
+  zacatecas: 1622138,
+}
+
+function areProportionsDifferent(x1, n1, x2, n2, alpha = 0.05) {
+  // Validate inputs
+  if (n1 === 0 || n2 === 0) {
+    throw new Error('Sample sizes n1 and n2 must be greater than 0.')
+  }
+  if (x1 < 0 || x2 < 0) {
+    throw new Error('Number of successes cannot be negative.')
+  }
+  if (x1 > n1 || x2 > n2) {
+    throw new Error('Number of successes cannot exceed sample size.')
+  }
+
+  // Calculate proportions
+  const p1 = x1 / n1
+  const p2 = x2 / n2
+
+  // Pooled proportion
+  const pooledP = (x1 + x2) / (n1 + n2)
+
+  // Standard error
+  const SE = Math.sqrt(pooledP * (1 - pooledP) * (1 / n1 + 1 / n2))
+
+  // Handle case where there's no variation (both proportions are 0 or 1)
+  if (SE === 0) {
+    return false // Proportions are identical
+  }
+
+  // Z-score
+  const z = (p1 - p2) / SE
+
+  // Calculate p-value for two-tailed test
+  const pValue = 2 * (1 - normCDF(Math.abs(z)))
+
+  // Check statistical significance
+  return pValue < alpha
+}
+
+function normCDF(z) {
+  // Implements the Zelen & Severo approximation for the standard normal CDF
+  const absZ = Math.abs(z)
+  const a1 = 0.31938153
+  const a2 = -0.356563782
+  const a3 = 1.781477937
+  const a4 = -1.821255978
+  const a5 = 1.330274429
+  const p = 0.2316419
+
+  const t = 1 / (1 + p * absZ)
+  const tTerm = t * (a1 + t * (a2 + t * (a3 + t * (a4 + t * a5))))
+  const pdf = Math.exp(-0.5 * absZ * absZ) / Math.sqrt(2 * Math.PI)
+  let cdf = 1 - pdf * tTerm
+
+  // Adjust if z is negative
+  if (z < 0) {
+    cdf = 1 - cdf
+  }
+
+  return cdf
+}
+
 const round = format('.0f')
 const round1 = format('.1f')
 const comma = format(',')
@@ -119,7 +214,7 @@ function SMDiario(props) {
   }
 
   useEffect(() => {
-    fetch('https://diario.elcri.men/states.json')
+    fetch('https://diario.elcri.men/states.json') //https://diario.elcri.men
       .then((response) => response.json())
       .then((responseJSON) => {
         let groups = groupBy(responseJSON, function (x) {
@@ -268,7 +363,14 @@ function SMDiario(props) {
         // },
         lineStyle: {
           width: 3,
-          color: '#268bd2',
+          color:
+            groupedStates === null
+              ? null
+              : groupedStates[state][0][4] === -1
+              ? '#268bd2' //#268bd2
+              : groupedStates[state][0][4] === 0
+              ? '#268bd2'
+              : '#268bd2', // red
         },
         showSymbol: false,
       },
@@ -341,6 +443,10 @@ function SMDiario(props) {
               id: 'difference_20',
             })}
           </h3>
+
+          {intl.formatMessage({
+            id: 'states_significant',
+          })}
         </div>
         <hr />
         <div className="columns is-centered">
@@ -407,7 +513,20 @@ function SMDiario(props) {
                   {compare30
                     ? compare30.map((el, index) => {
                         return (
-                          <tr key={index}>
+                          <tr
+                            key={index}
+                            style={{
+                              backgroundColor: areProportionsDifferent(
+                                el.qty30,
+                                mexicanStates[el.state],
+                                el.qty60,
+                                mexicanStates[el.state],
+                                0.05 / 32
+                              )
+                                ? '#FFB89E'
+                                : 'transparent',
+                            }}
+                          >
                             <td
                               className={
                                 intl.locale === 'es' ? 'es_diff' : 'en_diff'
@@ -442,7 +561,21 @@ function SMDiario(props) {
                               }
                               key={index + '4 '}
                             >
-                              {el.diff > 0 ? '+' + el.diff : el.diff}
+                              <span
+                                style={{
+                                  fontWeight: areProportionsDifferent(
+                                    el.qty30,
+                                    mexicanStates[el.state],
+                                    el.qty60,
+                                    mexicanStates[el.state],
+                                    0.05 / 32
+                                  )
+                                    ? 'bold'
+                                    : 'normal',
+                                }}
+                              >
+                                {el.diff > 0 ? '+' + el.diff : el.diff}
+                              </span>
                             </td>
                           </tr>
                         )

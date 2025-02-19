@@ -280,5 +280,7 @@
   "Difference": "Difference",
   "to2": "to",
   "Estado": "State",
-  "difference_20": "Comparison of the last 30 days to the previous 30 day period"
+  "difference_20": "Comparison of the last 30 days to the previous 30 day period",
+  "states_significant": "States with a significant difference in number of homicides highlighted (corrected for multiple comparisons)",
+  "trend_significant": "States with an upward trend in red and a downward trend in blue."
 }
