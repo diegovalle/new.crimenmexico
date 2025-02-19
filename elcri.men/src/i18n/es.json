@@ -260,7 +260,7 @@
   "Preliminary": "Preliminar",
   "SNSP (oficial data)": "SNSP (datos oficiales)",
   "daily_in_red_title": "Comparación de los datos diarios y los oficiales del SNSP",
-  "daily_in_red": "Homicidios por día (y el total mensual en parentesis), y una predicción del próximo mes",
+  "daily_in_red": "Homicidios por día (y el total mensual entre paréntesis), y una predicción para el próximo mes",
   "Predicted": "Predicción",
   "prediction_snsp": "Predicción SNSP",
   "prediction": "predicción",
@@ -281,5 +281,7 @@
   "Difference": "Diferencia",
   "to2": "al",
   "Estado": "Estado",
-  "difference_20": "Comparación de los últimos 30 días con los anteriores 30"
+  "difference_20": "Comparación de los últimos 30 días con los anteriores 30",
+  "states_significant": "Los estados con una diferencia estadísticamente significativa en homicidios fueron resaltados (corregidos para comparasiones multiples)",
+  "trend_significant": "Estados con una tendencia al alza en rojo y a la baja en azul"
 }

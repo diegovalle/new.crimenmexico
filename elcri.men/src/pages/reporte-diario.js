@@ -287,7 +287,7 @@ function ReporteDiario(props) {
       {
         type: 'line',
         emphasis: {
-          lineStyle: { color: 'blue' },
+          lineStyle: { color: '#357933' },
         },
         name: intl.formatMessage({
           id: '30 day average',
@@ -298,7 +298,7 @@ function ReporteDiario(props) {
         },
         lineStyle: {
           width: 3,
-          color: '#156cff',
+          color: '#4daf4a',
         },
         showSymbol: false,
         symbol: 'none',
@@ -760,7 +760,9 @@ function ReporteDiario(props) {
           <h3 className="title is-3">
             <FormattedHTMLMessage id="states_daily_report" />
           </h3>
-
+          {intl.formatMessage({
+              id: 'trend_significant',
+            })}
           <LazyLoad once offset={700}>
             <SMDiario />
           </LazyLoad>
