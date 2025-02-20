@@ -283,5 +283,8 @@
   "Estado": "Estado",
   "difference_20": "Comparación de los últimos 30 días con los anteriores 30",
   "states_significant": "Los estados con una diferencia estadísticamente significativa en homicidios fueron resaltados (corregidos para comparasiones multiples)",
-  "trend_significant": "Estados con una tendencia al alza en rojo y a la baja en azul"
+  "trend_significant": "Estados con una tendencia al alza en rojo y a la baja en azul",
+  "daily average": "promedio diario",
+  "snsp (oficial)": "SNSP (oficial)",
+  "daily report": "Reporte Diario"
 }

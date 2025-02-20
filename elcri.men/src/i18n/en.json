@@ -282,5 +282,8 @@
   "Estado": "State",
   "difference_20": "Comparison of the last 30 days to the previous 30 day period",
   "states_significant": "States with a significant difference in number of homicides highlighted (corrected for multiple comparisons)",
-  "trend_significant": "States with an upward trend in red and a downward trend in blue."
+  "trend_significant": "States with an upward trend in red and a downward trend in blue.",
+  "daily average": "daily average",
+  "snsp (oficial)": "SNSP (oficial)",
+  "daily report": "daily report"
 }

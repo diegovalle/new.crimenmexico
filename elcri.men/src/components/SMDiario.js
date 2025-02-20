@@ -214,7 +214,7 @@ function SMDiario(props) {
   }
 
   useEffect(() => {
-    fetch('https://diario.elcri.men/states.json') //https://diario.elcri.men
+    fetch('https://diario.elcri.men/prediccion_mensual.json')
       .then((response) => response.json())
       .then((responseJSON) => {
         let groups = groupBy(responseJSON, function (x) {
@@ -238,7 +238,7 @@ function SMDiario(props) {
         setMaxDate(maxDate2 + ' 00:00:00 GMT-0600')
         setMaxCount(max)
         setOrderedStates(states)
-        setCompare30(comparison30Days(responseJSON, maxDate2))
+        // setCompare30(comparison30Days(responseJSON, maxDate2))
       })
       .catch((error) => {
         console.error(error)
@@ -260,7 +260,7 @@ function SMDiario(props) {
       },
     },
     tooltip: {
-      trigger: 'item',
+      trigger: 'axis',
       axisPointer: {
         animation: false,
         label: {
@@ -275,17 +275,31 @@ function SMDiario(props) {
         },
       },
       formatter: function (item) {
-        let date = new Date(item.name + 'T12:00:00.000-06:00')
+        let date = new Date(item[0].name + 'T12:00:00.000-06:00')
         let datestr = [
           date.toLocaleString(intl.locale, {
             month: 'long',
-            day: 'numeric',
             timezone: 'America/Mexico_City',
           }),
           date.getFullYear(),
         ].join(' ')
-        let tasa = intl.formatMessage({ id: 'number of homicides:' })
-        return `${datestr}<br/>${tasa} <b>${item.value}</b>`
+        let snsp_text = intl.formatMessage({ id: 'snsp (oficial)' })
+        let dr_text = intl.formatMessage({ id: 'daily report' })
+        let pred_text = intl.formatMessage({ id: 'prediction' })
+        let snsp_num =
+          typeof item[0].value === 'undefined' ? '-' : item[0].value
+        let dr_num = typeof item[1].value === 'undefined' ? '-' : item[1].value
+        let pred_num =
+          typeof item[2].value === 'undefined'
+            ? '-'
+            : item[2].value !== item[0].value
+            ? round1(item[2].value)
+            : '-'
+        return (
+          `${datestr}<br/><span style="color:#377eb8">${snsp_text}:</span> <b >${snsp_num}</b>` +
+          `<br/><span style="color:#4daf4a">${dr_text}:</span> <b>${dr_num}</b>` +
+          `<br/><span style="color:#e41a1c">${pred_text}:</span> <b>${pred_num}</b>`
+        )
       },
     },
     grid: {
@@ -306,7 +320,7 @@ function SMDiario(props) {
         fontFamily: 'Arial',
         fontSize: 11,
         color: '#4d4d4d',
-        interval: 35,
+        interval: 11,
         formatter: function (value, idx) {
           var date = new Date(value)
           return [
@@ -323,7 +337,7 @@ function SMDiario(props) {
         animation: false,
         max: maxCount,
         min: 0,
-        name: intl.formatMessage({ id: 'count' }),
+        name: intl.formatMessage({ id: 'daily average' }),
         nameLocation: 'middle',
         // nameGap: 25,
         nameTextStyle: { fontFamily: 'Arial', fontSize: 11, color: '#222' },
@@ -350,7 +364,7 @@ function SMDiario(props) {
     ],
     series: [
       {
-        name: 'lowess',
+        name: 'snsp',
         type: 'line',
         data:
           groupedStates === null
@@ -358,20 +372,20 @@ function SMDiario(props) {
             : groupedStates[state].map((item, i) => {
                 return item[1]
               }),
-        // itemStyle: {
-        //   color: '#333',
-        // },
-        lineStyle: {
-          width: 3,
-          color:
-            groupedStates === null
-              ? null
-              : groupedStates[state][0][4] === -1
-              ? '#268bd2' //#268bd2
-              : groupedStates[state][0][4] === 0
-              ? '#268bd2'
-              : '#268bd2', // red
+        itemStyle: {
+          color: '#377eb8',
         },
+        // lineStyle: {
+        //   width: 3,
+        //   color:
+        //     groupedStates === null
+        //       ? null
+        //       : groupedStates[state][0][4] === -1
+        //       ? '#268bd2' //#268bd2
+        //       : groupedStates[state][0][4] === 0
+        //       ? '#268bd2'
+        //       : '#268bd2', // red
+        // },
         showSymbol: false,
       },
       {
@@ -383,7 +397,7 @@ function SMDiario(props) {
         name: intl.formatMessage({
           id: 'count',
         }),
-        type: 'scatter',
+        type: 'line',
         data:
           groupedStates === null
             ? null
@@ -392,7 +406,33 @@ function SMDiario(props) {
               }),
 
         itemStyle: {
-          color: 'white',
+          color: '#4daf4a',
+          borderColor: 'Black',
+          opacity: 0.8,
+        },
+        symbol: 'circle',
+        symbolSize: 5,
+        showSymbol: false,
+      },
+      {
+        emphasis: {
+          itemStyle: {
+            color: 'black',
+          },
+        },
+        name: intl.formatMessage({
+          id: 'count',
+        }),
+        type: 'line',
+        data:
+          groupedStates === null
+            ? null
+            : groupedStates[state].map((item, i) => {
+                return item[4]
+              }),
+
+        itemStyle: {
+          color: '#e41a1c',
           borderColor: 'Black',
           opacity: 0.8,
         },
@@ -435,7 +475,7 @@ function SMDiario(props) {
             ))}
       </div>
       <div>
-        <hr />
+        {/* <hr />
         <div className="box">
           <h3 className="title is-3">
             {' '}
@@ -447,12 +487,12 @@ function SMDiario(props) {
           {intl.formatMessage({
             id: 'states_significant',
           })}
-        </div>
+        </div> */}
         <hr />
-        <div className="columns is-centered">
+        {/*  <div className="columns is-centered">
           <div className="column is-6">
             <div className="table-container">
-              <table
+               <table
                 id="diff"
                 className="table is-striped  is-fullwidth"
                 style={{ border: '0px solid #cbcbcb' }}
@@ -582,10 +622,10 @@ function SMDiario(props) {
                       })
                     : null}
                 </tbody>
-              </table>
+              </table> 
             </div>
           </div>
-        </div>
+        </div>*/}
       </div>
     </div>
   )

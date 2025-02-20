@@ -760,9 +760,21 @@ function ReporteDiario(props) {
           <h3 className="title is-3">
             <FormattedHTMLMessage id="states_daily_report" />
           </h3>
-          {intl.formatMessage({
+          {/* {intl.formatMessage({
               id: 'trend_significant',
-            })}
+            })} */}
+
+          <div className="columns">
+            <div className="column is-half is-offset-5">
+              <p style={{ lineHeight: '1.2rem' }}>
+                <FormattedHTMLMessage id="snsp-victims" />
+                <br />
+                <FormattedHTMLMessage id="preliminary_homicides" />
+                <br />
+                <FormattedHTMLMessage id="prediction_homicides" />
+              </p>
+            </div>
+          </div>
           <LazyLoad once offset={700}>
             <SMDiario />
           </LazyLoad>
