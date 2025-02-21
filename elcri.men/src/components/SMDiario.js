@@ -6,7 +6,7 @@ import LazyLoad from 'react-lazyload'
 import '../assets/css/trends.css'
 import { useIntl } from 'react-intl'
 
-import { titleCasePlaces } from './utils.js'
+import { titleCasePlaces, pretty } from './utils.js'
 import { groupBy, map, reduce, sortBy, max, maxBy } from 'lodash-es'
 import { FormattedDate } from 'react-intl'
 
@@ -244,37 +244,6 @@ function SMDiario(props) {
         console.error(error)
       })
   }, [])
-
-  function pretty(values, n = 3) {
-    if (values.length === 0) return []
-    const min = Math.min(...values)
-    const max = Math.max(...values)
-
-    // Handle single value case
-    if (min === max) return [min]
-
-    const rawStep = (max - min) / n
-    const magnitude = 10 ** Math.floor(Math.log10(rawStep))
-    const base = rawStep / magnitude
-
-    // Find closest "nice" base from standard candidates
-    const candidates = [1, 2, 5, 10]
-    const closest = candidates.reduce((a, b) =>
-      Math.abs(base - a) < Math.abs(base - b) ? a : b
-    )
-
-    const unit = closest * magnitude
-    const start = Math.floor(min / unit) * unit
-    const end = Math.ceil(max / unit) * unit
-
-    // Generate sequence
-    const sequence = []
-    for (let i = start; i <= end; i += unit) {
-      sequence.push(parseFloat(i.toFixed(10)))
-    }
-
-    return sequence
-  }
 
   const getChartOptions = (state) => ({
     animation: true,
