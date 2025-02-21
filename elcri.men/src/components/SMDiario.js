@@ -245,6 +245,37 @@ function SMDiario(props) {
       })
   }, [])
 
+  function pretty(values, n = 3) {
+    if (values.length === 0) return []
+    const min = Math.min(...values)
+    const max = Math.max(...values)
+
+    // Handle single value case
+    if (min === max) return [min]
+
+    const rawStep = (max - min) / n
+    const magnitude = 10 ** Math.floor(Math.log10(rawStep))
+    const base = rawStep / magnitude
+
+    // Find closest "nice" base from standard candidates
+    const candidates = [1, 2, 5, 10]
+    const closest = candidates.reduce((a, b) =>
+      Math.abs(base - a) < Math.abs(base - b) ? a : b
+    )
+
+    const unit = closest * magnitude
+    const start = Math.floor(min / unit) * unit
+    const end = Math.ceil(max / unit) * unit
+
+    // Generate sequence
+    const sequence = []
+    for (let i = start; i <= end; i += unit) {
+      sequence.push(parseFloat(i.toFixed(10)))
+    }
+
+    return sequence
+  }
+
   const getChartOptions = (state) => ({
     animation: true,
     animationDuration: 0,
@@ -335,7 +366,6 @@ function SMDiario(props) {
     yAxis: [
       {
         animation: false,
-        max: maxCount,
         min: 0,
         name: intl.formatMessage({ id: 'daily average' }),
         nameLocation: 'middle',
@@ -343,12 +373,15 @@ function SMDiario(props) {
         nameTextStyle: { fontFamily: 'Arial', fontSize: 11, color: '#222' },
         type: 'value',
         scale: false,
-        splitNumber: 2,
+        //splitNumber: 3,
+        interval:
+          pretty([0, maxCount], 2).at(1) - pretty([0, maxCount], 2).at(0),
+        max: pretty([0, maxCount], 2).at(-1),
         splitLine: {
           show: true,
           lineStyle: {
+            color: ['#e0e0e0', '#e0e0e0', '#e0e0e0', '#e0e0e0', 'transparent'],
             type: 'solid',
-            color: '#b3b2b2',
             width: 0.4,
           },
         },
