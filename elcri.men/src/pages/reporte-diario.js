@@ -709,39 +709,93 @@ function ReporteDiario(props) {
                 <FormattedHTMLMessage id="daily_in_red" />
               </TextColumn>
             </section>
-            <div className="table-container">
+            <div
+              className="table-container"
+              style={{ overflow: 'auto', height: '400px' }}
+            >
               <table
                 className="table is-striped is-fullwidth"
-                style={{ border: '0px solid #cbcbcb' }}
+                style={{
+                  border: '0px solid #cbcbcb',
+                  borderCollapse: 'collapse',
+                }}
               >
                 <thead>
                   <tr>
-                    <th>
+                    <th
+                      style={{
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: '1',
+                        background: 'white',
+                      }}
+                    >
                       {intl.formatMessage({
                         id: 'Date',
                       })}
                     </th>
-                    <th align="right">
+                    <th
+                      align="right"
+                      style={{
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: '1',
+                        background: 'white',
+                      }}
+                    >
                       {intl.formatMessage({
                         id: 'Preliminary (per day)',
                       })}
                     </th>
-                    <th align="right">
+                    <th
+                      align="right"
+                      style={{
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: '1',
+                        background: 'white',
+                      }}
+                    >
                       {intl.formatMessage({
                         id: 'SNSP (oficial data, per day)',
                       })}
                     </th>
-                    <th align="right">
+                    <th
+                      align="right"
+                      style={{
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: '1',
+                        background: 'white',
+                      }}
+                    >
                       {intl.formatMessage({
                         id: 'Preliminary (monthly)',
                       })}
                     </th>
-                    <th align="right">
+                    <th
+                      align="right"
+                      style={{
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: '1',
+                        background: 'white',
+                      }}
+                    >
                       {intl.formatMessage({
                         id: 'SNSP (monthly)',
                       })}
                     </th>
-                    <th align="right" style={{ textTransform: 'capitalize' }}>
+                    <th
+                      align="right"
+                      style={{ textTransform: 'capitalize' }}
+                      style={{
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: '1',
+                        background: 'white',
+                      }}
+                    >
                       {intl.formatMessage({
                         id: 'prediction_snsp',
                       })}
