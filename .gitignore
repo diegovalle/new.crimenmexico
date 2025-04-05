@@ -35,3 +35,4 @@ R/interactive-map/municipios-centroids.json
 elcri.men/static/smooth-latest.png
 elcri.men/src/assets/images/social/social/*.png
 !crimenmexico.diegovalle.net/assets/json/municipios-centroids.csv
+.envrc
