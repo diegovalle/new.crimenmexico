@@ -187,7 +187,7 @@ function ReporteDiario(props) {
         return (
           `${datestr}<br/>` +
           `<b>${numHom}</b>: ${item.value}<br/>` +
-          `<b>${rollmean}</b>: ${data[item.dataIndex][3]}<br/>`
+          `<b>${rollmean}</b>: ${data[item.dataIndex][2]}<br/>`
         )
       },
     },
@@ -280,7 +280,7 @@ function ReporteDiario(props) {
         showSymbol: false,
         itemStyle: {
           color: 'white',
-          borderColor: '#777',
+          borderColor: '#333',
           opacity: 0.8,
         },
       },
@@ -292,7 +292,7 @@ function ReporteDiario(props) {
         name: intl.formatMessage({
           id: '30 day average',
         }),
-        data: data === null ? null : data.map((item) => item[3]),
+        data: data === null ? null : data.map((item) => item[2]),
         itemStyle: {
           color: '#333',
         },
@@ -326,6 +326,39 @@ function ReporteDiario(props) {
           },
         },
       },
+      /* {
+        emphasis: {
+          lineStyle: { width: 1.2 },
+        },
+        name: 'L',
+        type: 'line',
+        data: data === null ? null : data.map((item) => item[3]),
+        lineStyle: {
+          opacity: 0,
+        },
+        stack: 'confidence-band',
+        symbol: 'none',
+        z: 0,
+      },
+      {
+        emphasis: {
+          areaStyle: {
+            color: '#E5E4E2',
+          },
+        },
+        name: 'U',
+        type: 'line',
+        data: data === null ? null : data.map((item) => item[4] - item[3]),
+        lineStyle: {
+          opacity: 0,
+        },
+        areaStyle: {
+          color: '#E5E4E2',
+        },
+        stack: 'confidence-band',
+        symbol: 'none',
+        z: 0,
+      }, */
     ],
   }
 
@@ -666,6 +699,11 @@ function ReporteDiario(props) {
                 </figure>
               </div>
             </div>
+            <section className="section">
+              <TextColumn>
+                <FormattedHTMLMessage id="gam_description" />
+              </TextColumn>
+            </section>
           </article>
         </div>
 

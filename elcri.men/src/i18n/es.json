@@ -252,8 +252,8 @@
   "title_daily": "Informe Diario de Homicidios - El Crimen",
   "desc_daily": "Datos diarios de homicidio en México basados en el informe de seguridad de la SSPC",
   "Daily Homicides in Mexico": "Homicidios diarios (no oficiales) en México hasta el",
-  "Number of homicides and 30 day rolling mean": "Número de homicidios y suavizado de LOWESS",
-  "30 day average": "Suavizado de LOWESS",
+  "Number of homicides and 30 day rolling mean": "Número de homicidios y tendencia GAM",
+  "30 day average": "GAM",
   "number of homicides": "número de homicidios",
   "daily_text": "Los <a href=\"http://www.informeseguridad.cns.gob.mx/\">datos diarios</a> de homicidios son estimaciones iniciales que pueden cambiar, ya que las autoridades estatales aún deben confirmar si cada caso es realmente un crimen. La información sobre homicidios que se publica cada día es provisional y está sujeta a revisión por parte de las fiscalías de cada estado. Estos datos se comparten para ayudar a las autoridades a tomar decisiones rápidas, pero no son los números oficiales finales.",
   "daily-report": "Reporte diario",
@@ -286,5 +286,6 @@
   "trend_significant": "Estados con una tendencia al alza en rojo y a la baja en azul",
   "daily average": "promedio diario",
   "snsp (oficial)": "SNSP (oficial)",
-  "daily report": "Reporte Diario"
+  "daily report": "Reporte Diario",
+  "gam_description": "<section>  <h2>¿Qué es un Modelo Aditivo Generalizado (GAM)?</h2>  <p>    Un <strong>Modelo Aditivo Generalizado</strong>, o <strong>GAM</strong> por sus siglas en inglés, es un tipo de modelo estadístico que se utiliza para entender cómo diferentes factores influyen en algo que estás midiendo — por ejemplo, homicidios diarios. Funciona ajustando curvas suaves a través de datos ruidosos para revelar patrones subyacentes.  </p>  <h3>¿Qué significa \"aditivo\"?</h3>  <p>    En lugar de usar una fórmula complicada única, un GAM divide el problema en partes y suma sus efectos. Por ejemplo, puede estimar por separado:  </p>  <ul>    <li>Cómo cambian las cosas con el tiempo (tendencia a largo plazo)</li>    <li>Cómo influye cada mes del año (estacionalidad)</li>    <li>Cómo se comportan los diferentes días de la semana (entre semana vs. fines de semana)</li>    <li>Cómo afectan los días festivos específicos</li>  </ul>  <p>    Cada uno de estos factores tiene su propia curva flexible, y el modelo los suma para hacer una predicción.  </p>  <h3>¿Por qué ajustar por estacionalidad, días de la semana y festivos?</h3>  <ul>    <li><strong>Estacionalidad:</strong> Algunos patrones se repiten a lo largo del año (por ejemplo, más delitos en verano).</li>    <li><strong>Día de la semana:</strong> El comportamiento suele variar entre lunes y fines de semana.</li>    <li><strong>Días festivos:</strong> Eventos como Navidad o el Día de la Independencia pueden provocar aumentos o caídas.</li>  </ul>  <h3>¿Qué produce el modelo?</h3>  <p>    El modelo genera una predicción diaria basada en todos estos factores. </p></section>"
 }
