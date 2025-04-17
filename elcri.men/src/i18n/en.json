@@ -251,8 +251,8 @@
   "title_daily": "Murders in Mexico Today - El Crimen",
   "desc_daily": "Daily number of homicides in Mexico",
   "Daily Homicides in Mexico": "Daily Homicides in Mexico (preliminary data) - ",
-  "Number of homicides and 30 day rolling mean": "Number of homicides and LOWESS smooth",
-  "30 day average": "LOWESS smooth",
+  "Number of homicides and 30 day rolling mean": "Number of homicides and smoothed GAM",
+  "30 day average": "GAM smooth",
   "number of homicides": "number of homicides",
   "daily_text": "Daily <a href=\"http://www.informeseguridad.cns.gob.mx/\">homicide data</a> are preliminary estimates that may change, as state authorities must still confirm whether each case is actually a crime. The homicide information published daily is provisional and subject to review by the prosecutors of each state. This data is shared to help authorities make quick decisions, but it is not the final official count.",
   "daily-report": "Daily report",
@@ -285,5 +285,6 @@
   "trend_significant": "States with an upward trend in red and a downward trend in blue.",
   "daily average": "daily average",
   "snsp (oficial)": "SNSP (oficial)",
-  "daily report": "daily report"
+  "daily report": "daily report",
+  "gam_description": "<section>  <h2>What is a Generalized Additive Model (GAM)?</h2>  <p>    A Generalized Additive Model, or <strong>GAM</strong>, is a type of statistical model    used to understand how different factors influence something you're measuring—    for example, daily homicides. It works by fitting smooth curves through noisy data    to reveal the underlying patterns.  </p>  <h3>What Does \"Additive\" Mean?</h3>  <p>    Instead of using one complicated formula, a GAM breaks the problem into parts and     adds the effects together. For instance, it might separately estimate:  </p>  <ul>    <li>How things change over time (long-term trend)</li>    <li>How each month of the year affects the outcome (seasonality)</li>    <li>How different days of the week behave (weekday vs. weekend)</li>    <li>How specific holidays influence the result</li>  </ul>  <p>    Each of these effects gets its own flexible curve, and the model adds them up to make a prediction.  </p>  <h3>Why Adjust for Seasonality, Weekdays, and Holidays?</h3>  <ul>    <li><strong>Seasonality:</strong> Some patterns repeat over the year (e.g., more crime in summer).</li>    <li><strong>Day of the Week:</strong> Behavior often shifts between weekdays and weekends.</li>    <li><strong>Holidays:</strong> Events like Christmas or Independence Day may cause spikes or drops.</li>  </ul>  <h3>What Does the Model Output?</h3>  <p>    The model produces a daily prediction based on all these factors. </p></section>"
 }
