@@ -668,35 +668,37 @@ function ReporteDiario(props) {
 
       <div className="container is-fullhd" id="trends">
         <div id="daily-trends">
-          <HeroTitle>
-            {intl.formatMessage({ id: 'Daily Homicides in Mexico' })}{' '}
-            {maxDate !== null ? (
-              <i>
-                <FormattedDate
-                  value={new Date(maxDate + 'T00:00:00.000-06:00')}
-                  day="2-digit"
-                  month="long"
-                  year="numeric"
-                  timeZone="America/Mexico_City"
-                />
-              </i>
-            ) : (
-              '⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀'
-            )}
-          </HeroTitle>
           <article>
-            <div className="columns">
-              <div className="column is-10 is-offset-1">
-                <figure className="image is-2by1">
-                  <div className=" has-ratio">
-                    <ReactEChartsCore
-                      echarts={echarts}
-                      option={chartOption}
-                      style={{ height: '100%', width: '100%' }}
-                      opts={{ locale: echarts.registerLocale('ES') }}
+            <div id="daily-trends-chart">
+              <HeroTitle>
+                {intl.formatMessage({ id: 'Daily Homicides in Mexico' })}{' '}
+                {maxDate !== null ? (
+                  <i>
+                    <FormattedDate
+                      value={new Date(maxDate + 'T00:00:00.000-06:00')}
+                      day="2-digit"
+                      month="long"
+                      year="numeric"
+                      timeZone="America/Mexico_City"
                     />
-                  </div>
-                </figure>
+                  </i>
+                ) : (
+                  '⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀'
+                )}
+              </HeroTitle>
+              <div className="columns">
+                <div className="column is-10 is-offset-1">
+                  <figure className="image is-2by1">
+                    <div className=" has-ratio">
+                      <ReactEChartsCore
+                        echarts={echarts}
+                        option={chartOption}
+                        style={{ height: '100%', width: '100%' }}
+                        opts={{ locale: echarts.registerLocale('ES') }}
+                      />
+                    </div>
+                  </figure>
+                </div>
               </div>
             </div>
             <section className="section">
@@ -707,10 +709,10 @@ function ReporteDiario(props) {
           </article>
         </div>
 
-        <h3 className="title is-3">
-          <FormattedHTMLMessage id="daily_in_red_title" />
-        </h3>
         <div id="homicide_prediction">
+          <h3 className="title is-3">
+            <FormattedHTMLMessage id="daily_in_red_title" />
+          </h3>
           <div className="columns">
             <div className="column is-half is-offset-5">
               <p style={{ lineHeight: '1.2rem' }}>
