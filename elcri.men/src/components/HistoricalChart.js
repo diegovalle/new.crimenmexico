@@ -148,8 +148,8 @@ function HistoricalChart(props) {
             1e5
         )
         setHomRateSnsp(
-          (yearlySNSP[yearlyINEGI.length - 1].snsp /
-            yearlySNSP[yearlyINEGI.length - 1].population) *
+          (yearlySNSP[yearlySNSP.length - 1].snsp /
+            yearlySNSP[yearlySNSP.length - 1].population) *
             1e5
         )
         setHomicideTable(merge(yearlyINEGI, yearlySNSP))
