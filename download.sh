@@ -54,7 +54,7 @@ convert_to_csv() {
 if ! [ -x "$(command -v gdown)" ]; then
     virtualenv ~/.virtualenvs/gdown
     # shellcheck source=/dev/null
-    source /home/rstudio/.virtualenvs/gdown/bin/activate
+    source ~/.virtualenvs/gdown/bin/activate
     pip install gdown
 fi
 
@@ -65,7 +65,7 @@ municipal_fc_download "$URL_MUNS"
 
 estatal_download "$URL_MUNS" "Estatal" "estados.csv" "Cifras de Incidencia Delictiva Estatal, 2015"
 
-URL_VIC="https://www.gob.mx/sesnsp/acciones-y-programas/victimas-nueva-metodologia?state=published"
+URL_VIC="https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva?state=published"
 estatal_download "$URL_MUNS" "V&iacute;ctimas" "estados_victimas.csv" "Cifras de V&iacute;ctimas del Fuero Com&uacute;n, 2015"
 
 #convert_to_csv "$ESTADOS_FC_ZIP" estados
