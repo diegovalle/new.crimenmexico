@@ -8,6 +8,8 @@ import TextColumn from '../components/TextColumn'
 import { useIntl, FormattedHTMLMessage } from 'react-intl'
 import { FaFileDownload } from 'react-icons/fa'
 import { IoIosArrowDroprightCircle } from 'react-icons/io'
+import { FormattedMessage } from 'react-intl'
+import SubstackForm from '../components/SubstackForm'
 import social_image from '../assets/images/social/social-acerca.png'
 import social_image_en from '../assets/images/social/social-acerca_en.png'
 import '../assets/css/acerca.css'
@@ -47,6 +49,11 @@ function HomeIndex(props) {
           <div className="column is-offset-3 is-half-desktop is-two-third-fullhd">
             <div className="content is-medium">
               <FormattedHTMLMessage id="about_intro" />
+              <br />
+              <div className="container has-text-centered">
+                <h2 className="title">Newsletter</h2>
+              </div>
+              <SubstackForm intl={intl} />
               <br />
               <div className="columns is-centered">
                 <div className="column is-8">
@@ -184,8 +191,7 @@ function HomeIndex(props) {
                       <div className="media-content">
                         <h3 className="title is-4">
                           {intl.formatMessage({
-                            id:
-                              'Where does the data used in this website come from?',
+                            id: 'Where does the data used in this website come from?',
                           })}
                         </h3>
                         <p>
@@ -227,8 +233,7 @@ function HomeIndex(props) {
                       <div className="media-content">
                         <h3 className="title is-4">
                           {intl.formatMessage({
-                            id:
-                              'I really liked the hexagonal map on the frontpage, how can I make one?',
+                            id: 'I really liked the hexagonal map on the frontpage, how can I make one?',
                           })}
                         </h3>
                         <p>
@@ -249,8 +254,7 @@ function HomeIndex(props) {
                       <div className="media-content">
                         <h3 className="title is-4">
                           {intl.formatMessage({
-                            id:
-                              'Is there an R package for working with INEGI homicide data?',
+                            id: 'Is there an R package for working with INEGI homicide data?',
                           })}
                         </h3>
                         <p>
@@ -313,8 +317,7 @@ function HomeIndex(props) {
                       <div className="media-content">
                         <h3 className="title is-4">
                           {intl.formatMessage({
-                            id:
-                              'Where do the state and municipio codes and names come from?',
+                            id: 'Where do the state and municipio codes and names come from?',
                           })}
                         </h3>
                         <p>
@@ -335,8 +338,7 @@ function HomeIndex(props) {
                       <div className="media-content">
                         <h3 className="title is-4">
                           {intl.formatMessage({
-                            id:
-                              'I tried calculating rates with the population data and I got a different value than what appears on your webpage',
+                            id: 'I tried calculating rates with the population data and I got a different value than what appears on your webpage',
                           })}
                         </h3>
                         <p>
@@ -357,8 +359,7 @@ function HomeIndex(props) {
                       <div className="media-content">
                         <h3 className="title is-4">
                           {intl.formatMessage({
-                            id:
-                              'Is this website affiliated with the Mexican government?',
+                            id: 'Is this website affiliated with the Mexican government?',
                           })}
                         </h3>
                         <p>

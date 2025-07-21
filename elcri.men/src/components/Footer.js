@@ -7,13 +7,27 @@ import {
 } from 'react-icons/fa'
 import { IconContext } from 'react-icons'
 import Obfuscate2 from '../components/Obfuscate'
-import { useIntl, FormattedHTMLMessage } from 'react-intl'
+import { useIntl, FormattedHTMLMessage, FormattedMessage } from 'react-intl'
 import { Script } from 'gatsby'
+import SubstackForm from '../components/SubstackForm'
+import LazyLoad from 'react-lazyload'
 
 function Footer(props) {
   const intl = useIntl()
   return (
     <IconContext.Provider value={{ color: '#333', size: '3em' }}>
+      <LazyLoad height={150} once offset={400}>
+        <div className="container has-text-centered">
+          <br />
+          <h3 className="title">
+            <FormattedMessage id="Newsletter" />
+          </h3>
+          <h2>
+            <FormattedMessage id="newsletter_text" />
+          </h2>
+        </div>
+        <SubstackForm intl={intl} />
+      </LazyLoad>
       <footer
         className="footer has-background-white-ter"
         style={{ marginTop: '5rem' }}

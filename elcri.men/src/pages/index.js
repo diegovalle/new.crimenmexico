@@ -21,6 +21,8 @@ import { FormattedHTMLMessage, FormattedDate } from 'react-intl'
 import useLastMonth from '../components/LastMonth'
 import useBestImages from '../components/BestImages'
 
+import SubstackForm from '../components/SubstackForm'
+
 import social_image from '../assets/images/social/social-index.png'
 import social_image_en from '../assets/images/social/social-index_en.png'
 
@@ -159,7 +161,18 @@ const HomeIndex = (props) => {
                 // format="auto"
                 // responsive="true"
               /> */}
+              <h2 className="has-text-centered">
+                <FormattedMessage id="cifras_oficiales" />
+              </h2>
               <FormattedHTMLMessage id="oficial_data" />
+              <br />
+              <LazyLoad height={150} once offset={400}>
+                <div className="container has-text-centered">
+                  <h2 className="title">Newsletter</h2>
+                </div>
+                <SubstackForm intl={intl} />
+              </LazyLoad>
+              <br />
             </div>
           </div>
         </div>
