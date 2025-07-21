@@ -13,6 +13,9 @@ wget -O top-municipios.json https://elcri.men/elcrimen-json/top-municipios.json
 wget -O tourists.json https://elcri.men/elcrimen-json/tourists.json
 wget -O national_1990.json https://elcri.men/elcrimen-json/national_1990.json
 wget -O states2.json https://elcri.men/elcrimen-json/states2.json
+wget -O national_diff.json https://elcri.men/elcrimen-json/national_diff.json
+wget -O anomalies.json https://elcri.men/elcrimen-json/anomalies.json
+wget -O cities.json https://elcri.men/elcrimen-json/cities.json
 
 # Print completion message
 echo "Download complete. Files saved in elcrimen-json directory."
