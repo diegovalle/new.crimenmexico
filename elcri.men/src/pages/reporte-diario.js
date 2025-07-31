@@ -860,8 +860,11 @@ function ReporteDiario(props) {
           </h3>
           <div className="column is-half is-offset-5">
             <p style={{ lineHeight: '1.2rem' }}>
-              <span style={{ color: 'red' }}>●</span>{' '}
+              <span style={{ color: 'red', fontWeight: 'bold' }}>●</span>{' '}
               <FormattedHTMLMessage id="baja_o_incremento" />
+              <br />
+              <span style={{ color: 'darkgray' }}>●︎</span>{' '}
+              <FormattedHTMLMessage id="number of homicides" />
               <br />
               <FormattedHTMLMessage id="tendencia_anomalias" />
             </p>

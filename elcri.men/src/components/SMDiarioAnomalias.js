@@ -203,7 +203,7 @@ function SMDiarioAnomalias(props) {
     ],
     series: [
       {
-        name: 'snsp',
+        name: 'number of homicides',
         type: 'scatter',
         data:
           groupedStates === null
@@ -230,7 +230,7 @@ function SMDiarioAnomalias(props) {
         showSymbol: false,
       },
       {
-        name: 'snsp',
+        name: 'anomalies',
         type: 'scatter',
         data:
           groupedStates === null
@@ -260,7 +260,7 @@ function SMDiarioAnomalias(props) {
         showSymbol: false,
       },
       {
-        name: 'snsp',
+        name: 'trend',
         type: 'line',
         data:
           groupedStates === null
