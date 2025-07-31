@@ -11,6 +11,7 @@ import { YYYYmmddToDate15 } from '../components/utils'
 import HeroTitle from '../components/HeroTitle'
 import TextColumn from '../components/TextColumn'
 import SMDiario from '../components/SMDiario'
+import SMDiarioAnomalias from '../components/SMDiarioAnomalias'
 
 import ReactEChartsCore from 'echarts-for-react/lib/core'
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
@@ -858,6 +859,7 @@ function ReporteDiario(props) {
               id: 'trend_significant',
             })} */}
 
+          <a name="smstates" />
           <div className="columns">
             <div className="column is-half is-offset-5">
               <p style={{ lineHeight: '1.2rem' }}>
@@ -871,6 +873,20 @@ function ReporteDiario(props) {
           </div>
           <LazyLoad once offset={700}>
             <SMDiario />
+          </LazyLoad>
+
+          <a name="anomalias_diarias" />
+          <h3 className="title is-3">
+            {' '}
+            <FormattedHTMLMessage id="anomalias_diarias" />
+          </h3>
+          <p>
+            <span style={{ color: 'red' }}>●</span>{' '}
+            <FormattedHTMLMessage id="baja_o_incremento" />
+          </p>
+          <hr />
+          <LazyLoad once offset={700}>
+            <SMDiarioAnomalias />
           </LazyLoad>
         </div>
 
