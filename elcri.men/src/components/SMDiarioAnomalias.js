@@ -269,7 +269,7 @@ function SMDiarioAnomalias(props) {
                 return item[5]
               }),
         itemStyle: {
-          color: '#268bd2',
+          color: '#111',
         },
         // lineStyle: {
         //   width: 3,

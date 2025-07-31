@@ -852,6 +852,25 @@ function ReporteDiario(props) {
 
         <hr style={{ backgroundColor: '#fff' }} />
         <div id="daily-states">
+          <hr />
+          <a name="anomalias_diarias" />
+          <h3 className="title is-3">
+            {' '}
+            <FormattedHTMLMessage id="anomalias_diarias" />
+          </h3>
+          <div className="column is-half is-offset-5">
+            <p style={{ lineHeight: '1.2rem' }}>
+              <span style={{ color: 'red' }}>●</span>{' '}
+              <FormattedHTMLMessage id="baja_o_incremento" />
+              <br />
+              <FormattedHTMLMessage id="tendencia_anomalias" />
+            </p>
+          </div>
+          <LazyLoad once offset={700}>
+            <SMDiarioAnomalias />
+          </LazyLoad>
+          <hr />
+
           <h3 className="title is-3">
             <FormattedHTMLMessage id="states_daily_report" />
           </h3>
@@ -873,20 +892,6 @@ function ReporteDiario(props) {
           </div>
           <LazyLoad once offset={700}>
             <SMDiario />
-          </LazyLoad>
-
-          <a name="anomalias_diarias" />
-          <h3 className="title is-3">
-            {' '}
-            <FormattedHTMLMessage id="anomalias_diarias" />
-          </h3>
-          <p>
-            <span style={{ color: 'red' }}>●</span>{' '}
-            <FormattedHTMLMessage id="baja_o_incremento" />
-          </p>
-          <hr />
-          <LazyLoad once offset={700}>
-            <SMDiarioAnomalias />
           </LazyLoad>
         </div>
 
