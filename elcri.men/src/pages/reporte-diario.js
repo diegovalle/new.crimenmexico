@@ -851,7 +851,7 @@ function ReporteDiario(props) {
         </div>
 
         <hr style={{ backgroundColor: '#fff' }} />
-        <div id="daily-states">
+        <div id="daily-states-month">
           <hr />
           <a name="anomalias_diarias" />
           <h3 className="title is-3">
@@ -869,33 +869,37 @@ function ReporteDiario(props) {
               <FormattedHTMLMessage id="tendencia_anomalias" />
             </p>
           </div>
-          <LazyLoad once offset={700}>
-            <SMDiarioAnomalias />
-          </LazyLoad>
+          <div id="daily-anomalies">
+            <LazyLoad once offset={700}>
+              <SMDiarioAnomalias />
+            </LazyLoad>
+          </div>
           <hr />
-
-          <h3 className="title is-3">
-            <FormattedHTMLMessage id="states_daily_report" />
-          </h3>
-          {/* {intl.formatMessage({
+          <div id="daily-states">
+            <h3 className="title is-3">
+              <FormattedHTMLMessage id="states_daily_report" />
+            </h3>
+            {/* {intl.formatMessage({
               id: 'trend_significant',
             })} */}
 
-          <a name="smstates" />
-          <div className="columns">
-            <div className="column is-half is-offset-5">
-              <p style={{ lineHeight: '1.2rem' }}>
-                <FormattedHTMLMessage id="snsp-victims" />
-                <br />
-                <FormattedHTMLMessage id="preliminary_homicides" />
-                <br />
-                <FormattedHTMLMessage id="prediction_homicides" />
-              </p>
+            <a name="smstates" />
+            <div className="columns">
+              <div className="column is-half is-offset-5">
+                <p style={{ lineHeight: '1.2rem' }}>
+                  <FormattedHTMLMessage id="snsp-victims" />
+                  <br />
+                  <FormattedHTMLMessage id="preliminary_homicides" />
+                  <br />
+                  <FormattedHTMLMessage id="prediction_homicides" />
+                </p>
+              </div>
             </div>
+
+            <LazyLoad once offset={700}>
+              <SMDiario />
+            </LazyLoad>
           </div>
-          <LazyLoad once offset={700}>
-            <SMDiario />
-          </LazyLoad>
         </div>
 
         <hr style={{ backgroundColor: '#fff' }} />

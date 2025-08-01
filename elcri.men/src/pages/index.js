@@ -180,6 +180,7 @@ const HomeIndex = (props) => {
       <hr />
 
       <section className="historicalChart">
+        <a name="#historical" id="historical" />
         <div className="hero-body">
           <div className="container">
             <div className="columns">
@@ -191,7 +192,6 @@ const HomeIndex = (props) => {
             </div>
           </div>
         </div>
-
         <div className="container  is-widescreen">
           {/* <AdSense.Google
             client="ca-pub-2949275046149330"
@@ -200,7 +200,7 @@ const HomeIndex = (props) => {
             // format="auto"
             // responsive="true"
           /> */}
-          <a name="#historical" id="historical" />
+
           <LazyLoad height={1240} once offset={200}>
             <HistoricalChart hash={props.location.hash} />
           </LazyLoad>
