@@ -853,23 +853,24 @@ function ReporteDiario(props) {
         <hr style={{ backgroundColor: '#fff' }} />
         <div id="daily-states-month">
           <hr />
-          <a name="anomalias_diarias" />
-          <h3 className="title is-3">
-            {' '}
-            <FormattedHTMLMessage id="anomalias_diarias" />
-          </h3>
-          <div className="column is-half is-offset-5">
-            <p style={{ lineHeight: '1.2rem' }}>
-              <span style={{ color: 'red', fontWeight: 'bold' }}>●</span>{' '}
-              <FormattedHTMLMessage id="baja_o_incremento" />
-              <br />
-              <span style={{ color: 'darkgray' }}>●︎</span>{' '}
-              <FormattedHTMLMessage id="number of homicides" />
-              <br />
-              <FormattedHTMLMessage id="tendencia_anomalias" />
-            </p>
-          </div>
+
           <div id="daily-anomalies">
+            <a name="anomalias_diarias" />
+            <h3 className="title is-3">
+              {' '}
+              <FormattedHTMLMessage id="anomalias_diarias" />
+            </h3>
+            <div className="column is-half is-offset-5">
+              <p style={{ lineHeight: '1.2rem' }}>
+                <span style={{ color: 'red', fontWeight: 'bold' }}>●</span>{' '}
+                <FormattedHTMLMessage id="baja_o_incremento" />
+                <br />
+                <span style={{ color: 'darkgray' }}>●︎</span>{' '}
+                <FormattedHTMLMessage id="number of homicides" />
+                <br />
+                <FormattedHTMLMessage id="tendencia_anomalias" />
+              </p>
+            </div>
             <LazyLoad once offset={700}>
               <SMDiarioAnomalias />
             </LazyLoad>
