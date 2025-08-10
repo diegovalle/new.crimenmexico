@@ -41,39 +41,39 @@ const comma = format(',')
 
 function CrimeChart(props) {
   const stateNames = {
-    '0': 'National',
-    '1': 'AGS',
-    '2': 'BC',
-    '3': 'BCS',
-    '4': 'CAMP',
-    '5': 'COAH',
-    '6': 'COL',
-    '7': 'CHPS',
-    '8': 'CHIH',
-    '9': 'CDMX',
-    '10': 'DGO',
-    '11': 'GTO',
-    '12': 'GRO',
-    '13': 'HGO',
-    '14': 'JAL',
-    '15': 'MEX',
-    '16': 'MICH',
-    '17': 'MOR',
-    '18': 'NAY',
-    '19': 'NL',
-    '20': 'OAX',
-    '21': 'PUE',
-    '22': 'QTO',
-    '23': 'QROO',
-    '24': 'SLP',
-    '25': 'SIN',
-    '26': 'SON',
-    '27': 'TAB',
-    '28': 'TAM',
-    '29': 'TLAX',
-    '30': 'VER',
-    '31': 'YUC',
-    '32': 'ZAC',
+    0: 'National',
+    1: 'AGS',
+    2: 'BC',
+    3: 'BCS',
+    4: 'CAMP',
+    5: 'COAH',
+    6: 'COL',
+    7: 'CHPS',
+    8: 'CHIH',
+    9: 'CDMX',
+    10: 'DGO',
+    11: 'GTO',
+    12: 'GRO',
+    13: 'HGO',
+    14: 'JAL',
+    15: 'MEX',
+    16: 'MICH',
+    17: 'MOR',
+    18: 'NAY',
+    19: 'NL',
+    20: 'OAX',
+    21: 'PUE',
+    22: 'QTO',
+    23: 'QROO',
+    24: 'SLP',
+    25: 'SIN',
+    26: 'SON',
+    27: 'TAB',
+    28: 'TAM',
+    29: 'TLAX',
+    30: 'VER',
+    31: 'YUC',
+    32: 'ZAC',
   }
   const [nationalData, setNationalData] = useState(null)
   const [stateData, setStateData] = useState(null)
@@ -81,8 +81,8 @@ function CrimeChart(props) {
 
   useEffect(() => {
     fetch('/elcrimen-json/states_national.json')
-      .then(response => response.json())
-      .then(responseJSON => {
+      .then((response) => response.json())
+      .then((responseJSON) => {
         var ans = {
           national: {
             ext: zipObject(responseJSON.national.ext),
@@ -104,20 +104,33 @@ function CrimeChart(props) {
           rvsv: ans.national.rvsv,
         })
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
   }, [])
 
   async function fetchData() {
     try {
-      fetch('/elcrimen-json/states2.json', {
-        method: 'GET',
-      })
-        .then(function(response) {
+      let retries = 3
+      let delay = (ms) => new Promise((res) => setTimeout(res, ms))
+      let fetchWithRetry = async (url, options, attempts) => {
+        for (let i = 0; i < attempts; i++) {
+          try {
+            const response = await fetch(url, options)
+            if (!response.ok) throw new Error('Fetch failed')
+            return response
+          } catch (err) {
+            if (i === attempts - 1) throw err
+            await delay(1000)
+          }
+        }
+      }
+
+      fetchWithRetry('/elcrimen-json/states2.json', { method: 'GET' }, retries)
+        .then(function (response) {
           return response.json()
         })
-        .then(function(responseJSON) {
+        .then(function (responseJSON) {
           var ans = {
             ext: zipObject(responseJSON.ext),
             rvcv: zipObject(responseJSON.rvcv),
@@ -156,10 +169,10 @@ function CrimeChart(props) {
         fetch('/elcrimen-json/states2.json', {
           method: 'GET',
         })
-          .then(function(response) {
+          .then(function (response) {
             return response.json()
           })
-          .then(function(responseJSON) {
+          .then(function (responseJSON) {
             var ans = {
               ext: zipObject(responseJSON.ext),
               rvcv: zipObject(responseJSON.rvcv),
@@ -209,7 +222,7 @@ function CrimeChart(props) {
     }
   }, [props.selected_state])
 
-  const zipObject = obj => {
+  const zipObject = (obj) => {
     let result = new Array(obj.d.length)
     if ('s' in obj)
       for (let i = 0; i < obj.d.length; i++) {
@@ -256,7 +269,7 @@ function CrimeChart(props) {
         throw new Error("Unknown crime. Don't know how to filter")
     }
 
-    const formatData = crimeData => {
+    const formatData = (crimeData) => {
       if (crimeData.length === 2) {
         if (!(crimeData[0][0].d instanceof Date)) {
           crimeData[0] = YYYYmmddCollectionToDate(crimeData[0], 'd')
@@ -302,7 +315,7 @@ function CrimeChart(props) {
         axisPointer: {
           animation: false,
         },
-        formatter: function(item) {
+        formatter: function (item) {
           if (item.length === 2) {
             let date = new Date(item[0].name)
             let datestr = [
@@ -351,14 +364,14 @@ function CrimeChart(props) {
         type: 'category',
         data:
           dataFormatted.length === 2
-            ? dataFormatted[0].map(item => item.d)
-            : dataFormatted.map(item => item.d),
+            ? dataFormatted[0].map((item) => item.d)
+            : dataFormatted.map((item) => item.d),
         axisLabel: {
           fontFamily: 'Arial',
           fontSize: 11,
           color: '#4d4d4d',
           interval: 35,
-          formatter: function(value, idx) {
+          formatter: function (value, idx) {
             var date = new Date(value)
             return [
               date.toLocaleString(intl.locale, { month: 'short' }),
@@ -411,11 +424,11 @@ function CrimeChart(props) {
           },
           name: 'snsp',
           type: 'line',
-          data: (dataFormatted => {
+          data: ((dataFormatted) => {
             if (dataFormatted.length === 2) {
-              return dataFormatted[0].map(item => item.r)
+              return dataFormatted[0].map((item) => item.r)
             } else {
-              return dataFormatted.map(item => item.r)
+              return dataFormatted.map((item) => item.r)
             }
           })(dataFormatted),
           itemStyle: {
@@ -433,9 +446,9 @@ function CrimeChart(props) {
           },
           name: 'inegi',
           type: 'line',
-          data: (dataFormatted => {
+          data: ((dataFormatted) => {
             if (dataFormatted.length === 2) {
-              return dataFormatted[1].map(item => item.r)
+              return dataFormatted[1].map((item) => item.r)
             } else return null
           })(dataFormatted),
           itemStyle: {
@@ -476,9 +489,8 @@ function CrimeChart(props) {
           myInfo: {
             show: true,
             title: 'robo',
-            icon:
-              'path://M12 11V16M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21ZM12.0498 8V8.1L11.9502 8.1002V8H12.0498Z',
-            onclick: function() {
+            icon: 'path://M12 11V16M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21ZM12.0498 8V8.1L11.9502 8.1002V8H12.0498Z',
+            onclick: function () {
               return null
             },
           },
