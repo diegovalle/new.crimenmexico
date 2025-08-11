@@ -866,7 +866,7 @@ function ReporteDiario(props) {
                 <FormattedHTMLMessage id="baja_o_incremento" />
                 <br />
                 <span style={{ color: 'darkgray' }}>●︎</span>{' '}
-                <FormattedHTMLMessage id="number of homicides" />
+                <FormattedHTMLMessage id="Number of homicides" />
                 <br />
                 <FormattedHTMLMessage id="tendencia_anomalias" />
               </p>
