@@ -55,7 +55,7 @@ function HomeIndex(props) {
               </div>
               <SubstackForm intl={intl} />
               <br />
-              <div className="columns is-centered">
+              {/* <div className="columns is-centered">
                 <div className="column is-8">
                   <table className="table about">
                     <thead className="about">
@@ -161,7 +161,7 @@ function HomeIndex(props) {
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
