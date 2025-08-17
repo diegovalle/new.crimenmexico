@@ -1,6 +1,6 @@
 #!/bin/bash
 # shellcheck disable=SC2001
-set -euo pipefail #exit on error, undefined and prevent pipeline errors
+set -euox pipefail #exit on error, undefined and prevent pipeline errors
 IFS=$'\n\t'
 
 SNSP_DIR=clean/snsp-data
@@ -13,25 +13,27 @@ estatal_download() {
     regex="(?<=href=\")[^\"][^\"]*(?=\">$4.*<\/a>)"
     INTERMEDIATE_LINK=$(curl -s -L  "$1" | \
                                 grep -Po "$regex" | tail -n1 | \
-                                sed 's| |%20|g'  | grep -oP '(?<=/)[0-9a-zA-Z_-]{20,}(?=/)')
+                                sed 's| |%20|g')
     echo "$INTERMEDIATE_LINK"
-    gdown "https://drive.google.com/uc?id=$INTERMEDIATE_LINK" -O "$SNSP_DIR"/"$3"
+    wget -O "$SNSP_DIR"/"$3".zip "$INTERMEDIATE_LINK&download=1" 
+    csv_file=$(unzip -l "$SNSP_DIR"/"$3".zip | grep csv | sed 's/   /|/g' | cut -d'|' -f 2 | tail -n1)
+    unzip "$SNSP_DIR"/"$3".zip "$csv_file"
+    mv "$csv_file" "$SNSP_DIR"/"$3"
+    #gdown "https://drive.google.com/uc?id=$INTERMEDIATE_LINK" -O "$SNSP_DIR"/"$3"
     #drive_direct_download "$INTERMEDIATE_LINK"
 }
 
 
 municipal_fc_download() {
     #ggID='1FoFXpt4OeEXP8qeDzPKU-qky1f5iL8Gh'
-    ggID=$(curl -s  "$1" | \
+    LINK=$(curl -s  "$1" | \
            grep -Po "(?<=href=\")[^\"][^\"]*(?=\">Cifras de Incidencia Delictiva Municipal, 2015.*)"  | \
-           sed 's| |%20|g' | grep -oP '(?<=/)[0-9a-zA-Z_-]{20,}(?=/)')
-    echo "ggId: $ggID"
-    #ggURL='https://drive.google.com/uc?export=download'
-    #curl -sc "$COOKIE_TMP" "${ggURL}&id=${ggID}" >/dev/null
-    #getcode="$(awk '/_warning_/ {print $NF}' $COOKIE_TMP)"
-    #echo "getcode: $getcode"
-    #curl -Lb "$COOKIE_TMP" "${ggURL}&confirm=${getcode}&id=${ggID}" -o "$MUN_FC_ZIP"
-    gdown "https://drive.google.com/uc?id=$ggID" -O "$SNSP_DIR"/municipios.csv
+           sed 's| |%20|g')
+    wget -O "$SNSP_DIR"/municipios.zip "$LINK&download=1" 
+    biggest_file=$(unzip -l "$SNSP_DIR"/municipios.zip | grep csv | sed 's/   /|/g' | cut -d'|' -f 2)
+    unzip "$SNSP_DIR"/municipios.zip "$biggest_file"
+    mv "$biggest_file" "$SNSP_DIR"/municipios.csv
+    #gdown "https://drive.google.com/uc?id=$ggID" -O "$SNSP_DIR"/municipios.csv
 }
 
 convert_to_csv() {
@@ -51,21 +53,19 @@ convert_to_csv() {
     fi
 }
 
-if ! [ -x "$(command -v gdown)" ]; then
-    virtualenv ~/.virtualenvs/gdown
+#if ! [ -x "$(command -v gdown)" ]; then
+#    virtualenv ~/.virtualenvs/gdown
     # shellcheck source=/dev/null
-    source ~/.virtualenvs/gdown/bin/activate
-    pip install gdown
-fi
+#    source ~/.virtualenvs/gdown/bin/activate
+    #pip install gdown
+#fi
 
 URL_ESTADOS="https://www.gob.mx/sesnsp/acciones-y-programas/incidencia-delictiva-del-fuero-comun-nueva-metodologia?state=published"
 URL_MUNS="https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva?state=published"
+URL_VIC="https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva?state=published"
 
 municipal_fc_download "$URL_MUNS"
-
 estatal_download "$URL_MUNS" "Estatal" "estados.csv" "Cifras de Incidencia Delictiva Estatal, 2015"
-
-URL_VIC="https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva?state=published"
 estatal_download "$URL_MUNS" "V&iacute;ctimas" "estados_victimas.csv" "Cifras de V&iacute;ctimas del Fuero Com&uacute;n, 2015"
 
 #convert_to_csv "$ESTADOS_FC_ZIP" estados
