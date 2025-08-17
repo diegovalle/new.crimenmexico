@@ -16,9 +16,9 @@ estatal_download() {
                                 sed 's| |%20|g')
     echo "$INTERMEDIATE_LINK"
     wget -O "$SNSP_DIR"/"$3".zip "$INTERMEDIATE_LINK&download=1" 
-    csv_file=$(unzip -l "$SNSP_DIR"/"$3".zip | grep csv | sed 's/   /|/g' | cut -d'|' -f 2 | tail -n1)
-    unzip "$SNSP_DIR"/"$3".zip "$csv_file"
-    mv "$csv_file" "$SNSP_DIR"/"$3"
+    biggest_file=$(unzip -l "$SNSP_DIR"/"$3".zip | grep -P "^[ 0-9]+\d{4}-\d{2}-\d{2}" | sort -k 1 -nr | sed 's/   /|/g' | cut -d'|' -f 2 | head -n 1)
+    unzip -o "$SNSP_DIR"/"$3".zip "$biggest_file" -d "$SNSP_DIR"
+    mv "$SNSP_DIR"/"$biggest_file" "$SNSP_DIR"/"$3"
     #gdown "https://drive.google.com/uc?id=$INTERMEDIATE_LINK" -O "$SNSP_DIR"/"$3"
     #drive_direct_download "$INTERMEDIATE_LINK"
 }
@@ -30,9 +30,9 @@ municipal_fc_download() {
            grep -Po "(?<=href=\")[^\"][^\"]*(?=\">Cifras de Incidencia Delictiva Municipal, 2015.*)"  | \
            sed 's| |%20|g')
     wget -O "$SNSP_DIR"/municipios.zip "$LINK&download=1" 
-    biggest_file=$(unzip -l "$SNSP_DIR"/municipios.zip | grep csv | sed 's/   /|/g' | cut -d'|' -f 2)
-    unzip "$SNSP_DIR"/municipios.zip "$biggest_file"
-    mv "$biggest_file" "$SNSP_DIR"/municipios.csv
+    biggest_file=$(unzip -l "$SNSP_DIR"/municipios.zip | grep -P "^[ 0-9]+\d{4}-\d{2}-\d{2}" | sort -k 1 -nr | sed 's/   /|/g' | cut -d'|' -f 2 | head -n 1)
+    unzip -o "$SNSP_DIR"/municipios.zip "$biggest_file" -d "$SNSP_DIR"
+    mv "$SNSP_DIR"/"$biggest_file" "$SNSP_DIR"/municipios.csv
     #gdown "https://drive.google.com/uc?id=$ggID" -O "$SNSP_DIR"/municipios.csv
 }
 
@@ -72,4 +72,4 @@ estatal_download "$URL_MUNS" "V&iacute;ctimas" "estados_victimas.csv" "Cifras de
 #convert_to_csv "$MUN_FC_ZIP" municipios
 #convert_to_csv "$ESTADOS_VIC_ZIP" estados_victimas
 
-deactivate || true
+# deactivate || true
