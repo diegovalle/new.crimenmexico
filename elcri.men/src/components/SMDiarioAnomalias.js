@@ -55,14 +55,16 @@ function SMDiarioAnomalias(props) {
   const [compare30, setCompare30] = useState(null)
   const [groupedStates, setGroupedStates] = useState(null)
   const [maxDate, setMaxDate] = useState(null)
-  const [date30, setDate30] = useState(null)
-  const [date30_2, setDate30_2] = useState(null)
-  const [date60, setDate60] = useState(null)
+  const [empty, setEmpty] = useState(false)
 
   useEffect(() => {
     fetch('https://diario.elcri.men/states_anomalies.json')
       .then((response) => response.json())
       .then((responseJSON) => {
+        if (Object.keys(responseJSON).length === 0) {
+          setEmpty(true)
+          return
+        }
         let groups = groupBy(responseJSON, function (x) {
           return x[0]
         })
@@ -290,8 +292,9 @@ function SMDiarioAnomalias(props) {
   return (
     <div style={{ borderRadius: '5px', height: '100%' }}>
       <div className="columns is-multiline" id="small-multiples-anomaly">
-        {orderedStates && groupedStates && maxCount
-          ? orderedStates.map((state, i) => (
+        {!empty ? (
+          orderedStates && groupedStates && maxCount ? (
+            orderedStates.map((state, i) => (
               <div className="column is-3-desktop is-half-tablet" key={i}>
                 <figure className="image is-16by9" key={i}>
                   <div className=" has-ratio" key={i + 'div'}>
@@ -307,7 +310,8 @@ function SMDiarioAnomalias(props) {
                 </figure>
               </div>
             ))
-          : [...Array(8)].map((e, i) => (
+          ) : (
+            [...Array(8)].map((e, i) => (
               <div className="column is-3-desktop is-half-tablet" key={i}>
                 <figure className="image is-16by9" key={i + 'figure'}>
                   <div
@@ -316,7 +320,16 @@ function SMDiarioAnomalias(props) {
                   ></div>
                 </figure>
               </div>
-            ))}
+            ))
+          )
+        ) : (
+          <p>
+            {intl.formatMessage({ id: 'No anomalies' })} 😃
+            <br />
+            <br />
+            <br />
+          </p>
+        )}
       </div>
       <div></div>
     </div>

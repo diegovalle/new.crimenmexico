@@ -675,13 +675,16 @@ function ReporteDiario(props) {
                 {intl.formatMessage({ id: 'Daily Homicides in Mexico' })}{' '}
                 {maxDate !== null ? (
                   <i>
-                    <FormattedDate
-                      value={new Date(maxDate + 'T00:00:00.000-06:00')}
-                      day="2-digit"
-                      month="long"
-                      year="numeric"
-                      timeZone="America/Mexico_City"
-                    />
+                    <time datetime={maxDate}>
+                      {' '}
+                      <FormattedDate
+                        value={new Date(maxDate + 'T00:00:00.000-06:00')}
+                        day="2-digit"
+                        month="long"
+                        year="numeric"
+                        timeZone="America/Mexico_City"
+                      />
+                    </time>
                   </i>
                 ) : (
                   '⠀⠀ ⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⠀⠀⠀⠀'
