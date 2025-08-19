@@ -707,6 +707,11 @@ function ReporteDiario(props) {
             </div>
             <section className="section">
               <TextColumn>
+                <FormattedHTMLMessage id="datos_diarios_intro" />
+              </TextColumn>
+            </section>
+            <section className="section">
+              <TextColumn>
                 <FormattedHTMLMessage id="gam_description" />
               </TextColumn>
             </section>
@@ -907,9 +912,6 @@ function ReporteDiario(props) {
         </div>
 
         <hr style={{ backgroundColor: '#fff' }} />
-        <TextColumn>
-          <FormattedHTMLMessage id="daily_text" />
-        </TextColumn>
       </div>
     </Layout>
   )
