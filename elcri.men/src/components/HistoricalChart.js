@@ -96,6 +96,8 @@ function HistoricalChart(props) {
   const [homicideTable, setHomicideTable] = useState(null)
   const [homRateInegi, setHomRateInegi] = useState(null)
   const [homRateSnsp, setHomRateSnsp] = useState(null)
+  const [realHomicideRate, setRealHomicideRate] = useState(null)
+  const [realHomicideRateSource, setRealHomicideRateSource] = useState(null)
   const [state, setState] = useState(
     stateCodes[
       decodeURIComponent(props.hash.replace(/#historical#/, '').toLowerCase())
@@ -152,6 +154,22 @@ function HistoricalChart(props) {
             yearlySNSP[yearlySNSP.length - 1].population) *
             1e5
         )
+        let realHomicideRate =
+          yearlySNSP[yearlySNSP.length - 1].year >
+          yearlyINEGI[yearlyINEGI.length - 1].year
+            ? (yearlySNSP[yearlySNSP.length - 1].snsp /
+                yearlySNSP[yearlySNSP.length - 1].population) *
+              1e5
+            : (yearlyINEGI[yearlyINEGI.length - 1].inegi /
+                yearlyINEGI[yearlyINEGI.length - 1].population) *
+              1e5
+        let realHomicideRateSource =
+          yearlySNSP[yearlySNSP.length - 1].year >
+          yearlyINEGI[yearlyINEGI.length - 1].year
+            ? 'SNSP'
+            : 'INEGI'
+        setRealHomicideRate(realHomicideRate)
+        setRealHomicideRateSource(realHomicideRateSource)
         setHomicideTable(merge(yearlyINEGI, yearlySNSP))
       })
       .catch((error) => {
@@ -566,9 +584,9 @@ function HistoricalChart(props) {
               {intl.formatMessage({
                 id: 'La tasa de homicido en México fue de',
               })}{' '}
-              {round1(homRateSnsp)} {intl.formatMessage({ id: 'en el' })}{' '}
+              {round1(realHomicideRate)} {intl.formatMessage({ id: 'en el' })}{' '}
               {homicideTable[homicideTable.length - 1].year}{' '}
-              {intl.formatMessage({ id: 'según el SNSP' })}
+              {intl.formatMessage({ id: 'según el' })} {realHomicideRateSource}
             </h4>
           ) : (
             <h4 className="title is-4">⠀⠀⠀</h4>
@@ -594,7 +612,7 @@ function HistoricalChart(props) {
                   <thead>
                     <tr
                       className="is-primary is-white"
-                      style={{ 'border-bottom': '3px #555 solid' }}
+                      style={{ borderBottom: '3px #555 solid' }}
                     >
                       <th> {intl.formatMessage({ id: 'Year' })}</th>
                       <th align="right">
