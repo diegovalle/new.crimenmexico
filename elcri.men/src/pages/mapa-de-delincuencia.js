@@ -1,5 +1,6 @@
 import React from 'react'
 import Helmet from 'react-helmet'
+import { useStaticQuery, graphql } from 'gatsby'
 
 import Layout from '../components/layout'
 import HeroTitle from '../components/HeroTitle'
@@ -334,6 +335,23 @@ class DotMapGL extends React.Component {
         chartOption.xAxis['data'] = [...Array(max).keys()]
         chartOption.series[0]['data'] = sparkLine
 
+        const dark_matter_copy = { ...this.state.dark_matter }
+        dark_matter_copy['sources'] = { ...dark_matter_copy['sources'] }
+        dark_matter_copy['sources']['openmaptiles2'] = {
+          ...dark_matter_copy['sources']['openmaptiles2'],
+        }
+        dark_matter_copy['sources']['openmaptiles2']['tiles'] = [
+          `${this.props.tilesURL}/mexico-tiles/{z}/{x}/{y}.pbf`,
+        ]
+        dark_matter_copy['sprite'] = `${this.props.osmSpriteUrl}`
+        dark_matter_copy['glyphs'] = `${this.props.osmGlyphsUrl}`
+        if (
+          JSON.stringify(this.state.dark_matter) !==
+          JSON.stringify(dark_matter_copy)
+        ) {
+          this.setState({ dark_matter: dark_matter_copy })
+        }
+
         this.setState({
           data: responseJSON,
           sparkLine: sparkLine,
@@ -485,6 +503,7 @@ class DotMapGL extends React.Component {
       },
       zIndex: 401,
     }
+
     if (typeof window !== 'undefined') {
       return (
         <div id="mapaDelincuencia">
@@ -599,6 +618,17 @@ class DotMapGL extends React.Component {
 }
 
 function HomicideMapPage(props) {
+  const URLs = useStaticQuery(graphql`
+    query HistoricalChartQuery {
+      site {
+        siteMetadata {
+          osmTilesUrl
+          osmSpriteUrl
+          osmGlyphsUrl
+        }
+      }
+    }
+  `)
   const intl = useIntl()
   const last_date = useLastMonth()
   return (
@@ -657,7 +687,11 @@ function HomicideMapPage(props) {
               responsive="true"
             /> */}
           <div style={{ height: '990px', overflow: 'hidden' }}>
-            <DotMapGL />
+            <DotMapGL
+              tilesURL={URLs.site.siteMetadata.osmTilesUrl}
+              osmSpriteUrl={URLs.site.siteMetadata.osmSpriteUrl}
+              osmGlyphsUrl={URLs.site.siteMetadata.osmGlyphsUrl}
+            />
           </div>
 
           {/* <AdSense.Google

@@ -1,5 +1,10 @@
 let SITENAME = 'https://elcri.men/'
 
+// osmSpriteUrl: "https://tilesmexico.netlify.app/sprites/sprite",
+// osmGlyphsUrl: "https://tilesmexico.netlify.app/font/{fontstack}/{range}.pbf",
+// osmSpriteUrl: `https://elcri.men/tiles/sprites/sprite`,
+// osmGlyphsUrl: `https://elcri.men/tiles/font/{fontstack}/{range}.pbf`,
+// const osmTilesUrl = 'https://tiles.elcri.men'
 const osmTilesUrl = 'https://tilesmexico.netlify.app'
 const mapboxUrl = 'https://api.tiles.mapbox.com'
 
@@ -14,6 +19,9 @@ module.exports = {
     twitterHandle: '@diegovalle',
     preliminaryINEGI: true,
     monthsPreliminaryINEGI: 12,
+    osmTilesUrl: `${osmTilesUrl}`,
+    osmSpriteUrl: `https://tilesmexico.netlify.app/sprites/sprite`,
+    osmGlyphsUrl: `https://tilesmexico.netlify.app/font/{fontstack}/{range}.pbf`,
   },
   flags: {
     DEV_SSR: false,

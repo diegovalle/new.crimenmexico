@@ -11,15 +11,12 @@ find . -type f -exec mv '{}' '{}'.pbf \;
 import React from 'react'
 import Helmet from 'react-helmet'
 
+import { useStaticQuery, graphql } from 'gatsby'
 import Layout from '../components/layout'
 import HeroTitle from '../components/HeroTitle'
 import SEO from '../components/SEO'
 // import AdSense from 'react-adsense'
-import {
-  useIntl,
-  FormattedDate,
-  FormattedMessage,
-} from 'react-intl'
+import { useIntl, FormattedDate, FormattedMessage } from 'react-intl'
 import useLastMonth from '../components/LastMonth'
 import TextColumn from '../components/TextColumn'
 
@@ -29,10 +26,7 @@ import social_image_en from '../assets/images/social/social-clusters_en.png'
 //import {Map, TileLayer, withLeaflet, GeoJSON} from 'react-leaflet';
 //import VectorGrid from 'react-leaflet-vectorgrid';
 //import VectorGridDefault from 'react-leaflet-vectorgrid';
-import MapGL, {
-  FullscreenControl,
-  NavigationControl,
-} from 'react-map-gl'
+import MapGL, { FullscreenControl, NavigationControl } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import '../components/ClusterMap/ClusterMap.css'
 
@@ -108,13 +102,13 @@ class ClusterMap extends React.Component {
     this._onHover = this._onHover.bind(this)
   }
 
-  _onHover = event => {
+  _onHover = (event) => {
     const {
       features,
       srcEvent: { offsetX, offsetY },
     } = event
     const hoveredFeature =
-      features && features.find(f => f.layer.id === 'municipios')
+      features && features.find((f) => f.layer.id === 'municipios')
 
     this.setState({ hoveredFeature, x: offsetX, y: offsetY })
   }
@@ -123,7 +117,7 @@ class ClusterMap extends React.Component {
     let index
     const { hoveredFeature, x, y } = this.state
     if (hoveredFeature)
-      index = findIndex(this.state.data['mun.map.id'], function(d) {
+      index = findIndex(this.state.data['mun.map.id'], function (d) {
         return d === hoveredFeature.properties.CVEGEO
       })
     return (
@@ -157,8 +151,8 @@ class ClusterMap extends React.Component {
   componentDidMount() {
     this.setState({ mounted: true })
     fetch('/elcrimen-json/lisa.json')
-      .then(response => response.json())
-      .then(responseJSON => {
+      .then((response) => response.json())
+      .then((responseJSON) => {
         let values = responseJSON[1]
         let index
         //console.time ('features');
@@ -181,6 +175,12 @@ class ClusterMap extends React.Component {
         //   } else e.properties['name'] = 'NA';
         // });
         // console.timeEnd ('features');
+
+        mapStyle['sources']['openmaptiles']['tiles'] = [
+          `${this.props.tilesURL}/mexico-tiles/{z}/{x}/{y}.pbf`,
+        ]
+        mapStyle['sprite'] = `${this.props.osmSpriteUrl}`
+        mapStyle['glyphs'] = `${this.props.osmGlyphsUrl}`
         mapStyle.layers.push({
           id: 'municipios',
           type: 'fill',
@@ -198,7 +198,7 @@ class ClusterMap extends React.Component {
         })
         this.setState({ mapStyle: mapStyle, data: responseJSON[1] })
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error)
       })
   }
@@ -272,6 +272,17 @@ class ClusterMap extends React.Component {
 }
 
 function ClusterMapPage(props) {
+  const URLs = useStaticQuery(graphql`
+    query HistoricalChartQuery {
+      site {
+        siteMetadata {
+          osmTilesUrl
+          osmSpriteUrl
+          osmGlyphsUrl
+        }
+      }
+    }
+  `)
   const intl = useIntl()
   const last_date = useLastMonth()
   return (
@@ -331,7 +342,11 @@ function ClusterMapPage(props) {
       <section id="map_container">
         <div className="container is-fluid">
           <div style={{ height: '700px', overflow: 'hidden' }}>
-            <ClusterMap />
+            <ClusterMap
+              tilesURL={URLs.site.siteMetadata.osmTilesUrl}
+              osmSpriteUrl={URLs.site.siteMetadata.osmSpriteUrl}
+              osmGlyphsUrl={URLs.site.siteMetadata.osmGlyphsUrl}
+            />
           </div>
         </div>
       </section>
