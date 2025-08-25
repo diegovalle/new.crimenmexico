@@ -168,8 +168,8 @@ function HistoricalChart(props) {
           yearlyINEGI[yearlyINEGI.length - 1].year
             ? 'SNSP'
             : 'INEGI'
-        setRealHomicideRate(realHomicideRate)
-        setRealHomicideRateSource(realHomicideRateSource)
+        //setRealHomicideRate(realHomicideRate)
+        //setRealHomicideRateSource(realHomicideRateSource)
         setHomicideTable(merge(yearlyINEGI, yearlySNSP))
       })
       .catch((error) => {
@@ -216,7 +216,7 @@ function HistoricalChart(props) {
   }
   const intl = useIntl()
   let l
-  intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
+  //intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
 
   let chartOption = {
     animation: false,
@@ -584,9 +584,9 @@ function HistoricalChart(props) {
               {intl.formatMessage({
                 id: 'La tasa de homicido en México fue de',
               })}{' '}
-              {round1(realHomicideRate)} {intl.formatMessage({ id: 'en el' })}{' '}
+              {round1(100)} {intl.formatMessage({ id: 'en el' })}{' '}
               {homicideTable[homicideTable.length - 1].year}{' '}
-              {intl.formatMessage({ id: 'según el' })} {realHomicideRateSource}
+              {intl.formatMessage({ id: 'según el' })} {'b'}
             </h4>
           ) : (
             <h4 className="title is-4">⠀⠀⠀</h4>

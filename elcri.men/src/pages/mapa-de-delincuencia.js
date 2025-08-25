@@ -49,6 +49,10 @@ import {
 import TooltipSlider from '../components/TooltipSlider'
 import 'rc-slider/assets/index.css'
 
+import LegendNumber from '../components/TourismMap/LegendNumber'
+import LegendRate from '../components/TourismMap/LegendRate'
+import { scalePower, scaleLinear } from '@vx/scale'
+
 echarts.use([
   TitleComponent,
   TooltipComponent,
@@ -221,6 +225,7 @@ class DotMapGL extends React.Component {
       values: null,
       lower: null,
       upper: null,
+      maxCount: null,
       sValues: null,
       mounted: false,
       viewport: {
@@ -321,12 +326,22 @@ class DotMapGL extends React.Component {
         let values = responseJSON.features.map((x) => {
           return { value: x.properties.rate }
         })
+        let counts = responseJSON.features.map((x) => {
+          return { value: x.properties.count }
+        })
         let chartOption = { ...this.state.chartOptions }
         let max = Math.ceil(
           maxBy(values, function (o) {
             return o.value
           }).value
         )
+        let maxCount = Math.ceil(
+          maxBy(counts, function (o) {
+            return o.value
+          }).value
+        )
+        this.props.maxMapRate(max)
+        this.props.maxMapCount(maxCount)
         let sparkLine = Array(max + 1).fill(0)
         for (let i = 0; i <= max; i++)
           if (histogram.hasOwnProperty(i))
@@ -341,7 +356,7 @@ class DotMapGL extends React.Component {
           ...dark_matter_copy['sources']['openmaptiles2'],
         }
         dark_matter_copy['sources']['openmaptiles2']['tiles'] = [
-          `${this.props.tilesURL}/mexico-tiles/{z}/{x}/{y}.pbf`,
+          `${this.props.tilesURL}`,
         ]
         dark_matter_copy['sprite'] = `${this.props.osmSpriteUrl}`
         dark_matter_copy['glyphs'] = `${this.props.osmGlyphsUrl}`
@@ -361,6 +376,7 @@ class DotMapGL extends React.Component {
           lower: 0,
           sValues: [0, max],
           upper: max,
+          maxCount: maxCount,
         })
       })
       .catch((error) => {
@@ -478,6 +494,21 @@ class DotMapGL extends React.Component {
   }
 
   render() {
+    const colorScale = (max) =>
+      scaleLinear({
+        range: [
+          '#ffffcc',
+          '#ffeda0',
+          '#fed976',
+          '#feb24c',
+          '#fd8d3c',
+          '#fc4e2a',
+          '#e31a1c',
+          '#bd0026',
+          '#800026',
+        ],
+        domain: [0, 12.5, 25, 37.5, 50, 62.5, 75, 87.5, max >= 100 ? 100 : max],
+      })
     const options = {
       //data: geojson,
       type: 'slicer',
@@ -538,6 +569,36 @@ class DotMapGL extends React.Component {
             </div>
             {this._renderTooltip()}
           </MapGL>
+
+          <hr style={{ opacity: 0 }} />
+          <div className="columns">
+            <div className="column is-6">
+              <div className="columns is-centered">
+                <div className="column is-6">
+                  {this.state.maxCount ? (
+                    <LegendNumber
+                      scale={scalePower({
+                        rangeRound: [192 / 200, 569 / 27],
+                        domain: [0, this.state.maxCount],
+                        exponent: 0.5,
+                      })}
+                    />
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <div className="column is-half">
+              <div className="columns is-centered">
+                <div className="column is-6">
+                  {this.state.upper ? (
+                    <LegendRate scale={colorScale(this.state.upper)} />
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr style={{ opacity: 0 }} />
+
           <div className="container" style={{ paddingTop: '10px' }}>
             <h2 className="title is-6 has-text-centered">
               <FormattedMessage id="homicide_hist" />
@@ -631,6 +692,24 @@ function HomicideMapPage(props) {
   `)
   const intl = useIntl()
   const last_date = useLastMonth()
+  const colorScale = (max) =>
+    scaleLinear({
+      range: [
+        '#ffffcc',
+        '#ffeda0',
+        '#fed976',
+        '#feb24c',
+        '#fd8d3c',
+        '#fc4e2a',
+        '#e31a1c',
+        '#bd0026',
+        '#800026',
+      ],
+      domain: [0, 12.5, 25, 37.5, 50, 62.5, 75, 87.5, max >= 100 ? 100 : max],
+    })
+
+  const [maxRate, setMaxRate] = React.useState(null)
+  const [maxCount, setMaxCount] = React.useState(null)
   return (
     <Layout
       locale={props.pageContext.locale}
@@ -686,11 +765,13 @@ function HomicideMapPage(props) {
               format="auto"
               responsive="true"
             /> */}
-          <div style={{ height: '990px', overflow: 'hidden' }}>
+          <div style={{ height: '1290px', overflow: 'hidden' }}>
             <DotMapGL
               tilesURL={URLs.site.siteMetadata.osmTilesUrl}
               osmSpriteUrl={URLs.site.siteMetadata.osmSpriteUrl}
               osmGlyphsUrl={URLs.site.siteMetadata.osmGlyphsUrl}
+              maxMapCount={setMaxCount}
+              maxMapRate={setMaxRate}
             />
           </div>
 

@@ -177,7 +177,7 @@ class ClusterMap extends React.Component {
         // console.timeEnd ('features');
 
         mapStyle['sources']['openmaptiles']['tiles'] = [
-          `${this.props.tilesURL}/mexico-tiles/{z}/{x}/{y}.pbf`,
+          `${this.props.tilesURL}`,
         ]
         mapStyle['sprite'] = `${this.props.osmSpriteUrl}`
         mapStyle['glyphs'] = `${this.props.osmGlyphsUrl}`

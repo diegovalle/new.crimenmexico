@@ -18,6 +18,8 @@ wget -O anomalies.json https://elcri.men/elcrimen-json/anomalies.json
 wget -O cities.json https://elcri.men/elcrimen-json/cities.json
 wget -O municipios-centroids.json https://elcri.men/elcrimen-json/municipios-centroids.json
 wget -O lisa.json https://elcri.men/elcrimen-json/lisa.json
+wget -O municipios.json https://elcri.men/elcrimen-json/municipios.json
+
 
 # Print completion message
 echo "Download complete. Files saved in elcrimen-json directory."
