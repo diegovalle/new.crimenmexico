@@ -11,7 +11,6 @@ find . -type f -exec mv '{}' '{}'.pbf \;
 import React from 'react'
 import Helmet from 'react-helmet'
 
-import { useStaticQuery, graphql } from 'gatsby'
 import Layout from '../components/layout'
 import HeroTitle from '../components/HeroTitle'
 import SEO from '../components/SEO'
@@ -272,17 +271,30 @@ class ClusterMap extends React.Component {
 }
 
 function ClusterMapPage(props) {
-  const URLs = useStaticQuery(graphql`
-    query HistoricalChartQuery {
-      site {
-        siteMetadata {
-          osmTilesUrl
-          osmSpriteUrl
-          osmGlyphsUrl
-        }
-      }
-    }
-  `)
+  // const URLs = useStaticQuery(graphql`
+  //   query HistoricalChartQuery {
+  //     site {
+  //       siteMetadata {
+  //         osmTilesUrl
+  //         osmSpriteUrl
+  //         osmGlyphsUrl
+  //       }
+  //     }
+  //   }
+  // `)
+  const osmSpriteUrl = 'https://elcri.men/tiles/sprites/sprite'
+  const osmGlyphsUrl = 'https://elcri.men/tiles/font/{fontstack}/{range}.pbf'
+  const osmTilesUrl =
+    'https://tilesmexico.netlify.app/mexico-tiles/{z}/{x}/{y}.pbf'
+  const URLs = {
+    site: {
+      siteMetadata: {
+        osmSpriteUrl: `${osmSpriteUrl}`,
+        osmGlyphsUrl: `${osmGlyphsUrl}`,
+        osmTilesUrl: `${osmTilesUrl}`,
+      },
+    },
+  }
   const intl = useIntl()
   const last_date = useLastMonth()
   return (
