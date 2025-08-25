@@ -168,8 +168,8 @@ function HistoricalChart(props) {
           yearlyINEGI[yearlyINEGI.length - 1].year
             ? 'SNSP'
             : 'INEGI'
-        //setRealHomicideRate(realHomicideRate)
-        //setRealHomicideRateSource(realHomicideRateSource)
+        setRealHomicideRate(realHomicideRate)
+        setRealHomicideRateSource(realHomicideRateSource)
         setHomicideTable(merge(yearlyINEGI, yearlySNSP))
       })
       .catch((error) => {
@@ -580,13 +580,16 @@ function HistoricalChart(props) {
       <div className="columns is-centered">
         <div className="column is-full">
           {homicideTable ? (
-            <h4 className="has-text-centered title is-4">
+            <h4
+              className="has-text-centered title is-4"
+              style={{ marginTop: '1rem' }}
+            >
               {intl.formatMessage({
                 id: 'La tasa de homicido en México fue de',
               })}{' '}
-              {round1(100)} {intl.formatMessage({ id: 'en el' })}{' '}
+              {round1(realHomicideRate)} {intl.formatMessage({ id: 'en el' })}{' '}
               {homicideTable[homicideTable.length - 1].year}{' '}
-              {intl.formatMessage({ id: 'según el' })} {'b'}
+              {intl.formatMessage({ id: 'según el' })} {realHomicideRateSource}
             </h4>
           ) : (
             <h4 className="title is-4">⠀⠀⠀</h4>
