@@ -37,8 +37,17 @@ import { YYYYmmddToDate15 } from '../components/utils.js'
 //import FullscreenControl from 'react-leaflet-fullscreen';
 
 //import geojson from '../../elcrimen-json/static/mexico_topojson';
-import MAP_STYLE from '../components/ClusterMap/cluster_map_style'
 
+import MAP_STYLE from '../components/ClusterMap/cluster_map_style'
+import {
+  osmSpriteUrl,
+  osmGlyphsUrl,
+  osmTilesUrl,
+} from '../components/DotMap/tile-urls.js'
+
+MAP_STYLE['sources']['openmaptiles']['tiles'] = [`${osmTilesUrl}`]
+MAP_STYLE['sprite'] = `${osmSpriteUrl}`
+MAP_STYLE['glyphs'] = `${osmGlyphsUrl}`
 const mapStyle = {
   ...MAP_STYLE,
 }
@@ -175,11 +184,6 @@ class ClusterMap extends React.Component {
         // });
         // console.timeEnd ('features');
 
-        mapStyle['sources']['openmaptiles']['tiles'] = [
-          `${this.props.tilesURL}`,
-        ]
-        mapStyle['sprite'] = `${this.props.osmSpriteUrl}`
-        mapStyle['glyphs'] = `${this.props.osmGlyphsUrl}`
         mapStyle.layers.push({
           id: 'municipios',
           type: 'fill',
@@ -285,7 +289,7 @@ function ClusterMapPage(props) {
   const osmSpriteUrl = 'https://elcri.men/tiles/sprites/sprite'
   const osmGlyphsUrl = 'https://elcri.men/tiles/font/{fontstack}/{range}.pbf'
   const osmTilesUrl =
-    'https://tilesmexico.netlify.app/mexico-tiles/{z}/{x}/{y}.pbf'
+    'https://tiles-kinsta.elcri.men/mexico-tiles/{z}/{x}/{y}.pbf.html'
   const URLs = {
     site: {
       siteMetadata: {
@@ -316,13 +320,7 @@ function ClusterMapPage(props) {
         bodyAttributes={{
           class: 'homepage',
         }}
-      >
-        <link
-          href="https://tilesmexico.netlify.app"
-          rel="preconnect"
-          crossOrigin
-        />
-      </Helmet>
+      ></Helmet>
 
       <HeroTitle>
         {intl.formatMessage({ id: 'Map of homicide clusters in Mexico from' })}{' '}

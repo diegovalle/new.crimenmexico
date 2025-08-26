@@ -28,7 +28,6 @@ import '../components/ClusterMap/ClusterMap.css'
 import { countBy, filter, maxBy } from 'lodash-es'
 import { format as num_format } from 'd3-format'
 
-import dark_matter from '../components/DotMap/dot_map_style_gray'
 import { YYYYmmddToDate15 } from '../components/utils.js'
 
 import ReactEChartsCore from 'echarts-for-react/lib/core'
@@ -51,6 +50,24 @@ import 'rc-slider/assets/index.css'
 import LegendNumber from '../components/TourismMap/LegendNumber'
 import LegendRate from '../components/TourismMap/LegendRate'
 import { scalePower, scaleLinear } from '@vx/scale'
+
+import dark_matter_copy from '../components/DotMap/dot_map_style_gray'
+
+import {
+  osmSpriteUrl,
+  osmGlyphsUrl,
+  osmTilesUrl,
+} from '../components/DotMap/tile-urls.js'
+
+dark_matter_copy['sources'] = { ...dark_matter_copy['sources'] }
+dark_matter_copy['sources']['openmaptiles2'] = {
+  ...dark_matter_copy['sources']['openmaptiles2'],
+}
+dark_matter_copy['sources']['openmaptiles2']['tiles'] = [`${osmTilesUrl}`]
+dark_matter_copy['sprite'] = `${osmSpriteUrl}`
+dark_matter_copy['glyphs'] = `${osmGlyphsUrl}`
+
+const dark_matter = { ...dark_matter_copy }
 
 echarts.use([
   TitleComponent,
@@ -348,23 +365,6 @@ class DotMapGL extends React.Component {
 
         chartOption.xAxis['data'] = [...Array(max).keys()]
         chartOption.series[0]['data'] = sparkLine
-
-        const dark_matter_copy = { ...this.state.dark_matter }
-        dark_matter_copy['sources'] = { ...dark_matter_copy['sources'] }
-        dark_matter_copy['sources']['openmaptiles2'] = {
-          ...dark_matter_copy['sources']['openmaptiles2'],
-        }
-        dark_matter_copy['sources']['openmaptiles2']['tiles'] = [
-          `${this.props.tilesURL}`,
-        ]
-        dark_matter_copy['sprite'] = `${this.props.osmSpriteUrl}`
-        dark_matter_copy['glyphs'] = `${this.props.osmGlyphsUrl}`
-        if (
-          JSON.stringify(this.state.dark_matter) !==
-          JSON.stringify(dark_matter_copy)
-        ) {
-          this.setState({ dark_matter: dark_matter_copy })
-        }
 
         this.setState({
           data: responseJSON,
@@ -692,7 +692,7 @@ function HomicideMapPage(props) {
   const osmSpriteUrl = 'https://elcri.men/tiles/sprites/sprite'
   const osmGlyphsUrl = 'https://elcri.men/tiles/font/{fontstack}/{range}.pbf'
   const osmTilesUrl =
-    'https://tilesmexico.netlify.app/mexico-tiles/{z}/{x}/{y}.pbf'
+    'https://tiles-kinsta.elcri.men/mexico-tiles/{z}/{x}/{y}.pbf.html'
   const URLs = {
     site: {
       siteMetadata: {
@@ -741,13 +741,7 @@ function HomicideMapPage(props) {
         bodyAttributes={{
           class: 'homepage',
         }}
-      >
-        <link
-          href="https://tilesmexico.netlify.app"
-          rel="preconnect"
-          crossOrigin
-        />
-      </Helmet>
+      ></Helmet>
 
       <HeroTitle>
         {intl.formatMessage({ id: 'Map of homicides in Mexico from' })}{' '}

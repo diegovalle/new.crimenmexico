@@ -1,18 +1,13 @@
+// Have to set these URLs in this file because of a bug with gatsby and
+// useStaticQuery
+// src/components/DotMap/tile-urls.js
+const {
+  osmSpriteUrl,
+  osmGlyphsUrl,
+  osmTilesUrl,
+} = require('./src/components/DotMap/tile-urls.js')
+
 let SITENAME = 'https://elcri.men/'
-
-// const osmSpriteUrl = 'https://tilesmexico.netlify.app/sprites/sprite'
-// const osmGlyphsUrl =
-//   'https://tilesmexico.netlify.app/font/{fontstack}/{range}.pbf'
-const osmTilesUrl =
-  'https://tilesmexico.netlify.app/mexico-tiles/{z}/{x}/{y}.pbf'
-
-const osmSpriteUrl = 'https://elcri.men/tiles/sprites/sprite'
-const osmGlyphsUrl = 'https://elcri.men/tiles/font/{fontstack}/{range}.pbf'
-
-// const osmSpriteUrl = `https://tiles-tebi.elcri.men/sprites/sprite`
-// const osmGlyphsUrl = `https://tiles-tebi.elcri.men/font/{fontstack}/{range}.pbf`
-// const osmTilesUrl =
-//   'https://tiles-tebi.elcri.men/mexico-tiles/{z}/{x}/{y}.pbf.html'
 
 const mapboxUrl = 'https://api.tiles.mapbox.com'
 
@@ -27,10 +22,6 @@ module.exports = {
     twitterHandle: '@diegovalle',
     preliminaryINEGI: true,
     monthsPreliminaryINEGI: 12,
-    // Have to set these URLs in these files because of a bug with gatsby and
-    // useStaticQuery
-    // src/pages/mapa-de-delincuencia.js
-    // src/pages/mapa-clusters.js
     osmSpriteUrl: `${osmSpriteUrl}`,
     osmGlyphsUrl: `${osmGlyphsUrl}`,
     osmTilesUrl: `${osmTilesUrl}`,
