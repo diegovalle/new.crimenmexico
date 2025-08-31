@@ -216,7 +216,7 @@ function HistoricalChart(props) {
   }
   const intl = useIntl()
   let l
-  intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
+  //intl.locale === 'es' ? (l = timeFormatDefaultLocale(dateLoc.es_MX)) : null
 
   let chartOption = {
     animation: false,
@@ -580,7 +580,10 @@ function HistoricalChart(props) {
       <div className="columns is-centered">
         <div className="column is-full">
           {homicideTable ? (
-            <h4 className="has-text-centered title is-4">
+            <h4
+              className="has-text-centered title is-4"
+              style={{ marginTop: '1rem' }}
+            >
               {intl.formatMessage({
                 id: 'La tasa de homicido en México fue de',
               })}{' '}

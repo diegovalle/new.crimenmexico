@@ -1,6 +1,14 @@
+// Have to set these URLs in this file because of a bug with gatsby and
+// useStaticQuery
+// src/components/DotMap/tile-urls.js
+const {
+  osmSpriteUrl,
+  osmGlyphsUrl,
+  osmTilesUrl,
+} = require('./src/components/DotMap/tile-urls.js')
+
 let SITENAME = 'https://elcri.men/'
 
-const osmTilesUrl = 'https://tilesmexico.netlify.app'
 const mapboxUrl = 'https://api.tiles.mapbox.com'
 
 module.exports = {
@@ -14,6 +22,9 @@ module.exports = {
     twitterHandle: '@diegovalle',
     preliminaryINEGI: true,
     monthsPreliminaryINEGI: 12,
+    osmSpriteUrl: `${osmSpriteUrl}`,
+    osmGlyphsUrl: `${osmGlyphsUrl}`,
+    osmTilesUrl: `${osmTilesUrl}`,
   },
   flags: {
     DEV_SSR: false,
