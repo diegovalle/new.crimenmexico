@@ -17,3 +17,9 @@ if [ "$CI" = true ] ; then
     VERSION="v1.66.0"
     rclone-"$VERSION"-linux-amd64/rclone -vv --fast-list --transfers=1 copy ~/new.crimenmexico/data/ :b2:"$B2_BUCKET" --b2-account="$B2_APPKEY_ID" --b2-key="$B2_APPKEY" --include "*.gz"
 fi
+
+# Copy the data files to another backup server
+if [ "$CI" = true ] ; then
+    VERSION="v1.66.0"
+    rclone-"$VERSION"-linux-amd64/rclone -vv --fast-list --transfers=1 copy ~/new.crimenmexico/data/  :s3:"$TEBI_BUCKET" --s3-endpoint="https://s3.tebi.io/" --s3-access-key-id="$TEBI_KEYID" --s3-secret-access-key="$TEBI_SECRET" --s3-acl="public" --include "*.gz"
+fi
