@@ -75,8 +75,14 @@ var lesiones_data = [
     {
       date: 2023,
       value: 1508588,
-      sup: 1508588 + 112222,
-      inf: 1508588 - 112222,
+      sup: 1508588 + 56820.7438671877,
+      inf: 1508588 - 56820.7438671877,
+    },
+    {
+      date: 2024,
+      value: 1523988,
+      sup: 1523988 + 77931,
+      inf: 1523988 - 77931,
     },
   ],
   [
@@ -88,9 +94,12 @@ var lesiones_data = [
     { date: 2020, value: 161071 },
     { date: 2021, value: 170460 },
     { date: 2022, value: 180683 },
-    { date: 2023, value: 184274 },
+    { date: 2023, value: 184267 },
+    { date: 2024, value: 187420 },
   ],
 ]
+
+// ENVIPE: https://www.inegi.org.mx/contenidos/saladeprensa/boletines/2025/ENVIPE/ENVIPE_25_RR.pdf
 var secuestro_data = [
   [
     { date: 2015, value: 62636, sup: 77530, inf: 47742 },
@@ -122,6 +131,12 @@ var secuestro_data = [
       inf: 85931 - 85931 * 0.172,
       sup: 85931 + 85931 * 0.172,
     },
+    {
+      date: 2024,
+      value: 92888,
+      inf: 92888 - 10027,
+      sup: 92888 + 10027,
+    },
   ],
   [
     { date: 2015, value: 1312 },
@@ -133,6 +148,7 @@ var secuestro_data = [
     { date: 2021, value: 815 },
     { date: 2022, value: 724 },
     { date: 2023, value: 844 },
+    { date: 2024, value: 908 },
   ],
 ]
 var extorsion_data = [
@@ -181,6 +197,12 @@ var extorsion_data = [
       sup: 4902122 + 155921.464499242,
       inf: 4902122 - 155921.464499242,
     },
+    {
+      date: 2024,
+      value: 5719981,
+      sup: 5719981 + 155142.064812407,
+      inf: 5719981 - 155142.064812407,
+    },
   ],
   [
     { date: 2015, value: 6223 },
@@ -192,11 +214,11 @@ var extorsion_data = [
     { date: 2021, value: 9408 },
     { date: 2022, value: 11039 },
     { date: 2023, value: 10946 },
+    { date: 2024, value: 10862 },
   ],
 ]
 // ENVIPE: Robo total de vehículo (automóvil, camioneta, camión).
-// Amis: https://www.amisprensa.org/wp-content/uploads/2021/02/Robo-de-autos-enero-a-diciembre-2020-V6.pdf
-// https://amisprensa.org/public/documentos/conferencia-robo-de-autos-corte-a-diciembre-2022-25.pdf
+// Amis: https://centroestadisticoamis.mx/tablero-automoviles/ (Automoviles, Otros, Equipo Pesado)
 // SNSP: Robo de coche de 4 ruedas (Unidades)
 var robocoche_data = [
   // ENVIPE
@@ -240,6 +262,12 @@ var robocoche_data = [
       sup: 532701 + 23021.9416208074,
       inf: 532701 - 23021.9416208074,
     },
+    {
+      date: 2024,
+      value: 526230,
+      sup: 526230 + 22155.8003082285,
+      inf: 526230 - 22155.8003082285,
+    },
   ],
   // SNSP
   [
@@ -252,18 +280,20 @@ var robocoche_data = [
     { date: 2021, value: 108680 + 32568 - 32568 },
     { date: 2022, value: 101809 + 36901 - 36901 },
     { date: 2023, value: 95414 + 41632 - 41632 },
+    { date: 2024, value: 90001 + 47285 - 47285 },
   ],
   // AMIS
   [
-    { date: 2015, value: 60700 },
-    { date: 2016, value: 69200 },
-    { date: 2017, value: 88888 },
-    { date: 2018, value: 94159 },
-    { date: 2019, value: 85301 },
-    { date: 2020, value: 68254 },
-    { date: 2021, value: 62142 },
-    { date: 2022, value: 60523 },
-    { date: 2023, value: 61222 },
+    { date: 2015, value: 48166 },
+    { date: 2016, value: 54420 },
+    { date: 2017, value: 67656 },
+    { date: 2018, value: 70220 },
+    { date: 2019, value: 63966 },
+    { date: 2020, value: 53180 },
+    { date: 2021, value: 48926 },
+    { date: 2022, value: 45633 },
+    { date: 2023, value: 46077 },
+    { date: 2024, value: 46736 },
   ],
 ]
 
