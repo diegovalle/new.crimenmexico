@@ -26,8 +26,8 @@
       no_log: true
 
     # Use 'ssh-keyscan -t rsa IP' to create the crimenmexico.known_host file
-    - name: tell the host about servers it might want to ssh to
-      when: secrets is defined
-      known_hosts: path='~/.ssh/known_hosts'
-                   name="{{  lookup('env','IPADDRESS') }}"
-                   key="{{ lookup('file', 'crimenmexico.known_host') }}"
+    #- name: tell the host about servers it might want to ssh to
+    #  when: secrets is defined
+    #  known_hosts: path='~/.ssh/known_hosts'
+    #               name="{{  lookup('env','IPADDRESS') }}"
+    #               key="{{ lookup('file', 'crimenmexico.known_host') }}"
