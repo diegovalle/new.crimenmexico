@@ -76,7 +76,7 @@ jobs:
           path: |
             /tmp/new.crimenmexico/data/*.gz
           retention-days: 5
-      - name: Upload website html
+      - name: Upload website html artifact
         if: always()
         continue-on-error: true
         uses: actions/upload-artifact@v4
