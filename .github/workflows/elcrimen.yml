@@ -53,7 +53,7 @@ jobs:
       - name: Change permissions
         run: |
           id -a 
-          cp -r /home/rstudio/new.crimenmexico/ /tmp
+          mv /home/rstudio/new.crimenmexico /tmp/
       - name: Upload build artifacts
         if: always()
         continue-on-error: true

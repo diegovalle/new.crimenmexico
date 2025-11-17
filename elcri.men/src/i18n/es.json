@@ -103,7 +103,7 @@
   "title_about": "Acerca de - El Crimen",
   "Acerca de": "Datos de Criminalidad",
   "Datos": "Formato Abierto",
-  "about_intro": "<p>Elaborado por <a href=\"https://www.diegovalle.net/es/\">Diego Valle</a>. La totalidad de la información estadística contenida en este sitio web tiene su origen en las bases de datos del <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva?state=published\">SESNSP</a> y del <a href=\"https://github.com/diegovalle/mxmortalitydb\">INEGI</a>. En caso de utilizar esta información, se solicita incluir la referencia correspondiente a este sitio web.</p>",
+  "about_intro": "<p>Elaborado por <a href=\"https://www.diegovalle.net/es/\">Diego Valle</a>. La totalidad de la información estadística contenida en este sitio web tiene su origen en las bases de datos del <a href=\"https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva\">SESNSP</a> y del <a href=\"https://github.com/diegovalle/mxmortalitydb\">INEGI</a>. En caso de utilizar esta información, se solicita incluir la referencia correspondiente a este sitio web.</p>",
   "New methodology": "Nueva Metodología",
   "Old methodology (up to 2017)": "Vieja Metodología (hasta el 2017)",
   "Frequently Asked Questions": "Preguntas frecuentes",
