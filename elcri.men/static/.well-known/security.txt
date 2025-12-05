@@ -1,3 +1,9 @@
+# Security.txt for elcri.men
+# RFC 9116: https://www.rfc-editor.org/rfc/rfc9116.html
+
+Contact: https://github.com/diegovalle/new.crimenmexico/issues
 Contact: https://www.diegovalle.net/contact/
+Encryption: https://github.com/diegovalle.keys
 Expires: 2035-12-20T00:47:00.000Z
 Preferred-Languages: en,es
+Canonical: https://elcri.men/.well-known/security.txt
