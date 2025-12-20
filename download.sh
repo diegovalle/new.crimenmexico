@@ -41,9 +41,9 @@ download_municipal() {
 }
 
 DOWNLOAD_URL="https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva?state=published"
-TEXT_FUERO_COMUN_ESTADOS="2015 -20.. \(Fuero Com&uacute;n - Delitos\). Incidencia delictiva estatal"
-TEXT_FUERO_COMUN_ESTADOS_VICTIMAS="2015 - 20.. \(Fuero Com&uacute;n - V&iacute;ctimas\). Incidencia delictiva estatal"
-TEXT_FUERO_COMUN_MUNICIPIOS="2015 - 20.. \(Fuero Com&uacute;n- Delitos\). Incidencia Delictiva municipal"
+TEXT_FUERO_COMUN_ESTADOS="2015[ ]*-[ ]*20.. \(Fuero Com&uacute;n - Delitos\). Incidencia delictiva estatal"
+TEXT_FUERO_COMUN_ESTADOS_VICTIMAS="2015[ ]*-[ ]*20.. \(Fuero Com&uacute;n - V&iacute;ctimas\). Incidencia delictiva estatal"
+TEXT_FUERO_COMUN_MUNICIPIOS="2015[ ]*-[ ]*20.. \(Fuero Com&uacute;n- Delitos\). Incidencia Delictiva municipal"
 
 download_and_unzip "$DOWNLOAD_URL" "$TEXT_FUERO_COMUN_ESTADOS" "estados.csv"
 
