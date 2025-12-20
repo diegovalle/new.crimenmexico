@@ -77,6 +77,10 @@ export GATSBY_TELEMETRY_DISABLED=1
 (cd elcri.men && npx browserslist@latest --update-db)
 (cd elcri.men && rm -rf node_modules && npm install && gatsby clean && gatsby build --verbose)
 
+rm -rf "$SCRIPTPATH/clean"
+rm -rf "$SCRIPTPATH/elcri.men/node_modules"
+rm -rf "$SCRIPTPATH/elcri.men/static"
+
 echo "Exporting databases to csv.gz"
 # Export the sqlite database to csv and compress
 if [ "$SCRIPTPATH"/db/crimenmexico.db -nt "$SCRIPTPATH"/$EXPORT/$ESTADOS_FILE ]; then
