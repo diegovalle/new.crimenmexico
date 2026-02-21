@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /~partytown
 Sitemap: https://elcri.men/sitemap.xml
 Host: https://elcri.men
