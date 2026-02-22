@@ -71,20 +71,24 @@ download_and_unzip "$DOWNLOAD_URL" "$TEXT_FUERO_COMUN_MUNICIPIOS" "municipios201
 # Download metodología 2026 a la fecha
 download_and_unzip "$DOWNLOAD_URL" ".* 2026 \(Fuero com.*?n-Delitos\). Incidencia delictiva estatal" "estados2026.csv"
 
-download_and_unzip "$DOWNLOAD_URL" ".* 2026 \(Fuero com.*?n-V.*?ctimas\). Incidencia delictiva estatal" "estados_victimas2016.csv"
+download_and_unzip "$DOWNLOAD_URL" ".* 2026 \(Fuero com.*?n-V.*?ctimas\). Incidencia delictiva estatal" "estados_victimas2026.csv"
 
-download_and_unzip "$DOWNLOAD_URL" ".* 2026 \(Fuero com.*?n-Delitos\). Incidencia delictiva municipal" "municipios2016.csv"
+download_and_unzip "$DOWNLOAD_URL" ".* 2026 \(Fuero com.*?n-Delitos\). Incidencia delictiva municipal" "municipios2026.csv"
 
 compare_headers "estados2015.csv" "estados2026.csv"
-compare_headers "estados_victimas2015.csv" "estados_victimas2016.csv"
-compare_headers "municipios2015.csv" "municipios2016.csv"
+compare_headers "estados_victimas2015.csv" "estados_victimas2026.csv"
+compare_headers "municipios2015.csv" "municipios2026.csv"
+
+
+# Recode new age categories in estados_victimas2026.csv
+Rscript R/group_estados_victimas.R
 
 { cat "$SNSP_DIR"/estados2015.csv; tail -n +2 "$SNSP_DIR"/estados2026.csv; } > "$SNSP_DIR"/estados.csv
-{ cat "$SNSP_DIR"/estados_victimas2015.csv; tail -n +2 "$SNSP_DIR"/estados_victimas2016.csv; } > "$SNSP_DIR"/estados_victimas.csv
-{ cat "$SNSP_DIR"/municipios2015.csv; tail -n +2 "$SNSP_DIR"/municipios2016.csv; } > "$SNSP_DIR"/municipios.csv
+{ cat "$SNSP_DIR"/estados_victimas2015.csv; tail -n +2 "$SNSP_DIR"/estados_victimas2026.csv; } > "$SNSP_DIR"/estados_victimas.csv
+{ cat "$SNSP_DIR"/municipios2015.csv; tail -n +2 "$SNSP_DIR"/municipios2026.csv; } > "$SNSP_DIR"/municipios.csv
 
 rm -rf "$SNSP_DIR"/*.zip
-rm -rf "$SNSP_DIR"/municipios2016.csv
+rm -rf "$SNSP_DIR"/municipios2026.csv
 rm -rf "$SNSP_DIR"/municipios2015.csv
 rm -rf "$SNSP_DIR"/estados2026.csv
 rm -rf "$SNSP_DIR"/estados2015.csv
