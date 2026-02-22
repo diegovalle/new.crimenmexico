@@ -1,5 +1,4 @@
 library(dplyr)
-library()
 
 df <- read.csv("clean/snsp-data/estados_victimas2026.csv", fileEncoding = "windows-1252")
 unique(df$Rango.de.edad)
