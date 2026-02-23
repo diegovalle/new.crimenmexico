@@ -100,7 +100,6 @@ concat_csvs "estados2015.csv" "estados2026.csv" "estados.csv"
 concat_csvs "estados_victimas2015.csv" "estados_victimas2026.csv" "estados_victimas.csv"
 concat_csvs "municipios2015.csv" "municipios2026.csv" "municipios.csv"
 
-<<<<<<< HEAD
 rm -rf "$SNSP_DIR"/*.zip
 rm -rf "$SNSP_DIR"/municipios2016.csv
 rm -rf "$SNSP_DIR"/municipios2015.csv
@@ -108,12 +107,3 @@ rm -rf "$SNSP_DIR"/estados2026.csv
 rm -rf "$SNSP_DIR"/estados2015.csv
 rm -rf "$SNSP_DIR"/estados_victimas2026.csv
 rm -rf "$SNSP_DIR"/estados_victimas2015.csv
-=======
-# rm -rf "$SNSP_DIR"/*.zip
-# rm -rf "$SNSP_DIR"/municipios2016.csv
-# rm -rf "$SNSP_DIR"/municipios2015.csv
-# rm -rf "$SNSP_DIR"/estados2026.csv
-# rm -rf "$SNSP_DIR"/estados2015.csv
-# rm -rf "$SNSP_DIR"/estados_victimas2026.csv
-# rm -rf "$SNSP_DIR"/estados_victimas2015.csv
->>>>>>> 812e25b213a444ea1a10d3994e4ef4b0b7dae2ed
