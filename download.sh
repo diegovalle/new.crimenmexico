@@ -40,6 +40,15 @@ download_municipal() {
     mv "$SNSP_DIR"/"$biggest_file" "$SNSP_DIR"/"$filename"
 }
 
+concat_csvs() {
+    local file1="$1"
+    local file2="$2"
+    local output="$3"
+
+    sed -i -e '$a\' "$SNSP_DIR"/"$file1"
+    { cat "$SNSP_DIR"/"$file1"; tail -n +2 -q "$SNSP_DIR"/"$file2"; } > "$SNSP_DIR"/"$output"
+}
+
 compare_headers() {
     # Capture the output of the first command
     output1=$(head -n 1 "$SNSP_DIR"/"$1")
@@ -55,6 +64,8 @@ compare_headers() {
         return 0
     fi
 }
+
+
 
 DOWNLOAD_URL="https://www.gob.mx/sesnsp/acciones-y-programas/datos-abiertos-de-incidencia-delictiva?state=published"
 TEXT_FUERO_COMUN_ESTADOS="2015[ ]*-[ ]*2025 \(Fuero Com&uacute;n - Delitos\). Incidencia delictiva estatal"
@@ -79,14 +90,16 @@ compare_headers "estados2015.csv" "estados2026.csv"
 compare_headers "estados_victimas2015.csv" "estados_victimas2016.csv"
 compare_headers "municipios2015.csv" "municipios2016.csv"
 
-{ cat "$SNSP_DIR"/estados2015.csv; tail -n +2 "$SNSP_DIR"/estados2026.csv; } > "$SNSP_DIR"/estados.csv
-{ cat "$SNSP_DIR"/estados_victimas2015.csv; tail -n +2 "$SNSP_DIR"/estados_victimas2016.csv; } > "$SNSP_DIR"/estados_victimas.csv
-{ cat "$SNSP_DIR"/municipios2015.csv; tail -n +2 "$SNSP_DIR"/municipios2016.csv; } > "$SNSP_DIR"/municipios.csv
+Rscript R/clean_RNID_files.R
 
-rm -rf "$SNSP_DIR"/*.zip
-rm -rf "$SNSP_DIR"/municipios2016.csv
-rm -rf "$SNSP_DIR"/municipios2015.csv
-rm -rf "$SNSP_DIR"/estados2026.csv
-rm -rf "$SNSP_DIR"/estados2015.csv
-rm -rf "$SNSP_DIR"/estados_victimas2026.csv
-rm -rf "$SNSP_DIR"/estados_victimas2015.csv
+concat_csvs "estados2015.csv" "estados2026.csv" "estados.csv"
+concat_csvs "estados_victimas2015.csv" "estados_victimas2016.csv" "estados_victimas.csv"
+concat_csvs "municipios2015.csv" "municipios2016.csv" "municipios.csv"
+
+# rm -rf "$SNSP_DIR"/*.zip
+# rm -rf "$SNSP_DIR"/municipios2016.csv
+# rm -rf "$SNSP_DIR"/municipios2015.csv
+# rm -rf "$SNSP_DIR"/estados2026.csv
+# rm -rf "$SNSP_DIR"/estados2015.csv
+# rm -rf "$SNSP_DIR"/estados_victimas2026.csv
+# rm -rf "$SNSP_DIR"/estados_victimas2015.csv
