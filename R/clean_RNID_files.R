@@ -74,7 +74,7 @@ write.csv(df_summarized,
 
 
 df26 <- read.csv("clean/snsp-data/estados2026.csv", fileEncoding = "windows-1252")
-df26 <- dplyr::filter(df26, Subtipo.de.delito %in% c("Homicidio doloso", "Homicidio culposo", "Lesiones dolosas",
+df26 <- subset(df26, Subtipo.de.delito %in% c("Homicidio doloso", "Homicidio culposo", "Lesiones dolosas",
                                                      "Robo de vehículo automotor - Coche de 4 ruedas",
                                                  "Lesiones culposas", "Feminicidio", "Otros delitos que atentan contra la vida y la integridad corporal",
                                                  "Secuestro", "Tráfico de menores", "Rapto", "Otros delitos que atentan contra la libertad personal",
