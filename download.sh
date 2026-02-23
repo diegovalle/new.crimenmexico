@@ -82,13 +82,17 @@ download_and_unzip "$DOWNLOAD_URL" "$TEXT_FUERO_COMUN_MUNICIPIOS" "municipios201
 # Download metodología 2026 a la fecha
 download_and_unzip "$DOWNLOAD_URL" ".* 2026 \(Fuero com.*?n-Delitos\). Incidencia delictiva estatal" "estados2026.csv"
 
-download_and_unzip "$DOWNLOAD_URL" ".* 2026 \(Fuero com.*?n-V.*?ctimas\). Incidencia delictiva estatal" "estados_victimas2016.csv"
+download_and_unzip "$DOWNLOAD_URL" ".* 2026 \(Fuero com.*?n-V.*?ctimas\). Incidencia delictiva estatal" "estados_victimas2026.csv"
 
-download_and_unzip "$DOWNLOAD_URL" ".* 2026 \(Fuero com.*?n-Delitos\). Incidencia delictiva municipal" "municipios2016.csv"
+download_and_unzip "$DOWNLOAD_URL" ".* 2026 \(Fuero com.*?n-Delitos\). Incidencia delictiva municipal" "municipios2026.csv"
 
 compare_headers "estados2015.csv" "estados2026.csv"
-compare_headers "estados_victimas2015.csv" "estados_victimas2016.csv"
-compare_headers "municipios2015.csv" "municipios2016.csv"
+compare_headers "estados_victimas2015.csv" "estados_victimas2026.csv"
+compare_headers "municipios2015.csv" "municipios2026.csv"
+
+
+# Recode new age categories in estados_victimas2026.csv
+Rscript R/group_estados_victimas.R
 
 Rscript R/clean_RNID_files.R
 
