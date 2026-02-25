@@ -16,6 +16,7 @@
 /en/data.html                          https://elcri.men/en/about/                          301
 /es/data.html                          https://elcri.men/acerca/                         301
 /es/municipios                         https://elcri.men/municipios/                     301
+/en/index.html                         https://elcri.men/en/                              301
 
 # From before it was a gatsby website
 /en/municipios.html                    https://elcri.men/en/municipios/                        301  
