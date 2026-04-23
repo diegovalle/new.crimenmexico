@@ -1,4 +1,5 @@
 # From when it was crimenmexico.diegovalle.net
+# Netlify forced redirects (using !) in a _redirects file override file shadowing, ensuring a rule takes precedence even if a physical file (like index.html) exists at the path. 
 /csv/                                  https://elcri.men/en/about/                                301
 /csv/index.html                        https://elcri.men/en/about/                                301
 /municipios.html                       https://elcri.men/en/municipios.html                    301
@@ -12,11 +13,11 @@
 /en/csv/fuero-comun-municipios.csv.gz  https://data.diegovalle.net/elcrimen/fuero-comun-municipios.csv.gz     301
 /es/                                   https://elcri.men/                                      301
 /es                                    https://elcri.men/                                      301
-/es/index.html                         https://elcri.men/                                      301
+/es/index.html                         https://elcri.men/                                      301!
 /en/data.html                          https://elcri.men/en/about/                          301
 /es/data.html                          https://elcri.men/acerca/                         301
 /es/municipios                         https://elcri.men/municipios/                     301
-/en/index.html                         https://elcri.men/en/                              301
+/en/index.html                         https://elcri.men/en/                              301!
 
 # From before it was a gatsby website
 /en/municipios.html                    https://elcri.men/en/municipios/                        301  
