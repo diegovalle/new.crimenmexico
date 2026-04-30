@@ -334,7 +334,7 @@ const HomeIndex = (props) => {
             <FormattedMessage id="best_site" />
           </h2>
           <div className="columns">
-            <div className="column">
+            <div className="column" style={{ marginTop: '1.5rem' }}>
               <h3 className="title is-5">
                 <FormattedMessage id="crime_map" />
               </h3>
@@ -366,7 +366,7 @@ const HomeIndex = (props) => {
                 <FormattedMessage id="crime_map" />
               </LLink>
             </div>
-            <div className="column">
+            <div className="column" style={{ marginTop: '1rem' }}>
               <h3 className="title is-5">
                 <FormattedMessage id="anomalies" />
               </h3>
@@ -399,7 +399,7 @@ const HomeIndex = (props) => {
                 <FormattedMessage id="anomalies" />
               </LLink>
             </div>
-            <div className="column">
+            <div className="column" style={{ marginTop: '1.5rem' }}>
               <h3 className="title is-5">
                 <FormattedMessage id="trends" />
               </h3>
