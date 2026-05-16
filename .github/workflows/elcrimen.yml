@@ -12,6 +12,8 @@ on:
 jobs:
   Build-Elcrimen:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     environment: production
     container:
       image: diegovalle/elcrimen-docker
