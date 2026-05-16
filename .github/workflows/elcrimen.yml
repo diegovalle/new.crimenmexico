@@ -1,6 +1,6 @@
 name: Build https://elcri.men
 on:
-  #  (repo scope token) curl -H "Accept: application/vnd.github+json" -H "Authorization: token <TOKEN>" --request POST --data '{"event_type": "deploy-website"}' https://api.github.com/repos/diegovalle/new.crimenmexico/dispatches 
+  #  (repo scope token) curl -H "Accept: application/vnd.github+json" -H "Authorization: token <TOKEN>" --request POST --data '{"event_type": "deploy-website"}' https://api.github.com/repos/diegovalle/new.crimenmexico/dispatches
   repository_dispatch:
     types: deploy-website
   # Trigger the workflow on push or pull request,
@@ -12,9 +12,10 @@ on:
 jobs:
   Build-Elcrimen:
     runs-on: ubuntu-latest
+    environment: production
     container:
       image: diegovalle/elcrimen-docker
-      options:  --workdir /home/rstudio/new.crimenmexico --user rstudio
+      options: --workdir /home/rstudio/new.crimenmexico --user rstudio
       credentials:
         username: diegovalle
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -59,7 +60,7 @@ jobs:
           -X POST  "https://diegovalle.semaphoreci.com/api/v1alpha/plumber-workflows"
       - name: Change permissions
         run: |
-          id -a 
+          id -a
           mv /home/rstudio/new.crimenmexico /tmp/
       - name: Upload build artifacts
         if: always()
@@ -71,7 +72,7 @@ jobs:
           path: |
             /tmp/new.crimenmexico/db/crimenmexico.db
             /tmp/new.crimenmexico/R/graphs/*.png
-            /tmp/new.crimenmexico/elcrimen/static/smooth-latest.png 
+            /tmp/new.crimenmexico/elcrimen/static/smooth-latest.png
           retention-days: 2
       - name: Upload crime data artifacts
         if: always()
