@@ -30,6 +30,7 @@ jobs:
         ANSIBLE_PASSWORD: ${{ secrets.ANSIBLE_PASSWORD }}
         DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
         GH_EMAIL: ${{ secrets.GH_EMAIL }}
+        GT_PAT: ${{ secrets.GT_PAT }}
         # For installing mxmortalitydb
         GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         NETLIFYAPIKEY: ${{ secrets.NETLIFYAPIKEY }}
