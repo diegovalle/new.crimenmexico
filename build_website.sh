@@ -36,7 +36,7 @@ if [ "$CI" = true ] ; then
       git config --global user.name "diego"
       git status --porcelain elcri.men/static/e* | sed  "s/^?? //g" | xargs --max-args 1 git add
       git commit -m "Add new png infographics [skip ci]"
-      git push -q https://"$GITHUB_TOKEN":x-oauth-basic@github.com/diegovalle/new.crimenmexico.git master
+      git push -q https://"$GT_PAT":x-oauth-basic@github.com/diegovalle/new.crimenmexico.git master
   fi
 fi
 
