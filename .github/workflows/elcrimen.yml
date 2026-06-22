@@ -9,14 +9,18 @@ on:
     branches:
       - master
 
+permissions: {}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   Build-Elcrimen:
+    name: Deploy Elcri.men
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     environment: production
     container:
-      image: diegovalle/elcrimen-docker
+      image: diegovalle/elcrimen-docker@sha256:ff3d8590009bb472a68dd18746039e25ecf8f7dbcb50daff9c61cdf46ea044af
       options: --workdir /home/rstudio/new.crimenmexico --user rstudio
       credentials:
         username: diegovalle
@@ -67,7 +71,7 @@ jobs:
       - name: Upload build artifacts
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           if-no-files-found: "warn"
           name: elcrimen-sqlite-db
@@ -79,7 +83,7 @@ jobs:
       - name: Upload crime data artifacts
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           if-no-files-found: warn
           name: data-files
@@ -89,11 +93,13 @@ jobs:
       - name: Upload website html artifact
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           if-no-files-found: warn
           name: elcrimen_html
           path: |
             /tmp/new.crimenmexico/elcri.men/public
           retention-days: 7
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: echo "🍏 This job's status is ${JOB_STATUS}."
+        env:
+          JOB_STATUS: ${{ job.status }}
