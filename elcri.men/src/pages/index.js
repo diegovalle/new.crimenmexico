@@ -164,7 +164,9 @@ const HomeIndex = (props) => {
               <h2 className="has-text-centered">
                 <FormattedMessage id="cifras_oficiales" />
               </h2>
-              <FormattedHTMLMessage id="oficial_data" />
+              <main role="main">
+                <FormattedHTMLMessage id="oficial_data" />
+              </main>
               <br />
               <LazyLoad height={150} once offset={400}>
                 <div className="container has-text-centered">

@@ -52,9 +52,11 @@ module.exports = {
           ],
           '/': [
             'Link: <https://elcri.men/elcrimen-json/states_national.json>; rel=preload; as=fetch; crossorigin',
+            'Link </static/source-sans-pro-v13-latin-regular.subset-dbc6070f73126363d8152310c46a864d.woff2>; rel="preload"; as="font"; type="font/woff2"; crossorigin',
           ],
           '/en/': [
             'Link: <https://elcri.men/elcrimen-json/states_national.json>; rel=preload; as=fetch; crossorigin',
+            'Link </static/source-sans-pro-v13-latin-regular.subset-dbc6070f73126363d8152310c46a864d.woff2>; rel="preload"; as="font"; type="font/woff2"; crossorigin',
           ],
           '/mapa-de-delincuencia/': [
             `Link: <https://elcri.men/elcrimen-json/municipios-centroids.json>; rel=preload; as=fetch; crossorigin; <${osmTilesUrl}>; rel=preconnect, <${mapboxUrl}>; rel=preconnect`,
