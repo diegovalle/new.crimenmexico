@@ -1,9 +1,12 @@
 #!/bin/bash
 
-set -e # stop the script on errors
+set -e          # stop the script on errors
 set -o pipefail # piping a failed process into a successful one is an error
 
-SCRIPTPATH=$( cd "$(dirname "$0")" ; pwd -P )
+SCRIPTPATH=$(
+  cd "$(dirname "$0")"
+  pwd -P
+)
 EXPORT=data
 SQLITE3=sqlite3
 
@@ -13,13 +16,12 @@ VICTIMAS_FILE=nm-estatal-victimas.csv.gz
 
 # Convert the infographics R created to png and optimize for the web
 for filename in R/graphs/*.svg; do
-    [ -f "$filename" ] || continue
-    if [ ! -f "R/graphs/$(basename "$filename" .svg).png" ]
-    then
-        echo "Converting $filename"
-        inkscape -z -e R/graphs/"$(basename "$filename" .svg)".png -w 1080 -h 1800 "$filename"
-        optipng -quiet R/graphs/"$(basename "$filename" .svg)".png
-    fi
+  [ -f "$filename" ] || continue
+  if [ ! -f "R/graphs/$(basename "$filename" .svg).png" ]; then
+    echo "Converting $filename"
+    inkscape -z -e R/graphs/"$(basename "$filename" .svg)".png -w 1080 -h 1800 "$filename"
+    optipng -quiet R/graphs/"$(basename "$filename" .svg)".png
+  fi
 done
 
 # Move images to the website directory
@@ -29,19 +31,21 @@ cp -n -v R/graphs/municipios_???_????.png elcri.men/static/en/images/infographic
 cp -n -v R/graphs/infographic_es_???_????.png elcri.men/static/es/images/infographics/fulls/
 cp -n -v R/graphs/municipios_es_???_????.png elcri.men/static/es/images/infographics/fulls/
 
-if [ "$CI" = true ] ; then
+if [ "$CI" = true ]; then
   # Commit generated infographics
   if [[ $(git status --porcelain elcri.men/static/e*) ]]; then
-      git config --global user.email "$GH_EMAIL"
-      git config --global user.name "diego"
-      git status --porcelain elcri.men/static/e* | sed  "s/^?? //g" | xargs --max-args 1 git add
-      git commit -m "Add new png infographics [skip ci]"
-      git push -q https://"$GT_PAT":x-oauth-basic@github.com/diegovalle/new.crimenmexico.git master || true
+    git config --global user.email "$GH_EMAIL"
+    git config --global user.name "diego"
+    git status --porcelain elcri.men/static/e* | sed "s/^?? //g" | xargs --max-args 1 git add
+    git commit -m "Automatically add new png infographics [skip ci]"
+    git tag "$GIT_TAG" -m"Update website data ($GIT_TAG)"
+    # fixme: remove || true
+    git push --tags -q https://x-access-token:"$GITHUB_TOKEN"@github.com/diegovalle/new.crimenmexico.git master || true
   fi
 fi
 
 # Copy the images to a backup server
-if [ "$CI" = true ] ; then
+if [ "$CI" = true ]; then
   VERSION="v1.66.0"
   curl --retry 15 -O https://downloads.rclone.org/"$VERSION"/rclone-"$VERSION"-linux-amd64.zip
   unzip rclone-"$VERSION"-linux-amd64.zip
@@ -50,7 +54,7 @@ if [ "$CI" = true ] ; then
   rclone-"$VERSION"-linux-amd64/rclone -vv --fast-list --transfers=1 copy ~/new.crimenmexico/elcri.men/static/es/images/infographics/fulls/ :b2:"$B2_BUCKET"/infographics/es/ --b2-account="$B2_APPKEY_ID" --b2-key="$B2_APPKEY" --include "*.png"
 fi
 
-if [ "$CI" = true ] ; then
+if [ "$CI" = true ]; then
   # Delete old infographics to keep the website size down
   rm -rf elcri.men/static/es/images/infographics/fulls/*201?.png
   rm -rf elcri.men/static/en/images/infographics/fulls/*201?.png
@@ -66,9 +70,8 @@ cp R/json/{date.json,infographics_filenames.json} elcri.men/src/data
 
 # Create a geojson with the lat and lng of Mexican municipios
 echo "Converting the municipio centroids to GeoJSON"
-if [ -f R/interactive-map/municipios-centroids.json ]
-then
-    rm R/interactive-map/municipios-centroids.json
+if [ -f R/interactive-map/municipios-centroids.json ]; then
+  rm R/interactive-map/municipios-centroids.json
 fi
 (cd R/interactive-map/ && ./convert.sh)
 cp R/interactive-map/municipios*.json elcri.men/static/elcrimen-json/
@@ -84,9 +87,9 @@ rm -rf "$SCRIPTPATH/elcri.men/static"
 echo "Exporting databases to csv.gz"
 # Export the sqlite database to csv and compress
 if [ "$SCRIPTPATH"/db/crimenmexico.db -nt "$SCRIPTPATH"/$EXPORT/$ESTADOS_FILE ]; then
-    echo "exporting $SCRIPTPATH/$EXPORT/$ESTADOS_FILE"
-    $SQLITE3 "$SCRIPTPATH"/db/crimenmexico.db -csv -header \
-             "SELECT estados_fuero_comun.state_code,
+  echo "exporting $SCRIPTPATH/$EXPORT/$ESTADOS_FILE"
+  $SQLITE3 "$SCRIPTPATH"/db/crimenmexico.db -csv -header \
+    "SELECT estados_fuero_comun.state_code,
                     state,
                     bien_juridico_text as bien_juridico,
                     tipo_text as tipo,
@@ -107,14 +110,14 @@ if [ "$SCRIPTPATH"/db/crimenmexico.db -nt "$SCRIPTPATH"/$EXPORT/$ESTADOS_FILE ];
                       bien_juridico_text,
                       tipo_text,
                       subtipo_text,
-                      modalidad_text;" \
-                 | gzip -9 > "$SCRIPTPATH"/$EXPORT/$ESTADOS_FILE
+                      modalidad_text;" |
+    gzip -9 >"$SCRIPTPATH"/$EXPORT/$ESTADOS_FILE
 fi
 
 if [ "$SCRIPTPATH"/db/crimenmexico.db -nt "$SCRIPTPATH"/$EXPORT/$MUNICIPIOS_FILE ]; then
-    echo "exporting $SCRIPTPATH/$EXPORT/$MUNICIPIOS_FILE"
-    $SQLITE3 "$SCRIPTPATH"/db/crimenmexico.db -csv -header \
-             "SELECT m.state_code,
+  echo "exporting $SCRIPTPATH/$EXPORT/$MUNICIPIOS_FILE"
+  $SQLITE3 "$SCRIPTPATH"/db/crimenmexico.db -csv -header \
+    "SELECT m.state_code,
                     state,
                     m.mun_code,
                     municipio,
@@ -140,14 +143,14 @@ if [ "$SCRIPTPATH"/db/crimenmexico.db -nt "$SCRIPTPATH"/$EXPORT/$MUNICIPIOS_FILE
                       bien_juridico_text,
                       tipo_text,
                       subtipo_text,
-                      modalidad_text;" \
-                 | gzip -9  > "$SCRIPTPATH"/$EXPORT/$MUNICIPIOS_FILE
+                      modalidad_text;" |
+    gzip -9 >"$SCRIPTPATH"/$EXPORT/$MUNICIPIOS_FILE
 fi
 
 if [ "$SCRIPTPATH"/db/crimenmexico.db -nt "$SCRIPTPATH"/$EXPORT/$VICTIMAS_FILE ]; then
-    echo "exporting $SCRIPTPATH/$EXPORT/$VICTIMAS_FILE"
-    $SQLITE3 "$SCRIPTPATH"/db/crimenmexico.db -csv -header \
-             "SELECT v.state_code,
+  echo "exporting $SCRIPTPATH/$EXPORT/$VICTIMAS_FILE"
+  $SQLITE3 "$SCRIPTPATH"/db/crimenmexico.db -csv -header \
+    "SELECT v.state_code,
                      state,
                      bien_juridico_text as bien_juridico,
                      tipo_text as tipo,
@@ -176,6 +179,6 @@ if [ "$SCRIPTPATH"/db/crimenmexico.db -nt "$SCRIPTPATH"/$EXPORT/$VICTIMAS_FILE ]
                       subtipo_text,
                       modalidad_text,
                       sex_text,
-                      age_group_text;" \
-        | gzip -9 > "$SCRIPTPATH"/$EXPORT/$VICTIMAS_FILE
+                      age_group_text;" |
+    gzip -9 >"$SCRIPTPATH"/$EXPORT/$VICTIMAS_FILE
 fi
