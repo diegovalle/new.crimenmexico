@@ -283,6 +283,9 @@ const HomeIndex = (props) => {
                   >
                     <a
                       key={edge.node.base}
+                      aria-label={intl.formatMessage({
+                        id: 'Infographic of crime in Mexico',
+                      })}
                       href={
                         (props.pageContext.locale === 'es' ? '/es' : '/en') +
                         '/images/infographics/fulls/' +
