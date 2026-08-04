@@ -48,6 +48,7 @@ jobs:
         GH_EMAIL: ${{ secrets.GH_EMAIL }}
         # 'GITHUB_PAT' For installing mxmortalitydb and commiting changes
         GITHUB_PAT: ${{ secrets.GT_PAT }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NETLIFYAPIKEY: ${{ secrets.NETLIFYAPIKEY }}
         SEMAPHORE_API_TOKEN: ${{ secrets.SEMAPHORE_API_TOKEN }}
         SEMAPHORE_PROJECT_ID: ${{ secrets.SEMAPHORE_PROJECT_ID }}
@@ -58,11 +59,6 @@ jobs:
         CACHE_INVALIDATE_HEADER: ${{ secrets.CACHE_INVALIDATE_HEADER }}
         GIT_TAG: ${{needs.Get-Date.outputs.git_tag}}
     steps:
-      - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
-        with:
-          egress-policy: audit
-
       - run: df -h
 
       - name: Echo date time for git tag and github release
@@ -91,10 +87,26 @@ jobs:
           id -a
           mv /home/rstudio/new.crimenmexico /tmp/
 
-      - name: Upload build artifacts
+      - name: Commit changes
+        env:
+          HOME: /home/rstudio/new.crimenmexico
+        continue-on-error: true
+        run: |
+            cd /home/rstudio/new.crimenmexico
+            if [[ $(git status --porcelain elcri.men/static/e*) ]]; then
+              git config --global user.email "$GH_EMAIL"
+              git config --global user.name "diego"
+              git status --porcelain elcri.men/static/e* | sed "s/^?? //g" | xargs --max-args 1 git add
+              git commit -m "Add new png infographics [skip ci]"
+              git tag "$GIT_TAG" -m"Update website data ($GIT_TAG)" || true
+              # Don't fail the push because we are backing up the pngs with rclone as an alternative
+              git push --tags -q https://x-access-token:"$GITHUB_TOKEN"@github.com/diegovalle/new.crimenmexico.git master || true
+            fi
+
+      - name: Upload sqlite and png artifacts
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           if-no-files-found: "warn"
           name: elcrimen-sqlite-db
@@ -107,7 +119,7 @@ jobs:
       - name: Upload crime data artifacts
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           if-no-files-found: warn
           name: data-files
@@ -118,7 +130,7 @@ jobs:
       - name: Upload website html artifact
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           if-no-files-found: warn
           name: elcrimen_html
