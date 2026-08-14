@@ -82,11 +82,6 @@ jobs:
           -d "project_id=$SEMAPHORE_PROJECT_ID&reference=$SEMAPHORE_REF"
           -X POST  "https://diegovalle.semaphoreci.com/api/v1alpha/plumber-workflows"
 
-      - name: Change permissions
-        run: |
-          id -a
-          mv /home/rstudio/new.crimenmexico /tmp/
-
       - name: Commit changes
         env:
           HOME: /home/rstudio/new.crimenmexico
@@ -102,6 +97,11 @@ jobs:
               # Don't fail the push because we are backing up the pngs with rclone as an alternative
               git push --tags -q https://x-access-token:"$GITHUB_TOKEN"@github.com/diegovalle/new.crimenmexico.git master || true
             fi
+
+      - name: Change permissions
+        run: |
+          id -a
+          mv /home/rstudio/new.crimenmexico /tmp/
 
       - name: Upload sqlite and png artifacts
         if: always()
@@ -146,6 +146,8 @@ jobs:
     name: create a github release
     runs-on: ubuntu-latest
     needs: [Get-Date, Build-Elcrimen]
+    permissions:
+      contents: write           # Required for creating releases, pushing tags, or modifying code
     steps:
       - name: Check out repository code
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7

@@ -47,8 +47,8 @@ df <- dplyr::filter(df, Subtipo.de.delito %in% c("Homicidio doloso", "Homicidio 
 # setdiff(dput(unique(df$Subtipo.de.delito)),
 #         dput(unique(df2$Subtipo.de.delito)))
 
-df2_recoded <- 
-  mutate(df, 
+df2_recoded <-
+  mutate(df,
     Rango.de.edad = recode(Rango.de.edad,
                  "0 a 12 años" = "Menores de edad (0-17)",
                  `13 a 17 años` = "Menores de edad (0-17)",
@@ -59,16 +59,16 @@ df2_recoded <-
     )
   )
 
-df_summarized <- aggregate(. ~ Año + Clave_Ent + Entidad + Bien.jurídico.afectado + 
-                             Tipo.de.delito + Subtipo.de.delito + Modalidad + 
-                             Sexo + Rango.de.edad, 
-                           data = df2_recoded, 
-                           FUN = sum, 
-                           na.rm = TRUE, 
+df_summarized <- aggregate(. ~ Año + Clave_Ent + Entidad + Bien.jurídico.afectado +
+                             Tipo.de.delito + Subtipo.de.delito + Modalidad +
+                             Sexo + Rango.de.edad,
+                           data = df2_recoded,
+                           FUN = sum,
+                           na.rm = TRUE,
                            na.action = na.pass)
 
-write.csv(df_summarized, 
-          "clean/snsp-data/estados_victimas2026.csv", 
+write.csv(df_summarized,
+          "clean/snsp-data/estados_victimas2026.csv",
           fileEncoding = "windows-1252",
           row.names = FALSE)
 
@@ -76,15 +76,16 @@ write.csv(df_summarized,
 df26 <- read.csv("clean/snsp-data/estados2026.csv", fileEncoding = "windows-1252")
 df26 <- subset(df26, Subtipo.de.delito %in% c("Homicidio doloso", "Homicidio culposo", "Lesiones dolosas",
                                                      "Robo de vehículo automotor - Coche de 4 ruedas",
+                                                     "Robo de vehículo automotor - Motocicleta",
                                                  "Lesiones culposas", "Feminicidio", "Otros delitos que atentan contra la vida y la integridad corporal",
                                                  "Secuestro", "Tráfico de menores", "Rapto", "Otros delitos que atentan contra la libertad personal",
                                                  "Extorsión", "Corrupción de menores", "Trata de personas",
                                                  "Otros delitos contra la sociedad", "Aborto"))
 
-df26 <- 
-  mutate(df26, 
+df26 <-
+  mutate(df26,
          Subtipo.de.delito = recode(Subtipo.de.delito,
-                                "Robo de vehículo automotor - Coche de 4 ruedas" = 
+                                "Robo de vehículo automotor - Coche de 4 ruedas" =
                                   "Robo de vehículo automotor",
                                 .default = Subtipo.de.delito
          )
@@ -93,12 +94,13 @@ df26 <- df26 %>%
   mutate(
     Modalidad = case_when(
       Subtipo.de.delito == "Robo de vehículo automotor" & Modalidad == "Con violencia" ~ "Robo de coche de 4 ruedas Con violencia",
-      Subtipo.de.delito == "Robo de vehículo automotor" & Modalidad == "Sin violencia" ~ "Robo de coche de 4 ruedas Sin violencia",
+      Subtipo.de.delito == "Robo de vehículo automotor" & Modalidad == "Sin violencia" ~ "Robo de coche de 4 ruedas Sin violencia",Subtipo.de.delito == "Robo de vehículo automotor - Motocicleta" & Modalidad == "Con violencia" ~ "Robo de motocicleta Con violencia",
+      Subtipo.de.delito == "Robo de vehículo automotor - Motocicleta" & Modalidad == "Sin violencia" ~ "Robo de motocicleta Sin violencia",
       TRUE ~  Modalidad
     )
   )
-write.csv(df26, 
-          "clean/snsp-data/estados2026.csv", 
+write.csv(df26,
+          "clean/snsp-data/estados2026.csv",
           fileEncoding = "windows-1252",
           row.names = FALSE)
 
@@ -111,10 +113,10 @@ df26 <- dplyr::filter(df26, Subtipo.de.delito %in% c("Homicidio doloso", "Homici
                                                      "Secuestro", "Tráfico de menores", "Rapto", "Otros delitos que atentan contra la libertad personal",
                                                      "Extorsión", "Corrupción de menores", "Trata de personas",
                                                      "Otros delitos contra la sociedad", "Aborto"))
-df26 <- 
-  mutate(df26, 
+df26 <-
+  mutate(df26,
          Subtipo.de.delito = recode(Subtipo.de.delito,
-                                    "Robo de vehículo automotor - Coche de 4 ruedas" = 
+                                    "Robo de vehículo automotor - Coche de 4 ruedas" =
                                       "Robo de vehículo automotor",
                                     .default = Subtipo.de.delito
          )
@@ -127,8 +129,7 @@ df26 <- df26 %>%
       TRUE ~  Modalidad
     )
   )
-write.csv(df26, 
-          "clean/snsp-data/municipios2026.csv", 
+write.csv(df26,
+          "clean/snsp-data/municipios2026.csv",
           fileEncoding = "windows-1252",
           row.names = FALSE)
-
