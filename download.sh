@@ -68,13 +68,13 @@ concat_csvs() {
 
 compare_headers() {
   # Capture the output of the first command
-  output1=$(head -n 1 "$SNSP_DIR"/"$1")
+  output1=$(head -n 1 "$SNSP_DIR"/"$1" | iconv -f windows-1252 -t ASCII//TRANSLIT)
   # Capture the output of the second command
-  output2=$(head -n 1 "$SNSP_DIR"/"$2")
+  output2=$(head -n 1 "$SNSP_DIR"/"$2" | iconv -f UTF-8 -t ASCII//TRANSLIT)
 
   # Use the '!=' operator to check for inequality
   if [ "$output1" != "$output2" ]; then
-    echo "Headers are different"
+    echo "Headers are different $1 $2"
     return 1
   else
     # Outputs are equal

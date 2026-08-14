@@ -1,6 +1,6 @@
 library(dplyr)
 
-df <- read.csv("clean/snsp-data/estados_victimas2026.csv", fileEncoding = "windows-1252")
+df <- read.csv("clean/snsp-data/estados_victimas2026.csv", fileEncoding = "utf-8")
 
 unique(df$Rango.de.edad)
 df$Subtipo.de.delito[df$Tipo.de.delito == "Secuestro"] <- "Secuestro"
@@ -73,7 +73,7 @@ write.csv(df_summarized,
           row.names = FALSE)
 
 
-df26 <- read.csv("clean/snsp-data/estados2026.csv", fileEncoding = "windows-1252")
+df26 <- read.csv("clean/snsp-data/estados2026.csv", fileEncoding = "utf-8")
 df26 <- subset(df26, Subtipo.de.delito %in% c("Homicidio doloso", "Homicidio culposo", "Lesiones dolosas",
                                                      "Robo de vehículo automotor - Coche de 4 ruedas",
                                                      "Robo de vehículo automotor - Motocicleta",
@@ -106,7 +106,7 @@ write.csv(df26,
 
 
 
-df26 <- read.csv("clean/snsp-data/municipios2026.csv", fileEncoding = "windows-1252")
+df26 <- read.csv("clean/snsp-data/municipios2026.csv", fileEncoding = "utf-8")
 df26 <- dplyr::filter(df26, Subtipo.de.delito %in% c("Homicidio doloso", "Homicidio culposo", "Lesiones dolosas",
                                                      "Robo de vehículo automotor - Coche de 4 ruedas",
                                                      "Lesiones culposas", "Feminicidio", "Otros delitos que atentan contra la vida y la integridad corporal",
