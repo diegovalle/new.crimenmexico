@@ -1,8 +1,11 @@
 library(dplyr)
+print("clean_RNID_files.R")
 
-df <- read.csv("clean/snsp-data/estados_victimas2026.csv", fileEncoding = "utf-8")
+df <- read.csv("clean/snsp-data/estados_victimas2026.csv", fileEncoding = "windows-1252")
 
-unique(df$Rango.de.edad)
+stopifnot(all.equal(unique(df$Rango.de.edad),
+                    c("Adultos (18 y más)", "Menores de edad (0-17)", "No especificado"
+                    )))
 df$Subtipo.de.delito[df$Tipo.de.delito == "Secuestro"] <- "Secuestro"
 df$Subtipo.de.delito[df$Tipo.de.delito == "Extorsión"] <- "Extorsión"
 df$Subtipo.de.delito[df$Tipo.de.delito == "Trata de personas"] <- "Trata de personas"
@@ -66,7 +69,7 @@ df_summarized <- aggregate(. ~ Año + Clave_Ent + Entidad + Bien.jurídico.afect
                            FUN = sum,
                            na.rm = TRUE,
                            na.action = na.pass)
-
+print("writing estados_victimas2026.csv")
 write.csv(df_summarized,
           "clean/snsp-data/estados_victimas2026.csv",
           fileEncoding = "windows-1252",
@@ -74,6 +77,12 @@ write.csv(df_summarized,
 
 
 df26 <- read.csv("clean/snsp-data/estados2026.csv", fileEncoding = "utf-8")
+stopifnot(all.equal(names(df26),
+          c("Año", "Clave_Ent", "Entidad", "Bien.jurídico.afectado", 
+            "Tipo.de.delito", "Subtipo.de.delito", "Modalidad", "Enero", 
+            "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", 
+            "Septiembre", "Octubre", "Noviembre", "Diciembre")))
+
 df26 <- subset(df26, Subtipo.de.delito %in% c("Homicidio doloso", "Homicidio culposo", "Lesiones dolosas",
                                                      "Robo de vehículo automotor - Coche de 4 ruedas",
                                                      "Robo de vehículo automotor - Motocicleta",
@@ -99,6 +108,7 @@ df26 <- df26 %>%
       TRUE ~  Modalidad
     )
   )
+print("writing estados2026.csv")
 write.csv(df26,
           "clean/snsp-data/estados2026.csv",
           fileEncoding = "windows-1252",
@@ -107,6 +117,12 @@ write.csv(df26,
 
 
 df26 <- read.csv("clean/snsp-data/municipios2026.csv", fileEncoding = "utf-8")
+stopifnot(all.equal(names(df26),
+                    c("Año", "Clave_Ent", "Entidad", "Cve..Municipio", "Municipio", 
+                      "Bien.jurídico.afectado", "Tipo.de.delito", "Subtipo.de.delito", 
+                      "Modalidad", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
+                      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+                    )))
 df26 <- dplyr::filter(df26, Subtipo.de.delito %in% c("Homicidio doloso", "Homicidio culposo", "Lesiones dolosas",
                                                      "Robo de vehículo automotor - Coche de 4 ruedas",
                                                      "Lesiones culposas", "Feminicidio", "Otros delitos que atentan contra la vida y la integridad corporal",
@@ -129,6 +145,7 @@ df26 <- df26 %>%
       TRUE ~  Modalidad
     )
   )
+print("writing municipios2026.csv")
 write.csv(df26,
           "clean/snsp-data/municipios2026.csv",
           fileEncoding = "windows-1252",
