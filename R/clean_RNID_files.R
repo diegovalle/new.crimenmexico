@@ -78,14 +78,13 @@ write.csv(df_summarized,
 
 df26 <- read.csv("clean/snsp-data/estados2026.csv", fileEncoding = "utf-8")
 stopifnot(all.equal(names(df26),
-          c("Año", "Clave_Ent", "Entidad", "Bien.jurídico.afectado", 
-            "Tipo.de.delito", "Subtipo.de.delito", "Modalidad", "Enero", 
-            "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", 
+          c("Año", "Clave_Ent", "Entidad", "Bien.jurídico.afectado",
+            "Tipo.de.delito", "Subtipo.de.delito", "Modalidad", "Enero",
+            "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
             "Septiembre", "Octubre", "Noviembre", "Diciembre")))
 
 df26 <- subset(df26, Subtipo.de.delito %in% c("Homicidio doloso", "Homicidio culposo", "Lesiones dolosas",
                                                      "Robo de vehículo automotor - Coche de 4 ruedas",
-                                                     "Robo de vehículo automotor - Motocicleta",
                                                  "Lesiones culposas", "Feminicidio", "Otros delitos que atentan contra la vida y la integridad corporal",
                                                  "Secuestro", "Tráfico de menores", "Rapto", "Otros delitos que atentan contra la libertad personal",
                                                  "Extorsión", "Corrupción de menores", "Trata de personas",
@@ -103,9 +102,7 @@ df26 <- df26 %>%
   mutate(
     Modalidad = case_when(
       Subtipo.de.delito == "Robo de vehículo automotor" & Modalidad == "Con violencia" ~ "Robo de coche de 4 ruedas Con violencia",
-      Subtipo.de.delito == "Robo de vehículo automotor" & Modalidad == "Sin violencia" ~ "Robo de coche de 4 ruedas Sin violencia",Subtipo.de.delito == "Robo de vehículo automotor - Motocicleta" & Modalidad == "Con violencia" ~ "Robo de motocicleta Con violencia",
-      Subtipo.de.delito == "Robo de vehículo automotor - Motocicleta" & Modalidad == "Sin violencia" ~ "Robo de motocicleta Sin violencia",
-      TRUE ~  Modalidad
+      Subtipo.de.delito == "Robo de vehículo automotor" & Modalidad == "Sin violencia" ~ "Robo de coche de 4 ruedas Sin violencia",
     )
   )
 print("writing estados2026.csv")
@@ -118,9 +115,9 @@ write.csv(df26,
 
 df26 <- read.csv("clean/snsp-data/municipios2026.csv", fileEncoding = "utf-8")
 stopifnot(all.equal(names(df26),
-                    c("Año", "Clave_Ent", "Entidad", "Cve..Municipio", "Municipio", 
-                      "Bien.jurídico.afectado", "Tipo.de.delito", "Subtipo.de.delito", 
-                      "Modalidad", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
+                    c("Año", "Clave_Ent", "Entidad", "Cve..Municipio", "Municipio",
+                      "Bien.jurídico.afectado", "Tipo.de.delito", "Subtipo.de.delito",
+                      "Modalidad", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
                       "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
                     )))
 df26 <- dplyr::filter(df26, Subtipo.de.delito %in% c("Homicidio doloso", "Homicidio culposo", "Lesiones dolosas",
