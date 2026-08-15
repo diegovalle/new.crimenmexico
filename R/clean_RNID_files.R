@@ -103,6 +103,7 @@ df26 <- df26 %>%
     Modalidad = case_when(
       Subtipo.de.delito == "Robo de vehículo automotor" & Modalidad == "Con violencia" ~ "Robo de coche de 4 ruedas Con violencia",
       Subtipo.de.delito == "Robo de vehículo automotor" & Modalidad == "Sin violencia" ~ "Robo de coche de 4 ruedas Sin violencia",
+            TRUE ~  Modalidad
     )
   )
 print("writing estados2026.csv")
