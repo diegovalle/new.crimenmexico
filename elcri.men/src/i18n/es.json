@@ -260,7 +260,7 @@
   "30 day average": "GAM",
   "number of homicides": "número de homicidios",
   "Number of homicides": "Número de homicidios",
-  "daily_text": "Los <a href=\"http://www.informeseguridad.cns.gob.mx/\">datos diarios</a> de homicidios son estimaciones iniciales que pueden cambiar, ya que las autoridades estatales aún deben confirmar si cada caso es realmente un crimen. La información sobre homicidios que se publica cada día es provisional y está sujeta a revisión por parte de las fiscalías de cada estado. Estos datos se comparten para ayudar a las autoridades a tomar decisiones rápidas, pero no son los números oficiales finales.",
+  "daily_text": "Los <a href=\"https://gabinetedeseguridad.gob.mx/homicidios//\">datos diarios</a> de homicidios son estimaciones iniciales que pueden cambiar, ya que las autoridades estatales aún deben confirmar si cada caso es realmente un crimen. La información sobre homicidios que se publica cada día es provisional y está sujeta a revisión por parte de las fiscalías de cada estado. Estos datos se comparten para ayudar a las autoridades a tomar decisiones rápidas, pero no son los números oficiales finales.",
   "daily-report": "Reporte diario",
   "Preliminary": "Preliminar",
   "SNSP (oficial data)": "SNSP (datos oficiales)",
@@ -299,5 +299,5 @@
   "anomalias_diarias": "Anomalías diarias de homicidios durante los últimos 30 días",
   "baja_o_incremento": "Días con una disminución o incremento atípico de homicidios",
   "tendencia_anomalias": "<span class=\"has-text-weight-bold\">— </span>Tendencia de homicidios",
-  "datos_diarios_intro": "Los <a href=\"http://www.informeseguridad.cns.gob.mx/\">datos diarios</a> de homicidios son un registro estadístico que concentra la cantidad de personas asesinadas en el país cada día. Esta información no proviene directamente de carpetas de investigación concluidas, sino de reportes preliminares elaborados por las fiscalías estatales y dependencias de seguridad pública, que envían sus cifras a la Secretaría de Seguridad y Protección Ciudadana (SSPC). El objetivo es ofrecer un panorama inmediato de la violencia letal, aunque al ser un conteo rápido puede diferir de los registros oficiales consolidados más adelante por instituciones como el INEGI o el SESNSP, que depuran y validan los datos con base en expedientes judiciales y ministeriales."
+  "datos_diarios_intro": "Los <a href=\"https://gabinetedeseguridad.gob.mx/homicidios//\">datos diarios</a> de homicidios son un registro estadístico que concentra la cantidad de personas asesinadas en el país cada día. Esta información no proviene directamente de carpetas de investigación concluidas, sino de reportes preliminares elaborados por las fiscalías estatales y dependencias de seguridad pública, que envían sus cifras a la Secretaría de Seguridad y Protección Ciudadana (SSPC). El objetivo es ofrecer un panorama inmediato de la violencia letal, aunque al ser un conteo rápido puede diferir de los registros oficiales consolidados más adelante por instituciones como el INEGI o el SESNSP, que depuran y validan los datos con base en expedientes judiciales y ministeriales."
 }

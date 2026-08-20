@@ -259,7 +259,7 @@
   "30 day average": "GAM smooth",
   "number of homicides": "number of homicides",
   "Number of homicides": "Number of homicides",
-  "daily_text": "Daily <a href=\"http://www.informeseguridad.cns.gob.mx/\">homicide data</a> are preliminary estimates that may change, as state authorities must still confirm whether each case is actually a crime. The homicide information published daily is provisional and subject to review by the prosecutors of each state. This data is shared to help authorities make quick decisions, but it is not the final official count.",
+  "daily_text": "Daily <a href=\"https://gabinetedeseguridad.gob.mx/homicidios//\">homicide data</a> are preliminary estimates that may change, as state authorities must still confirm whether each case is actually a crime. The homicide information published daily is provisional and subject to review by the prosecutors of each state. This data is shared to help authorities make quick decisions, but it is not the final official count.",
   "daily-report": "Daily report",
   "Preliminary": "Preliminary",
   "prediction": "prediction",
@@ -298,5 +298,5 @@
   "anomalias_diarias": "Daily anomalies in homicides during the last 30 days",
   "baja_o_incremento": "Days with a sharp decrease or increase in homicides",
   "tendencia_anomalias": "<span class=\"has-text-weight-bold\">— </span>Trend in daily anomalies",
-  "datos_diarios_intro": "<a href=\"http://www.informeseguridad.cns.gob.mx/\">Daily homicide data</a> are a statistical record that tracks the number of people killed in the country each day. This information does not come directly from completed investigation files, but from preliminary reports prepared by state prosecutors’ offices and public security agencies, which send their figures to the Secretariat of Security and Citizen Protection (SSPC). The goal is to provide an immediate overview of lethal violence, although as a rapid count it may differ from the official records later consolidated by institutions such as INEGI or SESNSP, which refine and validate the data based on judicial and prosecutorial case files."
+  "datos_diarios_intro": "<a href=\"https://gabinetedeseguridad.gob.mx/homicidios//\">Daily homicide data</a> are a statistical record that tracks the number of people killed in the country each day. This information does not come directly from completed investigation files, but from preliminary reports prepared by state prosecutors’ offices and public security agencies, which send their figures to the Secretariat of Security and Citizen Protection (SSPC). The goal is to provide an immediate overview of lethal violence, although as a rapid count it may differ from the official records later consolidated by institutions such as INEGI or SESNSP, which refine and validate the data based on judicial and prosecutorial case files."
 }
