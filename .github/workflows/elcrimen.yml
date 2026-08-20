@@ -82,22 +82,6 @@ jobs:
           -d "project_id=$SEMAPHORE_PROJECT_ID&reference=$SEMAPHORE_REF"
           -X POST  "https://diegovalle.semaphoreci.com/api/v1alpha/plumber-workflows"
 
-      - name: Commit changes
-        env:
-          HOME: /home/rstudio/new.crimenmexico
-        continue-on-error: true
-        run: |
-            cd /home/rstudio/new.crimenmexico
-            if [[ $(git status --porcelain elcri.men/static/e*) ]]; then
-              git config --global user.email "$GH_EMAIL"
-              git config --global user.name "diego"
-              git status --porcelain elcri.men/static/e* | sed "s/^?? //g" | xargs --max-args 1 git add
-              git commit -m "Add new png infographics [skip ci]"
-              git tag "$GIT_TAG" -m"Update website data ($GIT_TAG)" || true
-              # Don't fail the push because we are backing up the pngs with rclone as an alternative
-              git push --tags -q https://x-access-token:"$GITHUB_TOKEN"@github.com/diegovalle/new.crimenmexico.git master || true
-            fi
-
       - name: Change permissions
         run: |
           id -a
