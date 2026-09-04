@@ -81,3 +81,10 @@ MIT License
 - Sometimes the 'secustro' data is only found in the main presentation pdf
 - Open the [SNSP](https://www.gob.mx/sesnsp/acciones-y-programas/victimas-nueva-metodologia?state=published) and Unidades robadas pdf report and copy them to /envipe/
 - Look up the car robbery data at the AMIS site and copy them to /envipe/
+
+
+## Contributors
+
+Thanks to all the amazing contributors who have helped improve [elcri.men](https://elcri.men)!
+
+- [romanbott](https://github.com/romanbott)
