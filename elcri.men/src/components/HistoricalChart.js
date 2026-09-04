@@ -237,7 +237,7 @@ function HistoricalChart(props) {
         saveAsImage: {
           show: true,
           type: 'png',
-          name: 'datos-historicos-homicidio.png',
+          name: 'datos-historicos-homicidio',
         },
       },
     },
@@ -429,11 +429,11 @@ function HistoricalChart(props) {
           data === null
             ? null
             : formatData(data).length === 3
-            ? [
-                ...Array(formatData(data)[1].length - 1).fill(null),
-                ...formatData(data)[2].map((item) => item.r),
-              ]
-            : null,
+              ? [
+                  ...Array(formatData(data)[1].length - 1).fill(null),
+                  ...formatData(data)[2].map((item) => item.r),
+                ]
+              : null,
         itemStyle: {
           color: '#333',
         },
