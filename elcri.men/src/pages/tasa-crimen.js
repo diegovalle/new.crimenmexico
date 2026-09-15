@@ -49,6 +49,8 @@ const prevalencia_hogares = [
   { year: 2021, per: 29.0 },
   { year: 2022, per: 27.4 },
   { year: 2023, per: 27.5 },
+  { year: 2024, per: 28.51 },
+  { year: 2025, per: 28.97 },
 ]
 
 const prevalencia_personas = [
@@ -64,6 +66,8 @@ const prevalencia_personas = [
   { year: 2021, per: 24207 },
   { year: 2022, per: 22587 },
   { year: 2023, per: 23323 },
+  { year: 2024, per: 24135 },
+  { year: 2025, per: 23473 },
 ]
 
 function CrimeRate(props) {

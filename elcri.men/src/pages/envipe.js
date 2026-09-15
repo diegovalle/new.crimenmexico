@@ -84,6 +84,12 @@ var lesiones_data = [
       sup: 1523988 + 77931,
       inf: 1523988 - 77931,
     },
+    {
+      date: 2025,
+      value: 1428828,
+      sup: 1428828 + 80298.2387262873,
+      inf: 1428828 - 80298.2387262873,
+    },
   ],
   [
     { date: 2015, value: 153458 },
@@ -96,6 +102,7 @@ var lesiones_data = [
     { date: 2022, value: 180683 },
     { date: 2023, value: 184267 },
     { date: 2024, value: 187420 },
+    { date: 2025, value: 179789 },
   ],
 ]
 
@@ -137,6 +144,12 @@ var secuestro_data = [
       inf: 92888 - 10027,
       sup: 92888 + 10027,
     },
+    {
+      date: 2025,
+      value: 69151,
+      inf: 69151 - 10629,
+      sup: 69151 + 10629,
+    },
   ],
   [
     { date: 2015, value: 1312 },
@@ -148,7 +161,8 @@ var secuestro_data = [
     { date: 2021, value: 815 },
     { date: 2022, value: 724 },
     { date: 2023, value: 844 },
-    { date: 2024, value: 908 },
+    { date: 2024, value: 903 },
+    { date: 2025, value: 725 },
   ],
 ]
 var extorsion_data = [
@@ -203,6 +217,12 @@ var extorsion_data = [
       sup: 5719981 + 155142.064812407,
       inf: 5719981 - 155142.064812407,
     },
+    {
+      date: 2025,
+      value: 6704640,
+      sup: 6704640 + 386224.335812772,
+      inf: 6704640 - 386224.335812772,
+    },
   ],
   [
     { date: 2015, value: 6223 },
@@ -215,10 +235,11 @@ var extorsion_data = [
     { date: 2022, value: 11039 },
     { date: 2023, value: 10946 },
     { date: 2024, value: 10862 },
+    { date: 2025, value: 11138 },
   ],
 ]
 // ENVIPE: Robo total de vehículo (automóvil, camioneta, camión).
-// Amis: https://centroestadisticoamis.mx/tablero-automoviles/ (Automoviles, Otros, Equipo Pesado)
+// Amis: https://centroestadisticoamis.mx/tablero-automoviles/ (Automoviles, Otros, Equipo Pesado, Pick up)
 // SNSP: Robo de coche de 4 ruedas (Unidades)
 var robocoche_data = [
   // ENVIPE
@@ -268,6 +289,12 @@ var robocoche_data = [
       sup: 526230 + 22155.8003082285,
       inf: 526230 - 22155.8003082285,
     },
+    {
+      date: 2025,
+      value: 384978,
+      sup: 384978 + 17951.891102587,
+      inf: 384978 - 17951.891102587,
+    },
   ],
   // SNSP
   [
@@ -279,21 +306,23 @@ var robocoche_data = [
     { date: 2020, value: 115325 + 30804 - 30804 },
     { date: 2021, value: 108680 + 32568 - 32568 },
     { date: 2022, value: 101809 + 36901 - 36901 },
-    { date: 2023, value: 95414 + 41632 - 41632 },
-    { date: 2024, value: 90001 + 47285 - 47285 },
+    { date: 2023, value: 95415 + 41632 - 41632 },
+    { date: 2024, value: 90207 + 47285 - 47285 },
+    { date: 2025, value: 70813 + 44322 - 44322 },
   ],
   // AMIS
   [
-    { date: 2015, value: 48166 },
-    { date: 2016, value: 54420 },
-    { date: 2017, value: 67656 },
-    { date: 2018, value: 70220 },
-    { date: 2019, value: 63966 },
-    { date: 2020, value: 53180 },
-    { date: 2021, value: 48926 },
-    { date: 2022, value: 45633 },
-    { date: 2023, value: 46077 },
-    { date: 2024, value: 46736 },
+    { date: 2015, value: 54106 },
+    { date: 2016, value: 61945 },
+    { date: 2017, value: 76687 },
+    { date: 2018, value: 80691 },
+    { date: 2019, value: 73878 },
+    { date: 2020, value: 60024 },
+    { date: 2021, value: 55150 },
+    { date: 2022, value: 53616 },
+    { date: 2023, value: 53616 },
+    { date: 2024, value: 56608 },
+    { date: 2024, value: 51745 },
   ],
 ]
 
