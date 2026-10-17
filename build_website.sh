@@ -77,12 +77,14 @@ fi
 cp R/interactive-map/municipios*.json elcri.men/static/elcrimen-json/
 
 export GATSBY_TELEMETRY_DISABLED=1
-(cd elcri.men && npx browserslist@latest --update-db)
+# (cd elcri.men && npx browserslist@latest --update-db)
 (cd elcri.men && rm -rf node_modules && npm install && gatsby clean && gatsby build --verbose)
 
-rm -rf "$SCRIPTPATH/clean"
-rm -rf "$SCRIPTPATH/elcri.men/node_modules"
-rm -rf "$SCRIPTPATH/elcri.men/static"
+if [ "$CI" = true ]; then
+  rm -rf "$SCRIPTPATH/clean"
+  rm -rf "$SCRIPTPATH/elcri.men/node_modules"
+  rm -rf "$SCRIPTPATH/elcri.men/static"
+fi
 
 echo "Exporting databases to csv.gz"
 # Export the sqlite database to csv and compress
