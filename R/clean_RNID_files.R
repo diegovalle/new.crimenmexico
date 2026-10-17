@@ -115,12 +115,16 @@ write.csv(df26,
 
 
 df26 <- read.csv("clean/snsp-data/municipios2026.csv", fileEncoding = "utf-8")
-stopifnot(all.equal(names(df26),
-                    c("Año", "Clave_Ent", "Entidad", "Cve..Municipio", "Municipio",
-                      "Bien.jurídico.afectado", "Tipo.de.delito", "Subtipo.de.delito",
-                      "Modalidad", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-                      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-                    )))
+stopifnot(all.equal(
+  names(df26),
+  c(
+    "Año", "Clave_Ent", "Entidad", "Cve..Municipio", "Municipio",
+    "Bien.jurídico.afectado", "Tipo.de.delito", "Subtipo.de.delito",
+    "Modalidad", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  )
+))
+gc()
 df26 <- dplyr::filter(df26, Subtipo.de.delito %in% c("Homicidio doloso", "Homicidio culposo", "Lesiones dolosas",
                                                      "Robo de vehículo automotor - Coche de 4 ruedas",
                                                      "Lesiones culposas", "Feminicidio", "Otros delitos que atentan contra la vida y la integridad corporal",
