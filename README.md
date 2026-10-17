@@ -87,4 +87,5 @@ MIT License
 
 Thanks to all the amazing contributors who have helped improve [elcri.men](https://elcri.men)!
 
-- [romanbott](https://github.com/romanbott)
+- [Diego Valle-Jones([https:&&](https://github.com/diegovalle)]
+- [Román Contreras](https://github.com/romanbott)
