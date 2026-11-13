@@ -78,7 +78,15 @@ cp R/interactive-map/municipios*.json elcri.men/static/elcrimen-json/
 
 export GATSBY_TELEMETRY_DISABLED=1
 # (cd elcri.men && npx browserslist@latest --update-db)
-(cd elcri.men && rm -rf node_modules && npm install && gatsby clean && gatsby build --verbose)
+
+(cd elcri.men &&
+  rm -rf node_modules &&
+  echo "Running npm install" &&
+  npm install &&
+  gatsby clean &&
+  npm install &&
+  echo "Building website with Gatsby" &&
+  gatsby build --verbose)
 
 if [ "$CI" = true ]; then
   rm -rf "$SCRIPTPATH/clean"
