@@ -82,9 +82,9 @@ export GATSBY_TELEMETRY_DISABLED=1
 (cd elcri.men &&
   rm -rf node_modules &&
   echo "Running npm install" &&
-  npm install &&
+  npm ci &&
   gatsby clean &&
-  npm install &&
+  npm ci &&
   echo "Building website with Gatsby" &&
   gatsby build --verbose)
 
