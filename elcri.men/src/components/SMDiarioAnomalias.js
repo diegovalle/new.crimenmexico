@@ -293,7 +293,7 @@ function SMDiarioAnomalias(props) {
     <div style={{ borderRadius: '5px', height: '100%' }}>
       <div className="columns is-multiline" id="small-multiples-anomaly">
         {!empty ? (
-          orderedStates && groupedStates && maxCount ? (
+          orderedStates && groupedStates ? (
             orderedStates.map((state, i) => (
               <div className="column is-3-desktop is-half-tablet" key={i}>
                 <figure className="image is-16by9" key={i}>
